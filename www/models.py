@@ -20,12 +20,18 @@ class Event(BasisModell):
     end = models.DateField()#default = "01.01.1970")
     timeslot_duration = models.TimeField()#default = "0:15")
     days = models.PositiveSmallIntegerField(default = 1)        
-    schedule_xml = models.BinaryField()
     schedule_xml_link = models.URLField()
+
+
+    def isDifferent(id, xmlFile):
+        with open("data/eventxml/{}.xml".format(id),'rb') as f:
+            savedXML = f.read()
+            return savedXML == xmlFile.data
+
 
 # Tage die zu einem Event zugeordnet sind    
 class Event_Days(BasisModell):
-    event = models.ForeignKey(Event, related_name = "corresponding_event")
+    event = models.ForeignKey(Event)
     index = models.PositiveSmallIntegerField(default = 0)
     date = models.DateField()#default = "01.01.1970")
     day_start = models.DateTimeField()#default = "00:00 01.01.1970")
@@ -41,8 +47,10 @@ class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
     language_de = models.CharField(max_length = 40, default = "") 
     lang_short_2 = models.CharField(max_length = 3, default = "", unique = True)
-    lang_unisubs_short = models.CharField(max_length = 3, default = "", unique = True)
-    lang_short_srt = models.CharField(max_length = 5, default = "")
+    lang_unisubs_short = models.CharField(max_length = 15, default = "", unique = True)
+    lang_short_srt = models.CharField(max_length = 15,default = "")
+    language_native = models.CharField(max_length = 40, default = "")
+    amara_order = models.PositiveSmallIntegerField(default=0)
 
 # Kategorie des Talks
 class Tracks(BasisModell):
@@ -85,17 +93,17 @@ class Talk(BasisModell):
 
 # Zustand des Untertitles oder dessen Pad
 class States(BasisModell):
-    state = models.CharField(max_length = 100)
+    state_de = models.CharField(max_length = 100)
+    state_en = models.CharField(max_length = 100)
 
 # Infos zu einem Untertitel in einer Sprache
 class Subtitle(BasisModell):
-    talk = models.ForeignKey(Talk, related_name = "corresponding_talk")
+    talk = models.ForeignKey(Talk)
     language = models.ForeignKey(Language, to_field = "lang_unisubs_short")
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
-    state = models.ForeignKey(States, related_name = "corresponding_state", to_field = "id")
+    state = models.ForeignKey(States, to_field = "id")
     comment = models.TextField(default = "")
-    sub_srt_file = models.BinaryField()
     
 # Links aus dem Fahrplan
 class Links(BasisModell):

@@ -4,7 +4,6 @@ from www.models import Tracks
 from www.models import Links
 from www.models import Type_of
 from www.models import Speaker
-from www.models import Speaker_Links
 from www.models import Subtitle
 from www.models import States
 from www.models import Event
@@ -19,7 +18,6 @@ admin.site.register(Tracks)
 admin.site.register(Links)
 admin.site.register(Type_of)
 admin.site.register(Speaker)
-admin.site.register(Speaker_Links)
 admin.site.register(Subtitle)
 admin.site.register(States)
 admin.site.register(Event)

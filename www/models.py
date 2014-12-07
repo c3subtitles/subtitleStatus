@@ -114,5 +114,5 @@ class Subtitle(BasisModell):
 # Links aus dem Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk)
-    url = models.URLField()
-    title = models.CharField(max_length = 50, default = "Link title")   
+    talk_link_url = models.URLField()
+    talk_link_title = models.CharField(max_length = 50, default = "Link title")   

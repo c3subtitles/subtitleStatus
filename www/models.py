@@ -4,8 +4,8 @@ from django.db import models
 
 #Basis Modell damit jedes Feld einen Timestamp mit der letzten Änderung und der Erstellung hat
 class BasisModell(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    touched = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add = True)
+    touched = models.DateTimeField(auto_now = True)
 
     class Meta:
         abstract = True
@@ -15,17 +15,24 @@ class BasisModell(models.Model):
 # Event + dessen Daten
 class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0")
+    acronym = models.CharField(max_length = 20, default = "")
     title = models.CharField(max_length = 100, default = "No title yet")
     start = models.DateField()#default = "01.01.1970")
     end = models.DateField()#default = "01.01.1970")
     timeslot_duration = models.TimeField()#default = "0:15")
     days = models.PositiveSmallIntegerField(default = 1)        
-    schedule_xml = models.BinaryField()
     schedule_xml_link = models.URLField()
+
+
+    def isDifferent(id, xmlFile):
+        with open("data/eventxml/{}.xml".format(id),'rb') as f:
+            savedXML = f.read()
+            return savedXML == xmlFile.data
+
 
 # Tage die zu einem Event zugeordnet sind    
 class Event_Days(BasisModell):
-    event = models.ForeignKey(Event, related_name = "corresponding_event")
+    event = models.ForeignKey(Event)
     index = models.PositiveSmallIntegerField(default = 0)
     date = models.DateField()#default = "01.01.1970")
     day_start = models.DateTimeField()#default = "00:00 01.01.1970")
@@ -41,8 +48,10 @@ class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
     language_de = models.CharField(max_length = 40, default = "") 
     lang_short_2 = models.CharField(max_length = 3, default = "", unique = True)
-    lang_unisubs_short = models.CharField(max_length = 3, default = "", unique = True)
-    lang_short_srt = models.CharField(max_length = 5, default = "")
+    lang_amara_short = models.CharField(max_length = 15, default = "", unique = True)
+    lang_short_srt = models.CharField(max_length = 15,default = "")
+    language_native = models.CharField(max_length = 40, default = "")
+    amara_order = models.PositiveSmallIntegerField(default=0)
 
 # Kategorie des Talks
 class Tracks(BasisModell):
@@ -54,11 +63,12 @@ class Type_of(BasisModell):
 
 # Vortragender
 class Speaker(BasisModell):
+    frab_id_speaker = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 30, default = "")
 
 # Vortrag
 class Talk(BasisModell):
-    frab_id = models.PositiveSmallIntegerField(default = -1)
+    frab_id_talk = models.PositiveSmallIntegerField(default = -1)
     blacklisted = models.BooleanField(default=False)
     day = models.ForeignKey(Event_Days)
     room = models.ForeignKey(Rooms)
@@ -71,7 +81,7 @@ class Talk(BasisModell):
     track = models.ForeignKey(Tracks)
     event = models.ForeignKey(Event)
     type_of = models.ForeignKey(Type_of)
-    orig_language = models.ForeignKey(Language,to_field = "lang_short_2")
+    orig_language = models.ForeignKey(Language,to_field = "lang_short_2") # aus dem Fahrplan
     abstract = models.TextField(default = "")
     description = models.TextField(default = "")
     persons = models.ManyToManyField(Speaker, default = None)
@@ -79,23 +89,27 @@ class Talk(BasisModell):
     link_to_writable_pad = models.URLField(default = "")
     link_to_readable_pad = models.URLField(default = "")
     link_to_video_file = models.URLField(default = "")
-    unisubs_id = models.CharField(max_length = 20, default = "")
-    live_subs_available = models.NullBooleanField(default = None)
-    live_subs_in_pad = models.BooleanField(default=True)
+    amara_key = models.CharField(max_length = 20, default = "")
+    youtube_key = models.CharField(max_length = 20)
+    video_duration = models.TimeField()
 
-# Zustand des Untertitles oder dessen Pad
+# Zustand des Untertitels oder dessen Pad
 class States(BasisModell):
-    state = models.CharField(max_length = 100)
+    state_de = models.CharField(max_length = 100)
+    state_en = models.CharField(max_length = 100)
 
 # Infos zu einem Untertitel in einer Sprache
 class Subtitle(BasisModell):
-    talk = models.ForeignKey(Talk, related_name = "corresponding_talk")
-    language = models.ForeignKey(Language, to_field = "lang_unisubs_short")
+    talk = models.ForeignKey(Talk)
+    language = models.ForeignKey(Language, to_field = "lang_amara_short")
+    is_original_lang = models.BooleanField(default = False) # aus Amara auslesen, nicht aus dem Fahrplan!
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
-    state = models.ForeignKey(States, related_name = "corresponding_state", to_field = "id")
-    comment = models.TextField(default = "")
-    sub_srt_file = models.BinaryField()
+    state = models.ForeignKey(States, to_field = "id")
+    time_processed_transcribing = models.TimeField()
+    time_processed_syncing = models.TimeField()
+    time_processed_translating = models.TimeField()
+    #comment = models.TextField(default = "")
     
 # Links aus dem Fahrplan
 class Links(BasisModell):

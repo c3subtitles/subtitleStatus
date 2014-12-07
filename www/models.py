@@ -59,11 +59,11 @@ class Tracks(BasisModell):
 
 # Präsentationsform des Talks
 class Type_of(BasisModell):
-    type_of_talk = models.CharField(max_length = 20, default = "")
+    type = models.CharField(max_length = 20, default = "")
 
 # Vortragender
 class Speaker(BasisModell):
-    frab_id_speaker = models.PositiveSmallIntegerField(default = -1)
+    frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 30, default = "")
 
 # Vortrag
@@ -92,6 +92,7 @@ class Talk(BasisModell):
     amara_key = models.CharField(max_length = 20, default = "")
     youtube_key = models.CharField(max_length = 20)
     video_duration = models.TimeField()
+    slug = models.SlugField(max_length = 200, default = "")
 
 # Zustand des Untertitels oder dessen Pad
 class States(BasisModell):

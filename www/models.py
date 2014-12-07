@@ -106,9 +106,9 @@ class Subtitle(BasisModell):
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
     state = models.ForeignKey(States, to_field = "id")
-    time_processed_transcribing = model.TimeField()
-    time_processed_syncing = model.TimeField()
-    time_processed_translating = model.TimeField()
+    time_processed_transcribing = models.TimeField()
+    time_processed_syncing = models.TimeField()
+    time_processed_translating = models.TimeField()
     #comment = models.TextField(default = "")
     
 # Links aus dem Fahrplan

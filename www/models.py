@@ -17,9 +17,9 @@ class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0")
     acronym = models.CharField(max_length = 20, default = "")
     title = models.CharField(max_length = 100, default = "No title yet")
-    start = models.DateField()#default = "01.01.1970")
-    end = models.DateField()#default = "01.01.1970")
-    timeslot_duration = models.TimeField()#default = "0:15")
+    start = models.DateField(default = "1970-01-01")
+    end = models.DateField(default = "1970-01-01")
+    timeslot_duration = models.TimeField(default = "00:15")
     days = models.PositiveSmallIntegerField(default = 1)        
     schedule_xml_link = models.URLField()
 
@@ -34,9 +34,9 @@ class Event(BasisModell):
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)
     index = models.PositiveSmallIntegerField(default = 0)
-    date = models.DateField()#default = "01.01.1970")
-    day_start = models.DateTimeField()#default = "00:00 01.01.1970")
-    day_end = models.DateTimeField()#default = "23:50 01.01.1970")
+    date = models.DateField()
+    day_start = models.DateTimeField()
+    day_end = models.DateTimeField()
 
 # Veranstaltungs "Räume" (kann auch draussen sein)
 class Rooms(BasisModell):
@@ -73,9 +73,9 @@ class Talk(BasisModell):
     day = models.ForeignKey(Event_Days)
     room = models.ForeignKey(Rooms)
     link_to_logo = models.URLField(default = "")
-    date = models.DateTimeField()#default = "01.01.1970 00:00")
-    start = models.TimeField()#default = "00:00")
-    duration = models.TimeField()#default = "00:00")
+    date = models.DateTimeField()
+    start = models.TimeField()
+    duration = models.TimeField()
     title = models.CharField(max_length = 50, default = "ohne Titel")
     subtitle_talk = models.CharField(max_length = 100, default = " ") # nicht UT sondern Ergänzung zum Titel
     track = models.ForeignKey(Tracks)
@@ -107,9 +107,9 @@ class Subtitle(BasisModell):
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
     state = models.ForeignKey(States, to_field = "id")
-    time_processed_transcribing = models.TimeField()
-    time_processed_syncing = models.TimeField()
-    time_processed_translating = models.TimeField()
+    time_processed_transcribing = models.TimeField(default = "00:00")
+    time_processed_syncing = models.TimeField(default = "00:00")
+    time_processed_translating = models.TimeField(default = "00:00")
     #comment = models.TextField(default = "")
     
 # Links aus dem Fahrplan

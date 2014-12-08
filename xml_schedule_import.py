@@ -213,7 +213,7 @@ while (counter_day < len_day):
             # Read event/talk data
             # talk_frab_id
             if fahrplan[counter_day][counter_room][counter_event].tag == "event":
-                talk_frab_id = fahrplan[counter_day][counter_room][counter_event].get("id")
+                talk_frab_id = int(fahrplan[counter_day][counter_room][counter_event].get("id"))
             else:
                 error_code += 1
             
@@ -295,12 +295,13 @@ while (counter_day < len_day):
                 # check if there is any subelement in persons
                 if len(fahrplan[counter_day][counter_room][counter_event][13]):
                     for person in fahrplan[counter_day][counter_room][counter_event][13]:
-                        persons.append([person.get("id"), person.text])
+                        persons.append([int(person.get("id")), person.text])
                 else:
                     persons = []
             else:
                 error_code += 1
             #print(persons)
+
             # links
             links = []
             if fahrplan[counter_day][counter_room][counter_event][14].tag == "links":
@@ -311,7 +312,7 @@ while (counter_day < len_day):
                     links = []
             else:
                 error_code += 1
-            print(len(links), links)
+            #print(len(links), links)
             
             # Write event/talk data to database
             

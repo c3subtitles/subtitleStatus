@@ -36,6 +36,8 @@ error_code = 0
 
 # Reset everything =============================================================
 def set_vars_empty():
+    global schedule_url
+    schedule_url = ""
     global schedule_version
     schedule_version = ""
     global acronym

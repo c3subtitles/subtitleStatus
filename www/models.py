@@ -55,7 +55,7 @@ class Language(BasisModell):
 
 # Kategorie des Talks
 class Tracks(BasisModell):
-    track = models.CharField(max_length = 20, default = "")
+    track = models.CharField(max_length = 50, default = "")
 
 # Präsentationsform des Talks
 class Type_of(BasisModell):
@@ -64,7 +64,7 @@ class Type_of(BasisModell):
 # Vortragender
 class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
-    name = models.CharField(max_length = 30, default = "")
+    name = models.CharField(max_length = 50, default = "")
 
 # Vortrag
 class Talk(BasisModell):
@@ -81,7 +81,7 @@ class Talk(BasisModell):
     track = models.ForeignKey(Tracks)
     event = models.ForeignKey(Event)
     type_of = models.ForeignKey(Type_of)
-    orig_language = models.ForeignKey(Language,to_field = "lang_short_2") # aus dem Fahrplan
+    orig_language = models.ForeignKey(Language)#,to_field = "lang_short_2") # aus dem Fahrplan
     abstract = models.TextField(default = "")
     description = models.TextField(default = "")
     persons = models.ManyToManyField(Speaker, default = None)
@@ -102,7 +102,7 @@ class States(BasisModell):
 # Infos zu einem Untertitel in einer Sprache
 class Subtitle(BasisModell):
     talk = models.ForeignKey(Talk)
-    language = models.ForeignKey(Language, to_field = "lang_amara_short")
+    language = models.ForeignKey(Language)#, to_field = "lang_amara_short")
     is_original_lang = models.BooleanField(default = False) # aus Amara auslesen, nicht aus dem Fahrplan!
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)

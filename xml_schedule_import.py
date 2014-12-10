@@ -1,19 +1,23 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-#import os
-#import sys
+import os
+import sys
 from lxml import etree
+from urllib import request
 
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
-#from django.core.management.base import BaseCommand, CommandError
-#from django.db import transaction
+import django
+django.setup()
+from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
 
-#import www.models as models
+from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States
 
-# Code um Array mit allen XML-URLS aus dem Fahrplan zu bauen============
 
+# Var for all urls in the database in the Event-model
 url_array = []
 
 # Workaround ohne Links in Datenbank
@@ -31,68 +35,45 @@ counter_day = 0
 counter_room = 0
 counter_event = 0
 
-# Error-Counter
+# Error-Counter und String
 error_code = 0
+error_string = []
 
 # Reset everything =============================================================
-def set_vars_empty():
-    global schedule_url
-    schedule_url = ""
-    global schedule_version
+def set_vars_empty(url = ""):
+    global schedule_url, schedule_version, acronym, event_title, event_start
+    global event_end, event_days, timeslot_curation, day_index, day_date
+    global day_start, day_end, room, talk, talk_frab_id, date, start, duration
+    global slug, optout, title, subtitle, track, type, language, abstract
+    global description, persons, links
+    schedule_url = url
     schedule_version = ""
-    global acronym
     acronym = ""
-    global event_title
     event_title = ""
-    global event_start
     event_start = ""
-    global event_end
     event_end = ""
-    global event_days
     event_days = ""
-    global timeslot_duration
     timeslot_duration = ""
-    global day_index
     day_index = ""
-    global day_date
     day_date = ""
-    global day_start
     day_start = ""
-    global day_end
     day_end = ""
-    global room
     room = ""
-    global talk
     talk =  ""
-    global talk_frab_id
     talk_frab_id = -1
-    global date
     date = ""
-    global start
     start = ""
-    global duration
     duration = ""
-    global slug
     slug = ""
-    global optout
     optout = False
-    global title
     title = ""
-    global subtitle
     subtitle = ""
-    global track
     track = ""
-    global type
     type = ""
-    global language
     language = ""
-    global abstract
     abstract = ""
-    global description
     description = ""
-    global persons
     persons = []
-    global links
     links = []
 
 # Function to save a talk with all corresponding information ===================
@@ -129,10 +110,10 @@ persons = []
 links = []
 
 #===============================================================================
-# Main
+# Read XML
 #===============================================================================
 
-# Fahrplanversion
+# Check Fahrplanversion
 if fahrplan[0].tag == "version":
     version = fahrplan[0].text
 else:
@@ -322,5 +303,23 @@ while (counter_day < len_day):
         counter_room +=1
     counter_day += 1
 
+#===============================================================================
+# Main
+#===============================================================================
+
+# Get all schedule-urls from the database
+my_events = Event.objects.all()
+for e in my_events:
+    url_array.append(e.schedule_xml_link)
+
+# For every fahrplan file
+for url_element in url_array:
+    response = request.urlopen(url_element) 
+    print ("Debug ",response)
+    tree = etree.parse(response)
+    fahrplan = tree.getroot()
+    print("Debug Event:",fahrplan[1][0].text)
+
 
 print ("Durch gelaufen, Error Code: ", error_code)
+print ("Fehler: ",error_string)

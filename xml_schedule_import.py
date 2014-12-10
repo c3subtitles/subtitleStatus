@@ -43,7 +43,7 @@ def error(message=""):
 # Reset everything =============================================================
 def set_vars_empty(url = ""):
     global schedule_url, schedule_version, acronym, event_title, event_start
-    global event_end, event_days, timeslot_curation, day_index, day_date
+    global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, room, talk, talk_frab_id, date, start, duration
     global slug, optout, title, subtitle, track, type, language, abstract
     global description, persons, links
@@ -106,6 +106,8 @@ abstract = ""
 description = ""
 persons = []
 links = []
+my_event = ""
+my_room = ""
 
 #===============================================================================
 # Read XML and safe to database functions
@@ -113,9 +115,10 @@ links = []
 
 # Main reading/writing function
 def read_xml_and_save_to_database():
-    set_vars_empty(url_this_fahrplan)
+    global url_to_this_fahrplan
+    set_vars_empty(url_to_this_fahrplan)
     global schedule_url, schedule_version, acronym, event_title, event_start
-    global event_end, event_days, timeslot_curation, day_index, day_date
+    global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, room, talk, talk_frab_id, date, start, duration
     global slug, optout, title, subtitle, track, type, language, abstract
     global description, persons, links
@@ -130,10 +133,16 @@ def read_xml_and_save_to_database():
         title = fahrplan[1][1].text
     else:
         error("Problem with title")
+    
+    # Event schedule version
+    if fahrplan[0].tag == "version":
+        schedule_version = fahrplan[0].text
+    else:
+        error("Problem with schedule_version")
 
     # Event acronym
     if fahrplan[1][0].tag == "acronym":
-        event_title = fahrplan[1][0].text
+        acronym = fahrplan[1][0].text
     else:
         error("Problem with acronym")
 
@@ -157,10 +166,13 @@ def read_xml_and_save_to_database():
 
     # Event timeslot_duration
     if fahrplan[1][5].tag == "timeslot_duration":
-        event_days = fahrplan[1][5].text
+        timeslot_duration = fahrplan[1][5].text
     else:
         error("Problem with timeslot_duration")
 
+    # Write event data to database
+    save_event_data()    
+        
     # Loop around the day tags
     while (counter_day < len_day):
         # Read day data
@@ -173,6 +185,7 @@ def read_xml_and_save_to_database():
             error("Problem with day data")
         
         # Write day data to database    
+        save_day_data()
         
         # Prepare for room-loop
         len_room = len(fahrplan[counter_day])
@@ -246,22 +259,28 @@ def read_xml_and_save_to_database():
                 
                 # track
                 if fahrplan[counter_day][counter_room][counter_event][8].tag == "track":
-                    track = fahrplan[counter_day][counter_room][counter_event][8].text
+                    track = str(fahrplan[counter_day][counter_room][counter_event][8].text)
                 else:
                     error("Problem with track")
+                    
+                # Write track data to database
+                save_track_data()
                 
-                # type
+                # type of
                 if fahrplan[counter_day][counter_room][counter_event][9].tag == "type":
-                    type = fahrplan[counter_day][counter_room][counter_event][9].text
+                    type = str(fahrplan[counter_day][counter_room][counter_event][9].text)
                 else:
                     error("Problem with type")
+                
+                # Write type of data to database
+                save_type_of_data()
                 
                 # language
                 if fahrplan[counter_day][counter_room][counter_event][10].tag == "language":
                     language_date = fahrplan[counter_day][counter_room][counter_event][10].text
                 else:
                     error("Problem with language")
-                    
+                
                 # abstract
                 if fahrplan[counter_day][counter_room][counter_event][11].tag == "abstract":
                     abstract = fahrplan[counter_day][counter_room][counter_event][11].text
@@ -285,7 +304,9 @@ def read_xml_and_save_to_database():
                         persons = []
                 else:
                     error("Problem with persons")
-                #print(persons)
+                    
+                # Write persons data to database
+                save_persons_data()
 
                 # links
                 links = []
@@ -306,26 +327,89 @@ def read_xml_and_save_to_database():
 
 # Save the data of the event into the database
 def save_event_data():
-    pass
+    global url_to_this_fahrplan, my_event
+    global schedule_url, schedule_version, acronym, event_title, event_start
+    global event_end, event_days, timeslot_duration
 
-# Save the data of the event-day into the databas
-def save_event_day_data():
-    pass
+    schedule_url = url_to_this_fahrplan
+    
+    my_event = Event.objects.get(schedule_xml_link = schedule_url)
+    #my_event.schedule_version = schedule_version
+    my_event.acronym = acronym
+    my_event.title = title
+    my_event.start = event_start
+    my_event.end = event_end
+    my_event.days = event_days
+    my_event.timeslot_duration = timeslot_duration
+    my_event.save()
 
-# Save the data of the event into the database
+# Save the data of the days into the database
 def save_day_data():
-    pass
-
+    global my_event
+    global day_index, day_date, day_start, day_end
+    try:
+        my_day = Event_Days.objects.get(index = day_index, event = my_event)
+        my_day.day_start = day_start
+        my_day.day_end = day_end
+        my_day.index = day_index
+        my_day.date = day_date
+        my_day.save()
+    except ObjectDoesNotExist:
+        my_day = Event_Days.objects.create(event = my_event, index = day_index,
+            date = day_date, day_start = day_start, day_end = day_end)
+    
 # Save the data of the room into the database
 def save_room_data():
-    global room
+    global room, my_room
     my_room = Rooms.objects.get_or_create(room = room)
-    #my_room.objects.save()
+
+# Save the data of the speakers into the database
+def save_persons_data ():
+    global persons, my_persons
+    my_persons = []
+    my_person = []
+    for someone in persons:
+        try:
+            my_person = Speaker.objects.get(frab_id = someone[0])
+            my_person.name = someone[1]
+            my_person.save()
+        except ObjectDoesNotExist:
+            my_person = Speaker.objects.create(frab_id = someone[0], name = someone[1])
+    
+        # Array to acces all linked speakers for the saving of the talk
+        my_persons.append(my_person)
+        
+# Save the data of the link of a talk into the database
+def save_links_data ():
+    global links, my_links
+    my_links = []
+    my_link = []
+    
+    for any_link in links:
+        my_link = Links.objects.get_or_create(url = any_link[0], title = any_link[1])
+        
+        # Array to acces all links for the saving of the talk
+        my_links.append(my_link)
+
+# Save Tracks_of into the database (Beware, Track can be None -> as String)
+def save_track_data():
+    global track, my_track
+    my_track = Tracks.objects.get_or_create(track = track)
+        
+# Save Type_of into the database
+def save_type_of_data():
+    global type, my_type
+    my_type = Type_of.objects.get_or_create(type = type)
+
+# Save language data into the database
+def save_languages_data():
+    pass
 
 # Save the data of the event talk into the database
 def save_talk_data ():
+    global my_event, my_room, my_day
+    global talk, talk_frab_id
     pass
-    
     
 #===============================================================================
 # Main
@@ -337,14 +421,15 @@ for e in my_events:
     url_array.append(e.schedule_xml_link)
 
 # For every fahrplan file
-for url_this_fahrplan in url_array:
-    response = request.urlopen(url_this_fahrplan) 
+for url_to_this_fahrplan in url_array:
+    response = request.urlopen(url_to_this_fahrplan) 
     tree = etree.parse(response)
     fahrplan = tree.getroot()
     
     # Compare Fahrplanversion in the database and online, break if the same:
-    this_event = Event.objects.get(schedule_xml_link = url_this_fahrplan)
+    this_event = Event.objects.get(schedule_xml_link = url_to_this_fahrplan)
     if fahrplan[0].text == this_event.schedule_version:
+        print("In ",fahrplan[1][1].text," nichts geändert!")
         break
     print("Debug Event:",fahrplan[1][0].text)
     print("Debug: Version in DB: ", this_event.schedule_version,"\n\n")

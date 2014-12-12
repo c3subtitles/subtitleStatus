@@ -372,10 +372,13 @@ def save_event_data():
 def save_day_data():
     global my_event
     global day_index, day_date, day_start, day_end
+    my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index)[0]
+    """
     try:
         my_day = Event_Days.objects.get(event = my_event, index = day_index)
     except ObjectDoesNotExist:
         my_day = Event_Days.objects.create(event = my_event, index = day_index)
+    """
     my_day.day_start = day_start
     my_day.day_end = day_end
     my_day.date = day_date
@@ -393,10 +396,7 @@ def save_persons_data ():
     my_persons = []
     my_person = []
     for someone in talk_persons:
-        try:
-            my_person = Speaker.objects.get(frab_id = someone[0])
-        except ObjectDoesNotExist:
-            my_person = Speaker.objects.create(frab_id = someone[0])
+        my_person = Speaker.objects.get_or_create(frab_id = someone[0])[0]
         my_person.name = someone[1]
         my_person.save()
     
@@ -406,14 +406,12 @@ def save_persons_data ():
 # Save Tracks_of into the database (Beware, Track can be None -> as String)
 def save_track_data():
     global talk_track, my_track
-    my_track = Tracks.objects.get_or_create(track = talk_track)
-    my_track = Tracks.objects.get(track = talk_track)
-        
+    my_track = Tracks.objects.get_or_create(track = talk_track)[0]
+    
 # Save Type_of into the database
 def save_type_of_data():
     global talk_type, my_type
-    my_type = Type_of.objects.get_or_create(type = talk_type)
-    my_type = Type_of.objects.get(type = talk_type)
+    my_type = Type_of.objects.get_or_create(type = talk_type)[0]
 
 # Save language data into the database, not necessary!
 def save_languages_data():
@@ -431,10 +429,7 @@ def save_talk_data ():
     my_language = Language.objects.get(lang_amara_short = talk_language)
     my_talk = []
     
-    try: 
-        my_talk = Talk.objects.get(frab_id_talk = talk_frab_id)
-    except ObjectDoesNotExist:
-        my_talk = Talk.objects.create(frab_id_talk = talk_frab_id)
+    my_talk = Talk.objects.get_or_create(frab_id_talk = talk_frab_id)[0]
     my_talk.room = my_room
     my_talk.track = my_track
     my_talk.type_of = my_type

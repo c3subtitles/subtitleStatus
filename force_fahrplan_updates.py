@@ -1,6 +1,11 @@
 ﻿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+#==============================================================================
+# This script removes all schedule versions from the database which causes the
+# schedule update script to import every schedule again
+#==============================================================================
+
 import os
 import sys
 from lxml import etree

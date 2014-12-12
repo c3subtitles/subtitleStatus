@@ -53,7 +53,7 @@ for any_talk in all_talks_with_amara_key:
         
         # Ignore Subtitles with no saved revision
         if amara_num_versions > 0:
-            print("version in json: ",amara_num_versions)
+            #print("version in json: ",amara_num_versions)
             
             # Get language connection from database
             language = Language.objects.get(lang_amara_short = amara_language_code)
@@ -62,7 +62,7 @@ for any_talk in all_talks_with_amara_key:
             subtitle = Subtitle.objects.get_or_create(language = language, talk = any_talk)[0]
             # Only change something in the database if the version of the subtitle is not the same as before
             if (subtitle.revision != amara_num_versions):
-                print("version in DB: ",subtitle.revision)
+                #print("version in DB: ",subtitle.revision)
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
                 subtitle.complete = amara_subtitles_complete

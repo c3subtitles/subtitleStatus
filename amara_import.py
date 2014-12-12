@@ -1,5 +1,14 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
+#==============================================================================
+# This script checks for every talk with an amara key if there are updates or
+# new subtitles for this talk and if so puts them in the database or updates
+# them
+#
+# Currently missing: The setting of the "state" variables and time_processed
+#
+#==============================================================================
 
 import os
 import sys
@@ -20,25 +29,20 @@ basis_url = "http://www.amara.org/api2/partners/videos/"
 
 # Query for all talks who have an amara key
 all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "")
-number = 1
 
 for any_talk in all_talks_with_amara_key:
-    #print(number,any_talk.amara_key,len(any_talk.amara_key))
-    number += 1
+    # Create URL depending on amara_key
     url = basis_url+any_talk.amara_key+"/languages/?format=json"
-    #print(url)
     
+    # Get json file form amara and convert to dict
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     encoding = response.info().get_param('charset', 'utf8')
     amara_answer = json.loads(response.read().decode(encoding))
     
-    # Number of available subtitle languages
+    # Number of available subtitle languages, read from json output
     number_of_available_subtitles = amara_answer["meta"]["total_count"]
-    #print("Menge Untertitel: ",number_of_available_subtitles)
-    #print("Laenge: ",len(amara_answer))
-    #print()
-    
+        
     # Get necessary info from json file for one subtitle
     subtitles_counter = 0
     while subtitles_counter < number_of_available_subtitles:
@@ -47,21 +51,23 @@ for any_talk in all_talks_with_amara_key:
         amara_num_versions = amara_answer["objects"][subtitles_counter]["num_versions"]
         amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
         
-        #print("language_code: ",amara_language_code,type(amara_language_code))
-        #print("is_original: ",amara_is_original,type(amara_is_original))
-        #print("num_versions: ",amara_num_versions,type(amara_num_versions))
-        #print("subtitles_complete: ",amara_subtitles_complete,type(amara_subtitles_complete))
-        
         # Ignore Subtitles with no saved revision
         if amara_num_versions > 0:
+            print("version in json: ",amara_num_versions)
+            
+            # Get language connection from database
             language = Language.objects.get(lang_amara_short = amara_language_code)
+            
+            # Get or create subtitle entry from database
             subtitle = Subtitle.objects.get_or_create(language = language, talk = any_talk)[0]
-            #print(type(subtitle.is_original_lang))
-            subtitle.is_original_lang = amara_is_original
-            subtitle.revision = amara_num_versions
-            subtitle.complete = amara_subtitles_complete
-            subtitle.save()
-        
+            # Only change something in the database if the version of the subtitle is not the same as before
+            if (subtitle.revision != amara_num_versions):
+                print("version in DB: ",subtitle.revision)
+                subtitle.is_original_lang = amara_is_original
+                subtitle.revision = amara_num_versions
+                subtitle.complete = amara_subtitles_complete
+                subtitle.save()
+            # Set state is still missing because the state table is not yet filled
         subtitles_counter += 1
         
 print("Done!")

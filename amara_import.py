@@ -6,7 +6,7 @@
 # new subtitles for this talk and if so puts them in the database or updates
 # them
 #
-# Currently missing: The setting of the "state" variables and time_processed
+# Currently missing: The setting of the corresponding timestamps
 #
 #==============================================================================
 
@@ -84,6 +84,9 @@ for any_talk in all_talks_with_amara_key:
                     if subtitle.state_id == 8:
                         subtitle.state_id = 9
                 subtitle.save()
+                
+                # Setting the times still missing!!
+                
         subtitles_counter += 1
         
 print("Done!")

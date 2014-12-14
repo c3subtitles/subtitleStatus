@@ -63,11 +63,28 @@ for any_talk in all_talks_with_amara_key:
             # Only change something in the database if the version of the subtitle is not the same as before
             if (subtitle.revision != amara_num_versions):
                 #print("version in DB: ",subtitle.revision)
+                #print("version in amara: ",amara_num_versions)
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
                 subtitle.complete = amara_subtitles_complete
                 subtitle.save()
-            # Set state is still missing because the state table is not yet filled
+
+                # If orignal and finished set state to finished
+                if(subtitle.is_original_lang and subtitle.complete):
+                    subtitle.state_id = 8
+                # If translation and finished set state to translation finished
+                elif (not subtitle.is_original_lang and subtitle.complete):
+                    subtitle.state_id = 12
+                # If translation and not finished set state to translation in progress    
+                elif (not subtitle.is_original_lang and not subtitle.complete):
+                    subtitle.state_id = 11
+                # If orignal and not finished but was set to finished, reset to unknown state    
+                else:
+                    # If the state was set to finished, reset to unknown
+                    if subtitle.state_id == 8:
+                        subtitle.state_id = 9
+                subtitle.save()
         subtitles_counter += 1
         
 print("Done!")
+

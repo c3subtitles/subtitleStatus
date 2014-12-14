@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -27,6 +27,6 @@ for every_event in all_events:
     every_event.schedule_version = ""
     every_event.save()
 
-print("Alle Fahrplanversionen zur�ck gesetzt!")
+print("Alle Fahrplanversionen zurück gesetzt!")
 
 

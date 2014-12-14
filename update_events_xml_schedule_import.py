@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+Ôªø#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -483,14 +483,14 @@ for url_to_this_fahrplan in url_array:
     # Compare Fahrplanversion in the database and online, break if the same:
     this_event = Event.objects.get(schedule_xml_link = url_to_this_fahrplan)
     if fahrplan[0].text == this_event.schedule_version:
-        print("In ",fahrplan[1][1].text," nichts ge‰ndert!")
+        print("In ",fahrplan[1][1].text," nichts ge√§ndert!")
         continue
     else:
-        print("In ",fahrplan[1][1].text," etwas ge‰ndert!")
+        print("In ",fahrplan[1][1].text," etwas ge√§ndert!")
     #print("Debug Event:",fahrplan[1][0].text)
     #print("Debug: Version in DB: ", this_event.schedule_version,"\n\n")
     
-    #Funktion f¸r Fahrplan in Datenbank schubsen
+    #Funktion f√ºr Fahrplan in Datenbank schubsen
     read_xml_and_save_to_database()
 
 print ("Durch gelaufen, Error Code: ", error_code)

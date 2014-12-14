@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+ï»¿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -28,6 +28,6 @@ for every_subtitle in all_subtitles:
     every_subtitle.revision = 0
     every_subtitle.save()
 
-print("Alle Subtitles-Datensätze zurück gesetzt!")
+print("Alle Subtitles-DatensÃ¤tze zurÃ¼ck gesetzt!")
 
 

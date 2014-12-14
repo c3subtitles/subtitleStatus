@@ -88,7 +88,7 @@ class Talk(BasisModell):
     pad_id = models.CharField(max_length = 30, default = "", blank = True)
     link_to_writable_pad = models.URLField(default = "", blank = True)
     link_to_readable_pad = models.URLField(default = "", blank = True)
-    link_to_video_file = models.URLField(default = "", blank = True)
+    link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
     youtube_key = models.CharField(max_length = 20, blank = True)
     video_duration = models.TimeField(default = "00:00", blank = True)
@@ -106,7 +106,7 @@ class Subtitle(BasisModell):
     is_original_lang = models.BooleanField(default = False) # aus Amara auslesen, nicht aus dem Fahrplan!
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
-    state = models.ForeignKey(States, to_field = "id", blank = True)
+    state = models.ForeignKey(States, default = 1, blank = True)
     time_processed_transcribing = models.TimeField(default = "00:00", blank = True)
     time_processed_syncing = models.TimeField(default = "00:00", blank = True)
     time_processed_translating = models.TimeField(default = "00:00", blank = True)

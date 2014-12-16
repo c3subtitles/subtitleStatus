@@ -24,7 +24,7 @@ from www.models import Event
 all_events = Event.objects.all()
 
 for every_event in all_events:
-    every_event.schedule_version = ""
+    every_event.schedule_version = "force update"
     every_event.save()
 
 print("Alle Fahrplanversionen zurück gesetzt!")

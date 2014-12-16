@@ -36,7 +36,10 @@ for any_lang in lang_dict:
 # Put data into the database, check if dataset already in there   
 for any_lang in lang_list:
     print (any_lang[0], any_lang[1])
-    Language.objects.get_or_create(lang_amara_short=any_lang[0])
+    my_lang = Language.objects.get_or_create(lang_amara_short=any_lang[0])[0]
+    my_lang.language_en = any_lang[1]
+    my_lang.save()
+    
  
 print ("done")
 

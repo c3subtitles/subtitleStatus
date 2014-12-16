@@ -483,10 +483,10 @@ for url_to_this_fahrplan in url_array:
     # Compare Fahrplanversion in the database and online, break if the same:
     this_event = Event.objects.get(schedule_xml_link = url_to_this_fahrplan)
     if fahrplan[0].text == this_event.schedule_version:
-        print("In ",fahrplan[1][1].text," nichts geändert!")
+        print("In ",fahrplan[1][1].text," nichts geändert! Version ist: ",fahrplan[0].text)
         continue
     else:
-        print("In ",fahrplan[1][1].text," etwas geändert!")
+        print("In ",fahrplan[1][1].text," etwas geändert!\nVon Version: \"",this_event.schedule_version,"\" to \"",fahrplan[0].text,"\"")
     #print("Debug Event:",fahrplan[1][0].text)
     #print("Debug: Version in DB: ", this_event.schedule_version,"\n\n")
     

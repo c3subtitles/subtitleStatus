@@ -4,7 +4,7 @@
 #==============================================================================
 # This script checks every event with an url to the farhrplan in the database
 # for updates depending on the version of the fahrplan
-# If the Fahrplanversion has chenged everything is checked for updates
+# If the Fahrplanversion has changed everything is checked for updates
 #==============================================================================
 
 import os
@@ -376,7 +376,7 @@ def save_event_data():
 
 # Save the data of the days into the database
 def save_day_data():
-    global my_event
+    global my_event, my_day
     global day_index, day_date, day_start, day_end
     my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index)[0]
     """
@@ -450,6 +450,8 @@ def save_talk_data ():
     my_talk.description = talk_description
     if (talk_optout=="true"):
         my_talk.blacklisted = True
+    
+    my_talk.day = my_day
     
     my_talk.save()
     

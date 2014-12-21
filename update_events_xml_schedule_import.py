@@ -474,7 +474,10 @@ def save_talk_data ():
 # Get all schedule-urls from the database
 my_events = Event.objects.all()
 for e in my_events:
-    url_array.append(e.schedule_xml_link)
+    fahrplan_link = e.schedule_xml_link
+    # Only if the fahrplan field is not empty
+    if fahrplan_link != "":
+        url_array.append(fahrplan_link)
 
 # For every fahrplan file
 for url_to_this_fahrplan in url_array:

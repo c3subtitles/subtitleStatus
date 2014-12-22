@@ -379,12 +379,7 @@ def save_day_data():
     global my_event, my_day
     global day_index, day_date, day_start, day_end
     my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index)[0]
-    """
-    try:
-        my_day = Event_Days.objects.get(event = my_event, index = day_index)
-    except ObjectDoesNotExist:
-        my_day = Event_Days.objects.create(event = my_event, index = day_index)
-    """
+    
     my_day.day_start = day_start
     my_day.day_end = day_end
     my_day.date = day_date
@@ -452,6 +447,7 @@ def save_talk_data ():
         my_talk.blacklisted = True
     
     my_talk.day = my_day
+    my_talk.event = my_event
     
     my_talk.save()
     

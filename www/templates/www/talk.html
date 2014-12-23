@@ -17,11 +17,19 @@
     {% for sub in subtitles %}
         {{ sub.language }}
         <div>
+        {% if sub.form.as_p %}
         <form action="/subtitle/{{sub.pk}}/" method="POST">
-            {{ sub.form }}
+            {{ sub.form.as_p }}
+            {%if sub.form.quick_btn %}
+            <input type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
+            {% endif %}
             {% csrf_token %}
             <input type="submit" value="Save">
         </form>
+        {% else %}
+            {# it's just a info message not a real form #}
+            {{ sub.form }}
+        {% endif %}
         </div>
     {% endfor %}
 

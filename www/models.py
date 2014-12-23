@@ -111,7 +111,7 @@ class States(BasisModell):
     state_de = models.CharField(max_length = 100)
     state_en = models.CharField(max_length = 100)
     def __str__(self):
-        return self.state_de
+        return self.state_en
 
 # Infos zu einem Untertitel in einer Sprache
 class Subtitle(BasisModell):

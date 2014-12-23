@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+
+{% block title %}C3Subtitles{% endblock %}
+
+{% block content %}
+    <h1> {{my_event.title}} </h1>
+    <ul>
+        {% for day in my_event.event_days_set.all %}
+            <li> <a href= "/event/{{my_event.acronym}}/day/{{day.index}}">{{day.index}} </a></li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for lang in my_langs %}
+            <li> <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}">{{lang.language_en}}</a></li>
+        {% endfor %}
+    </ul>
+    {% for every_talk in my_talks %}
+
+        {% include "www/talk_small.html" with talk=every_talk %}
+
+    {% endfor%}
+{% endblock %}

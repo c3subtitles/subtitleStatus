@@ -1,0 +1,11 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <ul>
+    {% for event in events %}
+      <li><a href="/event/{{event.acronym}}">{{ event.title }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

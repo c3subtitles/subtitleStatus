@@ -125,6 +125,7 @@ class Subtitle(BasisModell):
     time_processed_syncing = models.TimeField(default = "00:00", blank = True)
     time_quality_check_done = models.TimeField(default = "00:00", blank = True)
     time_processed_translating = models.TimeField(default = "00:00", blank = True)
+    needs_automatic_syncing = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

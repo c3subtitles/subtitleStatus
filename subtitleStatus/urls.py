@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^account/', include('account.urls')),
-    url(r'^(?P<event>\w+)/', include('www.urls')),
+    url(r'^', include('www.urls')),
 )

@@ -91,6 +91,10 @@ Für den Fall ohne Quality check wäre es:
             #  state_en nur id 1,2,3 oder 9
             new_query = form.fields['state'].choices.queryset.filter(pk__in=[1,2,3,9])
             form.fields['state']._set_queryset(new_query)
+
+            # add finish transcribing button
+            form.quick_btn = 'Finish Transcribing'
+
             return form
         elif sub.time_processed_transcribing == sub.time_processed_syncing == talk.video_duration:
             # remove the unnecessary fields
@@ -102,6 +106,10 @@ Für den Fall ohne Quality check wäre es:
             #  state_en nur id 1,2,3 oder 9
             new_query = form.fields['state'].choices.queryset.filter(pk__in=[6,7])
             form.fields['state']._set_queryset(new_query)
+
+            # add finish transcribing button
+            form.quick_btn = 'Finish quality check'
+
             return form
     else: #no sub.is_original_lang
         # remove the unnecessary fields
@@ -113,6 +121,10 @@ Für den Fall ohne Quality check wäre es:
         #  state_en nur id 1,2,3 oder 9
         new_query = form.fields['state'].choices.queryset.filter(pk__in=[11,12])
         form.fields['state']._set_queryset(new_query)
+
+        # add finish transcribing button
+        form.quick_btn = 'Finish Translating'
+
         return form
 
     return
@@ -140,7 +152,29 @@ def updateSubtitle(request, subtitle_id):
         raise Http404
 
     form = SubtitleForm(request.POST or None, instance=my_obj)
-    if form.is_valid():
+
+    # quick finish btn
+    if 'quick_finish_btn' in request.POST:
+        talk = my_obj.talk
+        #finish current step
+        if my_obj.is_original_lang:
+            if my_obj.time_processed_transcribing < talk.video_duration:
+                # transcribing
+                my_obj.time_processed_transcribing = talk.video_duration
+                my_obj.state_id = 3
+            elif my_obj.time_processed_transcribing == my_obj.time_processed_syncing == talk.video_duration:
+                # quality_check
+                my_obj.time_quality_check_done = talk.video_duration
+                my_obj.state_id = 8
+        else: # translating
+            my_obj.time_processed_translating = talk.video_duration
+            my_obj.state_id = 12
+
+
+        my_obj.save()
+        messages.add_message(request, messages.INFO, 'Step finished.')
+        return redirect('talk', talk_id=talk.pk)
+    elif form.is_valid():
         form.save()
         # do stuff
         my_obj.save()

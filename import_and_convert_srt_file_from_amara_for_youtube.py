@@ -9,6 +9,11 @@
 import os
 import sys
 import urllib
+import smtplib
+import smtpd
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+import re
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -22,6 +27,10 @@ from www.models import Talk, Language, Subtitle
 
 # Search for subtitles with set flag "needs_automatic_syncing"
 my_subtitles = Subtitle.objects.filter(needs_automatic_syncing = True)
+
+TO = "barbara@selfnet.de"
+TEXT = []
+TEXT.append("These Subtitle-Files need your attention: ")
 
 for any in my_subtitles:
     language = any.language.lang_amara_short
@@ -39,6 +48,7 @@ for any in my_subtitles:
     text_content = file_content.splitlines()
     
     transcript = []
+    # Ignore first two lines and check lines afterwards
     transcript.append(text_content[2]+"\n")
     if text_content[3] == "":
         i = 3
@@ -47,6 +57,7 @@ for any in my_subtitles:
     elif text_content[5] == "":
         i = 5
     
+    # Check rest of whole file
     while i < len(text_content):
         # If line is empty jump two down
         if(text_content[i] == ""):
@@ -62,7 +73,23 @@ for any in my_subtitles:
     
     file = open(folder+filename,mode = "w",encoding = "utf-8")
     for line in transcript:
+        line = re.sub("<i>","*",line)
+        line = re.sub("</i>","*",line)
         file.write(line)
     file.close()
+    TEXT.append(filename)
+   
+    SUBJECT = str(len(my_subtitles))+" Transcripts need your attention!"
 
-        
+    COMMASPACE = ', '
+    msg = MIMEMultipart()
+    msg["Subject"] = SUBJECT
+    ME = "percidae@localhost"
+    msg["From"] = ME
+    msg["To"] = TO
+    msg.preamble = SUBJECT
+    
+#    s = smtplib.SMTP(ME,TO,msg.as_string())
+#    s.quit()
+#    s.sendmail()
+

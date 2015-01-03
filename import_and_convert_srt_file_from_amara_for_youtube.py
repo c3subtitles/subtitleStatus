@@ -36,7 +36,7 @@ from www.models import Talk, Language, Subtitle
 my_subtitles = Subtitle.objects.filter(needs_automatic_syncing = True)
 
 FROM = "localhost@subtitles.ber.c3voc.de"
-TO = ""
+TO = "barbara+transcript@selfnet.de"
 TEXT = []
 TEXT.append("These Subtitle-Files need your attention: ")
 
@@ -82,8 +82,8 @@ for any in my_subtitles:
     # Save File in ./downloads
     file = open(folder+filename,mode = "w",encoding = "utf-8")
     for line in transcript:
-        line = re.sub("<i>","*",line)
-        line = re.sub("</i>","*",line)
+        #line = re.sub("<i>","*",line)
+        #line = re.sub("</i>","*",line)
         file.write(line)
     file.close()
     

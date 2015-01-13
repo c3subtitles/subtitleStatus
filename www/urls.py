@@ -1,8 +1,10 @@
-﻿from django.conf.urls import patterns, include, url
+﻿from django.conf.urls import patterns, include, url, static
 from . import views
+from django.core.urlresolvers import reverse_lazy
+from django.conf import settings
 
 urlpatterns = patterns('',
-        url(r'^$', views.start),
+        url(r'^$', views.start, name="home"),
         url(r'^hello/$',views.clock),
         url(r'^event/(?P<event_acronym>\w+)/$', views.event),
         url(r'^event/(?P<event_acronym>\w+)/day/(?P<day>\d+)$', views.event),
@@ -12,5 +14,9 @@ urlpatterns = patterns('',
         url(r'^clock/$',views.clock),
         #url(r'^logo', views.eventLogo),
         #url(r'^', views.eventStatus),
+        
 )
-#test
+if settings.DEBUG:
+    urlpatterns += patterns('django.contrib.staticfiles.views',
+        url(r'^static/(?P<path>.*)$','serve'))
+        

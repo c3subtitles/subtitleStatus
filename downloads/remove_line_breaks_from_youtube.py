@@ -36,7 +36,7 @@ while counter < max_counter-2:
     counter += 1
     
     while(text_content[counter]!=""):
-        output[-1]= output[-1][0:-1]+" "+text_content[counter]
+        output[-1]= output[-1][0:-1]+" "+text_content[counter]+"\n"
         counter += 1
     # Append one empty line
     output.append(text_content[counter]+"\n")

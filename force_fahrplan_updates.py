@@ -28,5 +28,3 @@ for every_event in all_events:
     every_event.save()
 
 print("Alle Fahrplanversionen zurück gesetzt!")
-
-

@@ -1,0 +1,48 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron" >
+	<h1>This is subtitle</h1>
+	<p>DO SOMETHING</p>
+	<p><a class="btn btn-primary btn-lg" href="http://subtitles.media.ccc.de/wiki/" role="button">Wiki »</a></p>
+</div>
+
+<div>
+    
+{% for event in events %}
+	{% if event.pk != 3 %}
+	<h2>
+		<a href="/event/{{event.acronym}}">
+			{{ event.title }}
+		</a>
+		
+		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+		
+		<div class="collapse" id="{{ event.pk }}_id">
+			<p>{{ event.start }} - {{ event.end }}</p>
+		</div>
+	</h2>
+	<div class="progress">
+		<div class="progress-bar progress-bar-success" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+			<span class="sr-only">60% Transcribing done</span>60%
+		</div>
+		<div class="progress-bar progress-bar-warning progress-bar-striped" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 20%">80%
+			<span class="sr-only">80% Complete (warning)</span>
+		</div>
+		<div class="progress-bar progress-bar-danger" style="width: 5%">5%</div>
+		<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: 5%">5%
+		</div>
+		
+	</div>
+	{% endif %}
+{% endfor %}
+<script type="text/javascript" >
+$('#pb').css({
+	'background-image': 'none',
+	'background-color': 'grey'
+});
+</script>
+
+	
+</div>
+{% endblock %}

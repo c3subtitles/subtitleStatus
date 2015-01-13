@@ -1,39 +1,48 @@
 ﻿{% extends "base.html" %}
+{% load bootstrap %}
 
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
 <div>
-	<ul>
-		<li>{{talk.title}}</li>
+	<a href=".." class="btn btn-default">back</a>
+	<h1>{{talk.title}}</h1>
+	<ul class="list" >
 		<li>Talk-Language: {{talk.orig_language}}</li>
 		<li>Track: {{talk.track}}</li>
 		<li>Type of: {{talk.type_of}}</li>
 		<li>Room: {{talk.room}}</li>
 		<li>Video Duration: {{talk.video_duration | date:"H:i:s"}}</li>
 	</ul>
-
-<div class="form">
-    {% for sub in subtitles %}
-        {{ sub.language }}
-        <div>
-        {% if sub.form.as_p %}
-        <form action="/subtitle/{{sub.pk}}/" method="POST">
-            {{ sub.form.as_p }}
-            {%if sub.form.quick_btn %}
-            <input type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
+	
+	<div class="amara-embed" data-height="350px" data-width="600px" data-url="{{talk.link_to_video_file}}">
+	</div>
+	
+	<div>
+	{% for sub in subtitles %}
+		{% if sub.form.visible_fields != NULL %}
+		<form class="form" action="/subtitle/{{sub.pk}}/" method="POST">
+		
+			{{ sub.form|bootstrap }}
+		
+			{% csrf_token %}
+			{%if sub.form.quick_btn %}
+            <input class="btn btn-default" type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
+			
             {% endif %}
-            {% csrf_token %}
-            <input type="submit" value="Save">
-        </form>
-        {% else %}
-            {# it's just a info message not a real form #}
-            {{ sub.form }}
-        {% endif %}
-        </div>
-    {% endfor %}
+			<input class="btn btn-success btn-save"  type="submit" value="Save">
+			
+		</form>
+	{% else %}
+	<p>{{ sub.language }}: Finished</p>
+	{% endif %}
+	{% endfor %}
+	</div>
+	
+	
 
 </div>
+<script type="text/javascript" src='http://amara.org/embedder-iframe'>
+</script>
 
-</div>
 {% endblock %}

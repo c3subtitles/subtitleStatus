@@ -10,11 +10,16 @@ import datetime
 
 def start(request):
     try:
-        my_events = Event.objects.all()
+        my_events = Event.objects.all().order_by("-start")
+        """
+        # Function for the progress bars
+        for every_event in my_events:
+            time_sum = 
+        """
     except ObjectDoesNotExist:
         raise Http404
-
-    return render(request, "www/helloworld.html", {"events" : my_events})
+    
+    return render(request, "www/main.html", {"events" : my_events})
 
 def event (request, event_acronym, *args, **kwargs):
     try:
@@ -76,9 +81,9 @@ Für den Fall ohne Quality check wäre es:
     form = SubtitleForm(request.POST or None, instance=sub)
 
     if sub.time_processed_transcribing == talk.video_duration != sub.time_processed_syncing:
-        return "Manuel syncing, please wait"
+        return "Automatic syncing, please wait"
     if sub.time_quality_check_done == talk.video_duration:
-        return "Year it's done."
+        return "Yeah it's done."
 
     if sub.is_original_lang:
         if sub.time_processed_transcribing < talk.video_duration:
@@ -159,17 +164,22 @@ def updateSubtitle(request, subtitle_id):
         #finish current step
         if my_obj.is_original_lang:
             if my_obj.time_processed_transcribing < talk.video_duration:
-                # transcribing
+                # transcribing done
                 my_obj.time_processed_transcribing = talk.video_duration
-                my_obj.state_id = 3
+                my_obj.state_id = 3 # Transcript is complete
+                my_obj.needs_automatic_syncing = True
+            elif my_obj.time_processed_transcribing == talk.video_duration and 
+                my_obj.time_processed_syncing < talk.video_duration:
+                # Syncing is done - if manually
+                my_obj.time_processed_syncing = talk.video_duration
+                my_obj.state_id = 6 # Timing is complete
             elif my_obj.time_processed_transcribing == my_obj.time_processed_syncing == talk.video_duration:
-                # quality_check
+                # quality_check done
                 my_obj.time_quality_check_done = talk.video_duration
-                my_obj.state_id = 8
-        else: # translating
+                my_obj.state_id = 8 # Done
+        else: # Translation
             my_obj.time_processed_translating = talk.video_duration
-            my_obj.state_id = 12
-
+            my_obj.state_id = 12 # Translation finished
 
         my_obj.save()
         messages.add_message(request, messages.INFO, 'Step finished.')

@@ -5,6 +5,7 @@
 # This script checks every event with an url to the farhrplan in the database
 # for updates depending on the version of the fahrplan
 # If the Fahrplanversion has changed everything is checked for updates
+# Beware I used global vars..
 #==============================================================================
 
 import os

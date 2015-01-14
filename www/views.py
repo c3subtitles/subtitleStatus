@@ -5,21 +5,49 @@ from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 import datetime
+from copy import deepcopy
 
 # Create your views here.
 
 def start(request):
     try:
-        my_events = Event.objects.all().order_by("-start")
-        """
+        my_events = deepcopy(Event.objects.all().order_by("-start"))
+        progress_bar = {}
+        
+        
         # Function for the progress bars
         for every_event in my_events:
-            time_sum = 
-        """
+            time_sum = 0
+            transcribed = 0
+            synced = 0
+            checked = 0
+            
+            my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
+            # Sum up the 100%
+            for every_talk in my_talks:
+                time_sum += seconds(every_talk.video_duration)
+            if (time_sum == 0): # Stupid workaround for "unknown event"
+                time_sum = 1
+            my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = every_event)
+            # Sum up all parts
+            for every_subtitle in my_subtitles:
+                transcribed += seconds(every_subtitle.time_processed_transcribing)
+                synced += seconds(every_subtitle.time_processed_syncing)
+                checked += seconds(every_subtitle.time_quality_check_done)
+            # checked / green
+            every_event.bar_checked = progress_bar_checked(checked, time_sum)
+            # synced / orange
+            every_event.bar_synced = progress_bar_synced(checked, synced, time_sum)
+            # transcribed / red
+            every_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
+            # nothing / grey
+            every_event.bar_nothing = progress_bar_nothing(transcribed,time_sum)
+                
     except ObjectDoesNotExist:
         raise Http404
     
-    return render(request, "www/main.html", {"events" : my_events})
+    return render(request, "www/main.html", {"events" : my_events,
+        "progress_bar" : progress_bar})
 
 def event (request, event_acronym, *args, **kwargs):
     try:
@@ -168,8 +196,7 @@ def updateSubtitle(request, subtitle_id):
                 my_obj.time_processed_transcribing = talk.video_duration
                 my_obj.state_id = 3 # Transcript is complete
                 my_obj.needs_automatic_syncing = True
-            elif my_obj.time_processed_transcribing == talk.video_duration and 
-                my_obj.time_processed_syncing < talk.video_duration:
+            elif my_obj.time_processed_transcribing == talk.video_duration and my_obj.time_processed_syncing < talk.video_duration:
                 # Syncing is done - if manually
                 my_obj.time_processed_syncing = talk.video_duration
                 my_obj.state_id = 6 # Timing is complete
@@ -215,3 +242,24 @@ def clock(request):#,event):
     """now = datetime.datetime.now()
     html = "<html><body>It is now "+str(now)+".</body></html>"
     return HttpResponse(html)"""
+
+# Convert datetime.time into seconds
+def seconds(sometime):
+    return_value = 0
+    return_value += ( int(sometime.strftime("%H")) * 60 * 60 +
+                    int(sometime.strftime("%M")) * 60 +
+                    int(sometime.strftime("%S")) )
+    return return_value
+
+# Functions for the progress bars    
+def progress_bar_checked(checked, time_sum):
+    return str( round( (float(checked)/float(time_sum))*100,1))
+
+def progress_bar_synced(checked, synced, time_sum):
+    return str(round(((float(synced) - float(checked))/float(time_sum)*100),1))    
+
+def progress_bar_transcribed(transcribed, synced, time_sum):
+    return str( round( ( ( ( float(transcribed) - float(synced) ) /float(time_sum))*100),1 ) )       
+    
+def progress_bar_nothing(transcribed,time_sum):
+    return str( round( (((float(time_sum) - float(transcribed))/float(time_sum))*100),1 ) )

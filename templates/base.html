@@ -1,0 +1,77 @@
+{% load staticfiles %}
+{% load bootstrap %}
+<!DOCTYPE html> 
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+		<link href="{% static 'css/abel.css' %}" rel="stylesheet">
+		<link href="{% static 'css/base.css' %}" rel="stylesheet">
+		<script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+
+	<body id="main"> 
+	
+
+		{% block contentHeader %}
+		{% endblock %}
+		<!-- script>
+		$(function() {
+		  if (location.pathname=='/')
+			$('.nav li a[href="/"]').parent().addClass('active');
+		  else
+			$('.nav li a[href*="' + location.pathname.split("/")[1] + '"]').parent().addClass('active');
+		});
+
+		</script -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+          <a class="navbar-brand" href="{% url 'home' %}">C3Subtitles</a>
+        </div>
+		
+		
+        <div id="navbar" class="navbar-collapse collapse">
+			<!--ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+			</ul-->
+			<ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+				<li><a href="#">Logged in as {{ user.username }}</a></li>
+				<li><a href="{% url 'account.views.logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+				{% else %}
+				<li><a href="{% url 'account.views.login' %}">Login</a></li>
+				{% endif %}
+			</ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		
+		<div class="container" style="padding-top: 80px">
+			<div class="container">
+				{% block content %}
+				<p>SCHOMESCHING is broken</p>
+				{% endblock %}
+		    </div>
+		</div>
+	</body>
+</html>

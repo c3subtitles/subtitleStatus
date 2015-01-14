@@ -72,9 +72,13 @@ for any_talk in all_talks_with_amara_key:
                 # If orignal and finished set state to finished
                 if(subtitle.is_original_lang and subtitle.complete):
                     subtitle.state_id = 8
+                    subtitle.time_processed_transcribing = subtitle.talk.video_duration
+                    subtitle.time_processed_syncing = subtitle.talk.video_duration
+                    subtitle.time_processed_quality_check_done = subtitle.talk.video_duration
                 # If translation and finished set state to translation finished
                 elif (not subtitle.is_original_lang and subtitle.complete):
                     subtitle.state_id = 12
+                    subtitle.time_processed_translating = subtitle.talk.video_duration
                 # If translation and not finished set state to translation in progress    
                 elif (not subtitle.is_original_lang and not subtitle.complete):
                     subtitle.state_id = 11

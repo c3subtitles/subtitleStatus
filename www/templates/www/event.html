@@ -3,7 +3,25 @@
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
-    <h1> {{my_event.title}} </h1>
+    <h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
+    
+    <div class="progress"> 
+		<div class="progress-bar progress-bar-success" style="width: {{ my_event.bar_checked }}%">
+			<span class="sr-only">{{ my_event.bar_checked }}% Checking done</span>{{ my_event.bar_checked }}%
+		</div>
+		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ my_event.bar_synced }}%">
+			<span class="sr-only">{{ my_event.bar_synced }}% Syncing done</span>{{ my_event.bar_synced }}%
+		</div>
+		<div class="progress-bar progress-bar-danger" style="width: {{ my_event.bar_transcribed }}%">
+        	<span class="sr-only">{{ my_event.bar_transcribed }}% Transcribing done</span>{{ my_event.bar_transcribed }}%
+        </div>
+		<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: {{ my_event.bar_nothing }}%">
+            <span class="sr-only">{{ my_event.bar_nothing }}% Nothing done yet</span>{{ my_event.bar_nothing }}%
+		</div>
+		
+	</div>    
+    
+  
     <ul>
         {% for day in my_event.event_days_set.all %}
             <li> <a href= "/event/{{my_event.acronym}}/day/{{day.index}}">{{day.index}} </a></li>
@@ -14,6 +32,7 @@
             <li> <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}">{{lang.language_en}}</a></li>
         {% endfor %}
     </ul>
+    
     {% for every_talk in my_talks %}
 
         {% include "www/talk_small.html" with talk=every_talk %}

@@ -23,11 +23,10 @@ def start(request):
             checked = 0
             
             my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
+            
             # Sum up the 100%
-            for every_talk in my_talks:
-                time_sum += seconds(every_talk.video_duration)
-            if (time_sum == 0): # Stupid workaround for "unknown event"
-                time_sum = 1
+            time_sum = progress_bar_time_sum(my_talks)
+            
             my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = every_event)
             # Sum up all parts
             for every_subtitle in my_subtitles:
@@ -51,7 +50,7 @@ def start(request):
 
 def event (request, event_acronym, *args, **kwargs):
     try:
-        my_event = Event.objects.select_related('Event_Days','Talk','Language').get(acronym = event_acronym)
+        my_event = deepcopy(Event.objects.select_related('Event_Days','Talk','Language').get(acronym = event_acronym))
         my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
         "date",
         "start",
@@ -61,6 +60,27 @@ def event (request, event_acronym, *args, **kwargs):
             my_talks = my_talks.filter(day__index = kwargs.pop("day"))
         if "lang" in kwargs:
             my_talks = my_talks.filter(orig_language__lang_amara_short = kwargs.pop("lang"))
+        
+        time_sum = 0
+        transcribed = 0
+        synced = 0
+        checked = 0
+        time_sum = progress_bar_time_sum(my_talks)
+        my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = my_event)
+        # Sum up all parts
+        for every_subtitle in my_subtitles:
+            transcribed += seconds(every_subtitle.time_processed_transcribing)
+            synced += seconds(every_subtitle.time_processed_syncing)
+            checked += seconds(every_subtitle.time_quality_check_done)
+        # checked / green
+        my_event.bar_checked = progress_bar_checked(checked, time_sum)
+        # synced / orange
+        my_event.bar_synced = progress_bar_synced(checked, synced, time_sum)
+        # transcribed / red
+        my_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
+        # nothing / grey
+        my_event.bar_nothing = progress_bar_nothing(transcribed,time_sum)
+        
     except ObjectDoesNotExist:
         raise Http404
 
@@ -263,3 +283,11 @@ def progress_bar_transcribed(transcribed, synced, time_sum):
     
 def progress_bar_nothing(transcribed,time_sum):
     return str( round( (((float(time_sum) - float(transcribed))/float(time_sum))*100),1 ) )
+    
+def progress_bar_time_sum(my_talks):
+    time_sum = 0
+    for every_talk in my_talks:
+        time_sum += seconds(every_talk.video_duration)
+    if (time_sum == 0): # Stupid workaround for "unknown event"
+        time_sum = 1
+    return time_sum

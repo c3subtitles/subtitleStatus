@@ -84,8 +84,8 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.state_id = 11
                 # If orignal and not finished but was set to finished, reset to unknown state    
                 else:
-                    # If the state was set to finished, reset to unknown
-                    if subtitle.state_id == 8:
+                    # If the state was set to finished, reset to transcribed until
+                    if subtitle.state_id == 2:
                         subtitle.state_id = 9
                 subtitle.save()
                 

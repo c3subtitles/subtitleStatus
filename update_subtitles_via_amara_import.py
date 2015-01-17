@@ -60,14 +60,16 @@ for any_talk in all_talks_with_amara_key:
             
             # Get or create subtitle entry from database
             subtitle = Subtitle.objects.get_or_create(language = language, talk = any_talk)[0]
-            # Only change something in the database if the version of the subtitle is not the same as before
+            # Only change something in the database if the version of the subtitle is not the same as before            
             if (subtitle.revision != amara_num_versions):
-                #print("version in DB: ",subtitle.revision)
-                #print("version in amara: ",amara_num_versions)
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
                 subtitle.complete = amara_subtitles_complete
                 subtitle.save()
+                
+                # If subtitle is orignal and new inserted into the database, set state to transcribed until..
+                if(subtitle.revision == "1" and subtitle.is_original_lang):
+                    subtitle.state_id = 2
 
                 # If orignal and finished set state to finished
                 if(subtitle.is_original_lang and subtitle.complete):
@@ -82,11 +84,15 @@ for any_talk in all_talks_with_amara_key:
                 # If translation and not finished set state to translation in progress    
                 elif (not subtitle.is_original_lang and not subtitle.complete):
                     subtitle.state_id = 11
-                # If orignal and not finished but was set to finished, reset to unknown state    
+                # If orignal and not finished but was set to finished, reset to transcribed until
                 else:
                     # If the state was set to finished, reset to transcribed until
-                    if subtitle.state_id == 2:
-                        subtitle.state_id = 9
+                    # Also reset the timestamps
+                    if subtitle.state_id == 8:
+                        subtitle.state_id = 2
+                        subtitle.time_processed_transcribing = "00:00:00"
+                        subtitle.time_processed_syncing = "00:00:00"
+                        subtitle.time_processed_quality_check_done = "00:00:00" 
                 subtitle.save()
                 
                 # Setting the times still missing!!

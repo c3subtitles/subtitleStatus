@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script imports the video links and video length into the database
+# This script imports the video links into the database
 # language table in the columns lang_amara_short and lang_en
 # The amara data is available here:
 # http://www.amara.org/api2/partners/languages/?format=json

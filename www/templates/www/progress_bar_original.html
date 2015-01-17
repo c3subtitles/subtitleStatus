@@ -1,0 +1,19 @@
+{% comment %}
+	Progress Bar for original Subtitles
+{% endcomment %} 
+ 
+ 
+ <div class="progress"> 
+	<div class="progress-bar progress-bar-success" style="width: {{ value.bar_checked }}%">
+		<span class="sr-only">{{ value.bar_checked }}% Checking done</span>{{ value.bar_checked }}%
+	</div>
+	<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ value.bar_synced }}%">
+		<span class="sr-only">{{ value.bar_synced }}% Syncing done</span>{{ value.bar_synced }}%
+	</div>
+	<div class="progress-bar progress-bar-danger" style="width: {{ value.bar_transcribed }}%">
+		<span class="sr-only">{{ value.bar_transcribed }}% Transcribing done</span>{{ value.bar_transcribed }}%
+	</div>
+	<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: {{ value.bar_nothing }}%">
+		<span class="sr-only">{{ value.bar_nothing }}% Nothing done yet</span>{{ value.bar_nothing }}%
+	</div>		
+</div> 

@@ -30,6 +30,7 @@ basis_url = "http://www.amara.org/api2/partners/videos/"
 # Query for all talks who have an amara key
 all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "")
 
+
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key
     url = basis_url+any_talk.amara_key+"/languages/?format=json"
@@ -76,7 +77,7 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.state_id = 8
                     subtitle.time_processed_transcribing = subtitle.talk.video_duration
                     subtitle.time_processed_syncing = subtitle.talk.video_duration
-                    subtitle.time_processed_quality_check_done = subtitle.talk.video_duration
+                    subtitle.time_quality_check_done = subtitle.talk.video_duration
                 # If translation and finished set state to translation finished
                 elif (not subtitle.is_original_lang and subtitle.complete):
                     subtitle.state_id = 12
@@ -95,9 +96,28 @@ for any_talk in all_talks_with_amara_key:
                         subtitle.time_processed_quality_check_done = "00:00:00" 
                 subtitle.save()
                 
-                # Setting the times still missing!!
-                
         subtitles_counter += 1
-        
-print("Done!")
-
+      
+print("Import Done!")
+print("Checking the states..")
+my_subtitles = Subtitle.objects.all().order_by("-id")
+# Check every Subtitle in the Database for 
+for my_subtitle in my_subtitles:
+    # Original language
+    if my_subtitle.is_original_lang:
+        if my_subtitle.time_processed_transcribing < my_subtitle.talk.video_duration:
+            my_subtitle.state_id = 2 # Transcribed until...
+        elif my_subtitle.time_processed_syncing < my_subtitle.talk.video_duration:
+            my_subtitle.state_id = 5 # Synced until...
+        elif my_subtitle.time_quality_check_done < my_subtitle.talk.video_duration:
+            my_subtitle.state_id = 7 # Quality check done until...
+        else:
+            my_subtitle.state_id = 8 # Completed!
+    # Translation
+    else:
+        if my_subtitle.time_processed_translating < my_subtitle.talk.video_duration:
+            my_subtitle.state_id = 11 # Translated until...
+        else:
+            my_subtitle.state_id = 12 # Translation finished...
+    my_subtitle.save()      
+print(".. done!")

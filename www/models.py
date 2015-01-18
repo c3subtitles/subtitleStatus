@@ -24,7 +24,8 @@ class Event(BasisModell):
     timeslot_duration = models.TimeField(default = "00:15", blank = True)
     days = models.PositiveSmallIntegerField(default = 1, blank = True)
     schedule_xml_link = models.URLField()
-
+    city = models.CharField(max_length = 30, default = "", blank = True)
+    building = models.CharField(max_length = 30, default = "", blank = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -128,6 +129,7 @@ class Subtitle(BasisModell):
     time_quality_check_done = models.TimeField(default = "00:00", blank = True)
     time_processed_translating = models.TimeField(default = "00:00", blank = True)
     needs_automatic_syncing = models.BooleanField(default = False)
+    blocked = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

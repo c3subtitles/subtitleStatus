@@ -1,4 +1,4 @@
-{% load staticfiles %}
+﻿{% load staticfiles %}
 {% load bootstrap %}
 <!DOCTYPE html> 
 <html lang="en">
@@ -46,12 +46,14 @@
 				<li class="active"><a href="#">Home</a></li>
 			</ul-->
 			<ul class="nav navbar-nav navbar-right">
+
 				{% if user.is_authenticated %}
 				<li><a href="#">Logged in as {{ user.username }}</a></li>
 				<li><a href="{% url 'account.views.logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
 				{% else %}
 				<li><a href="{% url 'account.views.login' %}">Login</a></li>
 				{% endif %}
+
 			</ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -73,5 +75,14 @@
 				{% endblock %}
 		    </div>
 		</div>
+		
+	<footer class="footer navbar-inverse">
+		<div class="container">
+			<p class="text-muted">Place sticky footer content here.</p>
+		</div>
+    </footer>
+	
+		
+		
 	</body>
 </html>

@@ -4,45 +4,126 @@
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
-<div>
-	<a href=".." class="btn btn-default">back</a>
-	<h1>{{talk.title}}</h1>
-	<ul class="list" >
-		<li>Talk-Language: {{talk.orig_language}}</li>
-		<li>Track: {{talk.track}}</li>
-		<li>Type of: {{talk.type_of}}</li>
-		<li>Room: {{talk.room}}</li>
-		<li>Video Duration: {{talk.video_duration | date:"H:i:s"}}</li>
-	</ul>
-	
-	<div class="amara-embed" data-height="350px" data-width="600px" data-url="{{talk.link_to_video_file}}">
+
+<a href="/event/{{talk.event.acronym}}" class="btn btn-default">back</a>
+<h1>{{talk.title}}</h1>
+<h2>
+{% if not talk.subtitle_talk == "None" %}
+	{{talk.subtitle_talk}}
+{% endif %}
+</h2>
+<div class="container">	
+	<div class="row">
+		<div class="col-xs-6">        
+			<div>
+				<div role="tabpanel">
+
+			  <!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<!--li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li-->
+						<li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
+						<li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
+						<li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
+					</ul>
+
+			  <!-- Tab panes -->
+					<div class="tab-content">
+						<!--div role="tabpanel" class="tab-pane active" id="home">
+							<ul class="list" >
+								<li>Language: {{talk.orig_language}}</li>
+								<li>Room: {{talk.room}}</li>
+								<li>Video Duration: {{talk.video_duration | date:"H:i:s"}}</li>
+								<li>Abstract: {{talk.abstract}}</li>
+							</ul>
+						</div-->
+						<div role="tabpanel" class="tab-pane active" id="video_data">
+							<dl class="dl-horizontal">
+								<dt>Video duration</dt>
+								<dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+								<dt>Language</dt>
+								<dd>{{talk.orig_language.language_en}}</dd>
+								<dt>Abstract</dt>
+								<dd>{{talk.abstract}}</dd>
+							</dl>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="Description">
+							<p>{{talk.description}}</p>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="Misc">
+							<dl class="dl-horizontal">
+								<dt>Talk ID</dt>
+								<dd>{{talk.frab_id_talk}}</dd>
+								<dt>Day</dt>
+								<dd>{{talk.day.index}}</dd>
+								<dt>Room</dt>
+								<dd>{{talk.room}}</dd>
+								<dt>Start</dt>
+								<dd>{{talk.start}}</dd>
+								<dt>Duration</dt>
+								<dd>{{talk.duration | date:"H:i:s"}}</dd>
+								<dt>Track</dt>
+								<dd>{{talk.track}}</dd>
+								<dt>Type of</dt>
+								<dd>{{talk.type_of}}</dd>
+								<dt>Speaker</dt>
+								{% for speaker in talk.persons.all %}
+								<dd>{{speaker.name}}</dd>
+								{% endfor %}
+							</dl>
+						
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			{% for sub in subtitles %}
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-1">
+						<p>{{sub.language.language_en}}</p>
+					</div>
+					<div class="col-md-5">
+						{% if sub.is_original_lang %}
+							{% include "www/progress_bar_original.html" with value=sub %}
+						{% else %}
+							{% include "www/progress_bar_translation.html" with value=sub %}       
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="col-xs-6">
+			<div class="amara-embed" data-height="328px" data-width="580px" data-url="{{talk.link_to_video_file}}">
+			</div>
+		</div>
 	</div>
-	
+</div>
+<div>
 	<div>
 	{% for sub in subtitles %}
-		{% if sub.form.visible_fields != NULL %}
+		{% if sub.blocked %}
+		<p>{{ sub.language.language_en }}: Not available right now. Probably autosync in progress, please come back later!</p>
+		{% elif sub.form.visible_fields != NULL %}
 		<form class="form" action="/subtitle/{{sub.pk}}/" method="POST">
-		
+			<p>{{ sub.language.language_en }}: {{ sub.state }}</p>
 			{{ sub.form|bootstrap }}
-		
 			{% csrf_token %}
+			<input class="btn btn-success"  type="submit" value="Save">
 			{%if sub.form.quick_btn %}
-            <input class="btn btn-default" type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
-			
+            <input class="btn btn-default btn-save" type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
             {% endif %}
-			<input class="btn btn-success btn-save"  type="submit" value="Save">
 			
 		</form>
-	{% else %}
-	<p>{{ sub.language }}: Finished</p>
+		{% else %}
+		<p>{{ sub.language.language_en }}: Finished</p>
 	{% endif %}
 	{% endfor %}
 	</div>
-	
-	
-
 </div>
 <script type="text/javascript" src='http://amara.org/embedder-iframe'>
 </script>
+
 
 {% endblock %}

@@ -4,38 +4,27 @@
 
 {% block content %}
     <h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
-    
-    <div class="progress"> 
-		<div class="progress-bar progress-bar-success" style="width: {{ my_event.bar_checked }}%">
-			<span class="sr-only">{{ my_event.bar_checked }}% Checking done</span>{{ my_event.bar_checked }}%
-		</div>
-		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ my_event.bar_synced }}%">
-			<span class="sr-only">{{ my_event.bar_synced }}% Syncing done</span>{{ my_event.bar_synced }}%
-		</div>
-		<div class="progress-bar progress-bar-danger" style="width: {{ my_event.bar_transcribed }}%">
-        	<span class="sr-only">{{ my_event.bar_transcribed }}% Transcribing done</span>{{ my_event.bar_transcribed }}%
-        </div>
-		<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: {{ my_event.bar_nothing }}%">
-            <span class="sr-only">{{ my_event.bar_nothing }}% Nothing done yet</span>{{ my_event.bar_nothing }}%
-		</div>
-		
-	</div>    
-    
+	
+	{% include "www/progress_bar_original.html" with value=my_event %}       
   
-    <ul>
+    <div class="btn-group">
         {% for day in my_event.event_days_set.all %}
-            <li> <a href= "/event/{{my_event.acronym}}/day/{{day.index}}">{{day.index}} </a></li>
+             <a href= "/event/{{my_event.acronym}}/day/{{day.index}}"><button type="button" class="btn btn-default">{{day.index}} </button></a>
         {% endfor %}
-    </ul>
-    <ul>
+    </div>
+    <div class="btn-group">
         {% for lang in my_langs %}
-            <li> <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}">{{lang.language_en}}</a></li>
+            <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.language_en}}</button></a>
         {% endfor %}
-    </ul>
-    
-    {% for every_talk in my_talks %}
+    </div>
 
-        {% include "www/talk_small.html" with talk=every_talk %}
-
-    {% endfor%}
+	{% for talks_line in talks_chunk %}
+		<div class="row">
+			{% for every_talk in talks_line %}
+				<div class="col-md-4">
+					{% include "www/talk_small.html" with talk=every_talk %}
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}	
 {% endblock %}

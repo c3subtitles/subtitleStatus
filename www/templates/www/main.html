@@ -2,9 +2,21 @@
 
 {% block content %}
 <div class="jumbotron" >
-	<h1>This is subtitle</h1>
-	<p>DO SOMETHING</p>
-	<p><a class="btn btn-primary btn-lg" href="http://subtitles.media.ccc.de/wiki/" role="button">Wiki »</a></p>
+	<h1>C3Subtitles</h1>
+	<div class="row">
+		<div class="col-md-4">
+			<p>How do I use this page?</p>
+			<p><a class="btn btn-primary btn-lg" href="http://subtitles.media.ccc.de/wiki/" role="button">Wiki »</a></p>
+		</div>
+		<div class="col-md-4">
+			<p>Where do I find the finished subtitles?</p>
+			<p><a class="btn btn-primary btn-lg" href="ftp://ftp.ccc.de/congress/" role="button">CCC FTP-Server »</a></p>
+		</div>
+		<div class="col-md-4">
+			<p>Twitter</p>
+			<p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3subtitles" role="button">Twitter »</a></p>
+		</div>
+	</div>
 </div>
 
 <div>
@@ -20,31 +32,15 @@
 		
 		<div class="collapse" id="{{ event.pk }}_id">
 			<p>{{ event.start }} - {{ event.end }}</p>
+			<p>{{ event.building }}, {{ event.city }}</p>
 		</div>
 	</h2>
-	<div class="progress"> 
-		<div class="progress-bar progress-bar-success" style="width: {{ event.bar_checked }}%">
-			<span class="sr-only">{{ event.bar_checked }}% Checking done</span>{{ event.bar_checked }}%
-		</div>
-		<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ event.bar_synced }}%">
-			<span class="sr-only">{{ event.bar_synced }}% Syncing done</span>{{ event.bar_synced }}%
-		</div>
-		<div class="progress-bar progress-bar-danger" style="width: {{ event.bar_transcribed }}%">
-        	<span class="sr-only">{{ event.bar_transcribed }}% Transcribing done</span>{{ event.bar_transcribed }}%
-        </div>
-		<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: {{ event.bar_nothing }}%">
-            <span class="sr-only">{{ event.bar_nothing }}% Nothing done yet</span>{{ event.bar_nothing }}%
-		</div>
-		
-	</div>
+	
+	{% include "www/progress_bar_original.html" with value=event %}
+	
 	{% endif %}
 {% endfor %}
-<script type="text/javascript" >
-$('#pb').css({
-	'background-image': 'none',
-	'background-color': 'grey'
-});
-</script>
+
 
 	
 </div>

@@ -1,12 +1,27 @@
-﻿<div>
-	<ul>
-		<li><a href="/talk/{{talk.pk}}">{{talk.title}}</a></li>
-		<li>Talk-Language: {{talk.orig_language}}</li>
-		<li>Track: {{talk.track}}</li>
-		<li>Type of: {{talk.type_of}}</li>
-		<li>Room: {{talk.room}}</li>
-		<li>Day: {{talk.day.index}}</li>
-		<li>Start: {{talk.start |time:"H:i"}}</li>
-
-	</ul>
-</div>
+﻿<a href="/talk/{{talk.pk}}" class="thumbnail">
+	<h3>{{talk.title}}</h3>
+	<dl class="dl-horizontal">
+		<dt>Talk-ID</dt>
+		<dd>{{talk.frab_id_talk}}</dd>
+		<dt>Language</dt>
+		<dd>{{talk.orig_language.language_en}}</dd>
+		<dt>Video-Duration</dt>
+		<dd>{{talk.video_duration|time:"H:i:s"}}</dd>
+	</dl>
+	{% if talk.has_bar %}
+		{% include "www/progress_bar_original.html" with value=talk %}
+	{% else %}
+		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
+    {% endif %}
+</a>
+{% comment %}
+<ul>
+	<li><a href="/talk/{{talk.pk}}">{{talk.title}}</a></li>
+	<li>Talk-Language: {{talk.orig_language.language_en}}</li>
+	<li>Track: {{talk.track}}</li>
+	<li>Type of: {{talk.type_of}}</li>
+	<li>Room: {{talk.room}}</li>
+	<li>Day: {{talk.day.index}}</li>
+	<li>Start: {{talk.start |time:"H:i"}}</li>
+</ul>
+{% endcomment %}

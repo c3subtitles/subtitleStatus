@@ -107,17 +107,24 @@
 		<p>{{ sub.language.language_en }}: Not available right now. Probably autosync in progress, please come back later!</p>
 		{% elif sub.form.visible_fields != NULL %}
 		<form class="form" action="/subtitle/{{sub.pk}}/" method="POST">
-			<p>{{ sub.language.language_en }}: {{ sub.state }}</p>
-			{{ sub.form|bootstrap }}
-			{% csrf_token %}
-			<input class="btn btn-success"  type="submit" value="Save">
-			{%if sub.form.quick_btn %}
-            <input class="btn btn-default btn-save" type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
-            {% endif %}
-			
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<p>{{ sub.language.language_en }}: {{ sub.state }}</p>
+				</div>
+				<div class="panel-body">
+				{{ sub.form|bootstrap }}
+				{% csrf_token %}
+				<input class="btn btn-success"  type="submit" value="Save">
+				{%if sub.form.quick_btn %}
+				<input class="btn btn-default btn-save" type="submit" name="quick_finish_btn" value="{{sub.form.quick_btn}}">
+				{% endif %}
+				</div>
+			</div>
 		</form>
 		{% else %}
-		<p>{{ sub.language.language_en }}: Finished</p>
+		<div class="alert alert-success" role="alert">
+			<p>{{ sub.language.language_en }}: Finished</p>
+		</div>
 	{% endif %}
 	{% endfor %}
 	</div>

@@ -43,11 +43,19 @@
 								<dt>Language</dt>
 								<dd>{{talk.orig_language.language_en}}</dd>
 								<dt>Abstract</dt>
-								<dd>{{talk.abstract}}</dd>
+								{% if talk.abstract != "None" %}
+									<dd>{{talk.abstract|linebreaksbr}}</dd>
+								{% else %}
+									<dd> - </dd>
+								{% endif %}
 							</dl>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="Description">
-							<p>{{talk.description}}</p>
+							{% if talk.description != "None" %}
+								<p>{{talk.description|linebreaksbr}}</p>
+							{% else %}
+								<p>No description available.</p>
+							{% endif%}
 						</div>
 						<div role="tabpanel" class="tab-pane" id="Misc">
 							<dl class="dl-horizontal">

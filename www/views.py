@@ -39,8 +39,7 @@ def start(request):
             # transcribed / red
             every_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
             # nothing / grey
-            every_event.bar_nothing = round(100.0 - float(every_event.bar_checked) - float(every_event.bar_synced) - float(every_event.bar_transcribed),1)
-                # maximum of 100%
+            every_event.bar_nothing = progress_bar_nothing(every_event.bar_checked, every_event.bar_synced, every_event.bar_transcribed)
 
     except ObjectDoesNotExist:
         raise Http404
@@ -78,7 +77,7 @@ def event (request, event_acronym, *args, **kwargs):
         # transcribed / red
         my_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
         # nothing / grey
-        my_event.bar_nothing = round(100.0 - float(my_event.bar_checked) - float(my_event.bar_synced) - float(my_event.bar_transcribed),1)
+        my_event.bar_nothing = progress_bar_nothing(my_event.bar_checked, my_event.bar_synced, my_event.bar_transcribed)
         
         for every_talk in my_talks:
             time_sum = 0
@@ -222,12 +221,12 @@ def talk (request, talk_id):
                 # transcribed / red
                 s.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
                 # nothing / grey
-                s.bar_nothing = 100.0 - float(s.bar_checked) - float(s.bar_synced)- float(s.bar_transcribed)
+                s.bar_nothing = progress_bar_nothing(s.bar_checked, s.bar_synced, s.bar_transcribed)
             else:
                 # translated
                 s.bar_checked = progress_bar_checked(translated, time_sum)
                 # not translated
-                s.bar_nothing = 100.0 - float(s.bar_checked)
+                s.bar_nothing = progress_bar_nothing (s.bar_checked)
         
     except ObjectDoesNotExist:
         raise Http404
@@ -323,7 +322,7 @@ def progress_bar_synced(checked, synced, time_sum):
 def progress_bar_transcribed(transcribed, synced, time_sum):
     return str( round( ( ( ( float(transcribed) - float(synced) ) /float(time_sum))*100),1 ) )       
     
-def progress_bar_nothing(checked, synced, transcribed):
+def progress_bar_nothing(checked, synced = 0.0, transcribed = 0.0):
     return str( round( (100.0 - float(checked) - float(synced) - float(transcribed)),1 ) )
     
 def progress_bar_time_sum(my_talks):

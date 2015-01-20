@@ -3,18 +3,17 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from www.models import Event, Talk, Subtitle, Language
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import MultipleObjectsReturned
 from django.contrib import messages
 import datetime
-from copy import deepcopy
+#from copy import deepcopy
 
 # Create your views here.
 
 def start(request):
     try:
-        my_events = deepcopy(Event.objects.all().order_by("-start"))
-        progress_bar = {}
-        
-        
+        my_events = list(Event.objects.all().order_by("-start"))     
+
         # Function for the progress bars
         for every_event in my_events:
             time_sum = 0
@@ -40,17 +39,17 @@ def start(request):
             # transcribed / red
             every_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
             # nothing / grey
-            every_event.bar_nothing = progress_bar_nothing(transcribed,time_sum)
-                
+            every_event.bar_nothing = round(100.0 - float(every_event.bar_checked) - float(every_event.bar_synced) - float(every_event.bar_transcribed),1)
+                # maximum of 100%
+
     except ObjectDoesNotExist:
         raise Http404
     
-    return render(request, "www/main.html", {"events" : my_events,
-        "progress_bar" : progress_bar})
+    return render(request, "www/main.html", {"events" : my_events} )
 
 def event (request, event_acronym, *args, **kwargs):
     try:
-        my_event = deepcopy(Event.objects.select_related('Event_Days','Talk','Language').get(acronym = event_acronym))
+        my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym = event_acronym)
         my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
         "date",
         "start",
@@ -79,7 +78,35 @@ def event (request, event_acronym, *args, **kwargs):
         # transcribed / red
         my_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
         # nothing / grey
-        my_event.bar_nothing = progress_bar_nothing(transcribed,time_sum)
+        my_event.bar_nothing = round(100.0 - float(my_event.bar_checked) - float(my_event.bar_synced) - float(my_event.bar_transcribed),1)
+        
+        for every_talk in my_talks:
+            time_sum = 0
+            transcribed = 0
+            synced = 0
+            checked = 0
+            
+            # Get the one corresponding subtitle to the talk
+            try: 
+                this_subtitle = my_subtitles.get(talk = every_talk)
+                every_talk.has_bar = True
+                time_sum = seconds(every_talk.video_duration)
+                transcribed = seconds(this_subtitle.time_processed_transcribing)
+                synced = seconds(this_subtitle.time_processed_syncing)
+                checked = seconds(this_subtitle.time_quality_check_done)
+                every_talk.bar_checked = progress_bar_checked(checked, time_sum)
+                every_talk.bar_synced = progress_bar_synced(checked, synced, time_sum)
+                every_talk.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
+                every_talk.bar_nothing = progress_bar_nothing(every_talk.bar_checked, every_talk.bar_synced, every_talk.bar_transcribed)
+                # If there is not a Original-Subtitle or several                
+            except ObjectDoesNotExist:
+                every_talk.has_bar = False
+            except MultipleObjectsReturned:
+                every_talk.has_bar = False
+            
+        # Create cunk for the 3 columns display of talks on event page
+        talks_per_line = 3
+        talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
         
     except ObjectDoesNotExist:
         raise Http404
@@ -87,7 +114,8 @@ def event (request, event_acronym, *args, **kwargs):
     return render(request, "www/event.html", {"my_talks" : my_talks,
         "my_event" : my_event,
         "my_days" : my_event.event_days_set.all(),
-        "my_langs" : my_langs} )
+        "my_langs" : my_langs,
+        "talks_chunk" : talks_chunk} )
 
 
 def get_subtitle_form(request, talk, sub):
@@ -128,10 +156,10 @@ Für den Fall ohne Quality check wäre es:
     """
     form = SubtitleForm(request.POST or None, instance=sub)
 
-    if sub.time_processed_transcribing == talk.video_duration != sub.time_processed_syncing:
-        return "Automatic syncing, please wait"
+    if sub.blocked: #time_processed_transcribing == talk.video_duration != sub.time_processed_syncing:
+        return "Automatic syncing, please wait and come back later!"
     if sub.time_quality_check_done == talk.video_duration:
-        return "Yeah it's done."
+        return "Finished :)"
 
     if sub.is_original_lang:
         if sub.time_processed_transcribing < talk.video_duration:
@@ -140,10 +168,6 @@ Für den Fall ohne Quality check wäre es:
             form.fields.pop("time_processed_syncing")
             form.fields.pop("time_quality_check_done")
             form.fields.pop("time_processed_translating")
-
-            #  state_en nur id 1,2,3 oder 9
-            new_query = form.fields['state'].choices.queryset.filter(pk__in=[1,2,3,9])
-            form.fields['state']._set_queryset(new_query)
 
             # add finish transcribing button
             form.quick_btn = 'Finish Transcribing'
@@ -156,29 +180,22 @@ Für den Fall ohne Quality check wäre es:
             #form.fields.pop("time_quality_check_done")
             form.fields.pop("time_processed_translating")
 
-            #  state_en nur id 1,2,3 oder 9
-            new_query = form.fields['state'].choices.queryset.filter(pk__in=[6,7])
-            form.fields['state']._set_queryset(new_query)
-
             # add finish transcribing button
             form.quick_btn = 'Finish quality check'
 
             return form
     else: #no sub.is_original_lang
-        # remove the unnecessary fields
-        form.fields.pop("time_processed_transcribing")
-        form.fields.pop("time_processed_syncing")
-        form.fields.pop("time_quality_check_done")
-        #form.fields.pop("time_processed_translating")
+        if sub.time_processed_translating < talk.video_duration:
+            # remove the unnecessary fields
+            form.fields.pop("time_processed_transcribing")
+            form.fields.pop("time_processed_syncing")
+            form.fields.pop("time_quality_check_done")
+            #form.fields.pop("time_processed_translating")
 
-        #  state_en nur id 1,2,3 oder 9
-        new_query = form.fields['state'].choices.queryset.filter(pk__in=[11,12])
-        form.fields['state']._set_queryset(new_query)
+            # add finish transcribing button
+            form.quick_btn = 'Finish Translating'
 
-        # add finish transcribing button
-        form.quick_btn = 'Finish Translating'
-
-        return form
+            return form
 
     return
 
@@ -186,10 +203,32 @@ Für den Fall ohne Quality check wäre es:
 def talk (request, talk_id):
     try:
         my_talk = Talk.objects.get(pk=talk_id)
-        my_subtitles = my_talk.subtitle_set.all().order_by("is_original_lang","language__lang_amara_short")
+        my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
         for s in my_subtitles:
             s.form = get_subtitle_form(request, my_talk, s)
             # todo add ifs so that its set correct depending of the status
+            #?!
+            time_sum = seconds(my_talk.video_duration)
+            transcribed = seconds(s.time_processed_transcribing)
+            synced = seconds(s.time_processed_syncing)
+            checked = seconds(s.time_quality_check_done)
+            translated = seconds(s.time_processed_translating)
+       
+            if s.is_original_lang:
+                # checked / green
+                s.bar_checked = progress_bar_checked(checked, time_sum)
+                # synced / orange
+                s.bar_synced = progress_bar_synced(checked, synced, time_sum)
+                # transcribed / red
+                s.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
+                # nothing / grey
+                s.bar_nothing = 100.0 - float(s.bar_checked) - float(s.bar_synced)- float(s.bar_transcribed)
+            else:
+                # translated
+                s.bar_checked = progress_bar_checked(translated, time_sum)
+                # not translated
+                s.bar_nothing = 100.0 - float(s.bar_checked)
+        
     except ObjectDoesNotExist:
         raise Http404
 
@@ -214,19 +253,22 @@ def updateSubtitle(request, subtitle_id):
             if my_obj.time_processed_transcribing < talk.video_duration:
                 # transcribing done
                 my_obj.time_processed_transcribing = talk.video_duration
-                my_obj.state_id = 3 # Transcript is complete
+                my_obj.state_id = 4 # Do not touch
                 my_obj.needs_automatic_syncing = True
+                my_obj.blocked = True
             elif my_obj.time_processed_transcribing == talk.video_duration and my_obj.time_processed_syncing < talk.video_duration:
                 # Syncing is done - if manually
                 my_obj.time_processed_syncing = talk.video_duration
-                my_obj.state_id = 6 # Timing is complete
+                my_obj.state_id = 7 # Quality check done until
             elif my_obj.time_processed_transcribing == my_obj.time_processed_syncing == talk.video_duration:
                 # quality_check done
                 my_obj.time_quality_check_done = talk.video_duration
                 my_obj.state_id = 8 # Done
+                # Execute Python Skript for Amara Sync in the Background?!
         else: # Translation
             my_obj.time_processed_translating = talk.video_duration
             my_obj.state_id = 12 # Translation finished
+            # Execute Python Skript for Amara Sync in the Background?!
 
         my_obj.save()
         messages.add_message(request, messages.INFO, 'Step finished.')
@@ -236,10 +278,10 @@ def updateSubtitle(request, subtitle_id):
         # do stuff
         my_obj.save()
         messages.add_message(request, messages.INFO, 'Subtitle Status is saved.')
-        return redirect(talk, talk_id=my_obj.talk.pk)
+        return redirect('talk', talk_id=my_obj.talk.pk)
     else:
         messages.add_message(request, messages.WARNING, 'You entered invalid data.')
-        return redirect(talk, talk_id=my_obj.talk.pk)
+        return redirect('talk', talk_id=my_obj.talk.pk)
 
 
 
@@ -281,8 +323,8 @@ def progress_bar_synced(checked, synced, time_sum):
 def progress_bar_transcribed(transcribed, synced, time_sum):
     return str( round( ( ( ( float(transcribed) - float(synced) ) /float(time_sum))*100),1 ) )       
     
-def progress_bar_nothing(transcribed,time_sum):
-    return str( round( (((float(time_sum) - float(transcribed))/float(time_sum))*100),1 ) )
+def progress_bar_nothing(checked, synced, transcribed):
+    return str( round( (100.0 - float(checked) - float(synced) - float(transcribed)),1 ) )
     
 def progress_bar_time_sum(my_talks):
     time_sum = 0

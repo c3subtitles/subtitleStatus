@@ -111,6 +111,8 @@ for any in my_subtitles:
     s = smtplib.SMTP('localhost')
     s.send_message(msg)
     s.quit()
+    
+    # Reset Flag
     any.needs_automatic_syncing = False
     any.save()
     

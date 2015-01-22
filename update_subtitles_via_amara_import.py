@@ -14,7 +14,6 @@ import os
 import sys
 import json
 import urllib.request
-import time
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -27,8 +26,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from www.models import Talk, Language, Subtitle, States
 
 basis_url = "http://www.amara.org/api2/partners/videos/"
-
-before = time.time()
 
 # Query for all talks who have an amara key
 all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk")
@@ -98,11 +95,8 @@ for any_talk in all_talks_with_amara_key:
                 
         subtitles_counter += 1
 
-        after = time.time()
-print(after-before)
-
 print("Import Done!")
-before = time.time()
+
 print("Checking the states..")
 my_subtitles = Subtitle.objects.all().order_by("-id").select_related("States").select_related("talk__video_duration")
 # Check every Subtitle in the Database for 
@@ -136,5 +130,3 @@ for my_subtitle in my_subtitles:
                 my_subtitle.state_id = 12 # Translation finished...
                 my_subtitle.save()
 print(".. done!")
-after = time.time()
-print(after-before)

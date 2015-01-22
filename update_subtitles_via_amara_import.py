@@ -14,6 +14,7 @@ import os
 import sys
 import json
 import urllib.request
+import time
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -27,9 +28,10 @@ from www.models import Talk, Language, Subtitle, States
 
 basis_url = "http://www.amara.org/api2/partners/videos/"
 
-# Query for all talks who have an amara key
-all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "")
+before = time.time()
 
+# Query for all talks who have an amara key
+all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk")
 
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key
@@ -47,20 +49,18 @@ for any_talk in all_talks_with_amara_key:
     # Get necessary info from json file for one subtitle
     subtitles_counter = 0
     while subtitles_counter < number_of_available_subtitles:
-        amara_language_code = amara_answer["objects"][subtitles_counter]["language_code"]
-        amara_is_original = amara_answer["objects"][subtitles_counter]["is_original"]
         amara_num_versions = amara_answer["objects"][subtitles_counter]["num_versions"]
-        amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
         
         # Ignore Subtitles with no saved revision
         if amara_num_versions > 0:
             #print("version in json: ",amara_num_versions)
             
-            # Get language connection from database
-            language = Language.objects.get(lang_amara_short = amara_language_code)
+            amara_language_code = amara_answer["objects"][subtitles_counter]["language_code"]
+            amara_is_original = amara_answer["objects"][subtitles_counter]["is_original"]
+            amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
             
             # Get or create subtitle entry from database
-            subtitle = Subtitle.objects.get_or_create(language = language, talk = any_talk)[0]
+            subtitle = Subtitle.objects.get_or_create(language__lang_amara_short = amara_language_code , talk = any_talk)[0]
             # Only change something in the database if the version of the subtitle is not the same as before            
             if (subtitle.revision != amara_num_versions):
                 subtitle.is_original_lang = amara_is_original
@@ -97,27 +97,44 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.save()
                 
         subtitles_counter += 1
-      
+
+        after = time.time()
+print(after-before)
+
 print("Import Done!")
+before = time.time()
 print("Checking the states..")
-my_subtitles = Subtitle.objects.all().order_by("-id")
+my_subtitles = Subtitle.objects.all().order_by("-id").select_related("States").select_related("talk__video_duration")
 # Check every Subtitle in the Database for 
 for my_subtitle in my_subtitles:
     # Original language
     if my_subtitle.is_original_lang:
         if my_subtitle.time_processed_transcribing < my_subtitle.talk.video_duration:
-            my_subtitle.state_id = 2 # Transcribed until...
+            if my_subtitle.state_id != 2:
+                my_subtitle.state_id = 2 # Transcribed until...
+                my_subtitle.save()
         elif my_subtitle.time_processed_syncing < my_subtitle.talk.video_duration:
-            my_subtitle.state_id = 5 # Synced until...
+            if my_subtitle.state_id != 5:
+                my_subtitle.state_id = 5 # Synced until...
+                my_subtitle.save()
         elif my_subtitle.time_quality_check_done < my_subtitle.talk.video_duration:
-            my_subtitle.state_id = 7 # Quality check done until...
+            if my_subtitle.state_id != 7:
+                my_subtitle.state_id = 7 # Quality check done until...
+                my_subtitle.save()
         else:
-            my_subtitle.state_id = 8 # Completed!
+            if my_subtitle.state_id != 8:
+                my_subtitle.state_id = 8 # Completed!
+                my_subtitle.save()
     # Translation
     else:
         if my_subtitle.time_processed_translating < my_subtitle.talk.video_duration:
-            my_subtitle.state_id = 11 # Translated until...
+            if my_subtitle.state_id != 11:
+                my_subtitle.state_id = 11 # Translated until...
+                my_subtitle.save()
         else:
-            my_subtitle.state_id = 12 # Translation finished...
-    my_subtitle.save()      
+            if my_subtitle.state_id != 12:
+                my_subtitle.state_id = 12 # Translation finished...
+                my_subtitle.save()
 print(".. done!")
+after = time.time()
+print(after-before)

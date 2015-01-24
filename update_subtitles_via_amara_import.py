@@ -29,10 +29,11 @@ basis_url = "http://www.amara.org/api2/partners/videos/"
 
 # Query for all talks who have an amara key
 all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk")
-
+#print(all_talks_with_amara_key.count())
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key
     url = basis_url+any_talk.amara_key+"/languages/?format=json"
+    #print(url)
     
     # Get json file form amara and convert to dict
     request = urllib.request.Request(url)
@@ -47,17 +48,18 @@ for any_talk in all_talks_with_amara_key:
     subtitles_counter = 0
     while subtitles_counter < number_of_available_subtitles:
         amara_num_versions = amara_answer["objects"][subtitles_counter]["num_versions"]
-        
+
         # Ignore Subtitles with no saved revision
         if amara_num_versions > 0:
             #print("version in json: ",amara_num_versions)
-            
             amara_language_code = amara_answer["objects"][subtitles_counter]["language_code"]
             amara_is_original = amara_answer["objects"][subtitles_counter]["is_original"]
             amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
+
+            language = Language.objects.get(lang_amara_short = amara_language_code)
             
             # Get or create subtitle entry from database
-            subtitle = Subtitle.objects.get_or_create(language__lang_amara_short = amara_language_code , talk = any_talk)[0]
+            subtitle = Subtitle.objects.get_or_create(language = language , talk = any_talk)[0]
             # Only change something in the database if the version of the subtitle is not the same as before            
             if (subtitle.revision != amara_num_versions):
                 subtitle.is_original_lang = amara_is_original

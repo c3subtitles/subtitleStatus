@@ -130,6 +130,8 @@ class Subtitle(BasisModell):
     time_processed_translating = models.TimeField(default = "00:00", blank = True, verbose_name="")
     needs_automatic_syncing = models.BooleanField(default = False)
     blocked = models.BooleanField(default = False)
+    needs_sync_to_ftp = models.BooleanField(default = False)
+    needs_delete_from_ftp = models.BooleanField(default = False)    
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

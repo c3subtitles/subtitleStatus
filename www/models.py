@@ -13,6 +13,10 @@ class BasisModell(models.Model):
         abstract = True
 
 
+# Pro Event welche Unterordner auf dem FTP Subtitles bekommen und wie darin das File-Format der Videos heißt
+class Folders_Extensions(BasisModell):
+    subfolder = models.CharField(max_length = 10, default = "", blank = True)
+    file_extension = models.CharField(max_length = 10, default = "", blank = True)        
 
 # Event + dessen Daten
 class Event(BasisModell):
@@ -26,7 +30,9 @@ class Event(BasisModell):
     schedule_xml_link = models.URLField()
     city = models.CharField(max_length = 30, default = "", blank = True)
     building = models.CharField(max_length = 30, default = "", blank = True)
-
+    ftp_startfolder = models.CharField(max_length = 100, default = "", blank = True)
+    ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
+    
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
             savedXML = f.read()
@@ -131,7 +137,7 @@ class Subtitle(BasisModell):
     needs_automatic_syncing = models.BooleanField(default = False)
     blocked = models.BooleanField(default = False)
     needs_sync_to_ftp = models.BooleanField(default = False)
-    needs_removal_from_ftp = models.BooleanField(default = False)    
+    needs_removal_from_ftp = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

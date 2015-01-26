@@ -77,12 +77,19 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.time_processed_transcribing = subtitle.talk.video_duration
                     subtitle.time_processed_syncing = subtitle.talk.video_duration
                     subtitle.time_quality_check_done = subtitle.talk.video_duration
+                    subtitle.needs_sync_to_ftp = True
                 # If translation and finished set state to translation finished
                 elif (not subtitle.is_original_lang and subtitle.complete):
                     subtitle.state_id = 12
                     subtitle.time_processed_translating = subtitle.talk.video_duration
+                    subtitle.needs_sync_to_ftp = True
                 # If translation and not finished set state to translation in progress    
                 elif (not subtitle.is_original_lang and not subtitle.complete):
+                    # If the state was set to finished but isn't anymore, remove from ftp
+                    # Server and reset the timestamp
+                    if subtitle.state_id == 12:
+                        subtitle.needs_removal_from_ftp = True
+                        subtitle.time_processed_translating = "00:00:00"
                     subtitle.state_id = 11
                 # If orignal and not finished but was set to finished, reset to transcribed until
                 else:
@@ -93,6 +100,7 @@ for any_talk in all_talks_with_amara_key:
                         subtitle.time_processed_transcribing = "00:00:00"
                         subtitle.time_processed_syncing = "00:00:00"
                         subtitle.time_processed_quality_check_done = "00:00:00" 
+                        subtitle.needs_removal_from_ftp = True
                 subtitle.save()
                 
         subtitles_counter += 1

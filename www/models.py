@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 from django.db import models
 
@@ -18,6 +18,10 @@ class Folders_Extensions(BasisModell):
     subfolder = models.CharField(max_length = 10, default = "", blank = True)
     file_extension = models.CharField(max_length = 10, default = "", blank = True)        
 
+    def __str__(self):
+        return self.subfolder+","+self.file_extension
+
+    
 # Event + dessen Daten
 class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)

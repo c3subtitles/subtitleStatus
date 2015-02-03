@@ -44,7 +44,9 @@ from www.models import Talk, Language, Subtitle, Event, Folders_Extensions
 FROM = "localhost@subtitles.ber.c3voc.de"
 TO = "barbara+transcript@selfnet.de"
 TEXT = []
-TEXT.append("??? ")
+#TEXT.append("??? ")
+email_text_added_subtitles = "Added subtitle files:\n"
+email_text_removed_subtitles = "Removed subtitle files:\n"
 
 # Stuff for the sftp access
 USER = "voc-subs"
@@ -80,7 +82,7 @@ for this_subtitle in my_subtitles:
     # Create filename with subtitle_id.lang_short_srt.srt
     filename = str(this_subtitle.id)+"."+this_subtitle.language.lang_short_srt+".srt"
     
-    print(filename)
+    #print(filename)
     
     language = this_subtitle.language.lang_amara_short
     language_srt = this_subtitle.language.lang_short_srt
@@ -117,21 +119,18 @@ for this_subtitle in my_subtitles:
     
     # All possible subfolders for an event and their file extensions
     event_file_formats = this_subtitle.talk.event.ftp_subfolders_extensions.all()
-    #for every in event_file_formats:
-    #    print(every)
     
     # "Save" offset directory
     with sftp.cd():
         # Temporarily change to event subfolder
         sftp.chdir(event_subfolder)
-        print(sftp.pwd)
+        #print(sftp.pwd)
         for every_file_format in event_file_formats:
             # Keep event subfolder "in mind"
             with sftp.cd():
                 # Change to format associated subfolder
                 sftp.chdir(every_file_format.subfolder)
-                print("Format: "+every_file_format.file_extension)
-                print(sftp.pwd)
+                #print(sftp.pwd)
                 
                 # Get the name of all files in current folder
                 subfolder_file_list = sftp.listdir()
@@ -146,41 +145,99 @@ for this_subtitle in my_subtitles:
                     result = reg_pattern.match(every_filename)
                     # Only proceed if the right filename was found
                     if (result != None):
-                        #print(test)
+                        # Get Filename from regex
                         filename_talk = result.group("filename")
-                    #print(reg_pattern.group("extension"))
-                        print(filename_talk)
+                        #print(filename_talk)
+                        
                         # Create the name for the *.srt-File and copy the file created from amara with that name
                         filename_subtitle = filename_talk+language_srt+".srt"
                         shutil.copyfile(filename,filename_subtitle)
-                        print(filename_subtitle)
+                        #print(filename_subtitle)
                         
                         # Copy created *.srt-file on sftp
                         with sftp.cd():
                             sftp.chdir("subtitles")
                             sftp.put(filename_subtitle)
-        print(sftp.pwd)
-    print(sftp.pwd)
-        
-
+                        
+                        # Add text to email body
+                        email_text_added_subtitles+=filename_subtitle+"\n"
+                        
+    # Reset needs_sync_to_ftp Flag
+    this_subtitle.needs_sync_to_ftp = False
+    this_subtitle.save()
     
-    # Jeden Ordner in dem das File liegen sollte nachsehen, zusammenbauen aus Pfad Event und Unterpfade Formate
-    # Jeweils mit "with"
-    # Nachsehen ob es File mit frab-Id im namen gibt (iterieren und reg-ex??)
-        # Wenn nein nächster Untertitel
-        # Wenn ja File-Namen passend abschneiden
-        # File-Namen für UT zusammen bauen und unter neuen Namen kopieren, diesen dann in ./subtitles auf remote kopieren
-        # Pro UT eine Zeile an E-Mail hängen
-        
-    # Reset Flag needs_sync_to_ftp
-    
+ 
 # Get all subtitles with flag "needs_removal_from_ftp"
-my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True).select_related("Talk","Event","Folders_Extensions","Language")
+my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True).select_related("Talk","Event","Folders_Extensions")
 
-# Iterate over every possible subfolder (depending on event)
-    #Find out name of file and then check if available in ./subtitles Folder an delete it
-
-    # Reset Flag "needs_removal_from_ftp"
+for this_subtitle in my_subtitles:
+    frab_id = str(this_subtitle.talk.frab_id_talk)
+    print(frab_id)
     
+    # Get Event Subfolder and format folders
+    event_subfolder = this_subtitle.talk.event.ftp_startfolder
+    
+    # If the event doesn't have a subfolder on the ftp server for $reason, next loop
+    if event_subfolder == "":
+        continue
+    
+    # All possible subfolders for an event and their file extensions
+    event_file_formats = this_subtitle.talk.event.ftp_subfolders_extensions.all()
+    
+    # Create regex and compile
+    pattern = "(?P<filename>^\S*-"+frab_id+"\S*[.]srt)"
+    reg_pattern = re.compile(pattern)
+    
+    # Temporarily change to event subfolder
+    with sftp.cd():
+        sftp.chdir(event_subfolder)
+    
+        # Change to format associated subfolder
+        for every_file_format in event_file_formats:
+            # Keep event subfolder "in mind"
+            with sftp.cd():
+                # Change to format associated subfolder
+                sftp.chdir(every_file_format.subfolder+"/subtitles")
+                #print(sftp.pwd)
+                
+                # Get the name of all files in current folder
+                subfolder_file_list = sftp.listdir()
+                
+                for every_filename in subfolder_file_list:
+                    #print(frab_id)
+                    result = reg_pattern.match(every_filename)
+                    # Only proceed if the right filename was found
+                    if (result != None):
+                        # Get Filename from regex
+                        filename_talk = result.group("filename")
+                        #print(filename_talk)
+                        # Check if file really exists and delete it
+                        if sftp.exists(filename_talk):
+                            sftp.remove(filename_talk)
+                        if not sftp.exists(filename_talk):
+                            email_text_removed_subtitles+=filename_talk+"\n"
+
+    # Reset needs_sync_to_ftp Flag
+    this_subtitle.needs_removal_from_ftp = False
+    this_subtitle.save()
+    
+#print()
+#print(email_text_added_subtitles)
+#print(email_text_removed_subtitles)
+
 # Close sftp Connection:
 sftp.close()
+
+# Building the email
+msg = MIMEMultipart()
+msg["Subject"] = "Synced or removed srt-Files from FTP-Server"
+msg["From"] = FROM
+msg["To"] = TO
+if email_text_added_subtitles != "Added subtitle files:\n" or email_text_removed_subtitles != "Removed subtitle files:\n":
+    text = MIMEText(email_text_added_subtitles+"\n\n"+email_text_removed_subtitles, "plain")
+    msg.attach(text)
+    s = smtplib.SMTP('localhost')
+    s.send_message(msg)
+    s.quit()
+else: 
+    print("Nothing done!")

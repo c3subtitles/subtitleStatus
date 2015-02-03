@@ -83,6 +83,7 @@ for this_subtitle in my_subtitles:
     print(filename)
     
     language = this_subtitle.language.lang_amara_short
+    language_srt = this_subtitle.language.lang_short_srt
     amara_key = this_subtitle.talk.amara_key
     # Create download url
     url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
@@ -124,12 +125,12 @@ for this_subtitle in my_subtitles:
         # Temporarily change to event subfolder
         sftp.chdir(event_subfolder)
         print(sftp.pwd)
-        for every in event_file_formats:
+        for every_file_format in event_file_formats:
             # Keep event subfolder "in mind"
             with sftp.cd():
                 # Change to format associated subfolder
-                sftp.chdir(every.subfolder)
-                print("Format: "+every.file_extension)
+                sftp.chdir(every_file_format.subfolder)
+                print("Format: "+every_file_format.file_extension)
                 print(sftp.pwd)
                 
                 # Get the name of all files in current folder
@@ -137,13 +138,27 @@ for this_subtitle in my_subtitles:
                 
                 # Get frab_id from database to compare all file entries with
                 frab_id = str(this_subtitle.talk.frab_id_talk)
-                
+                pattern = "(?P<filename>^\S*-"+frab_id+"\S*[.])(?P<extension>\S*)"
+                reg_pattern = re.compile(pattern)
                 for every_filename in subfolder_file_list:
-                    print(every_filename)
-                    print(frab_id)
-                    # Do regex stuff to find the right name
-                    # Build string for the right filename
-                    # copy created file on sftp
+                    #print(every_filename)
+                    #print(frab_id)
+                    result = reg_pattern.match(every_filename)
+                    # Only proceed if the right filename was found
+                    if (result != None):
+                        #print(test)
+                        filename_talk = result.group("filename")
+                    #print(reg_pattern.group("extension"))
+                        print(filename_talk)
+                        # Create the name for the *.srt-File and copy the file created from amara with that name
+                        filename_subtitle = filename_talk+language_srt+".srt"
+                        shutil.copyfile(filename,filename_subtitle)
+                        print(filename_subtitle)
+                        
+                        # Copy created *.srt-file on sftp
+                        with sftp.cd():
+                            sftp.chdir("subtitles")
+                            sftp.put(filename_subtitle)
         print(sftp.pwd)
     print(sftp.pwd)
         

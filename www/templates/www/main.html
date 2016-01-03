@@ -7,14 +7,17 @@
 		<div class="col-md-4">
 			<p>How do I use this page?</p>
 			<p><a class="btn btn-primary btn-lg" href="http://subtitles.media.ccc.de/wiki/" role="button">Wiki »</a></p>
+			<p>Also check the wiki for the subtitles style guide!</p>
 		</div>
 		<div class="col-md-4">
 			<p>Where do I find the finished subtitles?</p>
-			<p><a class="btn btn-primary btn-lg" href="ftp://ftp.ccc.de/congress/" role="button">CCC FTP-Server »</a></p>
+			<p><a class="btn btn-primary btn-lg" href="http://cdn.media.ccc.de/congress/" role="button">CCC FTP-Server »</a></p>
+			<p>Choose an event and check for the subtitles subfolder in the video folders!</p>
 		</div>
 		<div class="col-md-4">
 			<p>Twitter</p>
 			<p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3subtitles" role="button">@c3subtitles »</a></p>
+			<p>...</p>
 		</div>
 	</div>
 </div>
@@ -28,7 +31,7 @@
 			{{ event.title }}
 		</a>
 		
-		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
 		
 		<div class="collapse" id="{{ event.pk }}_id">
 			<p>{{ event.start }} - {{ event.end }}</p>

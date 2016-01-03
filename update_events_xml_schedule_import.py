@@ -323,10 +323,10 @@ def read_xml_and_save_to_database():
                 
                 # persons
                 talk_persons = []
-                if fahrplan[counter_day][counter_room][counter_event][13].tag == "persons":
+                if fahrplan[counter_day][counter_room][counter_event][14].tag == "persons":
                     # check if there is any subelement in persons
-                    if len(fahrplan[counter_day][counter_room][counter_event][13]):
-                        for person in fahrplan[counter_day][counter_room][counter_event][13]:
+                    if len(fahrplan[counter_day][counter_room][counter_event][14]):
+                        for person in fahrplan[counter_day][counter_room][counter_event][14]:
                             talk_persons.append([int(person.get("id")), person.text])
                     else:
                         talk_persons = []
@@ -338,9 +338,9 @@ def read_xml_and_save_to_database():
 
                 # links
                 talk_links = []
-                if fahrplan[counter_day][counter_room][counter_event][14].tag == "links":
-                    if len(fahrplan[counter_day][counter_room][counter_event][14]):
-                        for l in fahrplan[counter_day][counter_room][counter_event][14]:
+                if fahrplan[counter_day][counter_room][counter_event][15].tag == "links":
+                    if len(fahrplan[counter_day][counter_room][counter_event][15]):
+                        for l in fahrplan[counter_day][counter_room][counter_event][15]:
                             talk_links.append([l.get("href"), l.text])
                     else:
                         talk_links = []
@@ -379,7 +379,8 @@ def save_event_data():
 def save_day_data():
     global my_event, my_day
     global day_index, day_date, day_start, day_end
-    my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index)[0]
+
+    my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index, date = day_date)[0]
     
     my_day.day_start = day_start
     my_day.day_end = day_end

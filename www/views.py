@@ -243,7 +243,7 @@ def updateSubtitle(request, subtitle_id):
         raise Http404
 
     form = SubtitleForm(request.POST or None, instance=my_obj)
-
+    print(request.POST)
     # quick finish btn
     if 'quick_finish_btn' in request.POST:
         talk = my_obj.talk

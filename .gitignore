@@ -48,6 +48,9 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
+/static/*
+www/migrations/
+www/static/
 
 # Sphinx documentation
 docs/_build/
@@ -55,3 +58,14 @@ docs/_build/
 
 # Django
 virtualEnv/
+subtitleStatus/settings.py
+
+# Downloadsfolder
+downloads/*.sbv
+downloads/*.srt
+
+# Personal folders
+andi-temp/*
+
+# Credentials files
+credentials.py

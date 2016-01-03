@@ -10,7 +10,7 @@
 # right file extension and name in the corresponding folder
 #
 # In the case that the "needs_removal_from_ftp" flag was set, it checks for the
-# file in the folders and removes it.
+# file in the folders and removes them.
 #
 # Afterwards it sends a log via email and resets the flags in the database
 #==============================================================================
@@ -39,25 +39,21 @@ from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Language, Subtitle, Event, Folders_Extensions
+import credentials as cred
 
 # Stuff for the e-mail
-FROM = "localhost@subtitles.ber.c3voc.de"
-TO = "barbara+transcript@selfnet.de"
+FROM = cred.E_MAIL_FROM
+TO = cred.E_MAIL_TO
 TEXT = []
 #TEXT.append("??? ")
 email_text_added_subtitles = "Added subtitle files:\n"
 email_text_removed_subtitles = "Removed subtitle files:\n"
 
 # Stuff for the sftp access
-USER = "voc-subs"
-HOST = "koeln.ftp.media.ccc.de"
-PRIV_KEY = "/home/subtitles/.ssh/id_rsa"
-"""
-# Check current workfolder
-if os.getcwd() != "/opt/subtitleStatus":
-    print("Wrong path!")
-    sys.exit(0)
-"""    
+USER = cred.SFTP_USER
+HOST = cred.SFTP_HOST
+PRIV_KEY = cred.SFTP_PRIV_KEY
+
 # Change to /opt/subtitleStatus/downloads/subtitles_srt
 os.chdir("./downloads/subtitles_srt")
 # Check if the folder changing worked

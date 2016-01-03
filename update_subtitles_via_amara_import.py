@@ -101,6 +101,7 @@ for any_talk in all_talks_with_amara_key:
                         subtitle.time_processed_syncing = "00:00:00"
                         subtitle.time_processed_quality_check_done = "00:00:00" 
                         subtitle.needs_removal_from_ftp = True
+                        
                 subtitle.save()
                 
         subtitles_counter += 1
@@ -109,34 +110,48 @@ print("Import Done!")
 
 print("Checking the states..")
 my_subtitles = Subtitle.objects.all().order_by("-id").select_related("States").select_related("talk__video_duration")
-# Check every Subtitle in the Database for 
+# Check every Subtitle in the Database for the states if they fit the flags
 for my_subtitle in my_subtitles:
     # Original language
     if my_subtitle.is_original_lang:
+        # Still in transcribing process
         if my_subtitle.time_processed_transcribing < my_subtitle.talk.video_duration:
             if my_subtitle.state_id != 2:
                 my_subtitle.state_id = 2 # Transcribed until...
                 my_subtitle.save()
+        # Still in syncing procress
         elif my_subtitle.time_processed_syncing < my_subtitle.talk.video_duration:
             if my_subtitle.state_id != 5:
                 my_subtitle.state_id = 5 # Synced until...
                 my_subtitle.save()
+        # Still in quality check procress
         elif my_subtitle.time_quality_check_done < my_subtitle.talk.video_duration:
             if my_subtitle.state_id != 7:
                 my_subtitle.state_id = 7 # Quality check done until...
                 my_subtitle.save()
+        # Finished, depending on the time stamps
         else:
             if my_subtitle.state_id != 8:
                 my_subtitle.state_id = 8 # Completed!
                 my_subtitle.save()
     # Translation
     else:
+        # Still in translating process
         if my_subtitle.time_processed_translating < my_subtitle.talk.video_duration:
             if my_subtitle.state_id != 11:
                 my_subtitle.state_id = 11 # Translated until...
                 my_subtitle.save()
+        # If time translated = videoduration, check if marked as finished or not
         else:
-            if my_subtitle.state_id != 12:
-                my_subtitle.state_id = 12 # Translation finished...
-                my_subtitle.save()
+            # If marked as finished:
+            if my_subtitle.complete:
+                if my_subtitle.state_id != 12:
+                    my_subtitle.state_id = 12 # Translation finished...
+                    my_subtitle.save()
+            # If subtitle is not complete but time stamps tell the opposite reset them
+            else:
+                 my_subtitle.time_processed_translating = "00:00:00"
+                 my_subtitle.state_id = 11
+                 my_subtitle.needs_removal_from_ftp = True
+                 my_subtitle.save()
 print(".. done!")

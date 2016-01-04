@@ -113,7 +113,7 @@
 		</div>
 		<div class="col-xs-6">
 		    {% if talk.amara_key != "" %}
-			    <div class="amara-embed" data-height="300px" data-width="540px" data-url="{{talk.link_to_video_file}}">
+			    <div class="amara-embed" data-height="300px" data-width="540px" data-url="{% if talk.link_to_video_file != "" %}{{talk.link_to_video_file}}{% else %}https://www.youtube.com//watch?v={{talk.youtube_key}}{% endif %}">
 			    </div>
 			{% endif %}
 			<div>

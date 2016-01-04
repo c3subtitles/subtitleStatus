@@ -112,10 +112,16 @@
 			{% endfor %}
 		</div>
 		<div class="col-xs-6">
-			<div class="amara-embed" data-height="300px" data-width="540px" data-url="{{talk.link_to_video_file}}">
-			</div>
+		    {% if talk.amara_key != "" %}
+			    <div class="amara-embed" data-height="300px" data-width="540px" data-url="{{talk.link_to_video_file}}">
+			    </div>
+			{% endif %}
 			<div>
-				<h4><a href="https://www.amara.org/videos/{{ talk.amara_key }}/"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Work on this video on Amara!</a></h4>
+			    {% if talk.amara_key != "" %}
+				    <h4><a href="https://www.amara.org/videos/{{ talk.amara_key }}/"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Work on this video on Amara!</a></h4>
+				{% else %}
+				    <h4>The video is not yet available</h4>
+				{% endif %}
 			</div>
 		</div>
 	</div>

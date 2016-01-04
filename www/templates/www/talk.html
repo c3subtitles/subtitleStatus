@@ -39,7 +39,11 @@
 						<div role="tabpanel" class="tab-pane active" id="video_data">
 							<dl class="dl-horizontal">
 								<dt>Video duration</dt>
-								<dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+								{% if talk.amara_key != "" %}
+								    <dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+								{% else %}
+								    <dd>Not yet available</dd>
+								{% endif %}
 								<dt>Language</dt>
 								<dd>{{talk.orig_language.language_en}}</dd>
 								<dt>Abstract</dt>

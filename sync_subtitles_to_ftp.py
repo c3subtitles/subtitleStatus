@@ -102,8 +102,9 @@ for this_subtitle in my_subtitles:
     for line in text_content:
         line = re.sub("<i>","*",line)
         line = re.sub("</i>","*",line)
-        #print(line)
         file.write(line)
+        file.write("\n")
+        #print(line)
     file.close()
     
     # Get Event Subfolder and format folders

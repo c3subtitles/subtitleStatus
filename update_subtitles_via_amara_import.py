@@ -25,7 +25,17 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Language, Subtitle, States
 
+import credentials as cred
+
 basis_url = "http://www.amara.org/api2/partners/videos/"
+anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.289 Version/12.01',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+    'Accept-Encoding': '',
+    'Accept-Language': 'en-US,en;q=0.8',
+    'Connection': 'keep-alive',
+    'X-api-username': cred.AMARA_USER,
+    'X-api-key': cred.AMARA_API_KEY}
 
 # Query for all talks who have an amara key
 all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk")
@@ -33,10 +43,10 @@ all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_re
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key
     url = basis_url+any_talk.amara_key+"/languages/?format=json"
-    #print(url)
+    print(url)
     
     # Get json file form amara and convert to dict
-    request = urllib.request.Request(url)
+    request = urllib.request.Request(url, headers = anti_bot_header)
     response = urllib.request.urlopen(request)
     encoding = response.info().get_param('charset', 'utf8')
     amara_answer = json.loads(response.read().decode(encoding))

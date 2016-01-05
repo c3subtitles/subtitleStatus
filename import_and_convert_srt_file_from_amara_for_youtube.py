@@ -58,6 +58,8 @@ for any in my_subtitles:
     transcript = []
     # Ignore first two lines and check lines afterwards
     transcript.append(text_content[2]+"\n")
+    if len(text_content) < 5:
+        continue
     if text_content[3] == "":
         i = 3
     elif text_content[4] == "":

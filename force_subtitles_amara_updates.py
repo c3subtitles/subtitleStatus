@@ -26,6 +26,9 @@ all_subtitles = Subtitle.objects.all()
 
 for every_subtitle in all_subtitles:
     every_subtitle.revision = 0
+    # If all subtitles should be reuploaded remove the comments:
+    # if every_subtitle.complete == True:
+    #    every_subtitle.needs_sync_to_ftp = True
     every_subtitle.save()
 
 print("Alle Subtitles-Datensätze zurück gesetzt!")

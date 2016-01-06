@@ -25,6 +25,8 @@ subt = Subtitle.objects.get(id = subtitle_id)
 if subt.is_original_lang:
     subt.time_processed_transcribing = "00:00:00"
     subt.time_processed_syncing = "00:00:00"
+    subt.time_quality_check_done = "00:00:00"
+    subt.needs_automatic_syncing = False
     subt.state_id = 2
     subt.blocked = False
     subt.save()

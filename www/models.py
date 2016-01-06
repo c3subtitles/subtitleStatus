@@ -142,6 +142,7 @@ class Subtitle(BasisModell):
     blocked = models.BooleanField(default = False)
     needs_sync_to_ftp = models.BooleanField(default = False)
     needs_removal_from_ftp = models.BooleanField(default = False)
+    tweet = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

@@ -40,6 +40,10 @@ def create_tweet_for_media(subtitle_id):
         my_event = Event.objects.get(id = my_talk.event_id)
     except:
         return(None)
+        
+    # Workaround for Klingon :D
+    if my_language.id = 289
+        my_language.language_en = "Original"
     string = my_language.language_en + " #subtitles released for "
     name_of_talk = my_talk.title
     hashtag = my_event.hashtag
@@ -71,6 +75,10 @@ def create_tweet_for_YT(subtitle_id):
         my_event = Event.objects.get(id = my_talk.event_id)
     except:
         return(None)
+        
+    # Workaround for Klingon :D
+    if my_language.id = 289
+        my_language.language_en = "Original"
     string = my_language.language_en + " #subtitles released for "
     name_of_talk = my_talk.title
     hashtag = my_event.hashtag

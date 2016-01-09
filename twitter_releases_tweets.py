@@ -24,9 +24,20 @@ from django.core.exceptions import ObjectDoesNotExist
 from www.models import Subtitle
 import tweets
 
+# Set all finished subtitles to "tweet"
+"""
+my_subtitles = Subtitle.objects.filter(complete = True)
+for every in my_subtitles:
+    every.tweet = True
+    every.save()
+print(my_subtitles.count())
+"""
+
+# Get alls Subtitles which are already synced to the ftp and still need a tweet
 my_subtitles = Subtitle.objects.filter(tweet = True, needs_sync_to_ftp = False)
 
 for s in my_subtitles:
-    tweet_subtitles_update_media(s.id)
+    tweets.tweet_subtitles_update_media(s.id)
     s.tweet = False
     s.save()
+    

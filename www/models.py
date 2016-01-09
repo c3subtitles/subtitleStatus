@@ -119,6 +119,8 @@ class Talk(BasisModell):
     youtube_key = models.CharField(max_length = 20, blank = True)
     video_duration = models.TimeField(default = "00:00", blank = True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)
+    youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
+    youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
 
 # Zustand des Untertitels oder dessen Pad
 class States(BasisModell):
@@ -144,6 +146,8 @@ class Subtitle(BasisModell):
     needs_sync_to_ftp = models.BooleanField(default = False)
     needs_removal_from_ftp = models.BooleanField(default = False)
     tweet = models.BooleanField(default = False)
+    needs_sync_to_YT = models.BooleanField(default = False)
+    needs_removal_from_YT = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
 # Links aus dem Fahrplan

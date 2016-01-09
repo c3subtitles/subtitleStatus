@@ -6,8 +6,8 @@
 # new subtitles for this talk and if so puts them in the database or updates
 # them
 #
-# Currently missing: The setting of the corresponding timestamps
-#
+# Currently missing: The setting of the corresponding timestamps because there
+# is now way to read them from a nonfinished file
 #==============================================================================
 
 import os

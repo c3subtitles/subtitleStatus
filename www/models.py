@@ -36,6 +36,7 @@ class Event(BasisModell):
     building = models.CharField(max_length = 30, default = "", blank = True)
     ftp_startfolder = models.CharField(max_length = 100, default = "", blank = True)
     ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
+    hashtag = models.CharField(max_length = 10, default = "", blank = True)
     
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:

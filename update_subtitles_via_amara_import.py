@@ -88,12 +88,14 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.time_processed_syncing = subtitle.talk.video_duration
                     subtitle.time_quality_check_done = subtitle.talk.video_duration
                     subtitle.needs_sync_to_ftp = True
+                    subtitle.needs_sync_to_YT = True
                     subtitle.tweet = True
                 # If translation and finished set state to translation finished
                 elif (not subtitle.is_original_lang and subtitle.complete):
                     subtitle.state_id = 12
                     subtitle.time_processed_translating = subtitle.talk.video_duration
                     subtitle.needs_sync_to_ftp = True
+                    subtitle.needs_sync_to_YT = True
                     subtitle.tweet = True
                 # If translation and not finished set state to translation in progress    
                 elif (not subtitle.is_original_lang and not subtitle.complete):
@@ -101,6 +103,7 @@ for any_talk in all_talks_with_amara_key:
                     # Server and reset the timestamp
                     if subtitle.state_id == 12:
                         subtitle.needs_removal_from_ftp = True
+                        subtitle.needs_removal_from_YT = True
                         subtitle.time_processed_translating = "00:00:00"
                     subtitle.state_id = 11
                 # If orignal and not finished but was set to finished, reset to transcribed until
@@ -113,6 +116,7 @@ for any_talk in all_talks_with_amara_key:
                         subtitle.time_processed_syncing = "00:00:00"
                         subtitle.time_processed_quality_check_done = "00:00:00" 
                         subtitle.needs_removal_from_ftp = True
+                        subtitle.needs_removal_from_YT = True
                         
                 subtitle.save()
                 
@@ -165,5 +169,6 @@ for my_subtitle in my_subtitles:
                  my_subtitle.time_processed_translating = "00:00:00"
                  my_subtitle.state_id = 11
                  my_subtitle.needs_removal_from_ftp = True
+                 my_subtitle.needs_removal_from_YT = True
                  my_subtitle.save()
 print(".. done!")

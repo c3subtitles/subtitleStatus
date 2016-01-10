@@ -54,17 +54,22 @@ def event (request, event_acronym, *args, **kwargs):
         "start",
         "room__room")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
+        subtitles_filters = {}
         if "day" in kwargs and int(kwargs.get("day")) > 0:
-            my_talks = my_talks.filter(day__index = kwargs.pop("day"))
+            day = kwargs.pop("day")
+            my_talks = my_talks.filter(day__index = day)
+            subtitles_filters["talk__day__index"] = day
         if "lang" in kwargs:
-            my_talks = my_talks.filter(orig_language__lang_amara_short = kwargs.pop("lang"))
-        
+            lang = kwargs.pop("lang")
+            my_talks = my_talks.filter(orig_language__lang_amara_short = lang)
+            subtitles_filters["language"] = lang
+
         time_sum = 0
         transcribed = 0
         synced = 0
         checked = 0
         time_sum = progress_bar_time_sum(my_talks)
-        my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = my_event)
+        my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = my_event, **subtitles_filters)
         # Sum up all parts
         for every_subtitle in my_subtitles:
             transcribed += seconds(every_subtitle.time_processed_transcribing)

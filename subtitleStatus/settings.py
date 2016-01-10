@@ -13,6 +13,7 @@ import os
 import configparser
 import string
 from django.utils.crypto import get_random_string
+from account.settings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = BASE_DIR

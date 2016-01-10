@@ -101,13 +101,18 @@ for any in my_subtitles:
     attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
     msg.attach(attachment)
     
+    # Fix für keinen Video-Link in der DB
+    video_link = any.talk.link_to_video_file
+    if video_link == "":
+        video_link = "https://http://www.youtube.com/watch?v=" + any.talk.youtube_key
+    
     # Build text for email with important Links
     text = MIMEText("Talk: "+any.talk.title+" \n"+
         "Talk-ID: "+str(any.talk.id)+"\n"+
         "Subtitle-ID: "+str(any.id)+"\n"+
         "Adminer-Adresse: http://subtitles.media.ccc.de/adminer/?pgsql=&username=percidae&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n"+
         "Bitte auf Youtube laden und syncen lassen!\n\n"+
-        "Video-Adresse: "+any.talk.link_to_video_file+"\n"+
+        "Video-Adresse: "+video_link+"\n"+
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/", "plain")
     msg.attach(text)
     msg["Subject"] = "Transcript needs your attention: "+str(any.talk.frab_id_talk)+' "'+any.talk.title+'"'

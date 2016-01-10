@@ -28,6 +28,6 @@ try:
 except:
     print("Fehler")
     
-print("Fahrplanversion für 31c3 zurück gesetzt!")
+print("Fahrplanversion für 32c3 zurück gesetzt!")
 
 

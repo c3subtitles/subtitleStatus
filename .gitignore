@@ -74,6 +74,7 @@ barbara-temp/
 # Credentials files
 credentials.py
 
+
 # Stuff
 temp.py
 test.py
@@ -97,3 +98,6 @@ subtitleStatus/subtitleStauts.cfg
 ytc-oauth2.json
 client_secrets.json
 
+# temporaries
+*~
+flycheck_*.py

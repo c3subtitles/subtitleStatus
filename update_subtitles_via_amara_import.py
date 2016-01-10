@@ -27,6 +27,52 @@ from www.models import Talk, Language, Subtitle, States
 
 import credentials as cred
 
+
+# Function to completely reset an subtitle
+# Used if a subtitle was formerly set to complete but isn't anymore
+def reset_subtitle(my_subtitle):
+    # Stuff which need to be done in any case, no matter if its a translation or not
+    my_subtitle.complete = False
+    my_subtitle.needs_removal_from_ftp = True
+    my_subtitle.needs_removal_from_YT = True
+
+    # If the subtitle is the original language,reset all states to the start
+    if my_subtitle.is_original_lang:
+        my_subtitle.time_processed_transcribing = "00:00:00"
+        my_subtitle.time_processed_syncing = "00:00:00"
+        my_subtitle.time_processed_quality_check_done = "00:00:00"
+        my_subtitle.state_id = 2 # Transcribed until
+    # If the subtitle is a translation..   
+    elif not my_subtitle.is_original_lang:
+        my_subtitle.state_id = 11 # Translated until...
+        my_subtitle.time_processed_translating = "00:00:00"
+     
+    my_subtitle.save()
+
+    
+# Set all states to complete and sync and tweet-flags, no matter if translation or original
+def set_subtitle_complete(my_subtitle, video_duration):
+    # Stuff which need to be done anyway..
+    my_subtitle.complete = True
+    my_subtitle.needs_sync_to_YT = True
+    my_subtitle.needs_sync_to_ftp = True
+    my_subtitle.tweet = True
+    
+    # Stuff only if the subtitle is the orignal language
+    if my_subtitle.is_original_lang:
+        my_subtitle.time_processed_transcribing = my_subtitle.talk.video_duration
+        my_subtitle.time_processed_syncing = my_subtitle.talk.video_duration
+        my_subtitle.time_processed_quality_check_done = my_subtitle.talk.video_duration
+        my_subtitle.state_id = 8 # Complete
+    
+    # Stuff only if the subtitle is a translation
+    elif not my_subtitle.is_orignal_lang:
+        my_subtitle.time_processed_translating = my_subtitle.talk.video_duration
+        my_subtitle.state_id = 12 # Translation finished
+    
+    my_subtitle.save()
+
+
 basis_url = "http://www.amara.org/api2/partners/videos/"
 anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.289 Version/12.01',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -61,7 +107,7 @@ for any_talk in all_talks_with_amara_key:
 
         # Ignore Subtitles with no saved revision
         if amara_num_versions > 0:
-            #print("version in json: ",amara_num_versions)
+            print("version in json: ",amara_num_versions)
             amara_language_code = amara_answer["objects"][subtitles_counter]["language_code"]
             amara_is_original = amara_answer["objects"][subtitles_counter]["is_original"]
             amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
@@ -70,7 +116,8 @@ for any_talk in all_talks_with_amara_key:
             
             # Get or create subtitle entry from database
             subtitle = Subtitle.objects.get_or_create(language = language , talk = any_talk)[0]
-            # Only change something in the database if the version of the subtitle is not the same as before            
+            
+            # Almost only change something in the database if the version of the subtitle is not the same as before
             if (subtitle.revision != amara_num_versions):
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
@@ -78,48 +125,35 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.save()
                 
                 # If subtitle is orignal and new inserted into the database, set state to transcribed until..
-                if(subtitle.revision == "1" and subtitle.is_original_lang):
+                if (subtitle.revision == "1" and subtitle.is_original_lang):
                     subtitle.state_id = 2
+                    subtitle.save()
+                if (subtitle.revision == "1" and not subtitle.is_original_lang):
+                    subtitle.state_id = 11
+                    subtitle.save()
 
-                # If orignal and finished set state to finished
-                if(subtitle.is_original_lang and subtitle.complete):
-                    subtitle.state_id = 8
-                    subtitle.time_processed_transcribing = subtitle.talk.video_duration
-                    subtitle.time_processed_syncing = subtitle.talk.video_duration
-                    subtitle.time_quality_check_done = subtitle.talk.video_duration
-                    subtitle.needs_sync_to_ftp = True
-                    subtitle.needs_sync_to_YT = True
-                    subtitle.tweet = True
-                # If translation and finished set state to translation finished
-                elif (not subtitle.is_original_lang and subtitle.complete):
-                    subtitle.state_id = 12
-                    subtitle.time_processed_translating = subtitle.talk.video_duration
-                    subtitle.needs_sync_to_ftp = True
-                    subtitle.needs_sync_to_YT = True
-                    subtitle.tweet = True
+                # If orignal or translation and finished set state to finished
+                if subtitle.complete:
+                    set_subtitle_complete(subtitle)
                 # If translation and not finished set state to translation in progress    
                 elif (not subtitle.is_original_lang and not subtitle.complete):
                     # If the state was set to finished but isn't anymore, remove from ftp
                     # Server and reset the timestamp
                     if subtitle.state_id == 12:
-                        subtitle.needs_removal_from_ftp = True
-                        subtitle.needs_removal_from_YT = True
-                        subtitle.time_processed_translating = "00:00:00"
-                    subtitle.state_id = 11
+                        reset_subtitle(subtitle)
                 # If orignal and not finished but was set to finished, reset to transcribed until
                 else:
                     # If the state was set to finished, reset to transcribed until
                     # Also reset the timestamps
                     if subtitle.state_id == 8:
-                        subtitle.state_id = 2
-                        subtitle.time_processed_transcribing = "00:00:00"
-                        subtitle.time_processed_syncing = "00:00:00"
-                        subtitle.time_processed_quality_check_done = "00:00:00" 
-                        subtitle.needs_removal_from_ftp = True
-                        subtitle.needs_removal_from_YT = True
+                        reset_subtitle(subtitle)
                         
-                subtitle.save()
-                
+            # If the revision is the same, still check the complete-Flag!
+            if (subtitle.revision == amara_num_versions):
+                # If the saved subtitle on amara is not complete anymore but was complete
+                if not amara_subtitles_complete and subtitle.complete:
+                    reset_subtitle(subtitle)
+                    
         subtitles_counter += 1
 
 print("Import Done!")

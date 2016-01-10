@@ -15,6 +15,7 @@ import string
 from django.utils.crypto import get_random_string
 from account.settings import *
 
+SITE_ID = 1
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = BASE_DIR
 
@@ -63,6 +64,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'bootstrapform',
     'account',
     'www',

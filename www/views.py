@@ -63,7 +63,6 @@ def event (request, event_acronym, *args, **kwargs):
             lang = kwargs.pop("lang")
             my_talks = my_talks.filter(orig_language__lang_amara_short = lang)
             subtitles_filters["language__lang_amara_short"] = lang
-            subtitles_filters["is_original_lang"] = True
 
         time_sum = 0
         transcribed = 0

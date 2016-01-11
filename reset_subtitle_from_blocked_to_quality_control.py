@@ -35,4 +35,5 @@ try:
         subt.state_id = 7 # Quality control done until
         subt.save()
         print("Done")
-
+except:
+    print("Fehler!")

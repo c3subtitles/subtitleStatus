@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script helps creating Tweets for released subtitles ans sending them
+# This script helps creating Tweets for released subtitles and sending them
 # No Flags will be reset!
 #==============================================================================
 

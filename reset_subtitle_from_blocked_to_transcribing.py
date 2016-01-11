@@ -18,15 +18,20 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Subtitle
 
-subtitle_id = 86
+if len(sys.argv) != 2:
+    sys.exit("Too many or less arguments, one is needed!")
 
-subt = Subtitle.objects.get(id = subtitle_id)
-# Nur wenn der Untertitel orignal ist weiter machen und auf transcribing zurück setzen
-if subt.is_original_lang:
-    subt.time_processed_transcribing = "00:00:00"
-    subt.time_processed_syncing = "00:00:00"
-    subt.time_quality_check_done = "00:00:00"
-    subt.needs_automatic_syncing = False
-    subt.state_id = 2
-    subt.blocked = False
-    subt.save()
+subtitle_id = sys.argv[1]
+
+try:
+    subt = Subtitle.objects.get(id = subtitle_id)
+    # Nur wenn der Untertitel orignal ist weiter machen und auf transcribing zurück setzen
+    if subt.is_original_lang:
+        subt.time_processed_transcribing = "00:00:00"
+        subt.time_processed_syncing = "00:00:00"
+        subt.time_quality_check_done = "00:00:00"
+        subt.needs_automatic_syncing = False
+        subt.state_id = 2
+        subt.blocked = False
+        subt.save()
+        print("Done")

@@ -18,16 +18,21 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Subtitle, Talk
 
-subtitle_id = 86
+if len(sys.argv) != 2:
+    sys.exit("Too many or less arguments, one is needed!")
 
-subt = Subtitle.objects.get(id = subtitle_id)
-# Nur wenn der Untertitel orignal ist weiter machen und auf quality control setzen
-if subt.is_original_lang:
-    my_talk = Talk.objects.get(id = subt.talk_id)
-    subt.time_processed_transcribing = my_talk.video_duration
-    subt.time_processed_syncing = my_talk.video_duration
-    subt.needs_automatic_syncing = False
-    subt.blocked = False
-    subt.state_id = 7
-    subt.save()
+subtitle_id = sys.argv[1]
+
+try:
+    subt = Subtitle.objects.get(id = subtitle_id)
+    # Nur wenn der Untertitel orignal ist weiter machen und auf quality control setzen
+    if subt.is_original_lang:
+        my_talk = Talk.objects.get(id = subt.talk_id)
+        subt.time_processed_transcribing = my_talk.video_duration
+        subt.time_processed_syncing = my_talk.video_duration
+        subt.needs_automatic_syncing = False
+        subt.blocked = False
+        subt.state_id = 7 # Quality control done until
+        subt.save()
+        print("Done")
 

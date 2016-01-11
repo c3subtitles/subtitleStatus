@@ -84,7 +84,7 @@ anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64
     'X-api-key': cred.AMARA_API_KEY}
 
 # Query for all talks who have an amara key
-all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk").order_by("touched")
+all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk").order_by("-touched")
 #print(all_talks_with_amara_key.count())
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key

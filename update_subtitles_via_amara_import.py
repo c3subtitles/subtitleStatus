@@ -51,7 +51,7 @@ def reset_subtitle(my_subtitle):
 
     
 # Set all states to complete and sync and tweet-flags, no matter if translation or original
-def set_subtitle_complete(my_subtitle, video_duration):
+def set_subtitle_complete(my_subtitle):
     # Stuff which need to be done anyway..
     my_subtitle.complete = True
     my_subtitle.needs_sync_to_YT = True
@@ -84,7 +84,7 @@ anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64
     'X-api-key': cred.AMARA_API_KEY}
 
 # Query for all talks who have an amara key
-all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk")
+all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk").order_by("touched")
 #print(all_talks_with_amara_key.count())
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key

@@ -12,7 +12,19 @@
 	{{talk.subtitle_talk}}
 {% endif %}
 </h2>
-<div class="container">	
+
+<p class="alert alert-danger">
+    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true" style="margin-right: 5px;"></span>
+    Please do not press “publish” on amara.org to save your progress, use “save draft” instead. Only press “publish” when you're done with quality control.
+</p>
+{% if talk.needs_automatic_syncing %}
+    <p class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true" style="margin-right: 5px;"></span>
+        Please stop working on the video now so subtitle timings can be computed automatically.
+        Do not try to manually sync the subtitles until autotiming has completed. This might take a while, please check back later.
+    </p>
+{% endif %}
+
+<div class="container">
 	<div class="row">
 		<div class="col-xs-6">        
 			<div>
@@ -168,6 +180,12 @@
             </div>
             <div class="modal-body">
                 <p>Is this step really finished?</p>
+                {% if sub.transcription_in_progress or talk.needs_automatic_syncing %}
+                    <p class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true" style="margin-right: 5px;"></span>
+                        Please stop working on the video now so subtitle timings can be computed automatically.
+                        Do not try to manually sync the subtitles until autotiming has completed. This might take a while, please check back later.
+                    </p>
+                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Back</button>

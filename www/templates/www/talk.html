@@ -152,6 +152,9 @@
 				<div class="panel-body">
 				{{ sub.form|bootstrap }}
 				{% csrf_token %}
+                {% if sub.revision > 0 %}
+                    <p>Last revision: {{ sub.last_changed_on_amara|timesince }} ago</p>
+                {% endif %}
 				<input class="btn btn-success"  type="submit" value="Save">
 				{%if sub.form.quick_btn %}
 				<input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">

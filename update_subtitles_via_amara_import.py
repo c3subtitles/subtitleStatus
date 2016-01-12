@@ -14,6 +14,7 @@ import os
 import sys
 import json
 import urllib.request
+from datetime import datetime, timezone
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -122,6 +123,7 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
                 subtitle.complete = amara_subtitles_complete
+                subtitle.last_changed_on_amara = datetime.now(timezone.utc)
                 subtitle.save()
                 
                 # If subtitle is orignal and new inserted into the database, set state to transcribed until..

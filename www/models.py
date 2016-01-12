@@ -122,6 +122,10 @@ class Talk(BasisModell):
     youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
 
+    @property
+    def needs_automatic_syncing(self):
+        return self.subtitle_set.filter(needs_automatic_syncing=True).count() > 0
+
 # Zustand des Untertitels oder dessen Pad
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
@@ -149,6 +153,11 @@ class Subtitle(BasisModell):
     needs_sync_to_YT = models.BooleanField(default = False)
     needs_removal_from_YT = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
+
+    @property
+    def transcription_in_progress(self):
+        return self.is_original_lang and (self.time_processed_transcribing <
+                                          self.talk.video_duration)
 
 # Links aus dem Fahrplan
 class Links(BasisModell):

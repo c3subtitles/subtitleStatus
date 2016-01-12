@@ -124,7 +124,7 @@ class Talk(BasisModell):
 
     @property
     def needs_automatic_syncing(self):
-        return self.subtitle_set.filter(needs_automatic_syncing=True).count() > 0
+        return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
 
 # Zustand des Untertitels oder dessen Pad
 class States(BasisModell):
@@ -152,6 +152,7 @@ class Subtitle(BasisModell):
     tweet = models.BooleanField(default = False)
     needs_sync_to_YT = models.BooleanField(default = False)
     needs_removal_from_YT = models.BooleanField(default = False)
+    tweet_autosync_done = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
 
     @property

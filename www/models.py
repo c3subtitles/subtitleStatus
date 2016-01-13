@@ -1,5 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -138,7 +139,10 @@ class Talk(BasisModell):
             for sub in self.subtitle_set.filter(is_original_lang = False):
                 if sub.last_changed_on_amara > changed:
                     changed = sub.last_changed_on_amara
-            return changed
+            if changed < self.created:
+                return None
+            else:
+                return changed
         except:
             return None
 

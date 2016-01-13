@@ -13,7 +13,10 @@
 		{% endfor %}
 	</dl>
 	{% if talk.has_bar %}
-		{% include "www/progress_bar_original.html" with value=talk %}
+	    {% include "www/progress_bar_original.html" with value=talk %}
+        {% if not talk.complete and talk.last_changed_on_amara %}
+            <p>Last revision: {{ talk.last_changed_on_amara|timesince }} ago</p>
+        {% endif %}
 	{% else %}
 		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
     {% endif %}

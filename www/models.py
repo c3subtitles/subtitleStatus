@@ -127,6 +127,21 @@ class Talk(BasisModell):
         return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
 
 # Zustand des Untertitels oder dessen Pad
+    @property
+    def complete(self):
+        return self.subtitle_set.filter(complete = False).count() == 0
+
+    @property
+    def last_changed_on_amara(self):
+        try:
+            changed = self.subtitle_set.filter(is_original_lang = True).get().last_changed_on_amara
+            for sub in self.subtitle_set.filter(is_original_lang = False):
+                if sub.last_changed_on_amara > changed:
+                    changed = sub.last_changed_on_amara
+            return changed
+        except:
+            return None
+
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
     state_en = models.CharField(max_length = 100)
@@ -154,6 +169,7 @@ class Subtitle(BasisModell):
     needs_removal_from_YT = models.BooleanField(default = False)
     tweet_autosync_done = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
+    last_changed_on_amara = models.DateTimeField(default = datetime.min, blank = True)
 
     @property
     def transcription_in_progress(self):

@@ -14,6 +14,7 @@ import os
 import sys
 import json
 import urllib.request
+from datetime import datetime, timezone
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -35,6 +36,7 @@ def reset_subtitle(my_subtitle):
     my_subtitle.complete = False
     my_subtitle.needs_removal_from_ftp = True
     my_subtitle.needs_removal_from_YT = True
+    my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
 
     # If the subtitle is the original language,reset all states to the start
     if my_subtitle.is_original_lang:
@@ -57,7 +59,8 @@ def set_subtitle_complete(my_subtitle):
     my_subtitle.needs_sync_to_YT = True
     my_subtitle.needs_sync_to_ftp = True
     my_subtitle.tweet = True
-    
+    my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
+
     # Stuff only if the subtitle is the orignal language
     if my_subtitle.is_original_lang:
         my_subtitle.time_processed_transcribing = my_subtitle.talk.video_duration
@@ -122,6 +125,7 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.is_original_lang = amara_is_original
                 subtitle.revision = amara_num_versions
                 subtitle.complete = amara_subtitles_complete
+                subtitle.last_changed_on_amara = datetime.now(timezone.utc)
                 subtitle.save()
                 
                 # If subtitle is orignal and new inserted into the database, set state to transcribed until..

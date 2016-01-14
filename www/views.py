@@ -162,11 +162,11 @@ Für den Fall ohne Quality check wäre es:
 
     if sub.blocked: #time_processed_transcribing == talk.video_duration != sub.time_processed_syncing:
         return "Automatic syncing, please wait and come back later!"
-    if sub.time_quality_check_done == talk.video_duration:
+    if sub.complete:
         return "Finished :)"
 
     if sub.is_original_lang:
-        if sub.time_processed_transcribing < talk.video_duration:
+        if sub.state_id == 2:      # still transcribing
             # remove the unnecessary fields
             #form.fields.pop("time_processed_transcribing")
             form.fields.pop("time_processed_syncing")
@@ -177,7 +177,7 @@ Für den Fall ohne Quality check wäre es:
             form.quick_btn = 'Finish Transcribing'
 
             return form
-        elif sub.time_processed_transcribing == sub.time_processed_syncing == talk.video_duration:
+        elif sub.state_id == 7:    # in quality control
             # remove the unnecessary fields
             form.fields.pop("time_processed_transcribing")
             form.fields.pop("time_processed_syncing")
@@ -189,7 +189,7 @@ Für den Fall ohne Quality check wäre es:
 
             return form
     else: #no sub.is_original_lang
-        if sub.time_processed_translating < talk.video_duration:
+        if sub.state_id == 11:     # in translation
             # remove the unnecessary fields
             form.fields.pop("time_processed_transcribing")
             form.fields.pop("time_processed_syncing")
@@ -254,22 +254,22 @@ def updateSubtitle(request, subtitle_id):
         talk = my_obj.talk
         #finish current step
         if my_obj.is_original_lang:
-            if my_obj.time_processed_transcribing < talk.video_duration:
+            if my_obj.state_id == 2:
                 # transcribing done
                 my_obj.time_processed_transcribing = talk.video_duration
                 my_obj.state_id = 4 # Do not touch
                 my_obj.needs_automatic_syncing = True
                 my_obj.blocked = True
-            elif my_obj.time_processed_transcribing == talk.video_duration and my_obj.time_processed_syncing < talk.video_duration:
+            elif my_obj.state_id == 5:
                 # Syncing is done - if manually
                 my_obj.time_processed_syncing = talk.video_duration
                 my_obj.state_id = 7 # Quality check done until
-            elif my_obj.time_processed_transcribing == my_obj.time_processed_syncing == talk.video_duration:
+            elif my_obj.state_id == 7:
                 # quality_check done
                 my_obj.time_quality_check_done = talk.video_duration
                 my_obj.state_id = 8 # Done
                 # Execute Python Skript for Amara Sync in the Background?!
-        else: # Translation
+        elif my_obj.state_id == 11:  # Translation
             my_obj.time_processed_translating = talk.video_duration
             my_obj.state_id = 12 # Translation finished
             # Execute Python Skript for Amara Sync in the Background?!

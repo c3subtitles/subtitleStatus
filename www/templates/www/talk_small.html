@@ -1,4 +1,5 @@
-﻿<a href="/talk/{{talk.pk}}" class="thumbnail">
+﻿{% load subtitle_progress %}
+<a href="/talk/{{talk.pk}}" class="thumbnail">
 	<h3>{{talk.title}}</h3>
 	<dl class="dl-horizontal">
 		<dt>Talk-ID</dt>
@@ -12,8 +13,15 @@
 		<dd>{{speaker.name}}</dd>
 		{% endfor %}
 	</dl>
-	{% if talk.has_bar %}
-	    {% include "www/progress_bar_original.html" with value=talk %}
+	{% if talk.subtitles.count > 0 %}
+        <table style="width: 100%;">
+            {% for subtitle in talk.subtitles %}
+                <tr>
+                    <th style="padding-bottom: 20px;">{{ subtitle.language.lang_amara_short }}:</th>
+                    <td>{{ subtitle|progress_bar:True }}</td>
+                </tr>
+            {% endfor %}
+        </table>
         {% if not talk.complete and talk.last_changed_on_amara %}
             <p>Last revision: {{ talk.last_changed_on_amara|timesince }} ago</p>
         {% endif %}

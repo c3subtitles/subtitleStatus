@@ -1,12 +1,12 @@
 {% comment %}
 	Progress Bar for Translations
-{% endcomment %}   
-  
-  <div class="progress"> 
+{% endcomment %}
+
+  <div class="progress" {% if value.small %} style="height: 10px;" {% endif %}>
 		<div class="progress-bar progress-bar-success" style="width: {{ value.bar_checked }}%">
-			<span class="sr-only">{{ value.bar_checked }}% Checking done</span>{{ value.bar_checked }}%
+			<span class="sr-only">{{ value.bar_checked }}% Checking done</span>{% if not value.small %}{{ value.bar_checked }}%{% endif %}
 		</div>
 		<div class="progress-bar progress-bar-grey progress-bar-striped" style="width: {{ value.bar_nothing }}%">
-            <span class="sr-only">{{ value.bar_nothing }}% Nothing done yet</span>{{ value.bar_nothing }}%
-		</div>	
-	</div> 
+            <span class="sr-only">{{ value.bar_nothing }}% Nothing done yet</span>{% if not value.small %}{{ value.bar_nothing }}%{% endif %}
+		</div>
+	</div>

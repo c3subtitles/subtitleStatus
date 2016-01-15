@@ -16,31 +16,8 @@ def start(request):
 
         # Function for the progress bars
         for every_event in my_events:
-            time_sum = 0
-            transcribed = 0
-            synced = 0
-            checked = 0
-            
             my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
-            
-            # Sum up the 100%
-            time_sum = progress_bar_time_sum(my_talks)
-            
-            my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = every_event)
-            # Sum up all parts
-            for every_subtitle in my_subtitles:
-                transcribed += seconds(every_subtitle.time_processed_transcribing)
-                synced += seconds(every_subtitle.time_processed_syncing)
-                checked += seconds(every_subtitle.time_quality_check_done)
-            # checked / green
-            every_event.bar_checked = progress_bar_checked(checked, time_sum)
-            # synced / orange
-            every_event.bar_synced = progress_bar_synced(checked, synced, time_sum)
-            # transcribed / red
-            every_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
-            # nothing / grey
-            every_event.bar_nothing = progress_bar_nothing(every_event.bar_checked, every_event.bar_synced, every_event.bar_transcribed)
-
+            every_event.__dict__.update(progress_bar_for_talks(my_talks))
     except ObjectDoesNotExist:
         raise Http404
     
@@ -54,60 +31,18 @@ def event (request, event_acronym, *args, **kwargs):
         "start",
         "room__room")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
-        subtitles_filters = {}
         if "day" in kwargs and int(kwargs.get("day")) > 0:
             day = kwargs.pop("day")
             my_talks = my_talks.filter(day__index = day)
-            subtitles_filters["talk__day__index"] = day
         if "lang" in kwargs:
             lang = kwargs.pop("lang")
             my_talks = my_talks.filter(orig_language__lang_amara_short = lang)
-            subtitles_filters["language__lang_amara_short"] = lang
 
-        time_sum = 0
-        transcribed = 0
-        synced = 0
-        checked = 0
-        time_sum = progress_bar_time_sum(my_talks)
-        my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = my_event, **subtitles_filters)
-        # Sum up all parts
-        for every_subtitle in my_subtitles:
-            transcribed += seconds(every_subtitle.time_processed_transcribing)
-            synced += seconds(every_subtitle.time_processed_syncing)
-            checked += seconds(every_subtitle.time_quality_check_done)
-        # checked / green
-        my_event.bar_checked = progress_bar_checked(checked, time_sum)
-        # synced / orange
-        my_event.bar_synced = progress_bar_synced(checked, synced, time_sum)
-        # transcribed / red
-        my_event.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
-        # nothing / grey
-        my_event.bar_nothing = progress_bar_nothing(my_event.bar_checked, my_event.bar_synced, my_event.bar_transcribed)
-        
+        my_event.__dict__.update(progress_bar_for_talks(my_talks))
+
         for every_talk in my_talks:
-            time_sum = 0
-            transcribed = 0
-            synced = 0
-            checked = 0
-            
-            # Get the one corresponding subtitle to the talk
-            try: 
-                this_subtitle = my_subtitles.get(talk = every_talk)
-                every_talk.has_bar = True
-                time_sum = seconds(every_talk.video_duration)
-                transcribed = seconds(this_subtitle.time_processed_transcribing)
-                synced = seconds(this_subtitle.time_processed_syncing)
-                checked = seconds(this_subtitle.time_quality_check_done)
-                every_talk.bar_checked = progress_bar_checked(checked, time_sum)
-                every_talk.bar_synced = progress_bar_synced(checked, synced, time_sum)
-                every_talk.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
-                every_talk.bar_nothing = progress_bar_nothing(every_talk.bar_checked, every_talk.bar_synced, every_talk.bar_transcribed)
-                # If there is not a Original-Subtitle or several                
-            except ObjectDoesNotExist:
-                every_talk.has_bar = False
-            except MultipleObjectsReturned:
-                every_talk.has_bar = False
-            
+            every_talk.subtitles = every_talk.subtitle_set.order_by('-is_original_lang')
+
         # Create cunk for the 3 columns display of talks on event page
         talks_per_line = 3
         talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
@@ -212,27 +147,6 @@ def talk (request, talk_id):
             s.form = get_subtitle_form(request, my_talk, s)
             # todo add ifs so that its set correct depending of the status
             #?!
-            time_sum = seconds(my_talk.video_duration)
-            transcribed = seconds(s.time_processed_transcribing)
-            synced = seconds(s.time_processed_syncing)
-            checked = seconds(s.time_quality_check_done)
-            translated = seconds(s.time_processed_translating)
-       
-            if s.is_original_lang:
-                # checked / green
-                s.bar_checked = progress_bar_checked(checked, time_sum)
-                # synced / orange
-                s.bar_synced = progress_bar_synced(checked, synced, time_sum)
-                # transcribed / red
-                s.bar_transcribed = progress_bar_transcribed(transcribed, synced, time_sum)
-                # nothing / grey
-                s.bar_nothing = progress_bar_nothing(s.bar_checked, s.bar_synced, s.bar_transcribed)
-            else:
-                # translated
-                s.bar_checked = progress_bar_checked(translated, time_sum)
-                # not translated
-                s.bar_nothing = progress_bar_nothing (s.bar_checked)
-        
     except ObjectDoesNotExist:
         raise Http404
 
@@ -317,23 +231,35 @@ def seconds(sometime):
                     int(sometime.strftime("%S")) )
     return return_value
 
-# Functions for the progress bars    
-def progress_bar_checked(checked, time_sum):
-    return str( round( (float(checked)/float(time_sum))*100,1))
+# Functions for the progress bars
+def _progress_bar(total, green=0.0, orange=0.0, red=0.0, precision=1):
+    scale = 100.0 / total
+    green_amount = round(green * scale, precision)
+    orange_amount = round(orange * scale, precision)
+    red_amount = round(red * scale, precision)
+    colored_amount = green_amount + orange_amount + red_amount
+    grey_amount = round(100.0 - colored_amount, precision)
 
-def progress_bar_synced(checked, synced, time_sum):
-    return str(round(((float(synced) - float(checked))/float(time_sum)*100),1))    
+    return {'bar_checked': green_amount,
+            'bar_synced': orange_amount,
+            'bar_transcribed': red_amount,
+            'bar_nothing': grey_amount,
+           }
 
-def progress_bar_transcribed(transcribed, synced, time_sum):
-    return str( round( ( ( ( float(transcribed) - float(synced) ) /float(time_sum))*100),1 ) )       
-    
-def progress_bar_nothing(checked, synced = 0.0, transcribed = 0.0):
-    return str( round( (100.0 - float(checked) - float(synced) - float(transcribed)),1 ) )
-    
-def progress_bar_time_sum(my_talks):
-    time_sum = 0
-    for every_talk in my_talks:
-        time_sum += seconds(every_talk.video_duration)
-    if (time_sum == 0): # Stupid workaround for "unknown event"
-        time_sum = 1
-    return time_sum
+def progress_bar_for_talks(talks):
+    transcribed = synced = checked = 0
+    total = sum([seconds(talk.video_duration) for talk in talks])
+    subtitles = Subtitle.objects.filter(is_original_lang=True,
+                                        talk_id__in=[talk.id for talk in talks])
+    for sub in subtitles:
+        transcribed += seconds(sub.time_processed_transcribing)
+        synced += seconds(sub.time_processed_syncing)
+        checked += seconds(sub.time_quality_check_done)
+
+    if total == 0:
+        total = 1               # prevent division by zero
+
+    return _progress_bar(total,
+                         green=checked,
+                         orange=synced,
+                         red=transcribed)

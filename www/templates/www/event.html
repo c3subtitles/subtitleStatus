@@ -18,6 +18,10 @@
         {% endfor %}
     </div>
 
+    <style>
+      td div.progress { margin-bottom: 0px; }
+    </style>
+
 	{% for talks_line in talks_chunk %}
 		<div class="row">
 			{% for every_talk in talks_line %}

@@ -17,14 +17,19 @@
         <table style="width: 100%;">
             {% for subtitle in talk.subtitles %}
                 <tr>
-                    <th style="padding-bottom: 20px;">{{ subtitle.language.lang_amara_short }}:</th>
+                    <th>{{ subtitle.language.lang_amara_short }}:</th>
                     <td>{{ subtitle|progress_bar:True }}</td>
                 </tr>
+                {% if not subtitle.complete and subtitle.revision > 0 %}
+                    {% if subtitle.last_changed_on_amara >= subtitle.created %}
+                        <tr>
+                            <th></th>
+                            <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </table>
-        {% if not talk.complete and talk.last_changed_on_amara %}
-            <p>Last revision: {{ talk.last_changed_on_amara|timesince }} ago</p>
-        {% endif %}
 	{% else %}
 		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
     {% endif %}

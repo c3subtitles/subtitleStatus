@@ -175,10 +175,28 @@ class Subtitle(BasisModell):
     #comment = models.TextField(default = "")
     last_changed_on_amara = models.DateTimeField(default = datetime.min, blank = True)
 
+    def _still_in_progress(self, timestamp, state, original_language=True):
+        if original_language != self.is_original_lang:
+            return False
+
+        return ((timestamp < self.talk.video_duration) or
+                (self.state_id == state and timestamp <= self.talk.video_duration))
+
     @property
     def transcription_in_progress(self):
-        return self.is_original_lang and (self.time_processed_transcribing <
-                                          self.talk.video_duration)
+        return self._still_in_progress(self.time_processed_transcribing, state=2)
+
+    @property
+    def syncing_in_progress(self):
+        return self._still_in_progress(self.time_processed_syncing, state=5)
+
+    @property
+    def quality_check_in_progress(self):
+        return self._still_in_progress(self.time_quality_check_done, state=7)
+
+    @property
+    def translation_in_progress(self):
+        return self._still_in_progress(self.time_processed_translating, state=11, original_language=False)
 
 # Links from the Fahrplan
 class Links(BasisModell):

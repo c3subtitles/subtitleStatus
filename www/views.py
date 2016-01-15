@@ -165,41 +165,33 @@ Für den Fall ohne Quality check wäre es:
     if sub.complete:
         return "Finished :)"
 
-    if sub.is_original_lang:
-        if sub.state_id == 2:      # still transcribing
-            # remove the unnecessary fields
-            #form.fields.pop("time_processed_transcribing")
-            form.fields.pop("time_processed_syncing")
-            form.fields.pop("time_quality_check_done")
-            form.fields.pop("time_processed_translating")
-
-            # add finish transcribing button
-            form.quick_btn = 'Finish Transcribing'
-
-            return form
-        elif sub.state_id == 7:    # in quality control
-            # remove the unnecessary fields
-            form.fields.pop("time_processed_transcribing")
-            form.fields.pop("time_processed_syncing")
-            #form.fields.pop("time_quality_check_done")
-            form.fields.pop("time_processed_translating")
-
-            # add finish transcribing button
-            form.quick_btn = 'Finish quality check'
-
-            return form
-    else: #no sub.is_original_lang
-        if sub.state_id == 11:     # in translation
-            # remove the unnecessary fields
-            form.fields.pop("time_processed_transcribing")
-            form.fields.pop("time_processed_syncing")
-            form.fields.pop("time_quality_check_done")
-            #form.fields.pop("time_processed_translating")
-
-            # add finish transcribing button
-            form.quick_btn = 'Finish Translating'
-
-            return form
+    if sub.transcription_in_progress:
+        # remove the unnecessary fields
+        #form.fields.pop("time_processed_transcribing")
+        form.fields.pop("time_processed_syncing")
+        form.fields.pop("time_quality_check_done")
+        form.fields.pop("time_processed_translating")
+     # add finish transcribing button
+        form.quick_btn = 'Finish Transcribing'
+        return form
+    elif sub.quality_check_in_progress:
+        # remove the unnecessary fields
+        form.fields.pop("time_processed_transcribing")
+        form.fields.pop("time_processed_syncing")
+        #form.fields.pop("time_quality_check_done")
+        form.fields.pop("time_processed_translating")
+     # add finish transcribing button
+        form.quick_btn = 'Finish quality check'
+        return form
+    elif sub.translation_in_progress:
+        # remove the unnecessary fields
+        form.fields.pop("time_processed_transcribing")
+        form.fields.pop("time_processed_syncing")
+        form.fields.pop("time_quality_check_done")
+        #form.fields.pop("time_processed_translating")
+     # add finish transcribing button
+        form.quick_btn = 'Finish Translating'
+        return form
 
     return
 
@@ -253,23 +245,22 @@ def updateSubtitle(request, subtitle_id):
     if 'quick_finish_btn' in request.POST:
         talk = my_obj.talk
         #finish current step
-        if my_obj.is_original_lang:
-            if my_obj.state_id == 2:
-                # transcribing done
-                my_obj.time_processed_transcribing = talk.video_duration
-                my_obj.state_id = 4 # Do not touch
-                my_obj.needs_automatic_syncing = True
-                my_obj.blocked = True
-            elif my_obj.state_id == 5:
-                # Syncing is done - if manually
-                my_obj.time_processed_syncing = talk.video_duration
-                my_obj.state_id = 7 # Quality check done until
-            elif my_obj.state_id == 7:
-                # quality_check done
-                my_obj.time_quality_check_done = talk.video_duration
-                my_obj.state_id = 8 # Done
-                # Execute Python Skript for Amara Sync in the Background?!
-        elif my_obj.state_id == 11:  # Translation
+        if my_obj.transcription_in_progress:
+            # transcribing done
+            my_obj.time_processed_transcribing = talk.video_duration
+            my_obj.state_id = 4 # Do not touch
+            my_obj.needs_automatic_syncing = True
+            my_obj.blocked = True
+        elif my_obj.syncing_in_progress:
+            # Syncing is done - if manually
+            my_obj.time_processed_syncing = talk.video_duration
+            my_obj.state_id = 7 # Quality check done until
+        elif my_obj.quality_check_in_progress:
+            # quality_check done
+            my_obj.time_quality_check_done = talk.video_duration
+            my_obj.state_id = 8 # Done
+            # Execute Python Skript for Amara Sync in the Background?!
+        elif my_obj.translation_in_progress:  # Translation
             my_obj.time_processed_translating = talk.video_duration
             my_obj.state_id = 12 # Translation finished
             # Execute Python Skript for Amara Sync in the Background?!

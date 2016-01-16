@@ -52,6 +52,7 @@ class Event_Days(BasisModell):
     day_start = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
     day_end = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
 
+    
 # "Rooms" in which an event takes place, might also be outside
 class Rooms(BasisModell):
     room = models.CharField(max_length = 30, default = "kein Raum")
@@ -60,6 +61,7 @@ class Rooms(BasisModell):
     def __str__(self):
         return self.room
 
+        
 # Different languages and their "codes" in amara or the name in German end English in full names
 class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
@@ -73,6 +75,7 @@ class Language(BasisModell):
     def __str__(self):
         return self.lang_amara_short
 
+        
 # Category of the talk, like "ethics"
 class Tracks(BasisModell):
     track = models.CharField(max_length = 50, default = "")
@@ -80,6 +83,7 @@ class Tracks(BasisModell):
     def __str__(self):
         return self.track
 
+        
 # How the talk is presented, like a workshop or a talk
 class Type_of(BasisModell):
     type = models.CharField(max_length = 20, default = "")
@@ -87,11 +91,13 @@ class Type_of(BasisModell):
     def __str__(self):
         return self.type
 
+        
 # Speaker or Speakers of the Talk
 class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
 
+    
 # Talk with all its data
 class Talk(BasisModell):
     frab_id_talk = models.PositiveSmallIntegerField(default = -1)
@@ -145,6 +151,7 @@ class Talk(BasisModell):
         except:
             return None
 
+            
 # States for every subtitle like "complete" or "needs sync"            
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
@@ -152,6 +159,7 @@ class States(BasisModell):
     def __str__(self):
         return self.state_en
 
+        
 # Infos to a subtitle in one language
 class Subtitle(BasisModell):
     talk = models.ForeignKey(Talk)
@@ -180,6 +188,18 @@ class Subtitle(BasisModell):
         return self.is_original_lang and (self.time_processed_transcribing <
                                           self.talk.video_duration)
 
+    # Create Released on media tweet
+    def do_tweet_release_on_media(self):
+        pass
+    
+    # Create Released on YT tweet
+    def do_tweet_release_on_YT(self):
+        pass
+    
+    # Create Tweet for subtitles is ready for quality control
+    def do_tweet_subtitle_needs_quality_control:
+        pass
+    
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)

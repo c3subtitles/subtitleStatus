@@ -197,7 +197,7 @@ class Subtitle(BasisModell):
         pass
     
     # Create Tweet for subtitles is ready for quality control
-    def do_tweet_subtitle_needs_quality_control:
+    def do_tweet_subtitle_needs_quality_control(self):
         pass
     
 # Links from the Fahrplan

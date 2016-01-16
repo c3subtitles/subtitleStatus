@@ -168,26 +168,42 @@ my_subtitles = Subtitle.objects.all().order_by("-id").select_related("States").s
 for my_subtitle in my_subtitles:
     # Original language
     if my_subtitle.is_original_lang:
+        # Workaround for manual setting of the time transcribed to exact the video length - doesn't work!  
+        if (my_subtitle.time_processed_transcribing == my_subtitle.talk.video_duration) \
+            and (my_subtitle.time_processed_syncing == "00:00:00") \
+            and (my_subtitle.time_quality_check_done == "00:00:00" ) \
+            and (my_subtitle.blocked == False) \
+            and (my_subtitle.state_id == 2): # Transcribed until..
+            my_subtitle.state_id = 7
+            my_subtitle.needs_automatic_syncing = True
+            my_subtitle.blocked = True
+            my_subtitle.save()
+            print("WTF")
         # Still in transcribing process
         if my_subtitle.time_processed_transcribing < my_subtitle.talk.video_duration:
             if my_subtitle.state_id != 2:
                 my_subtitle.state_id = 2 # Transcribed until...
                 my_subtitle.save()
         # Still in syncing procress
-        elif my_subtitle.time_processed_syncing < my_subtitle.talk.video_duration:
+        elif my_subtitle.time_processed_syncing < my_subtitle.talk.video_duration \
+            and my_subtitle.state_id != 2:
             if my_subtitle.state_id != 5:
                 my_subtitle.state_id = 5 # Synced until...
                 my_subtitle.save()
         # Still in quality check procress
-        elif my_subtitle.time_quality_check_done < my_subtitle.talk.video_duration:
+        elif my_subtitle.time_quality_check_done < my_subtitle.talk.video_duration \
+            and my_subtitle.state_id != 2:
             if my_subtitle.state_id != 7:
                 my_subtitle.state_id = 7 # Quality check done until...
                 my_subtitle.save()
         # Finished, depending on the time stamps
-        else:
+        elif my_subtitle.state_id != 2:
             if my_subtitle.state_id != 8:
                 my_subtitle.state_id = 8 # Completed!
                 my_subtitle.save()
+        
+            
+        
     # Translation
     else:
         # Still in translating process
@@ -209,4 +225,5 @@ for my_subtitle in my_subtitles:
                  my_subtitle.needs_removal_from_ftp = True
                  my_subtitle.needs_removal_from_YT = True
                  my_subtitle.save()
+    
 print(".. done!")

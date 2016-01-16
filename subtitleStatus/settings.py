@@ -23,7 +23,7 @@ TEMPLATE_DIRS = [PROJECT_ROOT+'/templates']
 SECRET_KEY = ')8^-u=gdtnye8jv6%d1r%$7sg!(wl4ki3++j3z%2b#@5-r=^c3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 

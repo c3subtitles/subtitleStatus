@@ -1,5 +1,6 @@
 ﻿{% extends "base.html" %}
 {% load bootstrap %}
+{% load subtitle_progress %}
 
 {% block title %}C3Subtitles{% endblock %}
 
@@ -113,11 +114,7 @@
 						</a>
 					</div>
 					<div class="col-md-5">
-						{% if sub.is_original_lang %}
-							{% include "www/progress_bar_original.html" with value=sub %}
-						{% else %}
-							{% include "www/progress_bar_translation.html" with value=sub %}       
-						{% endif %}
+                      {{ sub|progress_bar }}
 					</div>
 				</div>
 			</div>

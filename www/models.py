@@ -4,9 +4,7 @@ from datetime import datetime
 from django.db import models
 from datetime import datetime
 
-# Create your models here.
-
-#Basis Modell damit jedes Feld einen Timestamp mit der letzten Änderung und der Erstellung hat
+# Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     touched = models.DateTimeField(auto_now = True)
@@ -15,7 +13,7 @@ class BasisModell(models.Model):
         abstract = True
 
 
-# Pro Event welche Unterordner auf dem FTP Subtitles bekommen und wie darin das File-Format der Videos heißt
+# For every event in which subfolder on the ftp the subtitles are supposed to appear and with which file extensions
 class Folders_Extensions(BasisModell):
     subfolder = models.CharField(max_length = 10, default = "", blank = True)
     file_extension = models.CharField(max_length = 10, default = "", blank = True)        
@@ -24,7 +22,7 @@ class Folders_Extensions(BasisModell):
         return self.subfolder+","+self.file_extension
 
     
-# Event + dessen Daten
+# Event and its data
 class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     acronym = models.CharField(max_length = 20, default = "", blank = True)
@@ -46,7 +44,7 @@ class Event(BasisModell):
             return savedXML == xmlFile.data
 
 
-# Tage die zu einem Event zugeordnet sind
+# Days which belong to an event
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)
     index = models.PositiveSmallIntegerField(default = 0)
@@ -54,7 +52,7 @@ class Event_Days(BasisModell):
     day_start = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
     day_end = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
 
-# Veranstaltungs "Räume" (kann auch draussen sein)
+# "Rooms" in which an event takes place, might also be outside
 class Rooms(BasisModell):
     room = models.CharField(max_length = 30, default = "kein Raum")
     building = models.CharField(max_length = 30, default = "")
@@ -62,7 +60,7 @@ class Rooms(BasisModell):
     def __str__(self):
         return self.room
 
-# Verschiedene Sprachen in verschiedenen Kodierungen sowie auf D und E ausgeschrieben
+# Different languages and their "codes" in amara or the name in German end English in full names
 class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
     language_de = models.CharField(max_length = 40, default = "", blank = True)
@@ -75,26 +73,26 @@ class Language(BasisModell):
     def __str__(self):
         return self.lang_amara_short
 
-# Kategorie des Talks
+# Category of the talk, like "ethics"
 class Tracks(BasisModell):
     track = models.CharField(max_length = 50, default = "")
 
     def __str__(self):
         return self.track
 
-# Präsentationsform des Talks
+# How the talk is presented, like a workshop or a talk
 class Type_of(BasisModell):
     type = models.CharField(max_length = 20, default = "")
 
     def __str__(self):
         return self.type
 
-# Vortragender
+# Speaker or Speakers of the Talk
 class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
 
-# Vortrag
+# Talk with all its data
 class Talk(BasisModell):
     frab_id_talk = models.PositiveSmallIntegerField(default = -1)
     blacklisted = models.BooleanField(default=False, blank = True)
@@ -128,7 +126,7 @@ class Talk(BasisModell):
     def needs_automatic_syncing(self):
         return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
 
-# Zustand des Untertitels oder dessen Pad
+    # State of the subtitle or its pad
     @property
     def complete(self):
         return self.subtitle_set.filter(complete = False).count() == 0
@@ -147,17 +145,18 @@ class Talk(BasisModell):
         except:
             return None
 
+# States for every subtitle like "complete" or "needs sync"            
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
     state_en = models.CharField(max_length = 100)
     def __str__(self):
         return self.state_en
 
-# Infos zu einem Untertitel in einer Sprache
+# Infos to a subtitle in one language
 class Subtitle(BasisModell):
     talk = models.ForeignKey(Talk)
     language = models.ForeignKey(Language)#, to_field = "lang_amara_short")
-    is_original_lang = models.BooleanField(default = False) # aus Amara auslesen, nicht aus dem Fahrplan!
+    is_original_lang = models.BooleanField(default = False) # Read from Amara, not from the Fahrplan!
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
     state = models.ForeignKey(States, default = 1, blank = True)
@@ -181,7 +180,7 @@ class Subtitle(BasisModell):
         return self.is_original_lang and (self.time_processed_transcribing <
                                           self.talk.video_duration)
 
-# Links aus dem Fahrplan
+# Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)
     url = models.URLField(blank = True)

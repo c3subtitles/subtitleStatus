@@ -235,9 +235,9 @@ def seconds(sometime):
 def _progress_bar(total, green=0.0, orange=0.0, red=0.0, precision=1):
     scale = 100.0 / total
     green_amount = round(green * scale, precision)
-    orange_amount = min(round(orange * scale, precision), 100.0 - green_amount)
-    red_amount = min(round(red * scale, precision),
-                     100.0 - orange_amount - green_amount)
+    orange_amount = round(min(orange * scale, 100.0 - green_amount), precision)
+    red_amount = round(min(red * scale,
+                           100.0 - orange_amount - green_amount), precision)
     colored_amount = green_amount + orange_amount + red_amount
     grey_amount = round(100.0 - colored_amount, precision)
 

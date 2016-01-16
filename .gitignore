@@ -63,6 +63,7 @@ subtitleStatus/settings.py
 # Downloadsfolder
 downloads/*.sbv
 downloads/*.srt
+downloads/*
 
 # Personal folders
 andi-temp/*

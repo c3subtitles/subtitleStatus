@@ -244,9 +244,15 @@ def progress_bar_for_talks(talks):
     subtitles = Subtitle.objects.filter(is_original_lang=True,
                                         talk_id__in=[talk.id for talk in talks])
     for sub in subtitles:
-        transcribed += seconds(sub.time_processed_transcribing)
-        synced += seconds(sub.time_processed_syncing)
-        checked += seconds(sub.time_quality_check_done)
+        just_checked = seconds(sub.time_quality_check_done)
+        just_synced = max(0, seconds(sub.time_processed_syncing) -
+                          just_checked)
+        just_transcribed = max(0, seconds(sub.time_processed_transcribing) -
+                               just_checked - just_synced)
+
+        transcribed += just_transcribed
+        synced += just_synced
+        checked += just_checked
 
     if total == 0:
         total = 1               # prevent division by zero

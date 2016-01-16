@@ -25,7 +25,7 @@ SECRET_KEY = ')8^-u=gdtnye8jv6%d1r%$7sg!(wl4ki3++j3z%2b#@5-r=^c3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['subtitles.media.ccc.de']
 

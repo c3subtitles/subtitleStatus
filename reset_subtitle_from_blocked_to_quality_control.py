@@ -33,6 +33,7 @@ try:
         subt.needs_automatic_syncing = False
         subt.blocked = False
         subt.state_id = 7 # Quality control done until
+        subt.tweet_autosync_done = True
         subt.save()
         print("Done")
 except:

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script tweets about released subtitles
+# This script tweets about released subtitles and about subtitels which need
+# review
 # It checks the "tweet" flag and if the syn_to_ftp flag is on false again to
 # be sure the file is already released
 #

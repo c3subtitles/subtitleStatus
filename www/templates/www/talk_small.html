@@ -17,7 +17,7 @@
         <table style="width: 100%;">
             {% for subtitle in talk.subtitles %}
                 <tr>
-                    <th>{{ subtitle.language.lang_amara_short }}:</th>
+                    <th>{{ subtitle.language_short }}:</th>
                     <td>{{ subtitle|progress_bar:True }}</td>
                 </tr>
                 {% if not subtitle.complete and subtitle.revision > 0 %}

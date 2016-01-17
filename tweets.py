@@ -22,6 +22,7 @@ from www.models import Subtitle, Talk, Event, Language
 import twitter as tw
 import credentials as cred
 
+
 # A subtitle on media has been released or updated
 def create_tweet_for_media(subtitle_id):
     # Check if there really is a subtitle available with this Id:
@@ -56,7 +57,8 @@ def create_tweet_for_media(subtitle_id):
     my_tweet = string + '"' + name_of_talk + '" on: ' + link + " " + hashtag
     #print (my_tweet)
     return my_tweet
-    
+  
+  
 # A subtitle on YT has been released or updated    
 def create_tweet_for_YT(subtitle_id):
     # Check if there really is a subtitle available with this Id:
@@ -92,6 +94,42 @@ def create_tweet_for_YT(subtitle_id):
     #print (my_tweet)
     return my_tweet
 
+    
+# Create a tweet for a subtitle which is now auto timed and needs review
+def create_tweet_for_needs_quality_control(id):
+    # Check if there really is a subtitle available with this Id:
+    try:
+        my_subtitle = Subtitle.objects.get(id = id)
+    except:
+        return(None)
+    #  Stop if the subtitle is not in the quality control mode
+    if my_subtitle.state_id != 7:
+        return(None) 
+    # Get associated Data from the database
+    try:
+        my_talk = Talk.objects.get(id = my_subtitle.talk_id)
+        my_language = Language.objects.get(id = my_subtitle.language_id)
+        my_event = Event.objects.get(id = my_talk.event_id)
+    except:
+        return(None)
+    # Workaround for Klingon :D
+    if my_language.id == 289:
+        my_language.language_en = "Original"
+    string = my_language.language_en + " #subtitles for "
+    name_of_talk = my_talk.title
+    #name_of_talk = "012345678901234567890123456789012345678901234567890123456798"
+    hashtag = my_event.hashtag
+    link = "https://subtitles.media.ccc.de/talk/" + str(my_subtitle.talk_id)
+    # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
+    while len(string) + 1 + len(name_of_talk) + 35 + 23 + 1 + len(hashtag) > 140:
+        name_of_talk = name_of_talk[:-2]
+        name_of_talk = name_of_talk + "…"
+    
+    my_tweet = string + '"' + name_of_talk + '" need to be reviewed! Join us on: ' + link + " " + hashtag
+    #print (my_tweet)
+    return my_tweet  
+
+
 # Pure tweeting
 def do_tweet(tweet_content = "Something!"):
     if tweet_content == None:
@@ -113,6 +151,9 @@ def tweet_subtitles_update_media(id):
 # Tweet only YT releases/updates
 def tweet_subtitles_update_YT(id):
     return do_tweet(create_tweet_for_YT(id))
+
+def tweet_subtitle_needs_quality_control(id):
+    return do_tweet(create_tweet_for_needs_quality_control(id))
  
 # Tweet for YT and media updates/releases
 def tweet_subtitles_update(id):

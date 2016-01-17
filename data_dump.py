@@ -53,7 +53,7 @@ for every in my_subtitles:
 """
 
 
-# Subtitles which have no change date yet
+# Subtitles which have no change date yet (for Patrick)
 my_subtitles = Subtitle.objects.filter(last_changed_on_amara = "0001-01-01 00:00:00.000000").order_by("talk_id")
 print(my_subtitles.count())
 
@@ -62,7 +62,7 @@ for this_subtitle in my_subtitles:
     my_string += this_subtitle.talk.amara_key
     my_string += "/"
     my_string += this_subtitle.language.lang_amara_short
-    my_string += "/ \nAdminer: https://subtitles.media.ccc.de/adminer/?pgsql=&username=patrickh&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="
+    my_string += "/ \nAdminer: https://subtitles.media.ccc.de/adminer/?pgsql=&username=patrick&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="
     my_string += str(this_subtitle.id)
     my_string += " \nCheck: "
     my_string += "https://subtitles.media.ccc.de/talk/"

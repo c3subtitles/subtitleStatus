@@ -137,7 +137,7 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.save()
 
                 # If orignal or translation and finished set state to finished
-                if subtitle.complete:
+                if subtitle.complete or amara_subtitles_complete:
                     set_subtitle_complete(subtitle)
                 # If translation and not finished set state to translation in progress
                 elif (not subtitle.is_original_lang and not subtitle.complete):
@@ -157,6 +157,8 @@ for any_talk in all_talks_with_amara_key:
                 # If the saved subtitle on amara is not complete anymore but was complete
                 if not amara_subtitles_complete and subtitle.complete:
                     reset_subtitle(subtitle)
+                elif amara_subtitles_complete and not subtitle.complete:
+                    set_subtitle_complete(subtitle)
 
         subtitles_counter += 1
 

@@ -206,18 +206,7 @@ class Subtitle(BasisModell):
     def translation_in_progress(self):
         return self._still_in_progress(self.time_processed_translating, state=11, original_language=False)
 
-    # Create Released on media tweet
-    def do_tweet_release_on_media(self):
-        pass
-    
-    # Create Released on YT tweet
-    def do_tweet_release_on_YT(self):
-        pass
-    
-    # Create Tweet for subtitles is ready for quality control
-    def do_tweet_subtitle_needs_quality_control(self):
-        pass
-    
+
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)

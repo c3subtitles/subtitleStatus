@@ -1,6 +1,6 @@
 ﻿#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
+# DEPRICATED!!!  Check send_transcript_needs_auto_sync_mail.py instead!
 #==============================================================================
 # This scripts checks for the flag "needs_automatic_syncing" in the database
 # If a subtitle has that flag it downloads it and converts it to a pure

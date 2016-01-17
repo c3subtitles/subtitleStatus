@@ -208,11 +208,9 @@ class Subtitle(BasisModell):
 
     @property
     def language_short(self):
-        lang = self.language.lang_amara_short
-
-        if lang == 'tlh':
-            lang = self.lang_short_srt
-        return lang
+        # Workaround because of Klingon / Orignal
+        lang = self.language.lang_short_srt
+        return self.language.lang_short_srt
 
 
 # Links from the Fahrplan

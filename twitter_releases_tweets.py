@@ -40,4 +40,10 @@ for s in my_subtitles:
     tweets.tweet_subtitles_update_media(s.id)
     s.tweet = False
     s.save()
-    
+
+# Tweet which talk needs an Review
+my_subtitles = Subtitle.objects.filter(state_id = 7, tweet_autosync_done = True)
+for s in my_subtitles:
+    tweets.tweet_subtitle_needs_quality_control(s.id)
+    s.tweet_autosync_done = False
+    s.save()

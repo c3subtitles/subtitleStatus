@@ -20,14 +20,10 @@
                     <th>{{ subtitle.language_short }}:</th>
                     <td>{{ subtitle|progress_bar:True }}</td>
                 </tr>
-                {% if not subtitle.complete and subtitle.revision > 0 %}
-                    {% if subtitle.last_changed_on_amara >= subtitle.created %}
-                        <tr>
-                            <th></th>
-                            <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
+                    <tr>
+                        <th></th>
+                        <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
+                    </tr>
             {% endfor %}
         </table>
 	{% else %}

@@ -206,6 +206,14 @@ class Subtitle(BasisModell):
     def translation_in_progress(self):
         return self._still_in_progress(self.time_processed_translating, state=11, original_language=False)
 
+    @property
+    def language_short(self):
+        lang = self.language.lang_amara_short
+
+        if lang == 'tlh':
+            lang = self.lang_short_srt
+        return lang
+
 
 # Links from the Fahrplan
 class Links(BasisModell):

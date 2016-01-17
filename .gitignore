@@ -61,6 +61,7 @@ docs/_build/
 # Django
 virtualEnv/
 subtitleStatus/settings.py
+subtitleStatus/local_settings.py
 
 # Downloadsfolder
 downloads/*.sbv

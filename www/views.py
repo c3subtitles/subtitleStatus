@@ -4,6 +4,7 @@ from www.models import Event, Talk, Subtitle, Language
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 import datetime
 #from copy import deepcopy
@@ -131,20 +132,15 @@ Für den Fall ohne Quality check wäre es:
     return
 
 
-def talk (request, talk_id):
-    try:
-        my_talk = Talk.objects.get(pk=talk_id)
-        my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
-        for s in my_subtitles:
-            s.form = get_subtitle_form(request, my_talk, s)
-            # todo add ifs so that its set correct depending of the status
-            #?!
-    except ObjectDoesNotExist:
-        raise Http404
+def talk(request, talk_id):
+    my_talk = get_object_or_404(Talk, pk=talk_id, blacklisted=False)
+    my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
+    for s in my_subtitles:
+        s.form = get_subtitle_form(request, my_talk, s)
+        # todo add ifs so that its set correct depending of the status
+        #?!
 
     return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles} )
-
-
 
 
 def updateSubtitle(request, subtitle_id):

@@ -149,10 +149,10 @@
 				<div class="panel-body">
 				{{ sub.form|bootstrap }}
 				{% csrf_token %}
-                {% if sub.revision > 0 and sub.last_changed_on_amara >= sub.created %}
-                    <p>Last revision: {{ sub.last_changed_on_amara|timesince }} ago</p>
-                {% endif %}
 				<input class="btn btn-success"  type="submit" value="Save">
+                {% if sub.revision > 0 and sub.last_changed_on_amara >= sub.created %}
+                    <span style="margin-left: 1em;">Last revision: {{ sub.last_changed_on_amara|timesince }} ago</span>
+                {% endif %}
 				{%if sub.form.quick_btn %}
 				<input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
 				{% endif %}

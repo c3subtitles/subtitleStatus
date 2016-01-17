@@ -44,6 +44,7 @@ def reset_subtitle(my_subtitle):
         my_subtitle.time_processed_syncing = "00:00:00"
         my_subtitle.time_processed_quality_check_done = "00:00:00"
         my_subtitle.state_id = 2 # Transcribed until
+        
     # If the subtitle is a translation..
     elif not my_subtitle.is_original_lang:
         my_subtitle.state_id = 11 # Translated until...
@@ -139,6 +140,7 @@ for any_talk in all_talks_with_amara_key:
                 # If orignal or translation and finished set state to finished
                 if subtitle.complete:
                     set_subtitle_complete(subtitle)
+                    
                 # If translation and not finished set state to translation in progress
                 elif (not subtitle.is_original_lang and not subtitle.complete):
                     # If the state was set to finished but isn't anymore, remove from ftp
@@ -157,6 +159,8 @@ for any_talk in all_talks_with_amara_key:
                 # If the saved subtitle on amara is not complete anymore but was complete
                 if not amara_subtitles_complete and subtitle.complete:
                     reset_subtitle(subtitle)
+                if amara_subtitles_complete and not subtitle.complete:
+                    set_subtitle_complete(subtitle)
 
         subtitles_counter += 1
 

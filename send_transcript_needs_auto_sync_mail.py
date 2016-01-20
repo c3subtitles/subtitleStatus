@@ -64,9 +64,12 @@ for any in my_subtitles:
         "Text-File auf Amara: " + str(url) + "\n\n"+
         "Adminer-Adresse: http://subtitles.media.ccc.de/adminer/?pgsql=&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n\n"+
         "Video-Adresse: "+video_link+"\n"+
-        "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n\n" +
+        "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
+        "Talk-Adresse bei uns: https://subtitles.media.ccc.de/talk/" + str(any.talk.id) + "\n" +
+        "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
+        "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
         "1. txt-File von Amara herunter laden\n" +
-        "2. In Youtube auf der Seitde des Videos einloggen. Dazu oben rechts 'Anmelden' anklicken und einloggen und dann media.ccc.de als Identität auswählen.\n" +
+        "2. In Youtube auf der Seite des Videos einloggen. Dazu oben rechts 'Anmelden' anklicken und einloggen und dann media.ccc.de als Identität auswählen.\n" +
         "3. Die Sprache des Videos einstellen. Das sollte 'German' oder 'English' sein und nichts anderes.\n" +
         "4. Unter dem Video auf 'cc' klicken.\n" +
         "5. Die angezeigten von YT erstellten Untertitel anklicken.\n" +
@@ -82,7 +85,7 @@ for any in my_subtitles:
         "15. Sprache auswählen, 'None direct from Video' so stehen lassen, das File aussuchen und unbedingt den Haken bei 'The subtitle file is 100% complete' entfernen.\n" +
         "16. Auf subtitles.ber.c3voc.de per ssh einloggen.\n" +
         "17. 'cd /opt/subtitleStatus && source virtualEnv/bin/activate' auf der Shell ausführen.\n"+
-        "18. 'python reset_subtitle_from_blocked_to_quality_control.py #subtitle-id' ausführen.\n" +
+        "18. 'python reset_subtitle_from_blocked_to_quality_control.py " + str(any.id) + "' ausführen.\n" +
         "19. Auf subtitles.media.ccc.de nachsehen ob es funktioniert hat und auf https://twitter.com/c3srt_releases nachsehen ob ein Tweet kam.", "plain")
     msg.attach(text)
     msg["Subject"] = "Transcript needs your attention: "+str(any.talk.frab_id_talk)+' "'+any.talk.title+'"'

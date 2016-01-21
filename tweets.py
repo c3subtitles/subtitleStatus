@@ -119,7 +119,7 @@ def create_tweet_for_needs_quality_control(id):
     name_of_talk = my_talk.title
     #name_of_talk = "012345678901234567890123456789012345678901234567890123456798"
     hashtag = my_event.hashtag
-    link = "https://subtitles.media.ccc.de/talk/" + str(my_subtitle.talk_id)
+    link = "https://c3subtitles.de/talk/" + str(my_subtitle.talk_id)
     # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
     while len(string) + 1 + len(name_of_talk) + 35 + 23 + 1 + len(hashtag) > 140:
         name_of_talk = name_of_talk[:-2]

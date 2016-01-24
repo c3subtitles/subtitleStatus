@@ -65,7 +65,7 @@ for any in my_subtitles:
         "Adminer-Adresse: http://adminer.c3subtitles.de/?pgsql=&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n\n"+
         "Video-Adresse: "+video_link+"\n"+
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
-        "Talk-Adresse bei uns: https://c3subtitles/talk/" + str(any.talk.id) + "\n" +
+        "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
         "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
         "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
         "1. txt-File von Amara herunter laden\n" +

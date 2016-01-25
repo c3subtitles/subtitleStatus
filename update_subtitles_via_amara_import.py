@@ -70,7 +70,7 @@ def set_subtitle_complete(my_subtitle):
         my_subtitle.state_id = 8 # Complete
 
     # Stuff only if the subtitle is a translation
-    elif not my_subtitle.is_orignal_lang:
+    elif not my_subtitle.is_original_lang:
         my_subtitle.time_processed_translating = my_subtitle.talk.video_duration
         my_subtitle.state_id = 12 # Translation finished
 
@@ -159,7 +159,7 @@ for any_talk in all_talks_with_amara_key:
                 # If the saved subtitle on amara is not complete anymore but was complete
                 if not amara_subtitles_complete and subtitle.complete:
                     reset_subtitle(subtitle)
-                # If the savaed subtitle is not complete but amara is complete, set to complete
+                # If the saved subtitle is not complete but amara is complete, set to complete
                 if amara_subtitles_complete and not subtitle.complete:
                     set_subtitle_complete(subtitle)
 

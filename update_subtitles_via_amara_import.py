@@ -42,7 +42,7 @@ def reset_subtitle(my_subtitle):
     if my_subtitle.is_original_lang:
         my_subtitle.time_processed_transcribing = "00:00:00"
         my_subtitle.time_processed_syncing = "00:00:00"
-        my_subtitle.time_processed_quality_check_done = "00:00:00"
+        my_subtitle.time_quality_check_done = "00:00:00"
         my_subtitle.state_id = 2 # Transcribed until
         
     # If the subtitle is a translation..

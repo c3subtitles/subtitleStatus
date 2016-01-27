@@ -46,7 +46,9 @@ TEXT.append("These Subtitle-Files need your attention: ")
 for any in my_subtitles:
     language = any.language.lang_amara_short
     amara_key = any.talk.amara_key
-    url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=txt"
+    #url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=txt"
+    slug = any.talk.slug
+    url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
     
     # Building the email
     msg = MIMEMultipart()
@@ -60,15 +62,14 @@ for any in my_subtitles:
     text = MIMEText("Talk: "+any.talk.title+" \n"+
         "Talk-ID: "+str(any.talk.id)+"\n"+
         "Subtitle-ID: "+str(any.id)+"\n"+
-        "Subtitle-Sprache: " + language + "\n" +
-        "Text-File auf Amara: " + str(url) + "\n\n"+
+        "Subtitle-Sprache: " + language + "\n\n" +
         "Adminer-Adresse: http://adminer.c3subtitles.de/?pgsql=&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n\n"+
         "Video-Adresse: "+video_link+"\n"+
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
         "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
         "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
-        "1. txt-File von Amara herunter laden\n" +
+        "1. File aus dem Anhang dieser E-Mail runter laden\n" +
         "2. In Youtube auf der Seite des Videos einloggen. Dazu oben rechts 'Anmelden' anklicken und einloggen und dann media.ccc.de als Identität auswählen.\n" +
         "3. Die Sprache des Videos einstellen. Das sollte 'German' oder 'English' sein und nichts anderes.\n" +
         "4. Unter dem Video auf 'cc' klicken.\n" +
@@ -76,7 +77,7 @@ for any in my_subtitles:
         "6. Im dann aufgehenden Bearbeiten-Fenster oben rechts 'Actions' 'Unpublish' auswählen.\n" +
         "7. Nochmal 'Actions' anklicken und dieses mal 'Discard edits' auswählen und 'Discard edits' bestätigen.\n" +
         "8. 'Add new subtitle or CC' anklicken und Sprache auswählen.\n" +
-        "9. 'Upload a file' auswählen und als 'Transcript' das txt-File von Amara hochladen.\n" +
+        "9. 'Upload a file' auswählen und als 'Transcript' das *.transcript-File was im Anhang dieser Mail war hochladen.\n" +
         "10. Im erscheinenden Editor unten rechts auf 'Set timings' klicken\n" +
         "11. Warten bis kein 'setting timings' mehr angezeigt wird. Dann anklicken. (Kann durchaus 10 Minuten dauern)\n" +
         "12. Oben rechts 'Actions' -> 'Download'anklicken und das *.sbv-File speichern.\n" +
@@ -91,6 +92,60 @@ for any in my_subtitles:
     msg["Subject"] = "Transcript needs your attention: "+str(any.talk.frab_id_talk)+' "'+any.talk.title+'"'
     msg["From"] = FROM
     msg["To"] = TO
+    
+    # Creating the attachment
+    request = urllib.request.Request(url)
+    response = urllib.request.urlopen(request)
+    file_content = response.read()
+    # Convert from bytes object to string object
+    file_content = str(file_content,encoding = "UTF-8")
+    
+    # Split in single lines:
+    text_content = file_content.splitlines()
+    
+    transcript = []
+    # Ignore first two lines and check lines afterwards
+    transcript.append(text_content[2]+"\n")
+    if len(text_content) < 5:
+        continue
+    if text_content[3] == "":
+        i = 3
+    elif text_content[4] == "":
+        i = 4
+    elif text_content[5] == "":
+        i = 5
+    
+    # Check rest of whole file
+    while i < len(text_content):
+        # If line is empty jump two down
+        if(text_content[i] == ""):
+            transcript.append("\n")
+            i += 3
+        # If line ist not empty save to future output
+        else:
+            transcript.append(text_content[i]+"\n")
+            i += 1
+            
+    filename = slug+"."+str(language)+".transcript"
+    folder = "./downloads/"
+    
+    # Save File in ./downloads
+    file = open(folder+filename,mode = "w",encoding = "utf-8")
+    for line in transcript:
+        #line = re.sub("<i>","*",line)
+        #line = re.sub("</i>","*",line)
+        file.write(line)
+    file.close()   
+
+    filename = folder+filename
+    
+    # Build attachment File for email an attach
+    attachment = MIMEBase('application', 'octet-stream')
+    attachment.set_payload(open(filename, 'rb').read())
+    encoders.encode_base64(attachment)
+    attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
+    msg.attach(attachment)
+    
     s = smtplib.SMTP('localhost')
     s.send_message(msg)
     s.quit()

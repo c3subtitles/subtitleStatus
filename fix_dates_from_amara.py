@@ -1,3 +1,8 @@
+'''
+This script gets the modification dates of subtitles from amara (http) and compares them against the dates stored in the DB.
+If they differ the date from arama is written to the DB.
+This fixes wrong last_changed_on_amara.date entries
+'''
 import os
 import urllib.parse
 import requests as r

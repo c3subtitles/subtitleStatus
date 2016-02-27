@@ -76,3 +76,6 @@ temp.py
 test.py
 subtitles.dot
 subtitles.png
+
+#PyCharm
+.idea/

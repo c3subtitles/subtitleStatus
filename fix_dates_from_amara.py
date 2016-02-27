@@ -2,6 +2,7 @@ import os
 import urllib.parse
 import requests as r
 import re
+import datetime
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -21,18 +22,18 @@ for this_subtitle in my_subtitles:
 
     response = r.get(url_amara)
 
-    response_strong = str(re.search(r'<strong>[0-9]{2}/[0-9]{2}/[0-9]{4}</strong>', response.text))
-    date_lastmod_html = re.search(r'[0-9]{2}/[0-9]{2}/[0-9]{4}', response_strong)
-    date_lastmod_raw = date_lastmod_html.group(0)
+    date_lastmod_html = re.search(r'<strong>([0-9]{2})/([0-9]{2})/([0-9]{4})</strong>', response.text)
 
-    date_lastmod_slashed = re.sub(r'/', '-', date_lastmod_raw)
-    date_lastmod = date_lastmod_slashed[-4:] + '-' + date_lastmod_slashed[0:5] + ' 12:00:00.000000+01'
+    date_lastmod = datetime.datetime(int(date_lastmod_html.group(3)), int(date_lastmod_html.group(1)), int(date_lastmod_html.group(2)))
 
     set_date = False
 
-    if str(this_subtitle.last_changed_on_amara)[:9] is not date_lastmod[:9]:
-#       this_subtitle.last_changed_on_amara = date_lastmod
-#       this_subtitle.save()
+    if date_lastmod.date() != this_subtitle.last_changed_on_amara.date():
         set_date = True
 
+
     print('id:', this_subtitle.talk.id, 'lang:', this_subtitle.language.lang_amara_short,'date_db: ', this_subtitle.last_changed_on_amara, 'date_amara: ', date_lastmod, 'set:', set_date)
+
+    if set_date:
+        this_subtitle.last_changed_on_amara = date_lastmod
+        this_subtitle.save()

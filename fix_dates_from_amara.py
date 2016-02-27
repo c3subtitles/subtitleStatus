@@ -27,17 +27,23 @@ for this_subtitle in my_subtitles:
 
     response = r.get(url_amara)
 
-    date_lastmod_html = re.search(r'<strong>([0-9]{2})/([0-9]{2})/([0-9]{4})</strong>', response.text)
+    date_lastmod_html = re.search(r'<strong>((?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<year>[0-9]{4})|(?P<yesterday>Yesterday)|(?P<today>Today))</strong>', response.text)
 
-    date_lastmod = datetime.datetime(int(date_lastmod_html.group(3)), int(date_lastmod_html.group(1)), int(date_lastmod_html.group(2)))
+    if date_lastmod_html.group('yesterday') is not None:
+        date_lastmod = datetime.date.today() - datetime.timedelta(days = 1)
+    elif date_lastmod_html.group('today') is not None:
+        date_lastmod = datetime.date.today()
+    else:
+        date_lastmod = datetime.date(int(date_lastmod_html.group('year')), int(date_lastmod_html.group('month')), int(date_lastmod_html.group('day')))
+
+    date_lastmod = datetime.datetime.combine(date_lastmod, datetime.time.min)
 
     set_date = False
 
     if date_lastmod.date() != this_subtitle.last_changed_on_amara.date():
         set_date = True
 
-
-    print('id:', this_subtitle.talk.id, 'lang:', this_subtitle.language.lang_amara_short,'date_db: ', this_subtitle.last_changed_on_amara, 'date_amara: ', date_lastmod, 'set:', set_date)
+    print('id:', this_subtitle.talk.id, ' lang:', this_subtitle.language.lang_amara_short, ' date_amara: ', date_lastmod,' date_db: ', this_subtitle.last_changed_on_amara, ' set:', set_date)
 
     if set_date:
         this_subtitle.last_changed_on_amara = date_lastmod

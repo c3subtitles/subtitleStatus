@@ -9,9 +9,10 @@ import requests as r
 import re
 import datetime
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 import django
+
 django.setup()
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
@@ -19,8 +20,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States
 
-my_subtitles = Subtitle.objects.filter().order_by("talk_id")
 
+my_subtitles = Subtitle.objects.filter().order_by("talk_id")
 
 for this_subtitle in my_subtitles:
     url_amara = urllib.parse.urljoin('https://www.amara.org/de/videos/', '{}/{}/'.format(this_subtitle.talk.amara_key, this_subtitle.language.lang_amara_short))
@@ -42,8 +43,9 @@ for this_subtitle in my_subtitles:
 
     if date_lastmod.date() != this_subtitle.last_changed_on_amara.date():
         set_date = True
+        # Don't overwrite already OK timestamps.
 
-    print('id:', this_subtitle.talk.id, ' lang:', this_subtitle.language.lang_amara_short, ' date_amara: ', date_lastmod,' date_db: ', this_subtitle.last_changed_on_amara, ' set:', set_date)
+    print('id:', this_subtitle.talk.id, ' lang:', this_subtitle.language.lang_amara_short, ' date_amara: ', date_lastmod, ' date_db: ', this_subtitle.last_changed_on_amara, ' set:', set_date)
 
     if set_date:
         this_subtitle.last_changed_on_amara = date_lastmod

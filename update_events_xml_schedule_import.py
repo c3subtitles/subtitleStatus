@@ -53,7 +53,7 @@ def set_vars_empty(url = ""):
     global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
-    global talk_description, talk_persons, talk_links
+    global talk_description, talk_persons, talk_links, talk_guid
     global my_event, my_room, my_day, my_track, my_events, my_link, my_links, my_person, my_persons, my_type, my_language
     schedule_url = url
     schedule_version = ""
@@ -83,6 +83,7 @@ def set_vars_empty(url = ""):
     talk_description = ""
     talk_persons = []
     talk_links = []
+    talk_guid = ""
     my_event = ""
     my_room = ""
     my_day = ""
@@ -123,6 +124,7 @@ talk_abstract = ""
 talk_description = ""
 talk_persons = []
 talk_links = []
+talk_guid = ""
 my_event = ""
 my_room = ""
 my_day = ""
@@ -147,7 +149,7 @@ def read_xml_and_save_to_database():
     global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
-    global talk_description, talk_persons, talk_links
+    global talk_description, talk_persons, talk_links, talk_guid
     global fahrplan, len_day, len_event, len_room
     global counter_event, counter_event, counter_room
     global my_event, my_room, my_day, my_track, my_events, my_link, my_links, my_person, my_persons, my_type
@@ -241,6 +243,10 @@ def read_xml_and_save_to_database():
                     talk_frab_id = int(fahrplan[counter_day][counter_room][counter_event].get("id"))
                 else:
                     error("Problem with talk_frab_id")
+                
+                # talk_guid
+                if fahrplan[counter_day][counter_room][counter_event].tag == "event":
+                    talk_guid = fahrplan[counter_day][counter_room][counter_event].get("guid")
                 
                 # talk/event_date
                 if fahrplan[counter_day][counter_room][counter_event][0].tag == "date":
@@ -426,7 +432,7 @@ def save_talk_data ():
     global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
-    global talk_description, talk_persons, talk_links
+    global talk_description, talk_persons, talk_links, talk_guid
     global my_event, my_room, my_day, my_track, my_events, my_link, my_links, my_person, my_persons, my_type, my_language
     
     my_language = Language.objects.get(lang_amara_short = talk_language)
@@ -445,6 +451,7 @@ def save_talk_data ():
     my_talk.subtitle_talk = talk_subtitle
     my_talk.abstract = talk_abstract
     my_talk.description = talk_description
+    my_talk.guid = talk_guid
     if (talk_optout=="true"):
         my_talk.blacklisted = True
     

@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script checks every event with an url to the farhrplan in the database
+# This script checks every event with an url to the fahrrplan in the database
 # for updates depending on the version of the fahrplan
+# 
+# In the database you can mark urls to ignore with a "#" at the beginning
+#
 # If the Fahrplanversion has changed everything is checked for updates
 # Beware I used global vars..
 #==============================================================================
@@ -237,6 +240,9 @@ def read_xml_and_save_to_database():
         
             # Loop around the event tags (talks)
             while (counter_event < len_event):
+                # check how much subelements are available for this event (talk)
+                len_of_tags = len(fahrplan[counter_day][counter_room][counter_event])
+                counter = 0
                 # Read event/talk data
                 # talk_frab_id
                 if fahrplan[counter_day][counter_room][counter_event].tag == "event":
@@ -327,36 +333,44 @@ def read_xml_and_save_to_database():
                 else:
                     error("Problem with description")
                 
-                # persons
+                # persons (on different positions depending on schedule version)
                 talk_persons = []
-                if fahrplan[counter_day][counter_room][counter_event][14].tag == "persons":
+                # start at position 13 to search for persons
+                counter = 13
+                
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "persons" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "persons":
                     # check if there is any subelement in persons
-                    if len(fahrplan[counter_day][counter_room][counter_event][14]):
-                        for person in fahrplan[counter_day][counter_room][counter_event][14]:
+                    if len(fahrplan[counter_day][counter_room][counter_event][counter]):
+                        for person in fahrplan[counter_day][counter_room][counter_event][counter]:
                             talk_persons.append([int(person.get("id")), person.text])
                     else:
                         talk_persons = []
                 else:
-                    error("Problem with persons")
-                    
+                    error("Problem with persons id")
+                
                 # Write persons data to database
                 save_persons_data()
 
-                # links
+                # links (on different positions depending on schedule version)
                 talk_links = []
-                if fahrplan[counter_day][counter_room][counter_event][15].tag == "links":
-                    if len(fahrplan[counter_day][counter_room][counter_event][15]):
-                        for l in fahrplan[counter_day][counter_room][counter_event][15]:
+                # start at position 14 to search for links
+                counter = 14
+                
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "links" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "links":
+                    if len(fahrplan[counter_day][counter_room][counter_event][counter]):
+                        for l in fahrplan[counter_day][counter_room][counter_event][counter]:
                             talk_links.append([l.get("href"), l.text])
                     else:
                         talk_links = []
                 else:
                     error("Problem with links")
                 
-                 
                 # Write event/talk data to database
                 save_talk_data()
-                
                 
                 
                 counter_event += 1
@@ -480,8 +494,8 @@ def save_talk_data ():
 my_events = Event.objects.all()
 for e in my_events:
     fahrplan_link = e.schedule_xml_link
-    # Only if the fahrplan field is not empty
-    if fahrplan_link != "":
+    # Only if the fahrplan field is not empty and doesn't start with an "#"
+    if fahrplan_link != "" and fahrplan_link[0] != '#':
         url_array.append(fahrplan_link)
 
 # For every fahrplan file

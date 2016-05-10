@@ -71,6 +71,7 @@ class Language(BasisModell):
     lang_short_srt = models.CharField(max_length = 15,default = "", blank = True)
     language_native = models.CharField(max_length = 40, default = "", blank = True)
     amara_order = models.PositiveSmallIntegerField(default=0, blank = True)
+    lang_code_media = models.CharField(max_length = 3, default = "", blank = True)
 
     def __str__(self):
         return self.lang_amara_short

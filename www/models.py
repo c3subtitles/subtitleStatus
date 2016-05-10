@@ -66,12 +66,13 @@ class Rooms(BasisModell):
 class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
     language_de = models.CharField(max_length = 40, default = "", blank = True)
-    lang_short_2 = models.CharField(max_length = 3, default = "", blank = True)#, unique = True)
+    #lang_short_2 = models.CharField(max_length = 3, default = "", blank = True)#, unique = True) not really used
     lang_amara_short = models.CharField(max_length = 15, default = "", unique = True)
-    lang_short_srt = models.CharField(max_length = 15,default = "", blank = True)
+    lang_short_srt = models.CharField(max_length = 15, default = "", blank = True)
     language_native = models.CharField(max_length = 40, default = "", blank = True)
-    amara_order = models.PositiveSmallIntegerField(default=0, blank = True)
-    lang_code_media = models.CharField(max_length = 3, default = "", blank = True)
+    amara_order = models.PositiveSmallIntegerField(default = 0, blank = True)
+    lang_code_media = models.CharField(max_length = 3, default = "", blank = True) # ISO 639-2 to talk to the media.ccc.de API
+    lang_code_iso_639_1 = models.CharField(max_length = 10, default = "", blank = True)
 
     def __str__(self):
         return self.lang_amara_short

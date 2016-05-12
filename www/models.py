@@ -130,7 +130,7 @@ class Talk(BasisModell):
     youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
-    file_name = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload
+    filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload
 
     @property
     def needs_automatic_syncing(self):

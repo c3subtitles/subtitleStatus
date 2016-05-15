@@ -1,7 +1,8 @@
 ﻿from django.conf.urls import include, url
 from django.conf.urls.static import static
 from . import views
-from django.urls import reverse_lazy, path
+from django.urls import reverse_lazy
+from django.contrib.staticfiles.views import serve
 from django.conf import settings
 from django.contrib import admin
 
@@ -29,9 +30,8 @@ urlpatterns = [
         url(r'^b_test/$',views.b_test),
         path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 if settings.DEBUG:
     urlpatterns += [
-        include([
-            url(r'^static/(?P<path>.*)$','serve')
-        ], 'django.contrib.staticfiles.views')
+        url(r'^static/(?P<path>.*)$', serve),
     ]

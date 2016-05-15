@@ -4,7 +4,7 @@ from www.models import Event, Talk, Subtitle, Language
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 import datetime
 #from copy import deepcopy
@@ -141,6 +141,15 @@ def talk(request, talk_id):
         #?!
 
     return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles} )
+
+
+def talk_by_frab(request, frab_id):
+    return redirect(get_object_or_404(Talk, frab_id_talk=frab_id),
+                    permanent=True)
+
+
+def talk_by_guid(request, guid):
+    return redirect(get_object_or_404(Talk, guid=guid), permanent=True)
 
 
 def updateSubtitle(request, subtitle_id):

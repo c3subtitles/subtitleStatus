@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from django.db import models
+from django.core.urlresolvers import reverse
 from datetime import datetime
 
 # Basic model which provides a field for the creation and the last change timestamp
@@ -155,8 +156,10 @@ class Talk(BasisModell):
         except:
             return None
 
-            
-# States for every subtitle like "complete" or "needs sync"            
+    def get_absolute_url(self):
+        return reverse('www.views.talk', args=[str(self.id)])
+
+# States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
     state_en = models.CharField(max_length = 100)

@@ -36,7 +36,7 @@ def start(request):
     except ObjectDoesNotExist:
         raise Http404
 
-    return render(request, "www/main.html", {"events" : my_events, "request": request} )
+    return render(request, "main.html", {"events" : my_events, "request": request} )
 
 # Overview over the Talks of one event
 def event (request, event_acronym, *args, **kwargs):
@@ -67,11 +67,10 @@ def event (request, event_acronym, *args, **kwargs):
         talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
 
         datetime_min = datetime.datetime.min
-
     except ObjectDoesNotExist:
         raise Http404
 
-    return render(request, "www/event.html", {"my_talks" : my_talks,
+    return render(request, "event.html", {"my_talks" : my_talks,
         "my_event" : my_event,
         "my_days" : my_event.event_days_set.all(),
         "my_langs" : my_langs,
@@ -169,7 +168,7 @@ def talk(request, talk_id):
 
     datetime_min = datetime.datetime.min
 
-    return render(request, "www/talk.html",
+    return render(request, "talk.html",
                   {"talk" : my_talk,
                     "subtitles": my_subtitles,
                     "page_sub_titles": my_talk.page_sub_titles,
@@ -450,6 +449,7 @@ def test(request):
         "sort_desc" : sort_desc,
         "form" : form}
         )
+
 
 # B Test-Form
 def b_test(request):

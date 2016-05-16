@@ -243,8 +243,8 @@ class Event_Days(BasisModell):
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     index = models.PositiveSmallIntegerField(default = 0)
     date = models.DateField(default = "1970-01-01", blank = True)
-    day_start = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
-    day_end = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
+    day_start = models.DateTimeField(default = "1970-01-01 00:00+01:00", blank = True)
+    day_end = models.DateTimeField(default = "1970-01-01 00:00+01:00", blank = True)
 
     def __str__(self):
         return 'Day {}'.format(self.index) + " - " + self.event.acronym

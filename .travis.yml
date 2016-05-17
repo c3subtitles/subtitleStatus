@@ -1,0 +1,19 @@
+sudo: false
+language: python
+services:
+  - postgresql
+python:
+  - "3.5"
+cache:
+  directories:
+    - $HOME/.cache/pip/wheels
+    - $HOME/virtualenv
+env:
+  - DJANGO_VERSION=1.9.6
+install:
+  - pip install -q Django==$DJANGO_VERSION
+  - pip install -r requirements.txt
+before_script:
+  - echo "DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'NAME': 'subtitlestatus', 'USER': 'postgresql', 'PASSWORD': '', 'HOST': 'localhost'}}" > subtitleStatus/local_settings.py
+script:
+  - python manage.py test

@@ -189,7 +189,6 @@ def updateSubtitle(request, id):
     my_obj = get_object_or_404(Subtitle, pk=id)
 
     form = SubtitleForm(request.POST or None, instance=my_obj)
-    print(request.POST)
     # quick finish btn
     if 'quick_finish_btn' in request.POST:
         talk = my_obj.talk
@@ -216,16 +215,16 @@ def updateSubtitle(request, id):
 
         my_obj.save()
         messages.add_message(request, messages.INFO, 'Step finished.')
-        return redirect('talk', talk_id=talk.pk)
+        return redirect('talk', id=talk.pk)
     elif form.is_valid():
         form.save()
         # do stuff
         my_obj.save()
         messages.add_message(request, messages.INFO, 'Subtitle Status is saved.')
-        return redirect('talk', talk_id=my_obj.talk.pk)
+        return redirect('talk', id=my_obj.talk.pk)
     else:
         messages.add_message(request, messages.WARNING, 'You entered invalid data.')
-        return redirect('talk', talk_id=my_obj.talk.pk)
+        return redirect('talk', id=my_obj.talk.pk)
 
 
 def eventStatus(request, event):

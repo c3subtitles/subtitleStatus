@@ -1019,7 +1019,9 @@ class Subtitle(BasisModell):
     #needs_removal_from_YT = models.BooleanField(default = False)
     tweet_autosync_done = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
-    last_changed_on_amara = models.DateTimeField(default = datetime.min, blank = True)
+    last_changed_on_amara = models.DateTimeField(
+        default=datetime.min.replace(tzinfo=timezone.utc),
+        blank=True)
     #yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
     blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
     needs_sync_to_sync_folder = models.BooleanField(default = False)

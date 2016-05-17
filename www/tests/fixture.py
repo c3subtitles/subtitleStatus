@@ -1,5 +1,5 @@
 from django.test import TestCase
-from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk
+from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle
 
 
 class Fixture(TestCase):
@@ -47,3 +47,15 @@ class Fixture(TestCase):
                             blacklisted=True,
                             frab_id_talk=22,
                             guid='talk-22')
+
+        cls.subtitles = []
+        for day in cls.days[1:]:
+            talk = Talk.objects.filter(day=day).get()
+            cls.subtitles.append(Subtitle.objects.create(talk=talk,
+                                                         language=talk.orig_language,
+                                                         is_original_lang=True))
+            if len(cls.subtitles) > 1:
+                cls.subtitles.append(
+                    Subtitle.objects.create(talk=talk,
+                                            language=cls.languages[0],
+                                            is_original_lang=False))

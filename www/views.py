@@ -341,7 +341,8 @@ def seconds(sometime):
 # Functions for the progress bars
 def _progress_bar(total, green=0.0, orange=0.0, red=0.0, precision=1):
     if total == 0:
-        total = 1
+        total = 1               # prevent division by zero
+
     scale = 100.0 / total
     green_amount = round(green * scale, precision)
     orange_amount = round(min(orange * scale, 100.0 - green_amount), precision)
@@ -371,9 +372,6 @@ def progress_bar_for_talks(talks):
         transcribed += just_transcribed
         synced += just_synced
         checked += just_checked
-
-    if total == 0:
-        total = 1               # prevent division by zero
 
     return _progress_bar(total,
                          green=checked,

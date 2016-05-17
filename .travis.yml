@@ -14,6 +14,6 @@ install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install -r requirements.txt
 before_script:
-  - echo "DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'NAME': 'subtitlestatus', 'USER': 'postgresql', 'PASSWORD': '', 'HOST': 'localhost'}}" > subtitleStatus/local_settings.py
+  - createuser -U postgres -d subtitlestatus
 script:
   - python manage.py test

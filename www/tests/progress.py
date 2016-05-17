@@ -28,3 +28,9 @@ class ProgressBarTestCase(Fixture):
     def testTotalLanguage(self):
         for language in self.languages:
             self._check_talks(self.talks.filter(orig_language=language))
+
+    def testTotalDayLanguage(self):
+        for day in self.days:
+            for language in self.languages:
+                self._check_talks(self.talks.filter(day=day,
+                                                    orig_language=language))

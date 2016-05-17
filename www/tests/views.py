@@ -3,7 +3,9 @@ from .fixture import Fixture
 
 class OtherViewsTestCase(Fixture):
     def testGetHome(self):
-        response = self.client.get('/')
+        with self.assertTemplateUsed('base.html'):
+            with self.assertTemplateUsed('main.html'):
+                response = self.client.get('/')
         self.assertContains(response, self.event.title)
 
     def testGetClock(self):
@@ -13,7 +15,9 @@ class OtherViewsTestCase(Fixture):
 
 class EventViewTestCase(Fixture):
     def testGetEvent(self):
-        response = self.client.get('/event/%s/' % self.event.acronym)
+        with self.assertTemplateUsed('event.html'):
+            with self.assertTemplateUsed('progress_bar_original.html'):
+                response = self.client.get('/event/%s/' % self.event.acronym)
         self.assertContains(response, self.event.acronym)
         self.assertContains(response, self.event.title)
 
@@ -41,3 +45,7 @@ class EventViewTestCase(Fixture):
                                     self.languages[0].lang_amara_short))
         self.assertContains(response, self.talks[0].title)
         self.assertNotContains(response, self.talks[1].title)
+
+    def testGetEventFail(self):
+        response = self.client.get('/event/%s' % reversed(self.event.acronym))
+        self.assertEqual(404, response.status_code)

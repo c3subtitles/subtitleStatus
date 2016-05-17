@@ -1,7 +1,5 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
-from www.forms import SubtitleForm, BForm, SimplePasteForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
@@ -10,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 from www import transforms
 import datetime
 from django.utils import timezone
-#from django import forms
+from .models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
+from .forms import SubtitleForm, SimplePasteForm
+
 #from copy import deepcopy
 #import django_filters
 
@@ -39,45 +39,44 @@ def start(request):
     return render(request, "main.html", {"events" : my_events, "request": request} )
 
 # Overview over the Talks of one event
-def event (request, event_acronym, *args, **kwargs):
-    try:
-        my_event = Event.objects.prefetch_related('event_days_set','talk_set').get(acronym = event_acronym)
-        my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
-            "date",
-            "start",
-            "room__room")
-        # Special case for 36c3, only show the talks with all data complete
-        if my_event.id == 11 or my_event.id == 12 or my_event.id == 13:
-            my_talks = my_talks.all().exclude(video_duration = "00:00:00").exclude(amara_key = "").exclude(filename = "")
-        my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
-        if "day" in kwargs and int(kwargs.get("day")) > 0:
-            day = kwargs.pop("day")
-            my_talks = my_talks.filter(day__index = day)
-        if "lang" in kwargs:
-            lang = kwargs.pop("lang")
-            my_talks = my_talks.filter(orig_language__lang_amara_short = lang)
+def event(request, acronym, day='0', language=None):
+    my_event = get_object_or_404(Event, acronym=acronym)
+    my_talks = my_event.talk_set.filter(blacklisted=False).order_by(
+        "day",
+        "date",
+        "start",
+        "room__room")
+    original_languages = [lang['orig_language']
+                          for lang in my_talks.values('orig_language')]
+    # Special case for 36c3, only show the talks with all data complete
+    if my_event.id in [11, 12, 13]:
+        my_talks = my_talks.all().exclude(
+            video_duration="00:00:00"
+        ).exclude(amara_key="").exclude(filename="")
+    my_langs = Language.objects.filter(pk__in=original_languages)
+    if day.isdigit() and int(day) > 0:
+        my_talks = my_talks.filter(day__index=day)
+    if language:
+        my_talks = my_talks.filter(orig_language__lang_amara_short=language)
+    my_event.__dict__.update(progress_bar_for_talks(my_talks))
 
-        my_event.__dict__.update(progress_bar_for_talks(my_talks))
+    for talk in my_talks:
+        talk.subtitles = talk.subtitle_set.order_by('-is_original_lang')
+        # Create chunk for the 3 columns display of talks on event page
+    talks_per_line = 3
+    talks_chunk = [my_talks[x:x+talks_per_line]
+                   for x in range(0, len(my_talks), talks_per_line)]
 
-        for every_talk in my_talks:
-            every_talk.subtitles = every_talk.subtitle_set.order_by('-is_original_lang')
-
-        # Create cunk for the 3 columns display of talks on event page
-        talks_per_line = 3
-        talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
-
-        datetime_min = datetime.datetime.min
-    except ObjectDoesNotExist:
-        raise Http404
-
-    return render(request, "event.html", {"my_talks" : my_talks,
-        "my_event" : my_event,
-        "my_days" : my_event.event_days_set.all(),
-        "my_langs" : my_langs,
-        "page_sub_titles": my_event.page_sub_titles,
-        "talks_chunk" : talks_chunk,
-        "request": request,
-        "datetime_min": datetime_min})
+    return render(request, "event.html",
+                  {"my_talks": my_talks,
+                   "my_event": my_event,
+                   "my_days": my_event.event_days_set.all(),
+                   "my_langs": my_langs,
+                   "page_sub_titles": my_event.page_sub_titles,
+                   "talks_chunk": talks_chunk,
+                   "request": request,
+                   "datetime_min": datetime.datetime.min,
+                  })
 
 # Form to save the progress of a subtitle
 def get_subtitle_form(request, talk, sub):
@@ -154,8 +153,8 @@ Für den Fall ohne Quality check wäre es:
     return
 
 
-def talk(request, talk_id):
-    my_talk = get_object_or_404(Talk, pk=talk_id, blacklisted=False)
+def talk(request, id):
+    my_talk = get_object_or_404(Talk, pk=id, blacklisted=False)
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
@@ -186,19 +185,8 @@ def talk_by_guid(request, guid):
     return redirect(get_object_or_404(Talk, guid=guid), permanent=True)
 
 
-def talk_by_subtitle(request, subtitle_id):
-    try:
-        my_subtitle = Subtitle.objects.get(id = subtitle_id)
-    except ObjectDoesNotExist:
-        raise Http404
-    my_talk = Talk.objects.filter(id = my_subtitle.talk.id)
-    return redirect(get_object_or_404(my_talk), permanent=True)
-
-def updateSubtitle(request, subtitle_id):
-    try:
-        my_obj = Subtitle.objects.get(pk=subtitle_id)
-    except ObjectDoesNotExist:
-        raise Http404
+def updateSubtitle(request, id):
+    my_obj = get_object_or_404(Subtitle, pk=id)
 
     form = SubtitleForm(request.POST or None, instance=my_obj)
     print(request.POST)
@@ -409,99 +397,6 @@ def statistics_speakers_in_talks(request):
     my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
     return render(request, "www/statistics_speakers_in_talks.html",
         {"talk_persons" : my_talk_persons})
-
-# Test-View
-def test(request):
-
-    if request.method == "POST":
-        form = TestForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            sort_spm = cd.get("sort_spm")
-            sort_desc = cd.get("sort_desc")
-        else:
-            sort_spm = False
-            sort_desc = False
-    else:
-        sort_spm = False
-        sort_desc = False
-        form = TestForm()
-
-
-    my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
-    my_langs = Language.objects.filter(pk__in=[a['talk__orig_language'] for a in my_talk_persons.values('talk__orig_language')])
-    my_events = Event.objects.filter(pk__in=[a['talk__event'] for a in my_talk_persons.values('talk__event')])
-    my_event_days = Event_Days.objects.filter(pk__in=[a['talk__day'] for a in my_talk_persons.values('talk__day')])
-    event_days = {}
-    for any in my_event_days:
-        if any.index in event_days:
-            pass
-        else:
-            event_days[any.index] = 0
-
-
-    return render(request, "www/test.html",
-        {"talk_persons" : my_talk_persons,
-        "my_langs" : my_langs,
-        "my_events" : my_events,
-        "event_days" : event_days,
-        "sort_spm" : sort_spm,
-        "sort_desc" : sort_desc,
-        "form" : form}
-        )
-
-
-# B Test-Form
-def b_test(request):
-    text = "Enter Data here"
-     # If this is a POST request then process the Form data
-    if request.method == 'POST':
-        my_form = BForm(request.POST)
-        if my_form.is_valid():
-            text = my_form.cleaned_data["my_text"]
-            """
-            # Part for the questions
-            # Remove double newlines
-            text = text.replace("\r\n\r\n", "\r\n")
-            # Replace linebreaks with spaces
-            text = text.replace("\r\n", " ")
-            for letter in ["A", "B", "C", "D"]:
-                text = text.replace(" " + letter + ".", "\r\n" + letter + ".")
-            for letter in ["i.", "ii.", "iii.", "iv.", "v."]:
-                text = text.replace(" " + letter, "\r\n" + letter)
-            """
-
-            #"""
-            # Part for the answers
-
-            # Remove the lines with the broken boxes
-            text = text.replace("✗\r\n","")
-            # Replace double empty lines
-            text = text.replace("\r\n\r\n", "\r\n")
-            # Replace linebreaks with spaces
-            text = text.replace("\r\n"," ")
-            text = text.replace(" ☐","\r\n☐")
-            text = text.replace(" •", "\r\n•")
-            #"""
-            counter = len(text)
-            if text[counter - 1]==" ":
-                text = text[0:-1]
-            #my_form.my_text = text
-            my_form = BForm(initial={"my_text":text,})
-        else:
-            #my_form.cleaned_data["my_text"] = "BÄtsch"
-            text = "Bätsch"
-            #text += "Ätsch!"
-            #return HttpResponseRedirect(reverse(text))
-     # If this is a GET (or any other method) create the default form.
-    else:
-        my_form = BForm()#initial={"my_text":text,})
-
-    return render(request, "www/b_test.html",
-        {
-        "form" : my_form,
-        "my_text": text}
-        )
 
 
 @login_required

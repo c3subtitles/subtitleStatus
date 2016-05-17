@@ -35,4 +35,15 @@ class Fixture(TestCase):
                                                  event=cls.event,
                                                  type_of=cls.type_of,
                                                  orig_language=language,
-                                                 frab_id_talk=23 + day.index))
+                                                 frab_id_talk=23 + day.index,
+                                                 guid='talk-42_%d' % day.index))
+        Talk.objects.create(day=cls.days[0],
+                            room=cls.room,
+                            title='blacklisted talk',
+                            track=cls.track,
+                            event=cls.event,
+                            type_of=cls.type_of,
+                            orig_language=cls.languages[0],
+                            blacklisted=True,
+                            frab_id_talk=22,
+                            guid='talk-22')

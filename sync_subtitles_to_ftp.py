@@ -7,7 +7,8 @@
 # It downloads the corresponding files from amara, removes the <i> and </i>
 # and saves them in /downloads/subtitles_srt als subtitle_id.lang.srt
 # Afterwards it connects to the ftp server and puts every *.srt file with the
-# right file extension and name in the corresponding folder
+# right file extension and name in the corresponding folder and in the
+# event root-subtitles folder
 #
 # In the case that the "needs_removal_from_ftp" flag was set, it checks for the
 # file in the folders and removes them.
@@ -122,6 +123,7 @@ for this_subtitle in my_subtitles:
         # Temporarily change to event subfolder
         sftp.chdir(event_subfolder)
         #print(sftp.pwd)
+        
         for every_file_format in event_file_formats:
             # Keep event subfolder "in mind"
             with sftp.cd():
@@ -158,6 +160,18 @@ for this_subtitle in my_subtitles:
                         
                         # Add text to email body
                         email_text_added_subtitles+=filename_subtitle+"\n"
+        
+        
+        # root-subtitles-folder
+        # Go in the subtitles folder and also save the file here with another file-name
+        filename_root_subtitles_folder = this_subtitle.talk.filename + "." + language_srt + ".srt"
+        with sftp.cd():
+            sftp.chdir("subtitles")
+            shutil.copyfile(filename, filename_root_subtitles_folder)
+            sftp.put(filename_root_subtitles_folder)
+        
+            # When done add Name to email body
+            email_text_added_subtitles += filename_root_subtitles_folder + "\n"
                         
     # Reset needs_sync_to_ftp Flag
     this_subtitle.needs_sync_to_ftp = False
@@ -173,6 +187,9 @@ for this_subtitle in my_subtitles:
     
     # Get Event Subfolder and format folders
     event_subfolder = this_subtitle.talk.event.ftp_startfolder
+    
+    # srt-Ending
+    language_srt = this_subtitle.language.lang_short_srt
     
     # If the event doesn't have a subfolder on the ftp server for $reason, next loop
     if event_subfolder == "":
@@ -211,10 +228,24 @@ for this_subtitle in my_subtitles:
                         # Check if file really exists and delete it
                         if sftp.exists(filename_talk):
                             sftp.remove(filename_talk)
-                        if not sftp.exists(filename_talk):
-                            email_text_removed_subtitles+=filename_talk+"\n"
+                            # If the file is removed now, add the filename to the email
+                            if not sftp.exists(filename_talk):
+                                email_text_removed_subtitles += filename_talk+"\n"
 
-    # Reset needs_sync_to_ftp Flag
+        # Also remove the subtitle from the root-event-subtitles-folder
+        # Go in the subtitles folder and remove the folder
+        filename_root_subtitles_folder = this_subtitle.talk.filename + "." + language_srt + ".srt"
+        with sftp.cd():
+            sftp.chdir("subtitles")
+            # Check if the file exists and if so, remove it
+            if sftp.exists(filename_root_subtitles_folder):
+                sftp.remove(filename_root_subtitles_folder)
+                # If the file is removed now, add the filename to the email
+                if not sftp.exists(filename_root_subtitles_folder):
+                    email_text_removed_subtitles += filename_root_subtitles_folder + "\n"
+        
+                            
+    # Reset needs_removal_from_ftp Flag
     this_subtitle.needs_removal_from_ftp = False
     this_subtitle.save()
     

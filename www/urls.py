@@ -7,16 +7,16 @@ from django.conf import settings
 from django.contrib import admin
 
 urlpatterns = [
-        url(r'^$', views.start, name="home"),
+        url(r'^$', views.start, name='home'),
         url(r'^hello/$', views.clock),
-        url(r'^event/(?P<event_acronym>(\w|-)+)/$', views.event),
-        url(r'^event/(?P<event_acronym>(\w|-)+)/day/(?P<day>\d+)$', views.event),
-        url(r'^event/(?P<event_acronym>(\w|-)+)/day/(?P<day>\d+)/lang/(?P<lang>\w+)$', views.event),
-        url(r'^talk/(?P<talk_id>\d+)/$', views.talk, name="talk"),
+        url(r'^event/(?P<acronym>(\w|-)+)/$', views.event, name='event'),
+        url(r'^event/(?P<acronym>(\w|-)+)/day/(?P<day>\d+)$', views.event, name='event'),
+        url(r'^event/(?P<acronym>(\w|-)+)/day/(?P<day>\d+)/lang/(?P<language>\w+)$', views.event, name='event'),
+        url(r'^talk/(?P<id>\d+)/$', views.talk, name='talk'),
         url(r'^talk/frab-id/(?P<frab_id>\d+)/$', views.talk_by_frab),
         url(r'^talk/guid/(?P<guid>[0-9a-zA-Z_-]+)/$', views.talk_by_guid),
         url(r'^talk/subtitle/(?P<subtitle_id>[0-9]+)/$', views.talk_by_subtitle),
-        url(r'^subtitle/(?P<subtitle_id>\d+)/$', views.updateSubtitle, name="updateSub"),
+        url(r'^subtitle/(?P<id>\d+)/$', views.updateSubtitle, name='subtitle'),
         url(r'^speaker/(?P<speaker_id>\d+)/$', views.speaker, name="speaker"),
         url(r'^clock/$',views.clock),
         #url(r'^logo', views.eventLogo),

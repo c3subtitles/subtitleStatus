@@ -1,7 +1,9 @@
 from django.core.urlresolvers import reverse
+from datetime import time
 from .fixture import Fixture
 from .. import views
-from ..models import Talk
+from ..models import Subtitle, Talk
+
 
 class OtherViewsTestCase(Fixture):
     def testGetHome(self):
@@ -111,3 +113,93 @@ class TalkViewTestCase(Fixture):
                 reverse(views.talk_by_guid, args=[talk.guid]))
             self.assertRedirects(response, talk.get_absolute_url(),
                                  status_code=301)
+
+
+class SubtitleViewTestCase(Fixture):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.talk = cls.talks[1]
+
+    def setUp(self):
+        # create additional subtitles here so they don't persist between tests
+        self.original = Subtitle.objects.create(talk=self.talk,
+                                                language=self.languages[1],
+                                                is_original_lang=True,
+                                                revision=41,
+                                                state=self.states[0])
+        self.translation = Subtitle.objects.create(talk=self.talk,
+                                                   language=self.languages[0],
+                                                   is_original_lang=False,
+                                                   revision=22,
+                                                   state=self.states[0])
+
+    def _form(self, subtitle):
+        class MockRequest:
+            POST = {'submit': 'save'}
+        return views.get_subtitle_form(MockRequest(), self.talk, subtitle)
+
+    def assertUpdated(self, response, subtitle):
+        self.assertRedirects(response, subtitle.talk.get_absolute_url())
+        self.assertNotContains(response, 'Step finished.')
+        self.assertNotContains(response, 'You entered invalid data.')
+        self.assertContains(response, 'Subtitle Status is saved.')
+
+    def assertFinished(self, response, subtitle):
+        self.assertRedirects(response, subtitle.talk.get_absolute_url())
+        self.assertNotContains(response, 'You entered invalid data.')
+        self.assertNotContains(response, 'Subtitle Status is saved.')
+        self.assertContains(response, 'Step finished.')
+
+    def assertInvalid(self, response, subtitle):
+        self.assertRedirects(response, subtitle.talk.get_absolute_url())
+        self.assertNotContains(response, 'Subtitle Status is saved.')
+        self.assertNotContains(response, 'Step finished.')
+        self.assertContains(response, 'You entered invalid data.')
+
+    def testPostSubtitleNop(self):
+        form = self._form(self.original)
+        response = self.client.post(
+            self.original.get_absolute_url(),
+            form.data, follow=True)
+        self.assertUpdated(response, self.original)
+
+    def testPostSubtitle(self):
+        form = self._form(self.original)
+        form.data['time_processed_transcribing'] = time(minute=30)
+        response = self.client.post(
+            self.original.get_absolute_url(),
+            form.data, follow=True)
+        self.assertUpdated(response, self.original)
+        self.original.refresh_from_db()
+        self.assertEqual(self.original.time_processed_transcribing,
+                         time(minute=30))
+        self.assertEqual(self.original.state_id, 1)
+
+    def testPostSubtitleExactLength(self):
+        length=self.talk.video_duration
+        form = self._form(self.original)
+        form.data['time_processed_transcribing'] = length
+        response = self.client.post(
+            self.original.get_absolute_url(),
+            form.data, follow=True)
+        self.assertUpdated(response, self.original)
+        self.original.refresh_from_db()
+        self.assertEqual(self.original.time_processed_transcribing,
+                         length)
+        self.assertEqual(self.original.state_id, 1)
+
+    def testPostSubtitleInvalid(self):
+        form = self._form(self.original)
+        form.data['time_processed_transcribing'] = time(hour=1)
+        response = self.client.post(
+            self.original.get_absolute_url(),
+            form.data, follow=True)
+        self.assertInvalid(response, self.original)
+
+    def testGetSubtitleFail(self):
+        url = reverse('subtitle', args=[self.translation.id + 1])
+        response = self.client.get(url)
+        self.assertEqual(404, response.status_code)
+        response = self.client.post(url)
+        self.assertEqual(404, response.status_code)

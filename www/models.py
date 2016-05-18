@@ -393,7 +393,7 @@ class Talk(BasisModell):
     #link_to_logo = models.URLField(default = "", blank = True)
     date = models.DateTimeField(default = "1970-01-01 00:00:00+01:00", blank = True)
     start = models.TimeField(default = "11:00" ,blank = True)
-    duration = models.TimeField(default = "00:45", blank = True)
+    duration = models.TimeField(default=time(minute=45), blank=True)
     title = models.CharField(max_length = 200, default = "ohne Titel", blank = True)
     subtitle_talk = models.CharField(max_length = 300, default = " ", blank = True) # nicht UT sondern Ergänzung zum Titel
     track = models.ForeignKey(Tracks, default = 40, blank = True, on_delete=models.SET_DEFAULT)
@@ -408,7 +408,7 @@ class Talk(BasisModell):
     link_to_video_file = models.URLField(max_length = 200, default = "", blank = True) # use for trint and upload to c3subtitels YT
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
     c3subtitles_youtube_key = models.CharField(max_length = 20, blank = True)
-    video_duration = models.TimeField(default = "00:00", blank = True)
+    video_duration = models.TimeField(default=time(0), blank=True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)
     #youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
     #youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
@@ -1006,10 +1006,10 @@ class Subtitle(BasisModell):
     revision = models.PositiveSmallIntegerField(default = 0)
     complete = models.BooleanField(default = False)
     state = models.ForeignKey(States, default = 1, blank = True, on_delete=models.SET_DEFAULT)
-    time_processed_transcribing = models.TimeField(default = "00:00", blank = True, verbose_name="")
-    time_processed_syncing = models.TimeField(default = "00:00", blank = True, verbose_name="")
-    time_quality_check_done = models.TimeField(default = "00:00", blank = True, verbose_name="")
-    time_processed_translating = models.TimeField(default = "00:00", blank = True, verbose_name="")
+    time_processed_transcribing = models.TimeField(default=time(0), blank=True, verbose_name="")
+    time_processed_syncing = models.TimeField(default=time(0), blank=True, verbose_name="")
+    time_quality_check_done = models.TimeField(default=time(0), blank=True, verbose_name="")
+    time_processed_translating = models.TimeField(default=time(0), blank=True, verbose_name="")
     needs_automatic_syncing = models.BooleanField(default = False)
     blocked = models.BooleanField(default = False)
     #needs_sync_to_ftp = models.BooleanField(default = False)
@@ -1286,6 +1286,9 @@ class Subtitle(BasisModell):
         if needs_save:
             self.save()
         return needs_save
+
+    def get_absolute_url(self):
+        return reverse('subtitle', args=[str(self.id)])
 
 # Links from the Fahrplan
 class Links(BasisModell):

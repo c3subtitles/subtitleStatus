@@ -134,9 +134,12 @@ class SubtitleViewTestCase(Fixture):
                                                    revision=22,
                                                    state=self.states[0])
 
-    def _form(self, subtitle):
+    def _form(self, subtitle, finish=False):
         class MockRequest:
-            POST = {'submit': 'save'}
+            if finish:
+                POST = {'quick_finish_btn': 'finish'}
+            else:
+                POST = {'submit': 'save'}
         return views.get_subtitle_form(MockRequest(), self.talk, subtitle)
 
     def assertUpdated(self, response, subtitle):
@@ -165,16 +168,23 @@ class SubtitleViewTestCase(Fixture):
         self.assertUpdated(response, self.original)
 
     def testPostSubtitle(self):
+        url = self.original.get_absolute_url()
         form = self._form(self.original)
         form.data['time_processed_transcribing'] = time(minute=30)
-        response = self.client.post(
-            self.original.get_absolute_url(),
-            form.data, follow=True)
+        response = self.client.post(url, form.data, follow=True)
         self.assertUpdated(response, self.original)
         self.original.refresh_from_db()
         self.assertEqual(self.original.time_processed_transcribing,
                          time(minute=30))
-        self.assertEqual(self.original.state_id, 1)
+        self.assertEqual(self.original.state_id, self.STATE_NONE)
+        form = self._form(self.original, finish=True)
+        response = self.client.post(url, form.data, follow=True)
+        self.assertFinished(response, self.original)
+        self.original.refresh_from_db()
+        self.assertEqual(self.original.time_processed_transcribing,
+                         self.original.talk.video_duration)
+        self.assertEqual(self.original.state_id, self.STATE_AUTOTIMING)
+
 
     def testPostSubtitleExactLength(self):
         length=self.talk.video_duration
@@ -187,7 +197,7 @@ class SubtitleViewTestCase(Fixture):
         self.original.refresh_from_db()
         self.assertEqual(self.original.time_processed_transcribing,
                          length)
-        self.assertEqual(self.original.state_id, 1)
+        self.assertEqual(self.original.state_id, self.STATE_NONE)
 
     def testPostSubtitleInvalid(self):
         form = self._form(self.original)

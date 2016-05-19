@@ -6,6 +6,18 @@ from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk
 class Fixture(TestCase):
     """basic test fixture
     """
+    STATE_NONE = 1
+    STATE_TRANSCRIBED_UNTIL = 2
+    STATE_TRANSCRIBED = 3
+    STATE_AUTOTIMING = 4
+    STATE_TIMED_UNTIL = 5
+    STATE_TIMED = 6
+    STATE_REVIEW_UNTIL = 7
+    STATE_COMPLETE = 8
+    STATE_UNKNOWN = 9
+    STATE_TRANSLATED_UNTIL = 11
+    STATE_TRANSLATED_UNTIL = 12
+
     @classmethod
     def setUpTestData(cls):
         cls.event = Event.objects.create(acronym='foo',

@@ -142,6 +142,70 @@ class SubtitleViewTestCase(Fixture):
                 POST = {'submit': 'save'}
         return views.get_subtitle_form(MockRequest(), self.talk, subtitle)
 
+    def _advance(self, subtitle, steps=1):
+        for _ in range(steps):
+            if subtitle.state_id == self.STATE_AUTOTIMING:
+                # this transition is normally triggered manually
+                self.assertTrue(subtitle.is_original_lang)
+                length = subtitle.talk.video_duration
+                subtitle.time_processed_transcribing = length
+                subtitle.time_processed_syncing = length
+                subtitle.needs_automatic_syncing = False
+                subtitle.blocked = False
+                subtitle.state_id = self.STATE_REVIEWED_UNTIL
+                subtitle.tweet_autosync_done = True
+                subtitle.save()
+            else:
+                form = self._form(subtitle, finish=True)
+                response = self.client.post(
+                    subtitle.get_absolute_url(),
+                    form.data, follow=True
+                )
+                self.assertFinished(response, subtitle)
+
+                subtitle.refresh_from_db()
+                if subtitle.state_id in [self.STATE_COMPLETE,
+                                         self.STATE_TRANSLATED]:
+                    # this is normally set by the amara import script
+                    subtitle.complete = True
+                    subtitle.save()
+            subtitle.refresh_from_db()
+
+    def _checkUpdate(self, subtitle,
+                     finish=False,
+                     timestamp=None,
+                     oldState=Fixture.STATE_NONE,
+                     newState=Fixture.STATE_NONE):
+        self.assertEqual(subtitle.state_id, oldState)
+        form = self._form(subtitle, finish)
+        if timestamp:
+            (k, v) = timestamp
+            form.data[k] = v
+        response = self.client.post(
+            subtitle.get_absolute_url(),
+            form.data, follow=True
+        )
+
+        if finish:
+            self.assertFinished(response, subtitle)
+        else:
+            self.assertUpdated(response, subtitle)
+
+        subtitle.refresh_from_db()
+        self.assertEqual(subtitle.state_id, newState)
+        null = time(0)
+        length = subtitle.talk.video_duration
+        self.assertTrue(null <= subtitle.time_processed_transcribing <= length)
+        self.assertTrue(null <= subtitle.time_processed_syncing <= length)
+        self.assertTrue(null <= subtitle.time_processed_translating <= length)
+        self.assertTrue(null <= subtitle.time_quality_check_done <= length)
+
+        if subtitle.is_original_lang:
+            self.assertEqual(null, subtitle.time_processed_translating)
+        else:
+            self.assertEqual(null, subtitle.time_processed_transcribing)
+            self.assertEqual(null, subtitle.time_processed_syncing)
+
     def assertUpdated(self, response, subtitle):
         self.assertRedirects(response, subtitle.talk.get_absolute_url())
         self.assertNotContains(response, 'Step finished.')
@@ -161,51 +225,86 @@ class SubtitleViewTestCase(Fixture):
         self.assertContains(response, 'You entered invalid data.')
 
     def testPostSubtitleNop(self):
-        form = self._form(self.original)
-        response = self.client.post(
-            self.original.get_absolute_url(),
-            form.data, follow=True)
-        self.assertUpdated(response, self.original)
+        self._checkUpdate(self.original)
 
     def testPostSubtitle(self):
-        url = self.original.get_absolute_url()
-        form = self._form(self.original)
-        form.data['time_processed_transcribing'] = time(minute=30)
-        response = self.client.post(url, form.data, follow=True)
-        self.assertUpdated(response, self.original)
-        self.original.refresh_from_db()
-        self.assertEqual(self.original.time_processed_transcribing,
-                         time(minute=30))
-        self.assertEqual(self.original.state_id, self.STATE_NONE)
-        form = self._form(self.original, finish=True)
-        response = self.client.post(url, form.data, follow=True)
-        self.assertFinished(response, self.original)
-        self.original.refresh_from_db()
+        self._checkUpdate(
+            self.original,
+            timestamp=('time_processed_transcribing', time(minute=30))
+        )
+
+    def testPostSubtitleStateTimedUntil(self):
+        self.original.state_id = self.STATE_TIMED_UNTIL
+        self.original.save()
+
+        self._checkUpdate(
+            self.original,
+            timestamp=('time_processed_transcribing', time(minute=33)),
+            oldState=self.STATE_TIMED_UNTIL,
+            newState=self.STATE_TIMED_UNTIL
+        )
+
+    def testPostSubtitleFinishTranscribing(self):
+        self._checkUpdate(
+            self.original,
+            finish=True,
+            oldState=self.STATE_NONE,
+            newState=self.STATE_AUTOTIMING
+        )
         self.assertEqual(self.original.time_processed_transcribing,
                          self.original.talk.video_duration)
-        self.assertEqual(self.original.state_id, self.STATE_AUTOTIMING)
 
+    def testPostSubtitleFinishTranscribingFromTimedUntil(self):
+        self.original.state_id = self.STATE_TIMED_UNTIL
+        self.original.save()
+
+        self._checkUpdate(
+            self.original,
+            finish=True,
+            oldState=self.STATE_TIMED_UNTIL,
+            newState=self.STATE_AUTOTIMING
+        )
+        self.assertEqual(self.original.time_processed_transcribing,
+                         self.original.talk.video_duration)
+
+    def testSubtitleFormNative(self):
+        form = self._form(self.original)
+        self.assertEqual(['time_processed_transcribing'],
+                         list(form.fields.keys()))
+
+    def testSubtitleFormInAutotiming(self):
+        self._advance(self.original)
+        self.assertEqual(self._form(self.original),
+                         'Automatic syncing, please wait and come back later!')
+
+    def testSubtitleFormFinished(self):
+        self._advance(self.original, steps=3)
+        self.assertEqual(self._form(self.original),
+                         'Finished :)')
+        self._advance(self.translation)
+        self.assertEqual(self._form(self.translation),
+                         'Finished :)')
 
     def testPostSubtitleExactLength(self):
-        length=self.talk.video_duration
-        form = self._form(self.original)
-        form.data['time_processed_transcribing'] = length
-        response = self.client.post(
-            self.original.get_absolute_url(),
-            form.data, follow=True)
-        self.assertUpdated(response, self.original)
-        self.original.refresh_from_db()
-        self.assertEqual(self.original.time_processed_transcribing,
-                         length)
-        self.assertEqual(self.original.state_id, self.STATE_NONE)
+        self._checkUpdate(
+            self.original,
+            timestamp=('time_processed_transcribing', self.talk.video_duration),
+        )
 
     def testPostSubtitleInvalid(self):
-        form = self._form(self.original)
-        form.data['time_processed_transcribing'] = time(hour=1)
-        response = self.client.post(
-            self.original.get_absolute_url(),
-            form.data, follow=True)
-        self.assertInvalid(response, self.original)
+        tv = time(hour=1)
+        self.assertTrue(tv > self.talk.video_duration)
+
+        for ts in ['time_processed_transcribing',
+                   'time_processed_syncing',
+                   'time_processed_translating',
+                   'time_quality_check_done']:
+            form = self._form(self.original)
+            form.data[ts] = tv
+            response = self.client.post(
+                self.original.get_absolute_url(),
+                form.data, follow=True)
+            self.assertInvalid(response, self.original)
 
     def testGetSubtitleFail(self):
         url = reverse('subtitle', args=[self.translation.id + 1])

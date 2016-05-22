@@ -12,11 +12,11 @@ class Fixture(TestCase):
     STATE_AUTOTIMING = 4
     STATE_TIMED_UNTIL = 5
     STATE_TIMED = 6
-    STATE_REVIEW_UNTIL = 7
+    STATE_REVIEWED_UNTIL = 7
     STATE_COMPLETE = 8
     STATE_UNKNOWN = 9
     STATE_TRANSLATED_UNTIL = 11
-    STATE_TRANSLATED_UNTIL = 12
+    STATE_TRANSLATED = 12
 
     @classmethod
     def setUpTestData(cls):

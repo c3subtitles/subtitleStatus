@@ -53,14 +53,20 @@ def reset_subtitle(my_subtitle):
     my_subtitle.save()
 
 
-# Set all states to complete and sync and tweet-flags, no matter if translation or original
-def set_subtitle_complete(my_subtitle):
+# Set all states to complete and sync and sets the tweet-flags, only of not choosen otherwise
+# - no matter if the subtitle is a translation or a original
+def set_subtitle_complete(my_subtitle, tweet_about_it = True):
     # Stuff which need to be done anyway..
     my_subtitle.complete = True
     my_subtitle.needs_sync_to_YT = True
     my_subtitle.needs_sync_to_ftp = True
-    my_subtitle.tweet = True
     my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
+
+    # Only tweet if it is not a rerelease
+    if tweet_about_it:
+        my_subtitle.tweet = True
+    else:
+        my_subtitle.tweet = False
 
     # Stuff only if the subtitle is the orignal language
     if my_subtitle.is_original_lang:
@@ -75,6 +81,7 @@ def set_subtitle_complete(my_subtitle):
         my_subtitle.state_id = 12 # Translation finished
 
     my_subtitle.save()
+
 
 
 basis_url = "http://www.amara.org/api2/partners/videos/"
@@ -120,6 +127,7 @@ for any_talk in all_talks_with_amara_key:
 
             # Get or create subtitle entry from database
             subtitle = Subtitle.objects.get_or_create(language = language , talk = any_talk)[0]
+            subtitle_was_already_complete = subtitle.complete
 
             # Almost only change something in the database if the version of the subtitle is not the same as before
             if (subtitle.revision != amara_num_versions):
@@ -133,13 +141,14 @@ for any_talk in all_talks_with_amara_key:
                 if (subtitle.revision == "1" and subtitle.is_original_lang):
                     subtitle.state_id = 2
                     subtitle.save()
+		# If subtitle is a translation and new inserted into the database set state to translated until..
                 if (subtitle.revision == "1" and not subtitle.is_original_lang):
                     subtitle.state_id = 11
                     subtitle.save()
 
                 # If orignal or translation and finished set state to finished
                 if subtitle.complete:
-                    set_subtitle_complete(subtitle)
+                    set_subtitle_complete(subtitle, not subtitle_was_already_complete)
                     
                 # If translation and not finished set state to translation in progress
                 elif (not subtitle.is_original_lang and not subtitle.complete):

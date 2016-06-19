@@ -100,9 +100,11 @@ for this_subtitle in my_subtitles:
     file = open(filename, mode = "w",encoding = "utf-8")
     
     # First fix <i> and </i> issue and than save into file
+    # Also fix other amara html-issues
     for line in text_content:
         line = re.sub("<i>","*",line)
         line = re.sub("</i>","*",line)
+        line = re.sub("&amp;","&",line)
         file.write(line)
         file.write("\n")
         #print(line)

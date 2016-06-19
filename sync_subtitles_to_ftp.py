@@ -105,6 +105,7 @@ for this_subtitle in my_subtitles:
         line = re.sub("<i>","*",line)
         line = re.sub("</i>","*",line)
         line = re.sub("&amp;","&",line)
+        line = re.sub("&quot;",'"',line)
         file.write(line)
         file.write("\n")
         #print(line)

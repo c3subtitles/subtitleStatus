@@ -1,0 +1,17 @@
+﻿{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}C3Subtitles{% endblock %}
+
+{% block content %}
+
+
+<h1>{{speaker.name}}</h1>
+<h2>{{speaker.doppelgaenger_of}}</h2>
+
+<p class="alert alert-danger">
+    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true" style="margin-right: 5px;"></span>
+    Please do not press “publish” on amara.org to save your progress, use “save draft” instead. Only press “publish” when you're done with quality control.
+</p>
+
+{% endblock %}

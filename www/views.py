@@ -1,6 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language
+from www.models import Event, Talk, Subtitle, Language, Speaker
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
@@ -11,6 +11,7 @@ import datetime
 
 # Create your views here.
 
+# Start of the Website with all the events
 def start(request):
     try:
         my_events = list(Event.objects.all().order_by("-start"))     
@@ -24,6 +25,7 @@ def start(request):
     
     return render(request, "www/main.html", {"events" : my_events} )
 
+# Overvie over the Talks of one event    
 def event (request, event_acronym, *args, **kwargs):
     try:
         my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym = event_acronym)
@@ -57,7 +59,7 @@ def event (request, event_acronym, *args, **kwargs):
         "my_langs" : my_langs,
         "talks_chunk" : talks_chunk} )
 
-
+# Form to save the progress of a subtitle
 def get_subtitle_form(request, talk, sub):
     """
 
@@ -203,8 +205,15 @@ def updateSubtitle(request, subtitle_id):
 def eventStatus(request, event):
     return render(request, 'status', {'eventname':event})
 
-def speaker(request, event):
-    return render(request, 'status', {'eventname':event})
+# Speaker summary website
+def speaker(request, speaker_id):
+    # Check if the Speaker ID exists, if not return a 404
+    my_speaker = get_object_or_404(Speaker, pk = speaker_id)
+    # If the speaker has an doppelgaenger, do a redirect to this site
+    if my_speaker.doppelgaenger_of is not None :
+        return redirect('speaker', speaker_id = my_speaker.doppelgaenger_of.id)
+    
+    return render(request, "www/speaker.html", {"speaker" : my_speaker} )
 
 def eventCSS(request, event):
     return render(request, "css/{}".format(event.lower()))

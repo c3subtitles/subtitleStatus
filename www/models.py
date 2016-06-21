@@ -100,6 +100,7 @@ class Type_of(BasisModell):
 class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
+    doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
 
     
 # Talk with all its data
@@ -226,3 +227,5 @@ class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)
     url = models.URLField(blank = True)
     title = models.CharField(max_length = 200, default = "Link title", blank = True)
+
+    

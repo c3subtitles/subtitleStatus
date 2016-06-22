@@ -233,11 +233,11 @@ class Links(BasisModell):
 class Statistics(BasisModell):
     speaker = models.ForeignKey(Speaker)
     subtitle = models.ForeignKey(Subtitle)
-    start = models.TimeField(blank = True)
-    end = models.TimeField(blank = True)
-    time_delta = models.TimeField(blank = True)
-    words = models.IntegerField(blank = True)
-    strokes = models.IntegerField(blank = True)
+    start = models.TimeField(blank = True, null = True)
+    end = models.TimeField(blank = True, null = True)
+    time_delta = models.TimeField(blank = True, null = True)
+    words = models.IntegerField(blank = True, null = True)
+    strokes = models.IntegerField(blank = True, null = True)
     
     # Calculate the real start and end points, time_delta, words and strokes from the data and the *.sbv subtitles file
     def calculate():

@@ -3,7 +3,7 @@
 from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
-from datetime import datetime
+
 
 # Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
@@ -228,4 +228,18 @@ class Links(BasisModell):
     url = models.URLField(blank = True)
     title = models.CharField(max_length = 200, default = "Link title", blank = True)
 
+ 
+# Statistics about Speakers and their words per minute and strokes per minute
+class Statistics(BasisModell):
+    speaker = models.ForeignKey(Speaker)
+    subtitle = models.ForeignKey(Subtitle)
+    start = models.TimeField(blank = True)
+    end = models.TimeField(blank = True)
+    time_delta = models.TimeField(blank = True)
+    words = models.IntegerField(blank = True)
+    strokes = models.IntegerField(blank = True)
+    
+    # Calculate the real start and end points, time_delta, words and strokes from the data and the *.sbv subtitles file
+    def calculate():
+        pass
     

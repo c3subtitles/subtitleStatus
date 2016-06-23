@@ -235,7 +235,7 @@ class Statistics(BasisModell):
     subtitle = models.ForeignKey(Subtitle)
     start = models.TimeField(blank = True, null = True)
     end = models.TimeField(blank = True, null = True)
-    time_delta = models.TimeField(blank = True, null = True)
+    time_delta = models.FloatField(blank = True, null = True) # only seconds!
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
     

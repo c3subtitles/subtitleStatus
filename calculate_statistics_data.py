@@ -21,6 +21,7 @@ import urllib
 import re
 import datetime
 import copy
+import logging
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -30,6 +31,7 @@ django.setup()
 from django.db.models import Q
 from www.models import Talk, Language, Subtitle, Statistics
 
+#statistics_logger = logging.getLogger('calculate_statistics')
 """
 # Create Test-Data new:
 test_statistics = Statistics.objects.get(id = 4)
@@ -46,25 +48,29 @@ print("Altes Ende: ")
 print(test_statistics.end)
 """
 
+#statistics_logger.info("Calculate statistics started")
+
 # Check which entries in Statistics do not have a timedelta, words or strokes entry
 my_statistics = Statistics.objects.filter(Q(time_delta = None) | Q(words = None) | Q(strokes = None))
 print(my_statistics.count())
   
-# For every non finnished statistics entry:  
+# For every non finished statistics entry:  
 for this_st in my_statistics:
   
-    # Check if the subtitle is complete an not a translation
-    if not this_st.subtitle.complete:
+    # Get the corresponding subtitle in the original language which is finished and original language
+    # If not available, calculate nothing
+    this_subtitles = Subtitle.objects.filter(talk = this_st.talk, is_original_lang = True, complete = True)
+    if this_subtitles.count() != 1:
         continue
-    if not this_st.subtitle.is_original_lang:
-        continue
+  
     # Check if the speaker in Statistics is really a speaker in the talk according to the Fahrplan
-    if not this_st.speaker in this_st.subtitle.talk.persons.all():
+    # If the speaker isn't than stop and calculate nothing
+    if not this_st.speaker in this_st.talk.persons.all():
         continue
         
     # Get the Amara-Key and create the URL
-    amara_key = this_st.subtitle.talk.amara_key
-    language = this_st.subtitle.language.lang_amara_short
+    amara_key = this_st.talk.amara_key
+    language = this_subtitles[0].language.lang_amara_short
     url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=sbv"
     print(url)
     
@@ -206,4 +212,4 @@ for this_st in my_statistics:
     this_st.save()
 
     print("Done!")
-
+#statistics_logger.info("Calculate statistics done")

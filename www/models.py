@@ -216,6 +216,16 @@ class Talk(BasisModell):
             return None
         else:
             return strokes_sum * 60 / time_sum
+    
+    @property
+    def has_statistics(self):
+        """ If there are statistics data available for this talk """
+        if self.average_spm is None:
+            return False
+        elif self.average_spm is None:
+            return False
+        else:
+            return True
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):

@@ -81,6 +81,8 @@
 							<dl class="dl-horizontal">
 								<dt>Talk ID</dt>
 								<dd>{{talk.frab_id_talk}}</dd>
+								<dt>Event:</dt>
+								<dd>{{talk.event.acronym}}</dd>
 								<dt>Day</dt>
 								<dd>{{talk.day.index}}</dd>
 								<dt>Room</dt>
@@ -102,10 +104,18 @@
 						{% if talk.has_statistics %}
 						<div role="tabpanel" class="tab-pane" id="Statistics">
 							<dl class="dl-horizontal">
+							    <dt>Very rough estimation:</dt>
+								<dd></dd>
 								<dt>Average <abbr title="words per minute">wpm</abbr></dt>
 								<dd>{{talk.average_wpm | floatformat:-1}}</dd>
-								<dt>Average <abbr title="strokes per minute">spm</abbr></dt>
+								<dt>Average <abbr title="strokes per minute">spm</dt>
 								<dd>{{talk.average_spm | floatformat:-1}}</dd>
+								<dt>While the speaker(s) speak:</dt>
+								<dd></dd>
+								<dt><abbr title="words per minute">wpm</abbr></dt>
+								<dd>{{talk.speakers_average_wpm | floatformat:-1}}</dd>
+								<dt><abbr title="strokes per minute">spm</abbr></dt>
+								<dd>{{talk.speakers_average_spm | floatformat:-1}}</dd>
 							</dl>
 						</div>
 						{% endif %}

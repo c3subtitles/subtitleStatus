@@ -152,6 +152,8 @@ class Talk(BasisModell):
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
     filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload
+    average_wpm = models.FloatField(blank = True, null = True)
+    average_spm = models.FloatField(blank = True, null = True)
 
     @property
     def needs_automatic_syncing(self):
@@ -181,7 +183,7 @@ class Talk(BasisModell):
     
      
     @property       
-    def average_wpm(self):
+    def speakers_average_wpm(self):
         """ Calculates average wpm over a whole talk and all speakers """
         my_statistics = Statistics.objects.filter(talk = self)
         if my_statistics.count() == 0:
@@ -199,7 +201,7 @@ class Talk(BasisModell):
             return words_sum * 60 / time_sum
 
     @property
-    def average_spm(self):
+    def speakers_average_spm(self):
         """ Calculates average strokes per minute over a whole talk and all speakers """
         my_statistics = Statistics.objects.filter(talk = self)
         """ Calculates average wpm over a whole talk and all speakers """
@@ -220,9 +222,9 @@ class Talk(BasisModell):
     @property
     def has_statistics(self):
         """ If there are statistics data available for this talk """
-        if self.average_spm is None:
+        if self.speakers_average_spm is None:
             return False
-        elif self.average_spm is None:
+        elif self.speakers_average_spm is None:
             return False
         else:
             return True

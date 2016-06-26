@@ -314,4 +314,3 @@ class Statistics(BasisModell):
         self.time_delta = end - start
         self.save()
         
-    # # Calculate the real start and end points, time_delta, words and strokes from the data and the *.sbv subtitles file

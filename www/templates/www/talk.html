@@ -37,6 +37,9 @@
 						<li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
 						<li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
 						<li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
+						{% if talk.has_statistics %}
+						<li role="presentation"><a href="#Statistics" aria-controls="Statistics" role="tab" data-toggle="tab">Statistics</a></li>
+						{% endif %}
 					</ul>
 
 			  <!-- Tab panes -->
@@ -95,9 +98,17 @@
 								<dd>{{speaker.name}}</dd>
 								{% endfor %}
 							</dl>
-						
 						</div>
-						
+						{% if talk.has_statistics %}
+						<div role="tabpanel" class="tab-pane" id="Statistics">
+							<dl class="dl-horizontal">
+								<dt>Average wpm</dt>
+								<dd>{{talk.average_wpm | floatformat:-1}}</dd>
+								<dt>Average spm</dt>
+								<dd>{{talk.average_spm | floatformat:-1}}</dd>
+							</dl>
+						</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>

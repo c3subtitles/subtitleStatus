@@ -147,6 +147,15 @@ for this_st in my_statistics:
             print(start_time)
             line_counter_start = counter + 1
             start_is_set = True
+        # If start ist not yet set but before the first subtitle
+        if counter < 3 and \
+            not start_is_set and \
+            this_st.start < text_content[counter][0]:
+            start_time = text_content[counter][0]
+            print("Neuer Start: ")
+            print(start_time)
+            line_counter_start = counter +1
+            start_is_set = True
                 
         # Find the endoint
         # If the entered end time is in a subtitles from the sbv file use the end of the subtitle as new end

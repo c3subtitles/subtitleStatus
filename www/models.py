@@ -182,8 +182,8 @@ class Talk(BasisModell):
      
     @property       
     def average_wpm(self):
-        my_statistics = Statistics.objects.filter(talk = self)
         """ Calculates average wpm over a whole talk and all speakers """
+        my_statistics = Statistics.objects.filter(talk = self)
         if my_statistics.count() == 0:
             return None
         words_sum = 0
@@ -209,7 +209,7 @@ class Talk(BasisModell):
         time_sum = 0
         for this_statistic in my_statistics:
             if this_statistic.strokes is not None:
-                strokes_sum += this_statistic.words
+                strokes_sum += this_statistic.strokes
             if this_statistic.time_delta is not None:
                 time_sum += this_statistic.time_delta
         if strokes_sum == 0 or time_sum == 0.0:

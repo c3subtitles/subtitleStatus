@@ -31,10 +31,16 @@ django.setup()
 from django.db.models import Q
 from www.models import Talk, Language, Subtitle, Statistics
 
+# Calculate time_delta
+def calculate_time_delta(start, end):
+        new_end = end.hour * 3600 + end.minute * 60 + end.second + end.microsecond / 1000000.0
+        new_start = start.hour * 3600 + start.minute * 60 + start.second + start.microsecond / 1000000.0
+        return new_end - new_start
+
 #statistics_logger = logging.getLogger('calculate_statistics')
 """
 # Create Test-Data new:
-test_statistics = Statistics.objects.get(id = 4)
+test_statistics = Statistics.objects.get(id = 1)
 test_statistics.start = "00:01:04.100000"
 test_statistics.end = "01:02:37.100555"
 test_statistics.time_delta = None
@@ -74,7 +80,7 @@ for this_st in my_statistics:
     url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=sbv"
     print(url)
     
-    # sbv-File herunter laden
+    # Download sbv-File
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     file_content = response.read()
@@ -94,6 +100,8 @@ for this_st in my_statistics:
     # Save the start and end lines with subtitle-text and use it later
     line_counter_start = 0
     line_counter_end = 0
+    start_time = 0
+    end_time = 0
     # Convert all start and stop times in the sbv file into datetime.time objects
     while (counter < lines_in_sbv_file):
         temp_array = []
@@ -121,11 +129,10 @@ for this_st in my_statistics:
             # of the timestamps when the script is executed several times and
             # calculates the times new, this is caused by two subtitles one#
             # having the starttimestamp and one the same timestamp es endtimestamp
-            delta = datetime.timedelta(microseconds = 1)            
-            this_st.start = (datetime.datetime.combine(datetime.datetime.today(),text_content[counter][0]) + delta).time()
-            this_st.save()
+            start_time = text_content[counter][0]
+            
             print("Neuer Start: ")
-            print(this_st.start)
+            print(start_time)
             # Set the start-counter to the first line with text which is included in the timespan
             line_counter_start = counter + 1
             start_is_set = True
@@ -135,11 +142,9 @@ for this_st in my_statistics:
             not start_is_set and \
             this_st.start > text_content[counter-3][1] and \
             this_st.start < text_content[counter][0]:
-            delta = datetime.timedelta(microseconds = 1)            
-            this_st.start = (datetime.datetime.combine(datetime.datetime.today(),text_content[counter][0]) + delta).time()
-            this_st.save()
+            start_time = text_content[counter][0]
             print("Neuer Start: ")
-            print(this_st.start)
+            print(start_time)
             line_counter_start = counter + 1
             start_is_set = True
                 
@@ -149,12 +154,9 @@ for this_st in my_statistics:
             this_st.end >= text_content[counter][0] and \
             this_st.end <= text_content[counter][1]:
             # Use the end of this subtitle
-            delta = datetime.timedelta(microseconds = 1)
-            this_st.end = (datetime.datetime.combine(datetime.datetime.today(),text_content[counter][1]) - delta).time()
-            this_st.end = temp_array_2[1]
+            end_time = text_content[counter][1]
             print("Neues Ende: ")
-            print(this_st.end)
-            this_st.save()
+            print(end_time)
             # Set the end-counter to the last line with text which is included in the timespan
             line_counter_end = counter + 1
             end_is_set = True
@@ -165,11 +167,9 @@ for this_st in my_statistics:
             this_st.end > text_content[counter - 3][1] and \
             this_st.end < text_content[counter][0]:
             # Use the end of the previous subtitle timestamp
-            delta = datetime.timedelta(microseconds = 1)            
-            this_st.end = (datetime.datetime.combine(datetime.datetime.today(),text_content[counter-3][1]) - delta).time()
-            this_st.save()
+            end_time = text_content[counter-3][1]
             print("Neues Ende: ")
-            print(this_st.end)
+            print(end_time)
             # Set the end-counter to the last line with text from the previous subtitle
             line_counter_end = counter -2
             end_is_set = True
@@ -192,7 +192,7 @@ for this_st in my_statistics:
         counter += 3
     
     # calculate the time_delta
-    this_st.calculate_time_delta()
+    this_st.time_delta = calculate_time_delta(start_time, end_time)
     
     # Build one big string with all lines, replace "[br]" with " ", double
     # spaces are not relevant
@@ -211,5 +211,58 @@ for this_st in my_statistics:
     this_st.words = len(big_string.split())
     this_st.save()
 
-    print("Done!")
+# Do basically the same but for talks and their whole duration
+my_subtitles = Subtitle.objects.filter(is_original_lang = True, complete = True)
+for any_subtitle in my_subtitles:
+    my_talk = any_subtitle.talk
+    # Do not calculate everything it is already calculated
+    if my_talk.average_wpm is not None and my_talk.average_spm is not None:
+        continue
+    # Get the Amara-Key and create the URL
+    amara_key = any_subtitle.talk.amara_key
+    language = any_subtitle.language.lang_amara_short
+    url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=sbv"
+    print(url)
+    
+    # Donwload sbv-File
+    request = urllib.request.Request(url)
+    response = urllib.request.urlopen(request)
+    file_content = response.read()
+    # Convert from bytes object to string object
+    file_content = str(file_content, encoding = "UTF-8")
+    
+    # Split in single lines:
+    text_content = file_content.splitlines()
+    # Count lines of the sbv-file
+    lines_in_sbv_file = len(text_content)
+    #print(lines_in_sbv_file)
+    counter = 1
+    big_string = ""
+    while counter <= lines_in_sbv_file:
+        big_string += " "
+        big_string += text_content[counter]
+        counter += 3
+    
+    # sbv-Files use "[br]" as break line, this is replaced with spaces
+    big_string = re.sub("\[br\]"," ",big_string)
+    # The strokes are the length of the string
+    strokes = len(big_string)
+    # The words is the length of the array if it is splitted at spaces
+    words = len(big_string.split())
+    
+    time = any_subtitle.talk.video_duration.hour * 3600 + \
+        any_subtitle.talk.video_duration.minute * 60 + \
+        any_subtitle.talk.video_duration.second + \
+        any_subtitle.talk.video_duration.microsecond / 1000000.0
+    
+    
+    my_talk.average_wpm = words * 60.0 / time
+    print(my_talk.average_wpm)
+    my_talk.average_spm = strokes * 60.0 /time
+    print(my_talk.average_spm)
+    print(time)
+    my_talk.save()
+        
+    
+print("Done!")
 #statistics_logger.info("Calculate statistics done")

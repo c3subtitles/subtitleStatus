@@ -222,9 +222,9 @@ class Talk(BasisModell):
     @property
     def has_statistics(self):
         """ If there are statistics data available for this talk """
-        if self.speakers_average_spm is None:
+        if self.average_spm is None:
             return False
-        elif self.speakers_average_spm is None:
+        elif self.average_spm is None:
             return False
         else:
             return True

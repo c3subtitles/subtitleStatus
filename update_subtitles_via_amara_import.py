@@ -24,7 +24,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
-from www.models import Talk, Language, Subtitle, States
+from www.models import Talk, Language, Subtitle, States, Statistics
 
 import credentials as cred
 
@@ -32,7 +32,7 @@ import credentials as cred
 # Function to completely reset an subtitle
 # Used if a subtitle was formerly set to complete but isn't anymore
 def reset_subtitle(my_subtitle):
-    # Stuff which need to be done in any case, no matter if its a translation or not
+    # Stuff which needs to be done in any case, no matter if its a translation or not
     my_subtitle.complete = False
     my_subtitle.needs_removal_from_ftp = True
     my_subtitle.needs_removal_from_YT = True
@@ -44,6 +44,19 @@ def reset_subtitle(my_subtitle):
         my_subtitle.time_processed_syncing = "00:00:00"
         my_subtitle.time_quality_check_done = "00:00:00"
         my_subtitle.state_id = 2 # Transcribed until
+        # Reset all related statistics to None to recalculate them
+        # In the Talk model
+        my_talk = Talk.objects.get(id = my_subtitle.talk.id)
+        my_talk.average_wpm = None
+        my_talk.average_spm = None
+        my_talk.save()
+        # In the Statistics model
+        my_statistics = Statistics.objects.filter(talk = my_subtitle.talk)
+        for any_statistics in my_statistics:
+            any_statistics.time_delta = None
+            any_statistics.words = None
+            any_statistics.strokes = None
+            any_statistics.save()
         
     # If the subtitle is a translation..
     elif not my_subtitle.is_original_lang:
@@ -51,6 +64,8 @@ def reset_subtitle(my_subtitle):
         my_subtitle.time_processed_translating = "00:00:00"
 
     my_subtitle.save()
+    
+    
 
 
 # Set all states to complete and sync and sets the tweet-flags, only of not choosen otherwise
@@ -83,7 +98,7 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
     my_subtitle.save()
 
 
-
+    
 basis_url = "http://www.amara.org/api2/partners/videos/"
 anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.289 Version/12.01',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -136,12 +151,23 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.complete = amara_subtitles_complete
                 subtitle.last_changed_on_amara = datetime.now(timezone.utc)
                 subtitle.save()
+                # Also reset statistics data
+                any_talk.average_wpm = None
+                any_talk.average_spm = None
+                any_talk.save()
+                # In the Statistics model
+                my_statistics = Statistics.objects.filter(talk = any_talk)
+                for any_statistics in my_statistics:
+                    any_statistics.time_delta = None
+                    any_statistics.words = None
+                    any_statistics.strokes = None
+                    any_statistics.save()                        
 
                 # If subtitle is orignal and new inserted into the database, set state to transcribed until..
                 if (subtitle.revision == "1" and subtitle.is_original_lang):
                     subtitle.state_id = 2
                     subtitle.save()
-		# If subtitle is a translation and new inserted into the database set state to translated until..
+		        # If subtitle is a translation and new inserted into the database set state to translated until..
                 if (subtitle.revision == "1" and not subtitle.is_original_lang):
                     subtitle.state_id = 11
                     subtitle.save()

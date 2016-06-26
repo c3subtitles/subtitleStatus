@@ -101,7 +101,25 @@ class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
+    """
+    @property       
+    def average_wpm(self):
+        # Include doppelgaenger!
+        # only if orignal subtitle is done
+        # only if there is any data in statistics available which is already calculated
+        # words and delta and strokes must be filled and not none
+        # return sum(words) *60/ sum(deltas)
+        return None
 
+    @property
+    def average_spm(self):
+        # Include Doppelgaenger!
+        # Similar to average_wpm 
+        # statistics available with calculated data
+        # else None
+        # return sum(strokey) *60 / sum(deltas)
+        return None
+    """
     
 # Talk with all its data
 class Talk(BasisModell):
@@ -160,7 +178,49 @@ class Talk(BasisModell):
 
     def get_absolute_url(self):
         return reverse('www.views.talk', args=[str(self.id)])
+    
+    """    
+    @property       
+    def average_wpm(self):
+        """ Calculates average wpm over a whole talk and all speakers """
+        try:
+            my_subtitle = Subtitle.objects.get(talk = self, is_orignal_language = True)
+        except:
+            return None
+        my_statistics = Statistics.objects.filter(subtitle = my_subtitle)
+        if my_statistics.count() == 0:
+            return None
+        words_sum = 0
+        time_sum = 0
+        for this_statistic in my_statistics:
+            if this_statistic.words is not None:
+                words_sum += this_statistic.words
+            if this_statistic.time_delta is not None:
+                time_sum += this_statistic.time_delta
+        if words_sum ==0 or time_sum == 0.0:
+            return None
+        else:
+            return words_sum * 60 / time_sum
 
+    @property
+    def average_spm(self):
+        """ Calculates average strokes per minute over a wholte talk and all speakers """
+        my_statistics = Statistics.objects.filter(talk = self)
+        if my_statistics.count() == 0:
+            return None
+        strokes_sum = 0
+        time_sum = 0
+        for this_statistic in my_statistics:
+            if this_statistic.strokes is not None:
+                strokes_sum += this_statistic.words
+            if this_statistic.time_delta is not None:
+                time_sum += this_statistic.time_delta
+        if strokes_sum == 0 or time_sum == 0.0:
+            return None
+        else:
+            return strokes_sum * 60 / time_sum
+    """    
+        
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)
@@ -228,18 +288,22 @@ class Links(BasisModell):
     url = models.URLField(blank = True)
     title = models.CharField(max_length = 200, default = "Link title", blank = True)
 
- 
+
 # Statistics about Speakers and their words per minute and strokes per minute
 class Statistics(BasisModell):
     speaker = models.ForeignKey(Speaker)
-    subtitle = models.ForeignKey(Subtitle)
+    talk = models.ForeignKey(Talk)
     start = models.TimeField(blank = True, null = True)
     end = models.TimeField(blank = True, null = True)
     time_delta = models.FloatField(blank = True, null = True) # only seconds!
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
     
-    # Calculate the real start and end points, time_delta, words and strokes from the data and the *.sbv subtitles file
-    def calculate():
-        pass
-    
+    # Calculate the time_delta and save it
+    def calculate_time_delta(self):
+        end = self.end.hour * 3600 + self.end.minute * 60 + self.end.second + self.end.microsecond / 1000000.0
+        start = self.start.hour * 3600 + self.start.minute * 60 + self.start.second + self.start.microsecond / 1000000.0
+        self.time_delta = end - start
+        self.save()
+        
+    # # Calculate the real start and end points, time_delta, words and strokes from the data and the *.sbv subtitles file

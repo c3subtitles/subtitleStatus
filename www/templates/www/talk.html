@@ -102,9 +102,9 @@
 						{% if talk.has_statistics %}
 						<div role="tabpanel" class="tab-pane" id="Statistics">
 							<dl class="dl-horizontal">
-								<dt>Average wpm</dt>
+								<dt>Average <abbr title="words per minute">wpm</abbr></dt>
 								<dd>{{talk.average_wpm | floatformat:-1}}</dd>
-								<dt>Average spm</dt>
+								<dt>Average <abbr title="strokes per minute">spm</abbr></dt>
 								<dd>{{talk.average_spm | floatformat:-1}}</dd>
 							</dl>
 						</div>

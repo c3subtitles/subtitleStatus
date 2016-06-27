@@ -199,7 +199,9 @@ for this_st in my_statistics:
         and also – that’s also something you all[br]probably use – the Qubes OS project.
         """
         counter += 3
-    
+    # If the end timestamp is after the last subtitle, use the last subtitles end as end
+    if not end_is_set:
+        end_time = text_content[lines_in_sbv_file-2][1]
     # calculate the time_delta
     this_st.time_delta = calculate_time_delta(start_time, end_time)
     

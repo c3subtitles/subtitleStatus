@@ -223,7 +223,7 @@ for this_st in my_statistics:
     this_st.save()
 
 # Do basically the same but for talks and their whole duration
-my_subtitles = Subtitle.objects.filter(is_original_lang = True, complete = True)
+my_subtitles = Subtitle.objects.filter(Q(is_original_lang = True), Q(complete = True) | Q(state_id = 5) | Q(state_id = 7) | Q(state_id = 3) | Q(state_id = 6))
 for any_subtitle in my_subtitles:
     my_talk = any_subtitle.talk
     # Do not calculate everything it is already calculated

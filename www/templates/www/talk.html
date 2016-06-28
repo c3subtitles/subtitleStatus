@@ -105,17 +105,15 @@
 						<div role="tabpanel" class="tab-pane" id="Statistics">
 							<dl class="dl-horizontal">
 							    <dt>Very rough estimation:</dt>
-								<dd></dd>
-								<dt>Average <abbr title="words per minute">wpm</abbr></dt>
-								<dd>{{talk.average_wpm | floatformat:-1}}</dd>
-								<dt>Average <abbr title="strokes per minute">spm</dt>
-								<dd>{{talk.average_spm | floatformat:-1}}</dd>
-								<dt>While the speaker(s) speak:</dt>
-								<dd></dd>
-								<dt><abbr title="words per minute">wpm</abbr></dt>
-								<dd>{{talk.speakers_average_wpm | floatformat:-1}}</dd>
-								<dt><abbr title="strokes per minute">spm</abbr></dt>
-								<dd>{{talk.speakers_average_spm | floatformat:-1}}</dd>
+								<dd>{{talk.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+								<dt></dt>
+								<dd>{{talk.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+								{% if talk.speakers_average_wpm %}
+								<dt>While speaker(s) speak(s):</dt>
+								<dd>{{talk.speakers_average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+								<dt></dt>
+								<dd>{{talk.speakers_average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+								{% endif %}
 							</dl>
 						</div>
 						{% endif %}

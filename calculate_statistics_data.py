@@ -222,7 +222,7 @@ for this_st in my_statistics:
     this_st.words = len(big_string.split())
     this_st.save()
 
-# Do basically the same but for talks and their whole duration
+# Do basically the same but for talks and their whole duration if they are finished or at least the transcribing is done
 my_subtitles = Subtitle.objects.filter(Q(is_original_lang = True), Q(complete = True) | Q(state_id = 5) | Q(state_id = 7) | Q(state_id = 3) | Q(state_id = 6))
 for any_subtitle in my_subtitles:
     my_talk = any_subtitle.talk

@@ -120,6 +120,33 @@ class Speaker(BasisModell):
         # return sum(strokey) *60 / sum(deltas)
         return None
     """
+    def average_wpm_in_one_talk(self, talk):
+        my_statistics = Statistics.objects.filter(speaker = self, talk = talk)
+        words = 0
+        time = 0
+        for this_statistics in my_statistics:
+            if this_statistics.words is not None and this_statistics.time_delta is not None:
+                words += this_statistics.words
+                time += this_statistics.time_delta
+            else:
+                return None
+        if time == 0:
+            return None
+        return words * 60.0 / time
+    
+    def average_spm_in_one_talk(self, talk):
+        my_statistics = Statistics.objects.filter(speaker = self, talk = talk)
+        strokes = 0
+        time = 0
+        for this_statistics in my_statistics:
+            if this_statistics.strokes is not None and this_statistics.time_delta is not None:
+                strokes += this_statistics.strokes
+                time += this_statistics.time_delta
+            else:
+                return None
+        if time == 0:
+            return None
+        return strokes * 60.0 / time
     
 # Talk with all its data
 class Talk(BasisModell):

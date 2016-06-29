@@ -139,10 +139,28 @@ def talk(request, talk_id):
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
-        # todo add ifs so that its set correct depending of the status
-        #?!
+        
+    if my_talk.speakers_average_wpm is not None and my_talk.speakers_average_spm is not None:
+        my_talk.has_speakers_statistic = True
+    else:
+        my_talk.has_speakers_statistic = False
+        
+    # Calculate speakers personal statistic for this specific talk
+    my_speakers = my_talk.persons.all()
+    if my_speakers.count() <= 1:
+        my_talk.has_speakers_statistic = False
+    
+    for speaker in my_speakers:
+        speaker.average_wpm_in_this_talk = speaker.average_wpm_in_one_talk(talk = my_talk)
+        speaker.average_spm_in_this_talk = speaker.average_spm_in_one_talk(talk = my_talk)
+        
+        if speaker.average_wpm_in_this_talk is not None and speaker.average_spm_in_this_talk is not None:
+            speaker.has_statistic = True
+        else:
+            speaker.has_statistic = False
 
-    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles} )
+
+    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles, "speakers": my_speakers} )
 
 
 def talk_by_frab(request, frab_id):

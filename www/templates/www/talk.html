@@ -108,12 +108,20 @@
 								<dd>{{talk.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
 								<dt></dt>
 								<dd>{{talk.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
-								{% if talk.speakers_average_wpm %}
+								{% if talk.has_speakers_statistic %}
 								<dt>While speaker(s) speak(s):</dt>
 								<dd>{{talk.speakers_average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
 								<dt></dt>
 								<dd>{{talk.speakers_average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
 								{% endif %}
+								{% for speaker in speakers %}
+								{% if speaker.has_statistic %}
+								<dt>{{speaker.name}}</dt>
+								<dd> {{speaker.average_wpm_in_this_talk | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+								<dt></dt>
+								<dd> {{speaker.average_spm_in_this_talk | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+								{% endif %}
+								{% endfor %}
 							</dl>
 						</div>
 						{% endif %}

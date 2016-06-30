@@ -63,3 +63,7 @@ body {
     width: 170px;
 
 }
+
+dl {
+    margin-top: 5px;
+}

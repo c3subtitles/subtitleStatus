@@ -97,11 +97,12 @@
 								<dd>{{talk.type_of}}</dd>
 								<dt>Speaker</dt>
 								{% for speaker in talk.persons.all %}
-								<dd>{{speaker.name}}</dd>
+								<dd><abbr title="id {{speaker.id}}">{{speaker.name}}</abbr></dd>
 								{% endfor %}
 							</dl>
 						</div>
 						{% if talk.has_statistics %}
+                        <h3>Talk & Speaker speed statistics</h3>
 						<div role="tabpanel" class="tab-pane" id="Statistics">
 							<dl class="dl-horizontal">
 							    <dt>Very rough underestimation:</dt>

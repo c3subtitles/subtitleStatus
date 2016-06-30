@@ -30,16 +30,4 @@ body {
   margin-bottom: 80px !important;
 }
 
-#Statistics .dl-horizontal dt:empty {
-  display:none
-}
-#Statistics .dl-horizontal dd {
-  float: left;
-  margin-left: 0;
-}
-#Statistics .dl-horizontal::after {
-  clear:both;
-  content: " ";
-  display: block
-}
 

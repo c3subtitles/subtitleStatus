@@ -1,18 +1,23 @@
 ﻿li {
 	font-size: 18px !important;
 }
+
 #main {
     font-family: 'Abel', sans-serif !important;
 }
+
 .btn-save {
 	float: right;
 }
+
 .amara-embed {
 	display: block;
 }
+
 .progress-bar-grey {
       background-color: grey !important;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -21,13 +26,31 @@
   height: 50px;
   background-color: #f5f5f5;
 }
+
 html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 80px !important;
 }
 
 
+
+.Table {
+		    	display: table;
+		    	width: 100%;
+}
+.TableRow {
+    	display: table-row;
+}
+.TableCell{
+    	display: table-cell;
+    	padding: 3px 10px;
+    	border: 1px solid #999999;
+}
+.rTableBody {
+    	display: table-row-group;
+}

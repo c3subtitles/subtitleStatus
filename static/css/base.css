@@ -57,7 +57,7 @@ body {
     	display: table-row-group;
 }
 
-#Label .TableCell  {
+#TableLabel {
     text-align: right;
     white-space: nowrap;
     font-weight: 700;

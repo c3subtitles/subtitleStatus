@@ -36,3 +36,16 @@ a.thumbnail:hover{
 .thumbnail:hover > h3{
 	text-decoration: underline;
 }
+
+#Statistics .dl-horizontal dt:empty {
+  display:none
+}
+#Statistics .dl-horizontal dd {
+  float: left;
+  margin-left: 0;
+}
+#Statistics .dl-horizontal::after {
+  clear:both;
+  content: " ";
+  display: block
+}

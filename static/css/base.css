@@ -53,6 +53,13 @@ body {
     	padding: 3px 10px;
     	border: 1px solid #999999;
 }
-#Statistics .rTableBody {
+#Statistics .TableBody {
     	display: table-row-group;
+}
+
+#Label .TableCell  {
+    text-align: right;
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 1.42857143;
 }

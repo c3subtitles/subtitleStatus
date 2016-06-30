@@ -106,7 +106,7 @@
 	                     <h3>Talk &amp; Speaker speed statistics</h3>
 	                     <div class="Table">
 	                        <div class="TableRow">
-	                            <div class="TableCell">Very rough underestimation:</div>
+	                            <div id="Label" class="TableCell">Very rough underestimation:</div>
 	                            <div class="TableCell">
 	                              {{talk.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
 	                              {{talk.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
@@ -114,7 +114,7 @@
 	                         </div>
 	                         {% if talk.has_speakers_statistic %}
 	                        	<div class="TableRow">
-	                           	<div class="TableCell">While speaker(s) speak(s):</div>
+	                           	<div id="Label" class="TableCell">While speaker(s) speak(s):</div>
 	                           	<div class="TableCell">
 	                              	{{talk.speakers_average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
 	                              	{{talk.speakers_average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
@@ -124,7 +124,7 @@
 	                        {% for speaker in speakers %}
 	                        	{% if speaker.has_statistic %}
 	                        		<div class="TableRow">
-	                           		<div class="TableCell">{{speaker.name}}</div>
+	                           		<div id="Label" class="TableCell">{{speaker.name}}</div>
 	                           		<div class="TableCell">
 	                              		{{speaker.average_wpm_in_this_talk | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
 	                              		{{speaker.average_spm_in_this_talk | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>

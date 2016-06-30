@@ -39,18 +39,18 @@ body {
 
 
 
-.Table {
+#Statistics .Table {
 		    	display: table;
 		    	width: 100%;
 }
-.TableRow {
+#Statistics .TableRow {
     	display: table-row;
 }
-.TableCell{
+#Statistics .TableCell{
     	display: table-cell;
     	padding: 3px 10px;
     	border: 1px solid #999999;
 }
-.rTableBody {
+#Statistics .rTableBody {
     	display: table-row-group;
 }

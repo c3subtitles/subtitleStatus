@@ -37,8 +37,6 @@ body {
   margin-bottom: 80px !important;
 }
 
-
-
 #Statistics .Table {
 		    	display: table;
 		    	width: 100%;
@@ -51,7 +49,7 @@ body {
 #Statistics .TableCell{
     	display: table-cell;
     	padding: 3px 10px;
-    	border: 1px solid #999999;
+/*    	border: 1px solid #999999;*/
 }
 #Statistics .TableBody {
     	display: table-row-group;
@@ -62,4 +60,6 @@ body {
     white-space: nowrap;
     font-weight: 700;
     line-height: 1.42857143;
+    width: 170px;
+
 }

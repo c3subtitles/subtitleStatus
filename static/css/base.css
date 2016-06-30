@@ -64,6 +64,6 @@ body {
 
 }
 
-.dl-horizontal dl {
-    margin-top: 5px !important;
+.tab-content div {
+    padding-top: 10px;
 }

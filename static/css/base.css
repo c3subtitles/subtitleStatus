@@ -64,6 +64,6 @@ body {
 
 }
 
-dl {
-    margin-top: 5px;
+dl-horizontal dl {
+    margin-top: 5px !important;
 }

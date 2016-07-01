@@ -178,7 +178,7 @@ class Talk(BasisModell):
     youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
-    filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload
+    filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
     average_wpm = models.FloatField(blank = True, null = True)
     average_spm = models.FloatField(blank = True, null = True)
 
@@ -207,8 +207,7 @@ class Talk(BasisModell):
 
     def get_absolute_url(self):
         return reverse('www.views.talk', args=[str(self.id)])
-    
-     
+       
     @property       
     def speakers_average_wpm(self):
         """ Calculates average wpm over a whole talk and all speakers """
@@ -255,6 +254,23 @@ class Talk(BasisModell):
             return False
         else:
             return True
+    
+    @property
+    def has_original_subtitle(self):
+        my_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
+        if my_subtitles.count() > 0:
+            return True
+        else:
+            return False
+    
+    @property
+    def has_finished_original_subtitle(self):
+        my_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True, complete = True)
+        if my_subtitles.count() > 0:
+            return True
+        else:
+            return False
+    
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):

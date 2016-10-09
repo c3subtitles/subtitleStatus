@@ -184,8 +184,25 @@ class Talk(BasisModell):
     strokes = models.IntegerField(blank = True, null = True)    # Strokes in the whole subtitles file
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from the words and the time_delta
     average_spm = models.FloatField(blank = True, null = True)  # Calculated from the strokes and the time_delta
-    recalculate_statistics = models.BooleanField(default = False)
+    recalculate_talk_statistics = models.BooleanField(default = False)
+    speakers_words = models.IntegerField(blank = True, null = True)      # Words in the parts of all speakers
+    speakers_strokes = models.IntegerField(blank = True, null = True)    # Strokes in the parts of all speakers
+    speakers_time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds while all speakers speak - the timeslots are in statistics_raw
+    speakers_average_wpm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_words and the speakers_time_delta
+    speakers_average_spm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_strokes and the speakers_time_delta
+    recalculate_speakers_statistics = models.BooleanField(default = False)
 
+    # Recalculate statistics-data
+    def recalculate(self, force = False):
+        # Recalculate absolutely everything
+        # In this case, recalculate the time_delta
+        if force:
+            #self.time_delta = 
+            pass
+        # Recalculate only the really necessary stuff
+        else:
+            pass
+            
     @property
     def needs_automatic_syncing(self):
         return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
@@ -345,6 +362,8 @@ class Links(BasisModell):
 
 
 # Statistics about Speakers and their words per minute and strokes per minute
+# These datasets have to be collected by "hand", they can not be auto created
+# speaker, talk, start and end need to be entered manually
 class Statistics_raw(BasisModell):
     speaker = models.ForeignKey(Speaker)
     talk = models.ForeignKey(Talk)
@@ -361,7 +380,16 @@ class Statistics_raw(BasisModell):
         start = self.start.hour * 3600 + self.start.minute * 60 + self.start.second + self.start.microsecond / 1000000.0
         self.time_delta = end - start
         self.save()
- 
+    
+    # Recalculate statistics-data
+    def recalculate(force = False):
+        # Recalculate absolutely everything
+        if force:
+            pass
+        # Recalculate only the really necessary stuff
+        else:
+            pass
+     
  
 # Speakers can have different Statistic values for different languages they spoke during talks
 # This is calculated from the Statistics_raw data which only counts the actual time the speaker speaks
@@ -375,6 +403,15 @@ class Statistics_Speaker(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
+    
+    # Recalculate statistics-data
+    def recalculate(force = False):
+        # Recalculate absolutely everything
+        if force:
+            pass
+        # Recalculate only the really necessary stuff
+        else:
+            pass
 
     
 # Every Event can have different Statistic values for different languages
@@ -389,6 +426,16 @@ class Statistics_Event(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
     average_spm = models.FloatField(blank = True, null = True)  # Calculated form strokes and time_detla
     recalculate_statistics = models.BooleanField(default = False)
+    
+    # Recalculate statistics-data
+    def recalculate(force = False):
+        # Recalculate absolutely everything
+        if force:
+            pass
+        # Recalculate only the really necessary stuff
+        else:
+            pass
+    
 
 # m:n Connection between Talks and Speakers and their Statistics data
 class Talk_Persons(BasisModell):
@@ -400,4 +447,13 @@ class Talk_Persons(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
+    
+    # Recalculate statistics-data
+    def recalculate(force = False):
+        # Recalculate absolutely everything
+        if force:
+            pass
+        # Recalculate only the really necessary stuff
+        else:
+            pass
  

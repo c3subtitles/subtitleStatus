@@ -24,7 +24,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
-from www.models import Talk, Language, Subtitle, States, Statistics
+from www.models import Talk, Language, Subtitle, States, Statistics_Raw_Data
 
 import credentials as cred
 
@@ -47,15 +47,13 @@ def reset_subtitle(my_subtitle):
         # Reset all related statistics to None to recalculate them
         # In the Talk model
         my_talk = Talk.objects.get(id = my_subtitle.talk.id)
-        my_talk.average_wpm = None
-        my_talk.average_spm = None
+        my_talk.recalculate_talk_statistics = True
+        my_talk.recalculate_speakers_statistics = True
         my_talk.save()
         # In the Statistics model
-        my_statistics = Statistics.objects.filter(talk = my_subtitle.talk)
+        my_statistics = Statistics_Raw_Data.objects.filter(talk = my_subtitle.talk)
         for any_statistics in my_statistics:
-            any_statistics.time_delta = None
-            any_statistics.words = None
-            any_statistics.strokes = None
+            any_statistics.recalculate_statistics = True
             any_statistics.save()
         
     # If the subtitle is a translation..
@@ -156,11 +154,9 @@ for any_talk in all_talks_with_amara_key:
                 any_talk.average_spm = None
                 any_talk.save()
                 # In the Statistics model
-                my_statistics = Statistics.objects.filter(talk = any_talk)
+                my_statistics = Statistics_Raw_Data.objects.filter(talk = any_talk)
                 for any_statistics in my_statistics:
-                    any_statistics.time_delta = None
-                    any_statistics.words = None
-                    any_statistics.strokes = None
+                    any_statistics.recalculate_statistics = True
                     any_statistics.save()                        
 
                 # If subtitle is orignal and new inserted into the database, set state to transcribed until..

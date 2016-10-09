@@ -57,7 +57,7 @@ print(test_statistics.end)
 #statistics_logger.info("Calculate statistics started")
 
 # Check which entries in Statistics do not have a timedelta, words or strokes entry
-my_statistics = Statistics.objects.filter(Q(time_delta = None) | Q(words = None) | Q(strokes = None))
+my_statistics = Statistics_raw.objects.filter(Q(time_delta = None) | Q(words = None) | Q(strokes = None))
 print(my_statistics.count())
   
 # For every non finished statistics entry:  

@@ -121,7 +121,7 @@ class Speaker(BasisModell):
         return None
     """
     def average_wpm_in_one_talk(self, talk):
-        my_statistics = Statistics.objects.filter(speaker = self, talk = talk)
+        my_statistics = Statistics_raw.objects.filter(speaker = self, talk = talk)
         words = 0
         time = 0
         for this_statistics in my_statistics:
@@ -135,7 +135,7 @@ class Speaker(BasisModell):
         return words * 60.0 / time
     
     def average_spm_in_one_talk(self, talk):
-        my_statistics = Statistics.objects.filter(speaker = self, talk = talk)
+        my_statistics = Statistics_raw.objects.filter(speaker = self, talk = talk)
         strokes = 0
         time = 0
         for this_statistics in my_statistics:
@@ -166,7 +166,7 @@ class Talk(BasisModell):
     orig_language = models.ForeignKey(Language, default = 287, blank = True)
     abstract = models.TextField(default = "", blank = True)
     description = models.TextField(default = "", blank = True)
-    persons = models.ManyToManyField(Speaker, default = None, blank = True)
+    persons = models.ManyToManyField(Speaker, through = "Talk_Persons", default = None, blank = True) #through="Talk_Persons"
     pad_id = models.CharField(max_length = 30, default = "", blank = True)
     link_to_writable_pad = models.URLField(default = "", blank = True)
     link_to_readable_pad = models.URLField(default = "", blank = True)
@@ -215,7 +215,7 @@ class Talk(BasisModell):
     @property       
     def speakers_average_wpm(self):
         """ Calculates average wpm over a whole talk and all speakers """
-        my_statistics = Statistics.objects.filter(talk = self)
+        my_statistics = Statistics_raw.objects.filter(talk = self)
         if my_statistics.count() == 0:
             return None
         words_sum = 0
@@ -233,7 +233,7 @@ class Talk(BasisModell):
     @property
     def speakers_average_spm(self):
         """ Calculates average strokes per minute over a whole talk and all speakers """
-        my_statistics = Statistics.objects.filter(talk = self)
+        my_statistics = Statistics_raw.objects.filter(talk = self)
         """ Calculates average wpm over a whole talk and all speakers """
         if my_statistics.count() == 0:
             return None
@@ -389,3 +389,15 @@ class Statistics_Event(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
     average_spm = models.FloatField(blank = True, null = True)  # Calculated form strokes and time_detla
     recalculate_statistics = models.BooleanField(default = False)
+
+# m:n Connection between Talks and Speakers and their Statistics data
+class Talk_Persons(BasisModell):
+    talk = models.ForeignKey(Talk)
+    speaker = models.ForeignKey(Speaker)
+    words = models.IntegerField(blank = True, null = True)      # All words from this speaker in this talk summed up
+    strokes = models.IntegerField(blank = True, null = True)    # All strokes from this speaker in this talk summed up
+    time_delta = models.FloatField(blank = True, null = True)   # Summed up time deltas from this speaker in this talk
+    average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
+    average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
+    recalculate_statistics = models.BooleanField(default = False)
+ 

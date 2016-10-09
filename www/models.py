@@ -341,7 +341,7 @@ class Links(BasisModell):
 
 
 # Statistics about Speakers and their words per minute and strokes per minute
-class Statistics(BasisModell):
+class Statistics_raw(BasisModell):
     speaker = models.ForeignKey(Speaker)
     talk = models.ForeignKey(Talk)
     start = models.TimeField(blank = True, null = True)

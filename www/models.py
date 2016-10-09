@@ -179,11 +179,11 @@ class Talk(BasisModell):
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
     filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
-    time_delta = models.FloatField(blank = True, null = True) # only seconds!
-    words = models.IntegerField(blank = True, null = True)
-    strokes = models.IntegerField(blank = True, null = True)
-    average_wpm = models.FloatField(blank = True, null = True)
-    average_spm = models.FloatField(blank = True, null = True)
+    time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds
+    words = models.IntegerField(blank = True, null = True)      # Words in the whole subtitles file
+    strokes = models.IntegerField(blank = True, null = True)    # Strokes in the whole subtitles file
+    average_wpm = models.FloatField(blank = True, null = True)  # Calculated from the words and the time_delta
+    average_spm = models.FloatField(blank = True, null = True)  # Calculated from the strokes and the time_delta
     recalculate_statistics = models.BooleanField(default = False)
 
     @property
@@ -361,4 +361,31 @@ class Statistics_raw(BasisModell):
         start = self.start.hour * 3600 + self.start.minute * 60 + self.start.second + self.start.microsecond / 1000000.0
         self.time_delta = end - start
         self.save()
-        
+ 
+ 
+# Speakers can have different Statistic values for different languages they spoke during talks
+# This is calculated from the Statistics_raw data which only counts the actual time the speaker speaks
+# The subtitle must be finished or in review
+class Statistics_Speaker(BasisModell):
+    speaker = models.ForeignKey(Speaker)
+    language = models.ForeignKey(Language)
+    words = models.IntegerField(blank = True, null = True)      # All words from this speaker in this language summed up
+    strokes = models.IntegerField(blank = True, null = True)    # All strokes from this speaker in this language summed up
+    time_delta = models.FloatField(blank = True, null = True)   # Summed up time deltas from this speaker in this language
+    average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
+    average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
+    recalculate_statistics = models.BooleanField(default = False)
+
+    
+# Every Event can have different Statistic values for different languages
+# The statistics applies to whole talk-time, not only the speakers time, it
+# includes breaks, and Q&A and other stuff
+class Statistics_Event(BasisModell):
+    event = models.ForeignKey(Event)
+    language = models.ForeignKey(Language)
+    words = models.IntegerField(blank = True, null = True)  # Summed up from finished / in review whole talks, not only speakers time
+    strokes = models.IntegerField(blank = True, null = True)    # Calculated from finished / in review whole talks, not only speakers time
+    time_delta = models.FloatField(blank = True, null = True)   # Seconds of all talks from this event which are in review or finished
+    average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
+    average_spm = models.FloatField(blank = True, null = True)  # Calculated form strokes and time_detla
+    recalculate_statistics = models.BooleanField(default = False)

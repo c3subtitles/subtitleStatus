@@ -364,7 +364,7 @@ class Links(BasisModell):
 # Statistics about Speakers and their words per minute and strokes per minute
 # These datasets have to be collected by "hand", they can not be auto created
 # speaker, talk, start and end need to be entered manually
-class Statistics_raw(BasisModell):
+class Statistics_Raw_Data(BasisModell):
     speaker = models.ForeignKey(Speaker)
     talk = models.ForeignKey(Talk)
     start = models.TimeField(blank = True, null = True)

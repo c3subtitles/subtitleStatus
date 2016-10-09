@@ -179,8 +179,12 @@ class Talk(BasisModell):
     youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
     filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
+    time_delta = models.FloatField(blank = True, null = True) # only seconds!
+    words = models.IntegerField(blank = True, null = True)
+    strokes = models.IntegerField(blank = True, null = True)
     average_wpm = models.FloatField(blank = True, null = True)
     average_spm = models.FloatField(blank = True, null = True)
+    recalculate_statistics = models.BooleanField(default = False)
 
     @property
     def needs_automatic_syncing(self):
@@ -349,6 +353,7 @@ class Statistics_raw(BasisModell):
     time_delta = models.FloatField(blank = True, null = True) # only seconds!
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
+    recalculate_statistics = models.BooleanField(default = False)
     
     # Calculate the time_delta and save it
     def calculate_time_delta(self):

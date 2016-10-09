@@ -46,8 +46,26 @@ class Event(BasisModell):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
             savedXML = f.read()
             return savedXML == xmlFile.data
-
-
+    
+    
+    # Create Entries in Statistics_Event model for any available combination
+    def create_statistics_event_entries(self):
+        my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = self)
+        my_talks = Talk.objects.filter(event = self)
+        for any in my_subtitles:
+            this = Statistics_Event.objects.get_or_create(event = self, language = any.language)
+            # If new created, than also set the flag for recalculate
+            if this[1]:
+                this[0].recalculate_statistics = True
+                this[0].save()
+        for any in my_talks:
+            this = Statistics_Event.objects.get_or_create(event = self, language = any.orig_language)
+            # If new created, also recalculate
+            if this[1]:
+                this[0].recalculate_statistics = True
+                this[0].save()
+                
+                
 # Days which belong to an event
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)

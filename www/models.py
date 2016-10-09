@@ -2,7 +2,9 @@
 
 from datetime import datetime
 from django.db import models
+from django.db.models import Sum, Q
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from .statistics_helper import *
 
 # Basic model which provides a field for the creation and the last change timestamp
@@ -192,17 +194,67 @@ class Talk(BasisModell):
     speakers_average_spm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_strokes and the speakers_time_delta
     recalculate_speakers_statistics = models.BooleanField(default = False)
 
+    # Recalculate statistics data over the whole talk
+    @transaction.atomic
+    def recalculate_whole_talk_statistics(self, force = False):
+        # Recalculate statistics data over the whole talk
+        # Only if a original subtitle exists which is at least transcribing finished
+        my_subtitles = Subtitle.objects.filter(Q(talk = self),
+            Q(is_original_lang = True), Q(complete = True) | Q(state_id = 5) | 
+            Q(state_id = 7) | Q(state_id = 3) | Q(state_id = 6))
+        if my_subtitles.count() == 1:
+            # In this case, recalculate the time_delta
+            if force or self.recalculate_talk_statistics:
+                values = calculate_subtitle(self)
+                if values is not None:
+                    self.time_delta = values["time_delta"]
+                    self.words = values["words"]
+                    self.strokes = values["strokes"]
+                    self.average_wpm = values["average_wpm"]
+                    self.average_spm = values["average_spm"]
+                    self.recalculate_talk_statistics = False
+                    self.save()
+                
+    # Recalculate Speakers in Talk Statistics-Data
+    # If any related data in Statistics_Raw_Data exist!
+    @transaction.atomic
+    def recalculate_speakers_in_talk_statistics(self, force = False):
+        if force or self.recalculate_speakers_statistics:
+            # Check for all Statistics_Raw_Data with this talk no matter which Speaker
+            all_datasets = Statistics_Raw_Data.objects.filter(talk = self)
+            # If there is no data available, set everything to Null
+            if all_datasets.count() == 0:
+                self.speakers_words = None
+                self.speakers_strokes = None
+                self.speakers_time_delta = None
+                self.speakers_average_wpm = None
+                self.speakers_average_spm = None
+                self.recalculate_speakers_statistics = False
+                self.save()
+            else:
+                # Check if any of these datasets first needs a recalculation
+                # If so, first recalculate:
+                for any_dataset in all_datasets:
+                    if any_dataset.recalculate_statistics:
+                        any_dataset.recalculate()
+                # Sum up all words of any speaker in this talk
+                self.speakers_words = all_datasets.aggregate(Sum("words"))["words__sum"]
+                # Sum up all strokes of any speaker in this talk
+                self.speakers_strokes = all_datasets.aggregate(Sum("strokes"))["strokes__sum"]
+                # Sum up time_delta of any speaker in this talk
+                self.speakers_time_delta = all_datasets.aggregate(Sum("time_delta"))["time_delta__sum"]
+                # Calculate stuff
+                self.speakers_average_wpm = calculate_per_minute(self.speakers_words, self.speakers_time_delta)
+                self.speakers_average_spm = calculate_per_minute(self.speakers_strokes, self.speakers_time_delta)
+                self.recalculate_speakers_statistics = False
+                self.save()
+
     # Recalculate statistics-data
+    @transaction.atomic
     def recalculate(self, force = False):
-        # Recalculate absolutely everything
-        # In this case, recalculate the time_delta
-        if force:
-            #self.time_delta = 
-            pass
-        # Recalculate only the really necessary stuff
-        else:
-            pass
-            
+        self.recalculate_whole_talk_statistics(force)
+        self.recalculate_speakers_in_talk_statistics(force)
+                
     @property
     def needs_automatic_syncing(self):
         return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
@@ -228,44 +280,7 @@ class Talk(BasisModell):
 
     def get_absolute_url(self):
         return reverse('www.views.talk', args=[str(self.id)])
-       
-    @property       
-    def speakers_average_wpm(self):
-        """ Calculates average wpm over a whole talk and all speakers """
-        my_statistics = Statistics_Raw_Data.objects.filter(talk = self)
-        if my_statistics.count() == 0:
-            return None
-        words_sum = 0
-        time_sum = 0
-        for this_statistic in my_statistics:
-            if this_statistic.words is not None:
-                words_sum += this_statistic.words
-            if this_statistic.time_delta is not None:
-                time_sum += this_statistic.time_delta
-        if words_sum == 0 or time_sum == 0.0:
-            return None
-        else:
-            return words_sum * 60 / time_sum
-
-    @property
-    def speakers_average_spm(self):
-        """ Calculates average strokes per minute over a whole talk and all speakers """
-        my_statistics = Statistics_Raw_Data.objects.filter(talk = self)
-        """ Calculates average wpm over a whole talk and all speakers """
-        if my_statistics.count() == 0:
-            return None
-        strokes_sum = 0
-        time_sum = 0
-        for this_statistic in my_statistics:
-            if this_statistic.strokes is not None:
-                strokes_sum += this_statistic.strokes
-            if this_statistic.time_delta is not None:
-                time_sum += this_statistic.time_delta
-        if strokes_sum == 0 or time_sum == 0.0:
-            return None
-        else:
-            return strokes_sum * 60 / time_sum
-    
+ 
     @property
     def has_statistics(self):
         """ If there are statistics data available for this talk """
@@ -373,25 +388,22 @@ class Statistics_Raw_Data(BasisModell):
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
     recalculate_statistics = models.BooleanField(default = False)
-    """
-    # Calculate the time_delta and save it
-    def calculate_time_delta(self):
-        end = self.end.hour * 3600 + self.end.minute * 60 + self.end.second + self.end.microsecond / 1000000.0
-        start = self.start.hour * 3600 + self.start.minute * 60 + self.start.second + self.start.microsecond / 1000000.0
-        self.time_delta = end - start
-        self.save()
-    """
     
     # Recalculate statistics-data
-    def recalculate(self):
-        values = calculate_subtitle(self.talk, self.start, self.end)
-        if values is not None:
-            self.time_delta = values["time_delta"]
-            self.words = values["words"]
-            self.strokes = values["strokes"]
-            self.recalculate_statistics = False
-            self.save()     
- 
+    @transaction.atomic
+    def recalculate(self, force = False):
+        # Only calculate if it is forced or if the recalculate flag
+        # is set to true
+        if force or self.recalculate_statistics:
+            values = calculate_subtitle(self.talk, self.start, self.end)
+            if values is not None:
+                self.time_delta = values["time_delta"]
+                self.words = values["words"]
+                self.strokes = values["strokes"]
+                self.recalculate_statistics = False
+                self.save()     
+
+                
 # Speakers can have different Statistic values for different languages they spoke during talks
 # This is calculated from the Statistics_Raw_Data which only counts the actual time the speaker speaks
 # The subtitle must be finished or in review

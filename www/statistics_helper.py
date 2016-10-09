@@ -13,24 +13,10 @@
 # calculate_subtitle(amara_key, lang_amara_short, start = None, end = None)
 #==============================================================================
 
-import os
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
-
-import django
-django.setup()
-from django.core.management.base import BaseCommand, CommandError
-from django.db import transaction
-from django.core.exceptions import ObjectDoesNotExist
-
-from django.db.models import Q
-from www.models import Statistics_Raw_Data, Subtitle, Talk
-
 import urllib
 import re
-import datetime
+from datetime import datetime
 import copy
-
 
     
 # Calculate seconds from time element of a models
@@ -52,6 +38,7 @@ def calculate_per_minute(number, time_delta_seconds):
 # It returns a dictionary with words and strokes and - in the case of a slice
 # - also the real time_delta
 def calculate_subtitle(talk, start = None, end = None):
+    from .models import Subtitle
     this_subtitle = Subtitle.objects.filter(talk = talk, is_original_lang = True)
     # Stop if there are more than one orignal language subtitles
     if this_subtitle.count() != 1:
@@ -122,7 +109,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 # Conversion from Milli- to Microseconds
                 any += "000"
                 # Conversion to a datetime.time object
-                any = datetime.datetime.strptime(any, "%H:%M:%S.%f").time()
+                any = datetime.strptime(any, "%H:%M:%S.%f").time()
                 # Append to the second temporary array
                 temp_array_2.append(any)
                 
@@ -234,4 +221,4 @@ def calculate_subtitle(talk, start = None, end = None):
         return_dict["strokes"] = strokes
         return_dict["time_delta"] = time_delta
         return return_dict
-        
+

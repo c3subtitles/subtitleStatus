@@ -3,7 +3,7 @@
 from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from .statistics_helper import *
 
 # Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
@@ -121,7 +121,7 @@ class Speaker(BasisModell):
         return None
     """
     def average_wpm_in_one_talk(self, talk):
-        my_statistics = Statistics_raw.objects.filter(speaker = self, talk = talk)
+        my_statistics = Statistics_Raw_Data.objects.filter(speaker = self, talk = talk)
         words = 0
         time = 0
         for this_statistics in my_statistics:
@@ -135,7 +135,7 @@ class Speaker(BasisModell):
         return words * 60.0 / time
     
     def average_spm_in_one_talk(self, talk):
-        my_statistics = Statistics_raw.objects.filter(speaker = self, talk = talk)
+        my_statistics = Statistics_Raw_Data.objects.filter(speaker = self, talk = talk)
         strokes = 0
         time = 0
         for this_statistics in my_statistics:
@@ -187,7 +187,7 @@ class Talk(BasisModell):
     recalculate_talk_statistics = models.BooleanField(default = False)
     speakers_words = models.IntegerField(blank = True, null = True)      # Words in the parts of all speakers
     speakers_strokes = models.IntegerField(blank = True, null = True)    # Strokes in the parts of all speakers
-    speakers_time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds while all speakers speak - the timeslots are in statistics_raw
+    speakers_time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds while all speakers speak - the timeslots are in statistics_Raw_Data
     speakers_average_wpm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_words and the speakers_time_delta
     speakers_average_spm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_strokes and the speakers_time_delta
     recalculate_speakers_statistics = models.BooleanField(default = False)
@@ -232,7 +232,7 @@ class Talk(BasisModell):
     @property       
     def speakers_average_wpm(self):
         """ Calculates average wpm over a whole talk and all speakers """
-        my_statistics = Statistics_raw.objects.filter(talk = self)
+        my_statistics = Statistics_Raw_Data.objects.filter(talk = self)
         if my_statistics.count() == 0:
             return None
         words_sum = 0
@@ -250,7 +250,7 @@ class Talk(BasisModell):
     @property
     def speakers_average_spm(self):
         """ Calculates average strokes per minute over a whole talk and all speakers """
-        my_statistics = Statistics_raw.objects.filter(talk = self)
+        my_statistics = Statistics_Raw_Data.objects.filter(talk = self)
         """ Calculates average wpm over a whole talk and all speakers """
         if my_statistics.count() == 0:
             return None
@@ -373,26 +373,27 @@ class Statistics_Raw_Data(BasisModell):
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
     recalculate_statistics = models.BooleanField(default = False)
-    
+    """
     # Calculate the time_delta and save it
     def calculate_time_delta(self):
         end = self.end.hour * 3600 + self.end.minute * 60 + self.end.second + self.end.microsecond / 1000000.0
         start = self.start.hour * 3600 + self.start.minute * 60 + self.start.second + self.start.microsecond / 1000000.0
         self.time_delta = end - start
         self.save()
+    """
     
     # Recalculate statistics-data
-    def recalculate(force = False):
-        # Recalculate absolutely everything
-        if force:
-            pass
-        # Recalculate only the really necessary stuff
-        else:
-            pass
-     
+    def recalculate(self):
+        values = calculate_subtitle(self.talk, self.start, self.end)
+        if values is not None:
+            self.time_delta = values["time_delta"]
+            self.words = values["words"]
+            self.strokes = values["strokes"]
+            self.recalculate_statistics = False
+            self.save()     
  
 # Speakers can have different Statistic values for different languages they spoke during talks
-# This is calculated from the Statistics_raw data which only counts the actual time the speaker speaks
+# This is calculated from the Statistics_Raw_Data which only counts the actual time the speaker speaks
 # The subtitle must be finished or in review
 class Statistics_Speaker(BasisModell):
     speaker = models.ForeignKey(Speaker)

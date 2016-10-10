@@ -121,25 +121,7 @@ class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
-    """
-    @property       
-    def average_wpm(self):
-        # Include doppelgaenger!
-        # only if orignal subtitle is done
-        # only if there is any data in statistics available which is already calculated
-        # words and delta and strokes must be filled and not none
-        # return sum(words) *60/ sum(deltas)
-        return None
 
-    @property
-    def average_spm(self):
-        # Include Doppelgaenger!
-        # Similar to average_wpm 
-        # statistics available with calculated data
-        # else None
-        # return sum(strokey) *60 / sum(deltas)
-        return None
-    """
     def average_wpm_in_one_talk(self, talk):
         my_statistics = Statistics_Raw_Data.objects.filter(speaker = self, talk = talk)
         words = 0
@@ -313,6 +295,14 @@ class Talk(BasisModell):
             return True
     
     @property
+    def language_of_original_subtitle(self):
+        this_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
+        if this_subtitles.count() == 0:
+            return none
+        elif this_subtitles.count() == 1:
+            return this_subtitles[0].language
+        
+    @property
     def has_original_subtitle(self):
         my_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
         if my_subtitles.count() > 0:
@@ -422,7 +412,17 @@ class Statistics_Raw_Data(BasisModell):
                 self.words = values["words"]
                 self.strokes = values["strokes"]
                 self.recalculate_statistics = False
-                self.save()     
+                self.save()
+                # Set recalculate flags in the connected Statistics_Event module
+                Talk.objects.filter(id = self.talk_id).update(recalculate_speakers_statistics = True)
+                # Set recalculate flag in the connected Talk_Persons Statistics
+                Talk_Persons.objects.filter(talk = self.talk, speaker = self.speaker).update(recalculate_statistics = True)
+                # Set recalculate flag in the connected Statistics_Speaker module and also create the database entry
+                # Get or create the related Statistics_Speaker database entry.
+                # The necessary language is not the language of the talk but the language of the related is_orignal subtitle!
+                this_speaker, created = Statistics_Speaker.objects.get_or_create(speaker = self.speaker, language = self.talk__language_of_original_subtitle)
+                this_speaker.recalculate_statistics = True
+                this_speaker.save()
 
                 
 # Speakers can have different Statistic values for different languages they spoke during talks
@@ -439,15 +439,46 @@ class Statistics_Speaker(BasisModell):
     recalculate_statistics = models.BooleanField(default = False)
     
     # Recalculate statistics-data
-    def recalculate(force = False):
+    @transaction.atomic
+    def recalculate(self, force = False):
         # Recalculate absolutely everything
-        if force:
-            pass
-        # Recalculate only the really necessary stuff
-        else:
-            pass
+        if force or self.recalculate_statistics:
+            # All timeslots form Statistics_Raw_Data which has the same speaker and via the talk also the same language
+            # All Subtitles which are the orignal language and the right language
+            my_subtitles = Subtitle.objects.filter(is_original_lang = True, language = self.language)
+            # Use temporary values
+            words = strokes = time_delta = 0            
+            # Iterate over all these subtitles and get the right talk_id, then check if it has the right speaker
+            for any in my_subtitles:
+                talk_persons = Talk_Persons.objects.filter(speaker = self.speaker, talk = any.talk)
+                # Just to be careful, first check if anything needs a recalculation first
+                for any2 in talk_persons:
+                    any2.recalculate()
+                # Only sum up if there is something to sum up
+                if talk_persons.count() > 0:
+                    # Do not add up if None
+                    temp = talk_persons.aggregate(Sum("words"))["words__sum"]
+                    if temp is not None:
+                        words += temp
+                    temp = talk_persons.aggregate(Sum("strokes"))["strokes__sum"]
+                    if temp is not None:
+                        strokes += temp
+                    temp = talk_persons.aggregate(Sum("time_delta"))["time_delta__sum"]
+                    if temp is not None:
+                        time_delta += temp
+            # If really everything was none:
+            if (words or strokes or time_delta) is None:
+                self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
+            else:
+                self.words = words
+                self.strokes = strokes
+                self.time_delta = time_delta
+                self.average_wpm = calculate_per_minute(self.words, self.time_delta)
+                self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
+            self.recalculate_statistics = False
+            self.save()
 
-    
+            
 # Every Event can have different Statistic values for different languages
 # The statistics applies to whole talk-time, not only the speakers time, it
 # includes breaks, and Q&A and other stuff
@@ -478,6 +509,7 @@ class Statistics_Event(BasisModell):
                 self.words = my_subtitles.aggregate(Sum("talk__words"))["talk__words__sum"]
                 self.strokes = my_subtitles.aggregate(Sum("talk__strokes"))["talk__strokes__sum"]
                 self.time_delta = my_subtitles.aggregate(Sum("talk__time_delta"))["talk__time_delta__sum"]
+                # If there is not really a finished subtitle in the language
                 if (self.words or self.strokes or self.time_delta) is None:
                     self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
                 else:
@@ -500,11 +532,26 @@ class Talk_Persons(BasisModell):
     recalculate_statistics = models.BooleanField(default = False)
     
     # Recalculate statistics-data
-    def recalculate(force = False):
+    @transaction.atomic
+    def recalculate(self, force = False):
         # Recalculate absolutely everything
-        if force:
-            pass
-        # Recalculate only the really necessary stuff
-        else:
-            pass
- 
+        if force or self.recalculate_statistics:
+            # Get statistics_raw for this speaker and this talk and sum it up
+            raw_data = Statistics_Raw_Data.objects.filter(talk = self.talk, speaker = self.speaker)
+            # If for some reason something needs a recalculation
+            for any in raw_data:
+                any.recalculate()
+            if raw_data.count() == 0:
+                self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
+            else:
+                self.words = raw_data.aggregate(Sum("words"))["words__sum"]
+                self.strokes = raw_data.aggregate(Sum("strokes"))["strokes__sum"]
+                self.time_delta = raw_data.aggregate(Sum("time_delta"))["time_delta__sum"]
+                if (self.words or self.strokes or self.time_delta) is None:
+                    self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
+                else:
+                    self.average_wpm = calculate_per_minute(self.words, self.time_delta)
+                    self.average_spm = calculate_per_minute(self.strokes, self.time_delta)  
+            self.recalculate_statistics = False
+            self.save()
+        

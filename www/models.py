@@ -232,6 +232,9 @@ class Talk(BasisModell):
                     self.average_spm = values["average_spm"]
                     self.recalculate_talk_statistics = False
                     self.save()
+                # Set recalculate flags in the Statistics_Event module
+                Statistics_Event.objects.filter(event = self.event).update(recalculate_statistics = True)
+                
                 
     # Recalculate Speakers in Talk Statistics-Data
     # If any related data in Statistics_Raw_Data exist!
@@ -455,17 +458,34 @@ class Statistics_Event(BasisModell):
     strokes = models.IntegerField(blank = True, null = True)    # Calculated from finished / in review whole talks, not only speakers time
     time_delta = models.FloatField(blank = True, null = True)   # Seconds of all talks from this event which are in review or finished
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
-    average_spm = models.FloatField(blank = True, null = True)  # Calculated form strokes and time_detla
+    average_spm = models.FloatField(blank = True, null = True)  # Calculated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
     
     # Recalculate statistics-data
-    def recalculate(force = False):
-        # Recalculate absolutely everything
-        if force:
-            pass
-        # Recalculate only the really necessary stuff
-        else:
-            pass
+    @transaction.atomic
+    def recalculate(self, force = False):
+        if force or self.recalculate_statistics:
+            # Find all Subtitles connected with this event and this language
+            my_subtitles = Subtitle.objects.filter(talk__event = self.event, language = self.language, is_original_lang = True)
+            # If nothing is found
+            if my_subtitles.count() == 0:
+                self.words = None
+                self.strokes = None
+                self.time_delta = None
+                self.average_wpm = None
+                self.average_spm = None
+            else:
+                self.words = my_subtitles.aggregate(Sum("talk__words"))["talk__words__sum"]
+                self.strokes = my_subtitles.aggregate(Sum("talk__strokes"))["talk__strokes__sum"]
+                self.time_delta = my_subtitles.aggregate(Sum("talk__time_delta"))["talk__time_delta__sum"]
+                if (self.words or self.strokes or self.time_delta) is None:
+                    self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
+                else:
+                    self.average_wpm = calculate_per_minute(self.words, self.time_delta)
+                    self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
+            self.recalculate_statistics = False
+            self.save()
+
     
 
 # m:n Connection between Talks and Speakers and their Statistics data

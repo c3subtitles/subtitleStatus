@@ -420,7 +420,7 @@ class Statistics_Raw_Data(BasisModell):
                 # Set recalculate flag in the connected Statistics_Speaker module and also create the database entry
                 # Get or create the related Statistics_Speaker database entry.
                 # The necessary language is not the language of the talk but the language of the related is_orignal subtitle!
-                this_speaker, created = Statistics_Speaker.objects.get_or_create(speaker = self.speaker, language = self.talk__language_of_original_subtitle)
+                this_speaker, created = Statistics_Speaker.objects.get_or_create(speaker = self.speaker, language = self.talk.language_of_original_subtitle)
                 this_speaker.recalculate_statistics = True
                 this_speaker.save()
 

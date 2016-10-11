@@ -1,6 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language, Speaker
+from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
@@ -144,23 +144,10 @@ def talk(request, talk_id):
         my_talk.has_speakers_statistic = True
     else:
         my_talk.has_speakers_statistic = False
-        
-    # Calculate speakers personal statistic for this specific talk
-    my_speakers = my_talk.persons.all()
-    if my_speakers.count() <= 1:
-        my_talk.has_speakers_statistic = False
-    
-    for speaker in my_speakers:
-        speaker.average_wpm_in_this_talk = speaker.average_wpm_in_one_talk(talk = my_talk)
-        speaker.average_spm_in_this_talk = speaker.average_spm_in_one_talk(talk = my_talk)
-        
-        if speaker.average_wpm_in_this_talk is not None and speaker.average_spm_in_this_talk is not None:
-            speaker.has_statistic = True
-        else:
-            speaker.has_statistic = False
+      
+    speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
 
-
-    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles, "speakers": my_speakers} )
+    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles,  "talk_speakers_statistics": speakers_in_talk_statistics} ) #"speakers": my_speakers,
 
 
 def talk_by_frab(request, frab_id):

@@ -121,13 +121,13 @@
 	                           	</div>
 	                        	</div>
 	                        {% endif %}
-	                        {% for speaker in speakers %}
-	                        	{% if speaker.has_statistic %}
+	                        {% for any in talk_speakers_statistics %}
+	                        	{% if any.has_statistics %}
 	                        		<div class="TableRow">
-	                           		<div id="TableLabel" class="TableCell">{{speaker.name}}</div>
+	                           		<div id="TableLabel" class="TableCell">{{any.speaker.name}}</div>
 	                           		<div class="TableCell">
-	                              		{{speaker.average_wpm_in_this_talk | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
-	                              		{{speaker.average_spm_in_this_talk | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
+	                              		{{any.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
+	                              		{{any.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
 	                           		</div>
 	                        		</div>
 	                        	{% endif %}

@@ -554,4 +554,11 @@ class Talk_Persons(BasisModell):
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)  
             self.recalculate_statistics = False
             self.save()
+    
+    @property
+    def has_statistics(self):
+        if self.average_wpm is not None and self.average_spm is not None:
+            return True
+        else:
+            return False
         

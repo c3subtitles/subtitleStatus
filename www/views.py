@@ -1,6 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons
+from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
@@ -20,6 +20,13 @@ def start(request):
         for every_event in my_events:
             my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
             every_event.__dict__.update(progress_bar_for_talks(my_talks))
+            every_event.statistics = Statistics_Event.objects.filter(event = every_event).order_by("language__language_en")
+            for any in every_event.statistics:
+                if any.average_wpm is not None and any.average_spm is not None:
+                    any.has_statistics = True
+                    every_event.has_statistics = True
+                else:
+                    any.has_statistics = False
     except ObjectDoesNotExist:
         raise Http404
     

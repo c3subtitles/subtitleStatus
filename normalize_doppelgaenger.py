@@ -30,8 +30,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Statistics_Raw_Data, Speaker, Statistics_Speaker, Talk_Persons
 
-
-# Get all Speakers mit Doppelgaenger_of non empty
+# Get all Speakers with doppelgaenger_of non empty
 all_doppelgaenger = Speaker.objects.all().exclude(doppelgaenger_of = None)
 print(all_doppelgaenger.count())
 

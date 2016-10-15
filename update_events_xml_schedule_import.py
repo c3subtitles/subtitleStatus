@@ -393,7 +393,7 @@ def read_xml_and_save_to_database(event_frab_prefix):
                 else:
                     error("Problem with language")
                 my_language = Language.objects.get(lang_amara_short = talk_language)
-                     
+
                 # abstract
                 if fahrplan[counter_day][counter_room][counter_event][11].tag == "abstract":
                     talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][11].text)

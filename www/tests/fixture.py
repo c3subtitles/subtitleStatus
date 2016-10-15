@@ -1,6 +1,32 @@
 from django.test import TestCase
 from datetime import time
+from www import models
 from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle, States
+
+import factory
+from factory.django import DjangoModelFactory
+
+
+class EventFactory(DjangoModelFactory):
+    class Meta:
+        model = models.Event
+
+    acronym = factory.sequence('3{0}C3'.format)
+    title = factory.sequence('3{}th Chaos Communication Congress'.format)
+    days = 4
+    city = 'Hamburg'
+    building = 'CCH'
+
+    @factory.LazyAttribute
+    def hashtag(self):
+        return '#{}'.format(self.acronym)
+
+
+class Event_Days(DjangoModelFactory):
+    class Meta:
+        model = models.Event_Days
+
+    event = factory.SubFactory(EventFactory)
 
 
 class Fixture(TestCase):

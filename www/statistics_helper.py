@@ -299,3 +299,10 @@ def read_word_dict_from_json(name_str, id):
         return json.loads(data)        
     return None
 
+# Merge two word frequencies dictionaries
+def merge_word_frequencies_dicts(dict_1, dict_2):
+    # Merge anything into dict_2
+    for any in dict_1:
+        dict_2.setdefault(any, dict_1[any])
+        dict_2[any] += dict_1[any]
+    return dict_2.copy()

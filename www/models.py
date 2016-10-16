@@ -229,7 +229,7 @@ class Talk(BasisModell):
                     self.save()
                 
                 # Save the word frequencies into a json file            
-                if values["word_frequencies"] is not None:
+                if values["word_frequencies"] is not None and len(values["word_frequencies"]) > 0:
                     save_word_dict_as_json(values["word_frequencies"],"talk_complete", self.id)
                 
                 # Set recalculate flags in the Statistics_Event module
@@ -457,7 +457,7 @@ class Statistics_Raw_Data(BasisModell):
                 this_speaker.save()
                 
             # Save the word frequencies into a json file            
-            if values["word_frequencies"] is not None:
+            if values["word_frequencies"] is not None and len(values["word_frequencies"]) > 0:
                 save_word_dict_as_json(values["word_frequencies"],"statistics_raw_data", self.id)
     
     # Return the word_frequencies as dictionary
@@ -558,7 +558,20 @@ class Statistics_Event(BasisModell):
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
             self.recalculate_statistics = False
             self.save()
-
+            
+            # Dictionary for the word freqiencies
+            word_freq = {}
+            # Merge all sub word_frequencies
+            for any in my_subtitles:
+                word_freq = merge_word_frequencies_dicts(any.talk.word_frequencies, word_freq)
+            # Save the word frequencies into a json file            
+            if word_freq is not None and len(word_freq) > 0:
+                save_word_dict_as_json(word_freq,"statistics_event", self.id)
+            
+    # Return the word_frequencies as dictionary
+    @property
+    def word_frequencies(self):
+        return read_word_dict_from_json("statistics_event", self.id)
     
 
 # m:n Connection between Talks and Speakers and their Statistics data
@@ -595,6 +608,20 @@ class Talk_Persons(BasisModell):
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)  
             self.recalculate_statistics = False
             self.save()
+            
+            # Dictionary for the word freqiencies
+            word_freq = {}
+            # Merge all sub word_frequencies
+            for any in raw_data:
+                word_freq = merge_word_frequencies_dicts(any.word_frequencies, word_freq)
+            # Save the word frequencies into a json file            
+            if word_freq is not None and len(word_freq) > 0:
+                save_word_dict_as_json(word_freq,"talk_persons", self.id)
+    
+    # Return the word_frequencies as dictionary
+    @property
+    def word_frequencies(self):
+        return read_word_dict_from_json("talk_persons", self.id)
     
     @property
     def has_statistics(self):

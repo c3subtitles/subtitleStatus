@@ -14,7 +14,7 @@ import datetime
 # Start of the Website with all the events
 def start(request):
     try:
-        my_events = list(Event.objects.all().order_by("-start"))     
+        my_events = list(Event.objects.all().order_by("-start"))
 
         # Function for the progress bars
         for every_event in my_events:
@@ -25,15 +25,15 @@ def start(request):
                 .exclude(average_wpm = None, average_spm = None) \
                 .order_by("language__language_en")
             every_event.has_statistics = True
-            
+
             # Create chunks for Statistics-Data
             # Create cunk for the 3 columns display of talks on event page
             statistics_per_line = 3
             every_event.statistics_chunk = [every_event.statistics[x:x+statistics_per_line] for x in range(0, every_event.statistics.count(), statistics_per_line)]
-            
+
     except ObjectDoesNotExist:
         raise Http404
-    
+
     return render(request, "www/main.html", {"events" : my_events} )
 
 # Overview over the Talks of one event
@@ -60,7 +60,7 @@ def event (request, event_acronym, *args, **kwargs):
         # Create cunk for the 3 columns display of talks on event page
         talks_per_line = 3
         talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
-        
+
     except ObjectDoesNotExist:
         raise Http404
 
@@ -68,7 +68,8 @@ def event (request, event_acronym, *args, **kwargs):
         "my_event" : my_event,
         "my_days" : my_event.event_days_set.all(),
         "my_langs" : my_langs,
-        "talks_chunk" : talks_chunk} )
+        "talks_chunk" : talks_chunk,
+        "page_sub_titles" : my_event.page_sub_titles} )
 
 # Form to save the progress of a subtitle
 def get_subtitle_form(request, talk, sub):
@@ -150,10 +151,14 @@ def talk(request, talk_id):
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
-      
+
     speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
 
-    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles,  "talk_speakers_statistics": speakers_in_talk_statistics} ) #"speakers": my_speakers,
+    return render(request, "www/talk.html",
+                  {"talk": my_talk,
+                   "subtitles": my_subtitles,
+                   "talk_speakers_statistics": speakers_in_talk_statistics,
+                   "page_sub_titles": my_talk.page_sub_titles} ) #"speakers": my_speakers,
 
 
 def talk_by_frab(request, frab_id):
@@ -214,7 +219,7 @@ def updateSubtitle(request, subtitle_id):
 def eventStatus(request, event):
     return render(request, 'status', {'eventname':event})
 
-    
+
 # Speaker summary website
 def speaker(request, speaker_id):
     # Check if the Speaker ID exists, if not return a 404
@@ -222,13 +227,13 @@ def speaker(request, speaker_id):
     # If the speaker has an doppelgaenger, do a redirect to this site
     if my_speaker.doppelgaenger_of is not None :
         return redirect('speaker', speaker_id = my_speaker.doppelgaenger_of.id)
-    
+
     my_talk_persons = Talk_Persons.objects.filter(speaker = my_speaker).order_by("-talk__date").select_related('Talk','Subtitle','Speaker')
-    
+
     my_speakers_statistics = Statistics_Speaker.objects.filter(speaker = my_speaker) \
         .exclude(average_wpm = None, average_spm = None) \
         .order_by("language__language_en")
-    
+
     # Get all languages and events the speaker participated in and create a nice looking string
     my_events_dict = {}
     my_languages_dict = {}
@@ -253,7 +258,7 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_events += ", " + any
-    
+
     # Get all languages the speaker spoke in and convert to a string with commas
     first_flag = True
     my_languages = ""
@@ -263,21 +268,22 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_languages += ", " + any
-      
+
     # Get all non blacklisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
     my_talks = my_talks.filter(blacklisted = False).select_related("Speaker")
-      
+
     # Create talk_chunks of 3 per line
     talks_per_line = 3
     my_talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, my_talks.count(), talks_per_line)]
-    
+
     return render(request, "www/speaker.html", {"speaker" : my_speaker,
         "talk_persons" : my_talk_persons,
         "speaker_statistics" : my_speakers_statistics,
         "speakers_events" : my_events,
         "speakers_languages" : my_languages,
-        "talks_chunk" : my_talks_chunk} )
+        "talks_chunk" : my_talks_chunk,
+        "page_sub_titles": my_speaker.page_sub_titles} )
 
 def eventCSS(request, event):
     return render(request, "css/{}".format(event.lower()))

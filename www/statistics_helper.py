@@ -19,7 +19,7 @@ from datetime import datetime
 import copy
 
 # Characters to replace, some masked due to regex problems
-characters_to_replace = ["\"", "\?", "!", "\.", ",", "\*", "“", "„", "\„", "\“"]
+characters_to_replace = ["\"", "\?", "!", "\.", ",", "\*", "“", "„", "\„", "\“", ":", ";"]
 
 # Calculate seconds from time element of a models
 def calculate_seconds_from_time(time):

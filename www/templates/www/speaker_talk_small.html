@@ -39,9 +39,9 @@
     
 		{% endfor %}
 	</dl>
-	{% if talk.subtitles.count > 0 %}
+	{% if talk.subtitle_set.count > 0 %}
         <table style="width: 100%;">
-            {% for subtitle in talk.subtitles %}
+            {% for subtitle in talk.subtitle_set.all %}
                 <tr>
                     <th>{{ subtitle.language_short }}:</th>
                     <td>{{ subtitle|progress_bar:True }}</td>

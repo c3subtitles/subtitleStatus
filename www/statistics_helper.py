@@ -289,7 +289,7 @@ def save_word_dict_as_json(word_dict, name_str, id):
     print("Gespeichert!")
     
 # Read a word frequency_dict from a json file    
-def read_word_dict_from_json(word_dict, name_str, id):
+def read_word_dict_from_json(name_str, id):
     import json
     subfolder = "./www/static/word_frequencies/"
     filename = name_str + "_" + str(id) + ".json"

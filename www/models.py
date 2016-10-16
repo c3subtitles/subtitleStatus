@@ -227,6 +227,11 @@ class Talk(BasisModell):
                     self.average_spm = values["average_spm"]
                     self.recalculate_talk_statistics = False
                     self.save()
+                
+                # Save the word frequencies into a json file            
+                if values["word_frequencies"] is not None:
+                    save_word_dict_as_json(values["word_frequencies"],"talk_complete", self.id)
+                
                 # Set recalculate flags in the Statistics_Event module
                 Statistics_Event.objects.filter(event = self.event).update(recalculate_statistics = True)
                 
@@ -445,8 +450,12 @@ class Statistics_Raw_Data(BasisModell):
                 this_speaker, created = Statistics_Speaker.objects.get_or_create(speaker = self.speaker, language = self.talk.language_of_original_subtitle)
                 this_speaker.recalculate_statistics = True
                 this_speaker.save()
-
                 
+            # Save the word frequencies into a json file            
+            if values["word_frequencies"] is not None:
+                save_word_dict_as_json(values["word_frequencies"],"statistics_raw_data", self.id)
+
+
 # Speakers can have different Statistic values for different languages they spoke during talks
 # This is calculated from the Statistics_Raw_Data which only counts the actual time the speaker speaks
 # The subtitle must be finished or in review

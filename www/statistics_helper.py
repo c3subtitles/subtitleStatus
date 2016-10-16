@@ -18,7 +18,9 @@ import re
 from datetime import datetime
 import copy
 
-    
+# Characters to replace, some masked due to regex problems
+characters_to_replace = ["\"", "\?", "!", "\.", ",", "\*", "“", "„", "\„", "\“"]
+
 # Calculate seconds from time element of a models
 def calculate_seconds_from_time(time):
     return time.hour * 3600 + time.minute * 60 + time.second + time.microsecond/1000000.0
@@ -79,12 +81,17 @@ def calculate_subtitle(talk, start = None, end = None):
         # The words is the length of the array if it is splitted at spaces
         words = len(big_string.split())
         time_delta = calculate_seconds_from_time(talk.video_duration)
+        
+        # Calculate dictionary with word frequencies from string
+        words_dict = prepare_string_for_word_counts(big_string, this_subtitle[0].language)
+        
         return_dict = {}
         return_dict["words"] = words
         return_dict["strokes"] = strokes
         return_dict["average_wpm"] = calculate_per_minute(words, time_delta)
         return_dict["average_spm"] = calculate_per_minute(strokes, time_delta)
         return_dict["time_delta"] = time_delta
+        return_dict["word_frequencies"] = words_dict
         return return_dict
         
     # Else calculate the slice defined by start and end
@@ -216,9 +223,79 @@ def calculate_subtitle(talk, start = None, end = None):
         # The words is the length of the array if it is splitted at spaces
         words = len(big_string.split())
         time_delta = calculate_time_delta(start_time, end_time)
+        
+        # Calculate dictionary with word frequencies from string
+        words_dict = prepare_string_for_word_counts(big_string, this_subtitle[0].language)
+        
         return_dict = {}
         return_dict["words"] = words
         return_dict["strokes"] = strokes
         return_dict["time_delta"] = time_delta
+        return_dict["word_frequencies"] = words_dict
         return return_dict
+
+# Prepare a string to be a dictionary for word counts
+def prepare_string_for_word_counts(string, language = None):
+    global characters_to_replace
+    from . import stop_words_eng as sw_eng
+    from . import stop_words_ger as sw_ger
+    # Replace lots of stuff
+    for any_char in characters_to_replace:
+        string = re.sub(any_char, "", string)
+    # Convert to lower case
+    string = str.lower(string)
+    # Split into words withough spaces around
+    string = string.split()
+    
+    # Dictionary for the words and their frequencies
+    words_dict = {}
+    for any_word in string:
+        # If no language is selected, remove stopwords from all languages
+        if language == None:
+            if any_word not in sw_eng.dict and any_word not in sw_ger.dict:
+                words_dict.setdefault(any_word, 0)
+                words_dict[any_word] += 1
+        # If the language is English, remove all English Stopwords
+        elif language.id == 287:
+            if any_word not in sw_eng.dict:
+                words_dict.setdefault(any_word, 0)
+                words_dict[any_word] += 1
+        # If the language is German, remove all German Stopwords
+        elif language.id == 219:
+            if any_word not in sw_ger.dict:
+                words_dict.setdefault(any_word, 0)
+                words_dict[any_word] += 1
+        else:
+            if any_word not in sw_eng.dict and any_word not in sw_ger.dict:
+                words_dict.setdefault(any_word, 0)
+                words_dict[any_word] += 1
+    
+    #print(string)
+    #print(words_dict)
+    return words_dict
+    
+
+# Save a word_frequency_dict as json file
+def save_word_dict_as_json(word_dict, name_str, id):
+    import json
+    subfolder = "./www/static/word_frequencies/"
+    filename = name_str + "_" + str(id) + ".json"
+    # Dump dictionary as json format
+    dump = json.dumps(word_dict, ensure_ascii = False)
+    # Overwrite an existing file
+    f = open(subfolder + filename, 'w')
+    f.write(dump)
+    f.close()
+    print("Gespeichert!")
+    
+# Read a word frequency_dict from a json file    
+def read_word_dict_from_json(word_dict, name_str, id):
+    import json
+    subfolder = "./www/static/word_frequencies/"
+    filename = name_str + "_" + str(id) + ".json"
+    # Get file content and return as dict
+    with open(subfolder + filename, "r") as f:
+        data = f.read()
+        return json.loads(data)        
+    return None
 

@@ -122,6 +122,18 @@ class Speaker(BasisModell):
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
 
+    @property
+    def has_statistics(self):
+        speakers_statistics = Statistics_Speaker.objects.filter(speaker = self)
+        for any in speakers_statistics:
+            if any.average_wpm is not None:
+                return True
+            if any.average_spm is not None:
+                return True
+        return False
+    
+    """
+    # Probably not needed any more..
     def average_wpm_in_one_talk(self, talk):
         my_statistics = Statistics_Raw_Data.objects.filter(speaker = self, talk = talk)
         words = 0
@@ -149,6 +161,7 @@ class Speaker(BasisModell):
         if time == 0:
             return None
         return strokes * 60.0 / time
+    """
     
 # Talk with all its data
 class Talk(BasisModell):

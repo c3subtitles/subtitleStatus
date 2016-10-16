@@ -1,17 +1,64 @@
 ﻿{% extends "base.html" %}
-{% load bootstrap %}
 
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
 
-
 <h1>{{speaker.name}}</h1>
-<h2>{{speaker.doppelgaenger_of}}</h2>
 
-<p class="alert alert-danger">
-    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true" style="margin-right: 5px;"></span>
-    Please do not press “publish” on amara.org to save your progress, use “save draft” instead. Only press “publish” when you're done with quality control.
-</p>
+<div class="row" style="padding-bottom: 20px;">
+    <div class="col-md-4">
+	    <h2>Infos</h2>
+            <dl  class="dl-horizontal">
+                <dt>Event(s):</dt>
+                <dd>{{speakers_events}}</dd>
+                <dt>Language(s):</dt>
+                <dd>{{speakers_languages}}</dd>
+            </dl>        
+	</div>
+    <div class="col-md-4">
+        <h2>Statistics</h2>
+        {% if speaker.has_statistics %}
+            {% for statistics in speaker_statistics %}                
+                {% comment %}                
+                <div class="Table">
+                    <div class="TableRow">
+                        <div id="TableLabel" class="TableCell"><div class='text-left'>{{statistics.language.language_en}}</div></div>
+                        <div class="TableCell">
+                          {{statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
+                          {{statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
+                       </div>
+                    </div>
+                </div>
+                {% endcomment %} 
+
+                <dl  class="dl-horizontal">
+                    <dt>{{statistics.language.language_en}}</dt>
+                    <dd>{{statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+                    <dd>{{statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+                </dl>
+               
+
+            {% endfor %}  
+            
+        {% else %}
+            <p> Nothing yet? :(<br><br>Create more subtitles!</p>
+        {% endif %}
+	</div>
+    <div class="col-md-4">
+        <h2>Coming soon..</h2>
+	    <p>:)</p>
+	</div>	
+</div>
+
+{% for talks_line in talks_chunk %}
+    <div class="row">
+        {% for single_talk in talks_line %}
+            <div class="col-md-4">
+                {% include "www/speaker_talk_small.html" with talk=single_talk %}
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}	
 
 {% endblock %}

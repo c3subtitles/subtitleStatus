@@ -41,14 +41,11 @@
 	<div class="collapse" id="{{ event.pk }}_id">
 		<h2>{{ event.start }} - {{ event.end }}</h2>
 		<h2>{{ event.building }}, {{ event.city }}</h2>
-
-        
-        
 		{% if event.has_statistics %}
 		    <div id="event_statistics" style="padding-bottom: 20px;">
 				<h3>Statistics:</h3>
+
 				{% for every_statistics_line in event.statistics_chunk %}
-                    <div>
                     {% for every_statistics in every_statistics_line %}
                         <div class="Table">
                             <div class="TableRow">
@@ -61,28 +58,7 @@
                         </div>
                     
                     {% endfor %}
-                    </div>
                 {% endfor %}
-                
-                {% comment %}
-                <p>blabla</p>
-                    <div class="row">
-                    {% for every_statistics in every_statistics_line %}
-                        <div class="cool-md-4">
-                        <p>bla</p>
-                            <div class="Table">
-                                <div class="TableRow">
-                                    <div id="TableLabel" class="TableCell">{{ every_statistics.language.language_en }}:</div>
-                                    <div class="TableCell">
-                                            {{every_statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
-                                            {{every_statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                    {% endcomment %}
             </div>
 		{% endif %}
 			

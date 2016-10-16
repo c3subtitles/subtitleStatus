@@ -1,6 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event
+from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker
 from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
@@ -36,14 +36,14 @@ def start(request):
     
     return render(request, "www/main.html", {"events" : my_events} )
 
-# Overvie over the Talks of one event    
+# Overview over the Talks of one event
 def event (request, event_acronym, *args, **kwargs):
     try:
         my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym = event_acronym)
         my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
-        "date",
-        "start",
-        "room__room")
+            "date",
+            "start",
+            "room__room")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
         if "day" in kwargs and int(kwargs.get("day")) > 0:
             day = kwargs.pop("day")
@@ -211,11 +211,10 @@ def updateSubtitle(request, subtitle_id):
         return redirect('talk', talk_id=my_obj.talk.pk)
 
 
-
-
 def eventStatus(request, event):
     return render(request, 'status', {'eventname':event})
 
+    
 # Speaker summary website
 def speaker(request, speaker_id):
     # Check if the Speaker ID exists, if not return a 404
@@ -224,7 +223,61 @@ def speaker(request, speaker_id):
     if my_speaker.doppelgaenger_of is not None :
         return redirect('speaker', speaker_id = my_speaker.doppelgaenger_of.id)
     
-    return render(request, "www/speaker.html", {"speaker" : my_speaker} )
+    my_talk_persons = Talk_Persons.objects.filter(speaker = my_speaker).order_by("-talk__date").select_related('Talk','Subtitle','Speaker')
+    
+    my_speakers_statistics = Statistics_Speaker.objects.filter(speaker = my_speaker) \
+        .exclude(average_wpm = None, average_spm = None) \
+        .order_by("language__language_en")
+    
+    # Get all languages and events the speaker participated in and create a nice looking string
+    my_events_dict = {}
+    my_languages_dict = {}
+    for any in my_talk_persons:
+        # Every Event in which the speaker had a talk
+        if any.talk.event.title in my_events_dict:
+            pass
+        else:
+            my_events_dict[any.talk.event.title] = 0
+        # Every Language the Speaker spoke in talks
+        if any.talk.orig_language.language_en in my_languages_dict:
+            pass
+        else:
+            my_languages_dict[any.talk.orig_language.language_en] = 0
+
+    # Get all events the speaker has been to and convert to a string with commas
+    first_flag = True
+    my_events = ""
+    for any in my_events_dict.keys():
+        if first_flag:
+            my_events += any
+            first_flag = False
+        else:
+            my_events += ", " + any
+    
+    # Get all languages the speaker spoke in and convert to a string with commas
+    first_flag = True
+    my_languages = ""
+    for any in my_languages_dict.keys():
+        if first_flag:
+            my_languages += any
+            first_flag = False
+        else:
+            my_languages += ", " + any
+      
+    # Get all non blacklisted talks from the speaker
+    my_talks = my_speaker.talk_set.all()
+    my_talks = my_talks.filter(blacklisted = False).select_related("Speaker")
+      
+    # Create talk_chunks of 3 per line
+    talks_per_line = 3
+    my_talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, my_talks.count(), talks_per_line)]
+    
+    return render(request, "www/speaker.html", {"speaker" : my_speaker,
+        "talk_persons" : my_talk_persons,
+        "speaker_statistics" : my_speakers_statistics,
+        "speakers_events" : my_events,
+        "speakers_languages" : my_languages,
+        "talks_chunk" : my_talks_chunk} )
 
 def eventCSS(request, event):
     return render(request, "css/{}".format(event.lower()))

@@ -1,0 +1,69 @@
+﻿{% load subtitle_progress %}
+<a href="/talk/{{talk.pk}}" class="thumbnail">
+	<h3>{{talk.title}}</h3>
+	<dl class="dl-horizontal">
+        <dt>Event</dt>
+        <dd>{{talk.event.acronym}}</dd>
+        <dt>Date</dt>
+        <dd>{{talk.date}}</dd>
+        <dt>Language</dt>
+		<dd>{{talk.orig_language.language_en}}</dd>
+		<dt>Video-Duration</dt>
+		<dd>{{talk.video_duration|time:"H:i:s"}}</dd>
+        {% if talk.has_statistics %}
+        <dt>Statistics</dt>
+        <dd></dd>
+        <dt>Average whole talk</dt>
+        <dd>{{talk.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dt></dt>
+        <dd>{{talk.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr><dd>
+        {% if talk.has_speakers_statistics %}
+        <dt>Average while speakers speak</dt>
+        <dd>{{talk.speakers_average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dt></dt>
+        <dd>{{talk.speakers_average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr><dd>
+        {% endif %}
+        {% endif %}
+		<dt>Speaker</dt>
+        <dd>coming soon</dd>
+        
+		{% for any in talk.persons.all %}
+		<dt>{{any.name}}</dt>
+        {% if any.average_wpm %}
+        <dd></dd>
+        {% else %}
+        <dd>coming soon{{any.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dt></dt>
+        <dd>coming soon{{any.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+        {% endif %}
+    
+		{% endfor %}
+	</dl>
+	{% if talk.subtitles.count > 0 %}
+        <table style="width: 100%;">
+            {% for subtitle in talk.subtitles %}
+                <tr>
+                    <th>{{ subtitle.language_short }}:</th>
+                    <td>{{ subtitle|progress_bar:True }}</td>
+                </tr>
+                    <tr>
+                        <th></th>
+                        <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
+                    </tr>
+            {% endfor %}
+        </table>
+	{% else %}
+		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
+    {% endif %}
+</a>
+{% comment %}
+<ul>
+	<li><a href="/talk/{{talk.pk}}">{{talk.title}}</a></li>
+	<li>Talk-Language: {{talk.orig_language.language_en}}</li>
+	<li>Track: {{talk.track}}</li>
+	<li>Type of: {{talk.type_of}}</li>
+	<li>Room: {{talk.room}}</li>
+	<li>Day: {{talk.day.index}}</li>
+	<li>Start: {{talk.start |time:"H:i"}}</li>
+</ul>
+{% endcomment %}

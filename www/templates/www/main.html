@@ -58,26 +58,6 @@
 
                     {% endfor %}
                 {% endfor %}
-
-                {% comment %}
-                <p>blabla</p>
-                    <div class="row">
-                    {% for every_statistics in every_statistics_line %}
-                        <div class="col-md-4">
-                        <p>bla</p>
-                            <div class="Table">
-                                <div class="TableRow">
-                                    <div id="TableLabel" class="TableCell">{{ every_statistics.language.language_en }}:</div>
-                                    <div class="TableCell">
-                                            {{every_statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
-                                            {{every_statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                    {% endcomment %}
             </div>
 		{% endif %}
 

@@ -275,6 +275,11 @@ class Talk(BasisModell):
     def recalculate(self, force = False):
         self.recalculate_whole_talk_statistics(force)
         self.recalculate_speakers_in_talk_statistics(force)
+        
+    # Return the word_frequencies as dictionary
+    @property
+    def word_frequencies(self):
+        return read_word_dict_from_json("talk_complete", self.id)
                 
     @property
     def needs_automatic_syncing(self):
@@ -454,7 +459,12 @@ class Statistics_Raw_Data(BasisModell):
             # Save the word frequencies into a json file            
             if values["word_frequencies"] is not None:
                 save_word_dict_as_json(values["word_frequencies"],"statistics_raw_data", self.id)
-
+    
+    # Return the word_frequencies as dictionary
+    @property
+    def word_frequencies(self):
+        return read_word_dict_from_json("statistics_raw_data", self.id)
+    
 
 # Speakers can have different Statistic values for different languages they spoke during talks
 # This is calculated from the Statistics_Raw_Data which only counts the actual time the speaker speaks

@@ -6,10 +6,10 @@
 	<div class="row">
 		<div class="col-md-4">
 			<p>How do I use this page?</p>
-			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:postprocessing:contribute" role="button" target="_blank">Wiki de »</a>  
+			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:postprocessing:contribute" role="button" target="_blank">Wiki de »</a>
 			<a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:postprocessing:contribute" role="button" target="_blank">Wiki en »</a></p>
 			<p>Also check the wiki for the subtitles style guide!</p>
-			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:styleguide" role="button" target="_blank">Styling de »</a>  
+			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:styleguide" role="button" target="_blank">Styling de »</a>
 			<a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:styleguide" role="button" target="_blank">Styling en »</a></p>
 		</div>
 		<div class="col-md-4">
@@ -28,47 +28,66 @@
 </div>
 
 <div>
-    
+
 {% for event in events %}
 	{% if event.pk != 3 %}
 	<h2>
 		<a href="/event/{{event.acronym}}">
 			{{ event.title }}
 		</a>
-		
+
 		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
 	</h2>
 	<div class="collapse" id="{{ event.pk }}_id">
 		<h2>{{ event.start }} - {{ event.end }}</h2>
 		<h2>{{ event.building }}, {{ event.city }}</h2>
 		{% if event.has_statistics %}
-		    <div id="event_statistics" style="padding-bottom: 20px;">
+		    <div id="event_statistics" style="padding-bottom: 20px;" class="container">
 				<h3>Statistics:</h3>
 
 				{% for every_statistics_line in event.statistics_chunk %}
+                    <div class="row">
                     {% for every_statistics in every_statistics_line %}
-                        <div class="Table">
-                            <div class="TableRow">
-                                <div id="TableLabel" class="TableCell">{{ every_statistics.language.language_en }}:</div>
-                                <div class="TableCell">
+                            <div class="col-md-4">
+                                <div class="col-xs-5">{{ every_statistics.language.language_en }}:</div>
+                                <div class="col-xs-3">
                                     {{every_statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
                                     {{every_statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
                                 </div>
                             </div>
-                        </div>
-                    
+
                     {% endfor %}
                 {% endfor %}
+
+                {% comment %}
+                <p>blabla</p>
+                    <div class="row">
+                    {% for every_statistics in every_statistics_line %}
+                        <div class="col-md-4">
+                        <p>bla</p>
+                            <div class="Table">
+                                <div class="TableRow">
+                                    <div id="TableLabel" class="TableCell">{{ every_statistics.language.language_en }}:</div>
+                                    <div class="TableCell">
+                                            {{every_statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
+                                            {{every_statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    {% endcomment %}
             </div>
 		{% endif %}
-			
-		
+
+
 	</div>
 	<div>
 	{% include "www/progress_bar_original.html" with value=event %}
 	</div>
 	{% endif %}
 {% endfor %}
-	
+
 </div>
 {% endblock %}

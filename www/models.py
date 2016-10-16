@@ -241,6 +241,8 @@ class Talk(BasisModell):
     @transaction.atomic
     def recalculate_speakers_in_talk_statistics(self, force = False):
         if force or self.recalculate_speakers_statistics:
+            # Dictionary for the word freqiencies
+            word_freq = {}
             # Check for all Statistics_Raw_Data with this talk no matter which Speaker
             all_datasets = Statistics_Raw_Data.objects.filter(talk = self)
             # If there is no data available, set everything to Null
@@ -258,6 +260,8 @@ class Talk(BasisModell):
                 for any_dataset in all_datasets:
                     if any_dataset.recalculate_statistics:
                         any_dataset.recalculate()
+                    # Calculate word_frequencies
+                    word_freq = merge_word_frequencies_dicts(word_freq, any_dataset.word_frequencies)
                 # Sum up all words of any speaker in this talk
                 self.speakers_words = all_datasets.aggregate(Sum("words"))["words__sum"]
                 # Sum up all strokes of any speaker in this talk
@@ -269,6 +273,10 @@ class Talk(BasisModell):
                 self.speakers_average_spm = calculate_per_minute(self.speakers_strokes, self.speakers_time_delta)
                 self.recalculate_speakers_statistics = False
                 self.save()
+            # Save the word frequencies into a json file            
+            if word_freq is not None and len(word_freq) > 0:
+                save_word_dict_as_json(word_freq, "talk_speakers", self.id)
+            
 
     # Recalculate statistics-data
     @transaction.atomic
@@ -280,6 +288,11 @@ class Talk(BasisModell):
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("talk_complete", self.id)
+    
+    # Return the word_frequencies of speakers as dictionary
+    @property
+    def word_frequencies_speakers(self):
+        return read_word_dict_from_json("talk_speakers", self.id)
                 
     @property
     def needs_automatic_syncing(self):
@@ -484,6 +497,8 @@ class Statistics_Speaker(BasisModell):
     def recalculate(self, force = False):
         # Recalculate absolutely everything
         if force or self.recalculate_statistics:
+            # Empty dictionary for the word_frequencies
+            word_freq = {}
             # All timeslots form Statistics_Raw_Data which has the same speaker and via the talk also the same language
             # All Subtitles which are the orignal language and the right language
             my_subtitles = Subtitle.objects.filter(is_original_lang = True, language = self.language)
@@ -495,6 +510,8 @@ class Statistics_Speaker(BasisModell):
                 # Just to be careful, first check if anything needs a recalculation first
                 for any2 in talk_persons:
                     any2.recalculate()
+                    # While looping over all connected talk_persons also add the word_frequencies up
+                    word_freq = merge_word_frequencies_dicts(word_freq, any2.word_frequencies)
                 # Only sum up if there is something to sum up
                 if talk_persons.count() > 0:
                     # Do not add up if None
@@ -518,8 +535,17 @@ class Statistics_Speaker(BasisModell):
                 self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
             self.recalculate_statistics = False
             self.save()
-
             
+            # Save the word frequencies into a json file            
+            if word_freq is not None and len(word_freq) > 0:
+                save_word_dict_as_json(word_freq,"statistics_speaker", self.id)
+    
+    # Return the word_frequencies as dictionary
+    @property
+    def word_frequencies(self):
+        return read_word_dict_from_json("statistics_speaker", self.id)
+            
+                        
 # Every Event can have different Statistic values for different languages
 # The statistics applies to whole talk-time, not only the speakers time, it
 # includes breaks, and Q&A and other stuff

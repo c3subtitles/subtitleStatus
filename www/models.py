@@ -293,6 +293,15 @@ class Talk(BasisModell):
             return False
         else:
             return True
+     
+    @property    
+    def has_speakers_statistics(self):
+        if self.speakers_average_spm is None:
+            return False
+        elif self.speakers_average_wpm is None:
+            return False
+        else:
+            return True
     
     @property
     def language_of_original_subtitle(self):

@@ -307,7 +307,7 @@ class Talk(BasisModell):
     def language_of_original_subtitle(self):
         this_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
         if this_subtitles.count() == 0:
-            return none
+            return None
         elif this_subtitles.count() == 1:
             return this_subtitles[0].language
         

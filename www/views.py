@@ -39,7 +39,7 @@ def start(request):
 # Overview over the Talks of one event
 def event (request, event_acronym, *args, **kwargs):
     try:
-        my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym = event_acronym)
+        my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym__iexact = event_acronym)
         my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
             "date",
             "start",

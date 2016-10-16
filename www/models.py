@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from datetime import datetime
 from django.db import models
@@ -19,12 +19,12 @@ class BasisModell(models.Model):
 # For every event in which subfolder on the ftp the subtitles are supposed to appear and with which file extensions
 class Folders_Extensions(BasisModell):
     subfolder = models.CharField(max_length = 10, default = "", blank = True)
-    file_extension = models.CharField(max_length = 10, default = "", blank = True)        
+    file_extension = models.CharField(max_length = 10, default = "", blank = True)
 
     def __str__(self):
         return self.subfolder+","+self.file_extension
 
-    
+
 # Event and its data
 class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)
@@ -41,13 +41,13 @@ class Event(BasisModell):
     ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
     hashtag = models.CharField(max_length = 10, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
-    
+
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
             savedXML = f.read()
             return savedXML == xmlFile.data
-    
-    
+
+
     # Create Entries in Statistics_Event model for any available combination
     def create_statistics_event_entries(self):
         my_subtitles = Subtitle.objects.filter(is_original_lang = True, talk__event = self)
@@ -64,8 +64,11 @@ class Event(BasisModell):
             if this[1]:
                 this[0].recalculate_statistics = True
                 this[0].save()
-                
-                
+
+    @property
+    def page_sub_titles(self):
+        return [self.acronym]
+
 # Days which belong to an event
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)
@@ -74,7 +77,7 @@ class Event_Days(BasisModell):
     day_start = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
     day_end = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
 
-    
+
 # "Rooms" in which an event takes place, might also be outside
 class Rooms(BasisModell):
     room = models.CharField(max_length = 30, default = "kein Raum")
@@ -83,7 +86,7 @@ class Rooms(BasisModell):
     def __str__(self):
         return self.room
 
-        
+
 # Different languages and their "codes" in amara or the name in German end English in full names
 class Language(BasisModell):
     language_en = models.CharField(max_length = 40, default = "")
@@ -99,7 +102,7 @@ class Language(BasisModell):
     def __str__(self):
         return self.lang_amara_short
 
-        
+
 # Category of the talk, like "ethics"
 class Tracks(BasisModell):
     track = models.CharField(max_length = 50, default = "")
@@ -107,7 +110,7 @@ class Tracks(BasisModell):
     def __str__(self):
         return self.track
 
-        
+
 # How the talk is presented, like a workshop or a talk
 class Type_of(BasisModell):
     type = models.CharField(max_length = 20, default = "")
@@ -115,7 +118,7 @@ class Type_of(BasisModell):
     def __str__(self):
         return self.type
 
-        
+
 # Speaker or Speakers of the Talk
 class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
@@ -131,7 +134,7 @@ class Speaker(BasisModell):
             if any.average_spm is not None:
                 return True
         return False
-    
+
     """
     # Probably not needed any more..
     def average_wpm_in_one_talk(self, talk):
@@ -147,7 +150,7 @@ class Speaker(BasisModell):
         if time == 0:
             return None
         return words * 60.0 / time
-    
+
     def average_spm_in_one_talk(self, talk):
         my_statistics = Statistics_Raw_Data.objects.filter(speaker = self, talk = talk)
         strokes = 0
@@ -162,7 +165,11 @@ class Speaker(BasisModell):
             return None
         return strokes * 60.0 / time
     """
-    
+
+    @property
+    def page_sub_titles(self):
+        return ['Speakers', self.name]
+
 # Talk with all its data
 class Talk(BasisModell):
     frab_id_talk = models.PositiveSmallIntegerField(default = -1)
@@ -213,7 +220,7 @@ class Talk(BasisModell):
         # Recalculate statistics data over the whole talk
         # Only if a original subtitle exists which is at least transcribing finished
         my_subtitles = Subtitle.objects.filter(Q(talk = self),
-            Q(is_original_lang = True), Q(complete = True) | Q(state_id = 5) | 
+            Q(is_original_lang = True), Q(complete = True) | Q(state_id = 5) |
             Q(state_id = 7) | Q(state_id = 3) | Q(state_id = 6))
         if my_subtitles.count() == 1:
             # In this case, recalculate the time_delta
@@ -227,15 +234,15 @@ class Talk(BasisModell):
                     self.average_spm = values["average_spm"]
                     self.recalculate_talk_statistics = False
                     self.save()
-                
-                # Save the word frequencies into a json file            
+
+                # Save the word frequencies into a json file
                 if values["word_frequencies"] is not None and len(values["word_frequencies"]) > 0:
                     save_word_dict_as_json(values["word_frequencies"],"talk_complete", self.id)
-                
+
                 # Set recalculate flags in the Statistics_Event module
                 Statistics_Event.objects.filter(event = self.event).update(recalculate_statistics = True)
-                
-                
+
+
     # Recalculate Speakers in Talk Statistics-Data
     # If any related data in Statistics_Raw_Data exist!
     @transaction.atomic
@@ -273,27 +280,27 @@ class Talk(BasisModell):
                 self.speakers_average_spm = calculate_per_minute(self.speakers_strokes, self.speakers_time_delta)
                 self.recalculate_speakers_statistics = False
                 self.save()
-            # Save the word frequencies into a json file            
+            # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq, "talk_speakers", self.id)
-            
+
 
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
         self.recalculate_whole_talk_statistics(force)
         self.recalculate_speakers_in_talk_statistics(force)
-        
+
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("talk_complete", self.id)
-    
+
     # Return the word_frequencies of speakers as dictionary
     @property
     def word_frequencies_speakers(self):
         return read_word_dict_from_json("talk_speakers", self.id)
-                
+
     @property
     def needs_automatic_syncing(self):
         return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
@@ -319,7 +326,7 @@ class Talk(BasisModell):
 
     def get_absolute_url(self):
         return reverse('www.views.talk', args=[str(self.id)])
- 
+
     @property
     def has_statistics(self):
         """ If there are statistics data available for this talk """
@@ -329,8 +336,8 @@ class Talk(BasisModell):
             return False
         else:
             return True
-     
-    @property    
+
+    @property
     def has_speakers_statistics(self):
         if self.speakers_average_spm is None:
             return False
@@ -338,7 +345,7 @@ class Talk(BasisModell):
             return False
         else:
             return True
-    
+
     @property
     def language_of_original_subtitle(self):
         this_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
@@ -346,7 +353,7 @@ class Talk(BasisModell):
             return None
         elif this_subtitles.count() == 1:
             return this_subtitles[0].language
-        
+
     @property
     def has_original_subtitle(self):
         my_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True)
@@ -354,7 +361,7 @@ class Talk(BasisModell):
             return True
         else:
             return False
-    
+
     @property
     def has_finished_original_subtitle(self):
         my_subtitles = Subtitle.objects.filter(talk = self, is_original_lang = True, complete = True)
@@ -362,7 +369,10 @@ class Talk(BasisModell):
             return True
         else:
             return False
-    
+
+    @property
+    def page_sub_titles(self):
+        return self.event.page_sub_titles + [self.title]
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):
@@ -371,7 +381,7 @@ class States(BasisModell):
     def __str__(self):
         return self.state_en
 
-        
+
 # Infos to a subtitle in one language
 class Subtitle(BasisModell):
     talk = models.ForeignKey(Talk)
@@ -444,7 +454,7 @@ class Statistics_Raw_Data(BasisModell):
     words = models.IntegerField(blank = True, null = True)
     strokes = models.IntegerField(blank = True, null = True)
     recalculate_statistics = models.BooleanField(default = False)
-    
+
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
@@ -468,16 +478,16 @@ class Statistics_Raw_Data(BasisModell):
                 this_speaker, created = Statistics_Speaker.objects.get_or_create(speaker = self.speaker, language = self.talk.language_of_original_subtitle)
                 this_speaker.recalculate_statistics = True
                 this_speaker.save()
-                
-            # Save the word frequencies into a json file            
+
+            # Save the word frequencies into a json file
             if values["word_frequencies"] is not None and len(values["word_frequencies"]) > 0:
                 save_word_dict_as_json(values["word_frequencies"],"statistics_raw_data", self.id)
-    
+
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("statistics_raw_data", self.id)
-    
+
 
 # Speakers can have different Statistic values for different languages they spoke during talks
 # This is calculated from the Statistics_Raw_Data which only counts the actual time the speaker speaks
@@ -491,7 +501,7 @@ class Statistics_Speaker(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
-    
+
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
@@ -503,7 +513,7 @@ class Statistics_Speaker(BasisModell):
             # All Subtitles which are the orignal language and the right language
             my_subtitles = Subtitle.objects.filter(is_original_lang = True, language = self.language)
             # Use temporary values
-            words = strokes = time_delta = 0            
+            words = strokes = time_delta = 0
             # Iterate over all these subtitles and get the right talk_id, then check if it has the right speaker
             for any in my_subtitles:
                 talk_persons = Talk_Persons.objects.filter(speaker = self.speaker, talk = any.talk)
@@ -535,17 +545,17 @@ class Statistics_Speaker(BasisModell):
                 self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
             self.recalculate_statistics = False
             self.save()
-            
-            # Save the word frequencies into a json file            
+
+            # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"statistics_speaker", self.id)
-    
+
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("statistics_speaker", self.id)
-            
-                        
+
+
 # Every Event can have different Statistic values for different languages
 # The statistics applies to whole talk-time, not only the speakers time, it
 # includes breaks, and Q&A and other stuff
@@ -558,7 +568,7 @@ class Statistics_Event(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
     average_spm = models.FloatField(blank = True, null = True)  # Calculated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
-    
+
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
@@ -584,21 +594,21 @@ class Statistics_Event(BasisModell):
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
             self.recalculate_statistics = False
             self.save()
-            
+
             # Dictionary for the word freqiencies
             word_freq = {}
             # Merge all sub word_frequencies
             for any in my_subtitles:
                 word_freq = merge_word_frequencies_dicts(any.talk.word_frequencies, word_freq)
-            # Save the word frequencies into a json file            
+            # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"statistics_event", self.id)
-            
+
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("statistics_event", self.id)
-    
+
 
 # m:n Connection between Talks and Speakers and their Statistics data
 class Talk_Persons(BasisModell):
@@ -610,7 +620,7 @@ class Talk_Persons(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
-    
+
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
@@ -631,28 +641,27 @@ class Talk_Persons(BasisModell):
                     self.words = self.strokes = self.time_delta = self.average_wpm = self.average_spm = None
                 else:
                     self.average_wpm = calculate_per_minute(self.words, self.time_delta)
-                    self.average_spm = calculate_per_minute(self.strokes, self.time_delta)  
+                    self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
             self.recalculate_statistics = False
             self.save()
-            
+
             # Dictionary for the word freqiencies
             word_freq = {}
             # Merge all sub word_frequencies
             for any in raw_data:
                 word_freq = merge_word_frequencies_dicts(any.word_frequencies, word_freq)
-            # Save the word frequencies into a json file            
+            # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"talk_persons", self.id)
-    
+
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("talk_persons", self.id)
-    
+
     @property
     def has_statistics(self):
         if self.average_wpm is not None and self.average_spm is not None:
             return True
         else:
             return False
-        

@@ -294,13 +294,22 @@ def read_word_dict_from_json(name_str, id):
     subfolder = "./www/static/word_frequencies/"
     filename = name_str + "_" + str(id) + ".json"
     # Get file content and return as dict
-    with open(subfolder + filename, "r") as f:
-        data = f.read()
-        return json.loads(data)        
-    return None
+    try: 
+        with open(subfolder + filename, "r") as f:
+            data = f.read()
+            return json.loads(data)
+    except:            
+        return None
 
 # Merge two word frequencies dictionaries
 def merge_word_frequencies_dicts(dict_1, dict_2):
+    # If any or both dictionaries are none, return the other one or also None
+    if dict_1 is None and dict_2 is not None:
+        return dict_2
+    elif dict_1 is not None and dict_2 is None:
+        return dict_1
+    elif dict_1 is None and dict_2 is None:
+        return None
     # Merge anything into dict_2
     for any in dict_1:
         dict_2.setdefault(any, dict_1[any])

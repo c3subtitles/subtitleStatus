@@ -20,13 +20,17 @@ def start(request):
         for every_event in my_events:
             my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
             every_event.__dict__.update(progress_bar_for_talks(my_talks))
-            every_event.statistics = Statistics_Event.objects.filter(event = every_event).order_by("language__language_en")
-            for any in every_event.statistics:
-                if any.average_wpm is not None and any.average_spm is not None:
-                    any.has_statistics = True
-                    every_event.has_statistics = True
-                else:
-                    any.has_statistics = False
+            # Every Statistics dataset except for those without data
+            every_event.statistics = Statistics_Event.objects.filter(event = every_event) \
+                .exclude(average_wpm = None, average_spm = None) \
+                .order_by("language__language_en")
+            every_event.has_statistics = True
+            
+            # Create chunks for Statistics-Data
+            # Create cunk for the 3 columns display of talks on event page
+            statistics_per_line = 3
+            every_event.statistics_chunk = [every_event.statistics[x:x+statistics_per_line] for x in range(0, every_event.statistics.count(), statistics_per_line)]
+            
     except ObjectDoesNotExist:
         raise Http404
     

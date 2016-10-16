@@ -8,7 +8,7 @@
 #==============================================================================
 
 dict = {
-"–" : 0,
+"-" : 0,
 "a" : 0,
 "able" : 0,
 "about" : 0,
@@ -234,6 +234,7 @@ dict = {
 "i'll" : 0,
 "i've" : 0,
 "im" : 0,
+"i'm" : 0,
 "immediate" : 0,
 "immediately" : 0,
 "importance" : 0,
@@ -253,6 +254,7 @@ dict = {
 "itd" : 0,
 "it'll" : 0,
 "its" : 0,
+"it’s" : 0,
 "it's" : 0,
 "itself" : 0,
 "i've" : 0,
@@ -520,6 +522,7 @@ dict = {
 "that" : 0,
 "that'll" : 0,
 "that's" : 0,
+"that’s" : 0,
 "that've" : 0,
 "the" : 0,
 "their" : 0,
@@ -538,6 +541,7 @@ dict = {
 "thereof" : 0,
 "therere" : 0,
 "there's" : 0,
+"there’s" : 0,
 "thereto" : 0,
 "thereupon" : 0,
 "there've" : 0,

@@ -4,7 +4,7 @@
 #==============================================================================
 # stop_words_eng.py
 #
-# This file includes stop words to exclude form word cloud calculations
+# This file includes english stop words to exclude form word cloud calculations
 #==============================================================================
 
 dict = {

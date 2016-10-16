@@ -1,3 +1,12 @@
+ï»¿#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+#==============================================================================
+# stop_words_ger.py
+#
+# This file includes stop words to exclude form word cloud calculations
+#==============================================================================
+
 dict = {
 "aber" : 0,
 "als" : 0,
@@ -15,7 +24,7 @@ dict = {
 "daher" : 0,
 "darum" : 0,
 "das" : 0,
-"daß" : 0,
+"daÃŸ" : 0,
 "dass" : 0,
 "dein" : 0,
 "deine" : 0,
@@ -43,7 +52,7 @@ dict = {
 "es" : 0,
 "euer" : 0,
 "eure" : 0,
-"für" : 0,
+"fÃ¼r" : 0,
 "hatte" : 0,
 "hatten" : 0,
 "hattest" : 0,
@@ -67,17 +76,17 @@ dict = {
 "jetzt" : 0,
 "kann" : 0,
 "kannst" : 0,
-"können" : 0,
-"könnt" : 0,
+"kÃ¶nnen" : 0,
+"kÃ¶nnt" : 0,
 "machen" : 0,
 "mein" : 0,
 "meine" : 0,
 "mit" : 0,
-"muß" : 0,
-"mußt" : 0,
+"muÃŸ" : 0,
+"muÃŸt" : 0,
 "musst" : 0,
-"müssen" : 0,
-"müßt" : 0,
+"mÃ¼ssen" : 0,
+"mÃ¼ÃŸt" : 0,
 "nach" : 0,
 "nachdem" : 0,
 "nein" : 0,
@@ -127,5 +136,5 @@ dict = {
 "zu" : 0,
 "zum" : 0,
 "zur" : 0,
-"über" : 0
+"Ã¼ber" : 0
 }

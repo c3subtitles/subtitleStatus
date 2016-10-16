@@ -1,3 +1,12 @@
+﻿#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+#==============================================================================
+# stop_words_eng.py
+#
+# This file includes stop words to exclude form word cloud calculations
+#==============================================================================
+
 dict = {
 "a" : 0,
 "about" : 0,

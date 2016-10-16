@@ -1,0 +1,8 @@
+<div id="{{ element_id }}" style="height: 100%;">
+  <script>
+    $(function(){
+    var words = {{ words|safe }};
+    $('#{{ element_id }}').jQCloud(words, {autoResize: true});
+    });
+  </script>
+  </div>

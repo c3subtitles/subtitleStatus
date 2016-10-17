@@ -53,10 +53,10 @@ dict = {
 "dazu" : 0,
 "dein" : 0,
 "deine" : 0,
-"deinem" : 0
-"deinen" : 0
-"deiner" : 0
-"deines" : 0
+"deinem" : 0,
+"deinen" : 0,
+"deiner" : 0,
+"deines" : 0,
 "dem" : 0,
 "den" : 0,
 "denen": 0,

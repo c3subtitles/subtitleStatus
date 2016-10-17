@@ -63,10 +63,20 @@ def reset_subtitle(my_subtitle):
 
     my_subtitle.save()
     
+    # Also reset statistics data
+    my_subtitle.talk.recalculate_talk_statistics = True
+    my_subtitle.talk.recalculate_speakers_statistics = True
+    my_subtitle.talk.save()
+    # In the Statistics model
+    my_statistics = Statistics_Raw_Data.objects.filter(talk = my_subtitle.talk)
+    for any_statistics in my_statistics:
+        any_statistics.recalculate_statistics = True
+        any_statistics.save()  
+    
     
 
 
-# Set all states to complete and sync and sets the tweet-flags, only of not choosen otherwise
+# Set all states to complete and sync and sets the tweet-flags, only if not choosen otherwise
 # - no matter if the subtitle is a translation or a original
 def set_subtitle_complete(my_subtitle, tweet_about_it = True):
     # Stuff which need to be done anyway..
@@ -94,6 +104,15 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
         my_subtitle.state_id = 12 # Translation finished
 
     my_subtitle.save()
+    # Also reset statistics data
+    my_subtitle.talk.recalculate_talk_statistics = True
+    my_subtitle.talk.recalculate_speakers_statistics = True
+    my_subtitle.talk.save()
+    # In the Statistics model
+    my_statistics = Statistics_Raw_Data.objects.filter(talk = my_subtitle.talk)
+    for any_statistics in my_statistics:
+        any_statistics.recalculate_statistics = True
+        any_statistics.save()  
 
 
     
@@ -150,8 +169,8 @@ for any_talk in all_talks_with_amara_key:
                 subtitle.last_changed_on_amara = datetime.now(timezone.utc)
                 subtitle.save()
                 # Also reset statistics data
-                any_talk.average_wpm = None
-                any_talk.average_spm = None
+                any_talk.recalculate_talk_statistics = True
+                any_talk.recalculate_speakers_statistics = True
                 any_talk.save()
                 # In the Statistics model
                 my_statistics = Statistics_Raw_Data.objects.filter(talk = any_talk)

@@ -11,30 +11,33 @@
 		<dt>Video-Duration</dt>
 		<dd>{{talk.video_duration|time:"H:i:s"}}</dd>
         {% if talk.has_statistics %}
+        </dl>
+        <dl class="dl-horizontal">
         <dt>Statistics</dt>
         <dd></dd>
         <dt>Average whole talk</dt>
-        <dd>{{talk.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dd>{{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
         <dt></dt>
-        <dd>{{talk.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr><dd>
+        <dd>{{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr><dd>
         {% if talk.has_speakers_statistics %}
         <dt>Average while speakers speak</dt>
-        <dd>{{talk.speakers_average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dd>{{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
         <dt></dt>
-        <dd>{{talk.speakers_average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr><dd>
+        <dd>{{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr><dd>
         {% endif %}
         {% endif %}
-		<dt>Speaker</dt>
-        <dd>coming soon</dd>
-        
+        </dl>
+        <dl class="dl-horizontal">
+        <dt>Speaker</dt>
+        <dd></dd>        
 		{% for any in talk.persons.all %}
 		<dt>{{any.name}}</dt>
         {% if any.average_wpm %}
         <dd></dd>
         {% else %}
-        <dd>coming soon{{any.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
+        <dd>coming soon{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
         <dt></dt>
-        <dd>coming soon{{any.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+        <dd>coming soon{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
         {% endif %}
     
 		{% endfor %}

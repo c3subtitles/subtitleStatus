@@ -6,6 +6,7 @@ from django.db.models import Sum, Q
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from .statistics_helper import *
+import json
 
 # Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
@@ -213,6 +214,8 @@ class Talk(BasisModell):
     speakers_average_wpm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_words and the speakers_time_delta
     speakers_average_spm = models.FloatField(blank = True, null = True)  # Calculated from the speakers_strokes and the speakers_time_delta
     recalculate_speakers_statistics = models.BooleanField(default = False)
+    n_most_frequent_words = models.TextField(default = "{}")    # n most common words as json string
+    n_most_frequent_words_speakers = models.TextField(default = "{}")    # n most common words as json string
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic
@@ -238,6 +241,11 @@ class Talk(BasisModell):
                 # Save the word frequencies into a json file
                 if values["word_frequencies"] is not None and len(values["word_frequencies"]) > 0:
                     save_word_dict_as_json(values["word_frequencies"],"talk_complete", self.id)
+                    self.n_most_frequent_words = json.dumps(n_most_common_words(values["word_frequencies"]), ensure_ascii = False)
+                    self.save()
+                else:
+                    self.n_most_frequent_words = "{}"
+                    self.save()
 
                 # Set recalculate flags in the Statistics_Event module
                 Statistics_Event.objects.filter(event = self.event).update(recalculate_statistics = True)
@@ -283,6 +291,11 @@ class Talk(BasisModell):
             # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq, "talk_speakers", self.id)
+                self.n_most_frequent_words_speakers = json.dumps(n_most_common_words(word_freq), ensure_ascii = False)
+                self.save()
+            else:
+                self.n_most_frequent_words_speakers = "{}"
+                self.save()
 
 
     # Recalculate statistics-data
@@ -291,6 +304,16 @@ class Talk(BasisModell):
         self.recalculate_whole_talk_statistics(force)
         self.recalculate_speakers_in_talk_statistics(force)
 
+    # Return the n most common words as dict
+    @property
+    def n_common_words(self):
+        return json.loads(self.n_most_frequent_words)
+        
+    # Return the n most common words of the speakers as dict
+    @property
+    def n_common_words_speakers(self):
+        return json.loads(self.n_most_frequent_words_speakers)
+        
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
@@ -501,6 +524,7 @@ class Statistics_Speaker(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
+    n_most_frequent_words = models.TextField(default = "{}")    # n most common words as json string
 
     # Recalculate statistics-data
     @transaction.atomic
@@ -543,17 +567,25 @@ class Statistics_Speaker(BasisModell):
                 self.time_delta = time_delta
                 self.average_wpm = calculate_per_minute(self.words, self.time_delta)
                 self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
-            self.recalculate_statistics = False
-            self.save()
-
+            
             # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"statistics_speaker", self.id)
+                self.n_most_frequent_words = json.dumps(n_most_common_words(word_freq), ensure_ascii = False)
+            else:
+                self.n_most_frequent_words = "{}"
+            self.recalculate_statistics = False
+            self.save()
 
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("statistics_speaker", self.id)
+        
+    # Return the n most common words as dict
+    @property
+    def n_common_words(self):
+        return json.loads(self.n_most_frequent_words)        
 
 
 # Every Event can have different Statistic values for different languages
@@ -568,6 +600,7 @@ class Statistics_Event(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time_delta
     average_spm = models.FloatField(blank = True, null = True)  # Calculated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
+    n_most_frequent_words = models.TextField(default = "{}")    # n most common words as json string
 
     # Recalculate statistics-data
     @transaction.atomic
@@ -592,8 +625,6 @@ class Statistics_Event(BasisModell):
                 else:
                     self.average_wpm = calculate_per_minute(self.words, self.time_delta)
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
-            self.recalculate_statistics = False
-            self.save()
 
             # Dictionary for the word freqiencies
             word_freq = {}
@@ -603,11 +634,21 @@ class Statistics_Event(BasisModell):
             # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"statistics_event", self.id)
-
+                self.n_most_frequent_words = json.dumps(n_most_common_words(word_freq), ensure_ascii = False)
+            else:
+                self.n_most_frequent_words = "{}"
+            self.recalculate_statistics = False
+            self.save()
+            
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("statistics_event", self.id)
+    
+    # Return the n most common words as dict
+    @property
+    def n_common_words(self):
+        return json.loads(self.n_most_frequent_words)    
 
 
 # m:n Connection between Talks and Speakers and their Statistics data
@@ -620,6 +661,7 @@ class Talk_Persons(BasisModell):
     average_wpm = models.FloatField(blank = True, null = True)  # Calculated from words and time delta
     average_spm = models.FloatField(blank = True, null = True)  # Caluclated from strokes and time_delta
     recalculate_statistics = models.BooleanField(default = False)
+    n_most_frequent_words = models.TextField(default = "{}")    # n most common words as json string
 
     # Recalculate statistics-data
     @transaction.atomic
@@ -642,9 +684,7 @@ class Talk_Persons(BasisModell):
                 else:
                     self.average_wpm = calculate_per_minute(self.words, self.time_delta)
                     self.average_spm = calculate_per_minute(self.strokes, self.time_delta)
-            self.recalculate_statistics = False
-            self.save()
-
+            
             # Dictionary for the word freqiencies
             word_freq = {}
             # Merge all sub word_frequencies
@@ -653,11 +693,21 @@ class Talk_Persons(BasisModell):
             # Save the word frequencies into a json file
             if word_freq is not None and len(word_freq) > 0:
                 save_word_dict_as_json(word_freq,"talk_persons", self.id)
-
+                self.n_most_frequent_words = json.dumps(n_most_common_words(word_freq), ensure_ascii = False)
+            else:
+                self.n_most_frequent_words = "{}"
+            self.recalculate_statistics = False
+            self.save()
+                
     # Return the word_frequencies as dictionary
     @property
     def word_frequencies(self):
         return read_word_dict_from_json("talk_persons", self.id)
+    
+    # Return the n most common words as dict
+    @property
+    def n_common_words(self):
+        return json.loads(self.n_most_frequent_words)
 
     @property
     def has_statistics(self):

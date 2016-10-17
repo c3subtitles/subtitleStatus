@@ -19,8 +19,11 @@ from datetime import datetime
 import copy
 
 # Characters to replace, some masked due to regex problems
-characters_to_replace = ["\"", "\?", "!", "\.", ",", "\*", "“", "„", "\„", "\“",
-    ":", ";", "(", ")", "[", "]", "{", "}"]
+characters_to_replace = ['"', "\?", "\!", "\.", ",", "„", "“",
+    ":", ";", "\(", "\)", "\[", "\]", "\{", "\}", "…", "”"]
+
+#  The most n common words should apprea in the word_frequencies
+n = 50
 
 # Calculate seconds from time element of a models
 def calculate_seconds_from_time(time):
@@ -85,6 +88,8 @@ def calculate_subtitle(talk, start = None, end = None):
         
         # Calculate dictionary with word frequencies from string
         words_dict = prepare_string_for_word_counts(big_string, this_subtitle[0].language)
+        if "-" in words_dict:
+            words_dict["-"] = 0
         
         return_dict = {}
         return_dict["words"] = words
@@ -136,7 +141,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 # having the starttimestamp and one the same timestamp es endtimestamp
                 start_time = text_content[counter][0]
                 
-                print("Neuer Start: ")
+                print("New start: ")
                 print(start_time)
                 # Set the start-counter to the first line with text which is included in the timespan
                 line_counter_start = counter + 1
@@ -148,7 +153,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 start > text_content[counter-3][1] and \
                 start < text_content[counter][0]:
                 start_time = text_content[counter][0]
-                print("Neuer Start: ")
+                print("New start: ")
                 print(start_time)
                 line_counter_start = counter + 1
                 start_is_set = True
@@ -157,7 +162,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 not start_is_set and \
                 start < text_content[counter][0]:
                 start_time = text_content[counter][0]
-                print("Neuer Start: ")
+                print("New start: ")
                 print(start_time)
                 line_counter_start = counter +1
                 start_is_set = True
@@ -169,7 +174,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 end <= text_content[counter][1]:
                 # Use the end of this subtitle
                 end_time = text_content[counter][1]
-                print("Neues Ende: ")
+                print("New end: ")
                 print(end_time)
                 # Set the end-counter to the last line with text which is included in the timespan
                 line_counter_end = counter + 1
@@ -182,7 +187,7 @@ def calculate_subtitle(talk, start = None, end = None):
                 end < text_content[counter][0]:
                 # Use the end of the previous subtitle timestamp
                 end_time = text_content[counter-3][1]
-                print("Neues Ende: ")
+                print("New end: ")
                 print(end_time)
                 # Set the end-counter to the last line with text from the previous subtitle
                 line_counter_end = counter -2
@@ -227,7 +232,9 @@ def calculate_subtitle(talk, start = None, end = None):
         
         # Calculate dictionary with word frequencies from string
         words_dict = prepare_string_for_word_counts(big_string, this_subtitle[0].language)
-        
+        if "-" in words_dict:
+            words_dict["-"] = 0
+            
         return_dict = {}
         return_dict["words"] = words
         return_dict["strokes"] = strokes
@@ -241,8 +248,10 @@ def prepare_string_for_word_counts(string, language = None):
     from . import stop_words_eng as sw_eng
     from . import stop_words_ger as sw_ger
     # Replace lots of stuff
+    #print(characters_to_replace)
     for any_char in characters_to_replace:
         string = re.sub(any_char, "", string)
+    string = re.sub(" - ", " ", string)
     # Convert to lower case
     string = str.lower(string)
     # Split into words withough spaces around
@@ -281,13 +290,16 @@ def save_word_dict_as_json(word_dict, name_str, id):
     import json
     subfolder = "./www/static/word_frequencies/"
     filename = name_str + "_" + str(id) + ".json"
+    word_dict.pop("-", None)
+    word_dict.pop("\-", None)
+    word_dict.pop("\\-", None)
     # Dump dictionary as json format
     dump = json.dumps(word_dict, ensure_ascii = False)
     # Overwrite an existing file
     f = open(subfolder + filename, 'w')
     f.write(dump)
     f.close()
-    print("Gespeichert!")
+    #print("Saved!")
     
 # Read a word frequency_dict from a json file    
 def read_word_dict_from_json(name_str, id):
@@ -312,7 +324,31 @@ def merge_word_frequencies_dicts(dict_1, dict_2):
     elif dict_1 is None and dict_2 is None:
         return None
     # Merge anything into dict_2
+    return_dict = {}
     for any in dict_1:
-        dict_2.setdefault(any, dict_1[any])
-        dict_2[any] += dict_1[any]
-    return dict_2.copy()
+        return_dict.setdefault(any, 0)
+        return_dict[any] += dict_1[any]
+    for any in dict_2:
+        return_dict.setdefault(any, 0)
+        return_dict[any] += dict_2[any]
+    return_dict.pop("-", None)
+    return_dict.pop("\-", None)
+    return_dict.pop("\\-", None)
+    if "-" in return_dict:
+        return_dict["-"] = 0
+    return return_dict
+
+# Return n most common words in word_frequencies dictionary as dictionary
+def n_most_common_words(word_frequencies, as_json = False):  
+    global n
+    return_dict = {}
+    counter = 0
+    for item in sorted(word_frequencies.items(), key = lambda x: x[1], reverse = True):
+        return_dict.setdefault(item[0],item[1])    
+        counter += 1
+        if counter >= n:
+            break
+    if as_json:
+        return json.dumps(return_dict, ensure_ascii = False)
+    else:
+        return return_dict

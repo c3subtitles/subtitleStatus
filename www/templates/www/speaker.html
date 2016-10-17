@@ -37,10 +37,7 @@
                     <dd>{{statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
                     <dd>{{statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
                 </dl>
-               
-
             {% endfor %}  
-            
         {% else %}
             <p> Nothing yet? :(<br><br>Create more subtitles!</p>
         {% endif %}

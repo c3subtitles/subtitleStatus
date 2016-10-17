@@ -30,16 +30,15 @@
         <dl class="dl-horizontal">
         <dt>Speaker</dt>
         <dd></dd>        
-		{% for any in talk.persons.all %}
-		<dt>{{any.name}}</dt>
-        {% if any.average_wpm %}
-        <dd></dd>
-        {% else %}
-        <dd>coming soon{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
-        <dt></dt>
-        <dd>coming soon{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
-        {% endif %}
-    
+		{% for any in talk.talk_persons_set.all %}
+            <dt>{{any.speaker.name}}</dt>
+            {% if any.has_statistics %}
+                <dd>{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+                <dt></dt>
+                <dd>{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+            {% else %}
+                <dd></dd>
+            {% endif %}
 		{% endfor %}
 	</dl>
 	{% if talk.subtitle_set.count > 0 %}

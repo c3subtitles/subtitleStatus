@@ -204,6 +204,7 @@ dict = {
 "giving" : 0,
 "go" : 0,
 "goes" : 0,
+"going" : 0,
 "gone" : 0,
 "gonna": 0,
 "got" : 0,

@@ -103,6 +103,14 @@ class Language(BasisModell):
     def __str__(self):
         return self.lang_amara_short
 
+    # Display-Name of the language in english, no "None" or "Klingon".
+    @property
+    def display_name(self):
+        if self.id == 0 or self.id == 289:
+            return "Original (mixed)"
+        else:
+            return self.language_en
+        
 
 # Category of the talk, like "ethics"
 class Tracks(BasisModell):

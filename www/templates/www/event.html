@@ -14,7 +14,7 @@
     </div>
     <div class="btn-group">
         {% for lang in my_langs %}
-            <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.language_en}}</button></a>
+            <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.display_name}}</button></a>
         {% endfor %}
     </div>
 

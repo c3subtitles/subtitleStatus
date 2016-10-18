@@ -7,7 +7,7 @@
         <dt>Date</dt>
         <dd>{{talk.date}}</dd>
         <dt>Language</dt>
-		<dd>{{talk.orig_language.language_en}}</dd>
+		<dd>{{talk.orig_language.display_name}}</dd>
 		<dt>Video-Duration</dt>
 		<dd>{{talk.video_duration|time:"H:i:s"}}</dd>
         {% if talk.has_statistics %}
@@ -61,7 +61,7 @@
 {% comment %}
 <ul>
 	<li><a href="/talk/{{talk.pk}}">{{talk.title}}</a></li>
-	<li>Talk-Language: {{talk.orig_language.language_en}}</li>
+	<li>Talk-Language: {{talk.orig_language.display_name}}</li>
 	<li>Track: {{talk.track}}</li>
 	<li>Type of: {{talk.type_of}}</li>
 	<li>Room: {{talk.room}}</li>

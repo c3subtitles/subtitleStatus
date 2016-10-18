@@ -239,10 +239,10 @@ def speaker(request, speaker_id):
         else:
             my_events_dict[any.talk.event.title] = 0
         # Every Language the Speaker spoke in talks
-        if any.talk.orig_language.language_en in my_languages_dict:
+        if any.talk.orig_language.display_name in my_languages_dict:
             pass
         else:
-            my_languages_dict[any.talk.orig_language.language_en] = 0
+            my_languages_dict[any.talk.orig_language.display_name] = 0
 
     # Get all events the speaker has been to and convert to a string with commas
     first_flag = True
@@ -266,7 +266,7 @@ def speaker(request, speaker_id):
       
     # Get all non blacklisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
-    my_talks = my_talks.filter(blacklisted = False).select_related("Speaker", "Talk_Persons")
+    my_talks = my_talks.filter(blacklisted = False).order_by("-date").select_related("Speaker", "Talk_Persons")
       
     # Create talk_chunks of 3 per line
     talks_per_line = 3

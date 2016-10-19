@@ -228,7 +228,7 @@ def speaker(request, speaker_id):
     my_speakers_statistics = Statistics_Speaker.objects.filter(speaker = my_speaker) \
         .exclude(average_wpm = None, average_spm = None) \
         .order_by("language__language_en")
-    
+
     # Get all languages and events the speaker participated in and create a nice looking string
     my_events_dict = {}
     my_languages_dict = {}
@@ -271,7 +271,11 @@ def speaker(request, speaker_id):
     # Create talk_chunks of 3 per line
     talks_per_line = 3
     my_talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, my_talks.count(), talks_per_line)]
-    
+
+    # Progress Bar data
+    my_speaker.__dict__.update(progress_bar_for_talks(my_talks))
+
+
     return render(request, "www/speaker.html", {"speaker" : my_speaker,
         "speaker_statistics" : my_speakers_statistics,
         "speakers_events" : my_events,

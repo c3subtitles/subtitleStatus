@@ -48,6 +48,9 @@
 	</div>	
 </div>
 
+{% include "www/progress_bar_original.html" with value=speaker %}
+
+
 {% for talks_line in talks_chunk %}
     <div class="row">
         {% for single_talk in talks_line %}

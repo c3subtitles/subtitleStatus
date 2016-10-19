@@ -232,6 +232,7 @@ def speaker(request, speaker_id):
     # Get all languages and events the speaker participated in and create a nice looking string
     my_events_dict = {}
     my_languages_dict = {}
+    my_tracks_dict = {}
     for any in my_talk_persons:
         # Every Event in which the speaker had a talk
         if any.talk.event.title in my_events_dict:
@@ -243,6 +244,10 @@ def speaker(request, speaker_id):
             pass
         else:
             my_languages_dict[any.talk.orig_language.display_name] = 0
+        if any.talk.track.track in my_tracks_dict:
+            pass
+        else:
+            my_tracks_dict[any.talk.track.track] = 0
 
     # Get all events the speaker has been to and convert to a string with commas
     first_flag = True
@@ -253,6 +258,16 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_events += ", " + any
+    
+    # All tracks the speaker spoke in
+    my_tracks = ""
+    first_flag = True
+    for any in my_tracks_dict.keys():
+        if first_flag:
+            my_tracks += any
+            first_flag = False
+        else:
+            my_tracks += ", " + any
     
     # Get all languages the speaker spoke in and convert to a string with commas
     first_flag = True
@@ -280,7 +295,8 @@ def speaker(request, speaker_id):
         "speaker_statistics" : my_speakers_statistics,
         "speakers_events" : my_events,
         "speakers_languages" : my_languages,
-        "talks_chunk" : my_talks_chunk} )
+        "talks_chunk" : my_talks_chunk,
+        "speakers_tracks" : my_tracks} )
 
 def eventCSS(request, event):
     return render(request, "css/{}".format(event.lower()))

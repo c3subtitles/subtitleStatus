@@ -8,6 +8,13 @@ register = template.Library()
 
 @register.filter(needs_autoescape=True)
 def word_cloud(word_frequencies, element_id, autoescape=True):
+    """Generate a word cloud according to the frequency table
+    `word_frequencies` and using the HTML ID `element_id`.
+
+    If `word_frequencies` is empty, no content will be generated."""
+    if not word_frequencies:
+        return mark_safe('')
+
     words = []
     escape = conditional_escape if autoescape else lambda x: x
     for word, frequency in word_frequencies.items():

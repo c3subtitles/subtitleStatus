@@ -147,6 +147,14 @@ class Speaker(BasisModell):
             if any.average_spm is not None:
                 return True
         return False
+    
+    @property
+    def has_links(self):
+        speakers_links = Speaker_Links.objects.filter(speaker = self)
+        if speakers_links.count() == 0:
+            return False
+        else:
+            return True
 
     """
     # Probably not needed any more..

@@ -5,26 +5,33 @@
 {% block content %}
 
 <h1>{{speaker.name}}</h1>
+{% if speaker.abstract != None %}
+<h3>{{speaker.abstract}}</h3>
+{% endif %}
 <h2>Infos</h2>
 <div class="row" style="padding-bottom: 20px;">
     <div class="col-md-4">
-	    
-            <dl  class="dl-horizontal">
-                <dt>Event(s):</dt>
-                <dd>{{speakers_events}}</dd>
-            </dl>        
-	</div>
-    <div class="col-md-4">
         <dl  class="dl-horizontal">
+            <dt>Event(s):</dt>
+            <dd>{{speakers_events}}</dd>
             <dt>Language(s):</dt>
             <dd>{{speakers_languages}}</dd>
         </dl>
-    </div>
+	</div>
     <div class="col-md-4">
         <dl  class="dl-horizontal">
             <dt>Track(s):</dt>
             <dd>{{speakers_tracks}}</dd>
+            {% if speaker.has_links %}
+                <dt>Links:</dt>
+                {% for link in speaker.speaker_links_set.all %}
+                    <dd><a href="{{link.url}}">{{link.title}}</a></dd>
+                {% endfor %}
+            {% endif %}
         </dl>
+    </div>
+    <div class="col-md-4">
+        <p>{{speaker.description}}</p>
     </div>
 </div>    
 <h2>Statistics</h2>

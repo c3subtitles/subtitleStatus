@@ -5,7 +5,7 @@
 {% block content %}
     <h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
 	
-	{% include "www/progress_bar_original.html" with value=my_event %}       
+	{% include "www/progress_bar_original.html" with value=my_event %}
   
     <div class="btn-group">
         {% for day in my_event.event_days_set.all %}

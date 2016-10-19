@@ -242,4 +242,51 @@
 </div><!-- /.modal -->
 {% endfor %}
 
+{% if talk.has_statistics %}
+<h2>Talk &amp; Speaker speed statistics with word clouds</h2>
+<div class="row" style="padding-bottom: 20px;">
+    <div class="col-md-4">
+        <div class="col-xs-5">Whole talk:</div>
+        <div class="col-xs-3">
+            {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+            {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+        </div>
+    </div>
+    <div class="col-md-8">
+    </div>
+</div>
+{% endif %}
+
+{% if talk.has_speakers_statistics %}
+<div class="row" style="padding-bottom: 20px;">
+    <div class="col-md-4">
+        <div class="col-xs-5">While speakers speak:</div>
+        <div class="col-xs-3">
+            {{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+            {{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+        </div>
+    </div>
+    <div class="col-md-8">
+    </div>
+</div>
+{% endif %}
+
+{% for talk_person in talk.talk_persons_set.all %}
+{% if talk_person.has_statistics %}
+    <div class="row" style="padding-bottom: 20px;">
+        <div class="col-md-4">
+            <div class="col-xs-5">{{ talk_person.speaker.name }}:</div>
+            <div class="col-xs-3">
+                {{talk_person.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+                {{talk_person.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+            </div>
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+{% endif %}
+{% endfor %}
+
+
+
 {% endblock %}

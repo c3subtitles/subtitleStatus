@@ -3,24 +3,42 @@
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
-    <h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
-	
-	{% include "www/progress_bar_original.html" with value=my_event %}
-  
-    <div class="btn-group">
-        {% for day in my_event.event_days_set.all %}
-             <a href= "/event/{{my_event.acronym}}/day/{{day.index}}"><button type="button" class="btn btn-default">{{day.index}} </button></a>
-        {% endfor %}
-    </div>
-    <div class="btn-group">
-        {% for lang in my_langs %}
-            <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.display_name}}</button></a>
-        {% endfor %}
-    </div>
+<h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
 
-    <style>
-      td div.progress { margin-bottom: 0px; }
-    </style>
+{% for every_statistics in my_event.statistics_event_set.all %}
+{% if every_statistics.has_statistics %}
+    <div class="row" style="padding-bottom: 20px;">
+        <div class="col-md-4">
+            <div class="col-xs-5">{{ every_statistics.language.display_name }}:</div>
+            <div class="col-xs-3">
+                {{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+                {{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+            </div>
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+{% endif %}
+{% endfor %}
+
+
+
+{% include "www/progress_bar_original.html" with value=my_event %}
+
+<div class="btn-group">
+    {% for day in my_event.event_days_set.all %}
+         <a href= "/event/{{my_event.acronym}}/day/{{day.index}}"><button type="button" class="btn btn-default">{{day.index}} </button></a>
+    {% endfor %}
+</div>
+<div class="btn-group">
+    {% for lang in my_langs %}
+        <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.display_name}}</button></a>
+    {% endfor %}
+</div>
+
+<style>
+  td div.progress { margin-bottom: 0px; }
+</style>
 
 	{% for talks_line in talks_chunk %}
 		<div class="row">

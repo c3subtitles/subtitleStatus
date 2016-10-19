@@ -11,8 +11,8 @@
 		<dt>Video-Duration</dt>
 		<dd>{{talk.video_duration|time:"H:i:s"}}</dd>
         {% if talk.has_statistics %}
-        </dl>
-        <dl class="dl-horizontal">
+    </dl>
+    <dl class="dl-horizontal">
         <dt>Statistics</dt>
         <dd></dd>
         <dt>Average whole talk</dt>
@@ -26,8 +26,8 @@
         <dd>{{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr><dd>
         {% endif %}
         {% endif %}
-        </dl>
-        <dl class="dl-horizontal">
+    </dl>
+    <dl class="dl-horizontal">
         <dt>Speaker</dt>
         <dd></dd>        
 		{% for any in talk.talk_persons_set.all %}

@@ -189,7 +189,7 @@ class Speaker(BasisModell):
 
     @property
     def page_sub_titles(self):
-        return ['Speakers', self.name]
+        return ['Speaker', self.name]
         
 
 # Links from the Fahrplan

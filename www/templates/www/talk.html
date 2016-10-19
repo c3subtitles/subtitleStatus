@@ -32,18 +32,21 @@
             <div role="tabpanel">
 
            <!-- Nav tabs -->
-               <ul class="nav nav-tabs" role="tablist">
-                  <!--li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li-->
-                  <li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
-                  <li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
-                  <li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
-                  {% if talk.has_statistics %}
-                  <li role="presentation"><a href="#Statistics" aria-controls="Statistics" role="tab" data-toggle="tab">Statistics</a></li>
-                  {% endif %}
-               </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                   <!--li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li-->
+                   <li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
+                    <li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
+                   <li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
+                   {% if talk.has_statistics %}
+                        <li role="presentation"><a href="#Statistics" aria-controls="Statistics" role="tab" data-toggle="tab">Statistics</a></li>
+                    {% endif %}
+                    {% if talk.has_links %}
+                        <li role="presentation"><a href="#Links" aria-controls="Links" role="tab" data-toggle="tab">Links</a></li>
+                    {% endif %}
+                </ul>
 
            <!-- Tab panes -->
-               <div class="tab-content">
+                <div class="tab-content">
                   <!--div role="tabpanel" class="tab-pane active" id="home">
                      <ul class="list" >
                         <li>Language: {{talk.orig_language}}</li>
@@ -52,90 +55,98 @@
                         <li>Abstract: {{talk.abstract}}</li>
                      </ul>
                   </div-->
-                  <div role="tabpanel" class="tab-pane active" id="video_data">
-                     <dl class="dl-horizontal">
-                        <dt>Video duration</dt>
-                        {% if talk.amara_key != "" %}
-                            <dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+                    <div role="tabpanel" class="tab-pane active" id="video_data">
+                        <dl class="dl-horizontal">
+                            <dt>Video duration</dt>
+                            {% if talk.amara_key != "" %}
+                                <dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+                            {% else %}
+                                <dd>Not yet available</dd>
+                            {% endif %}
+                            <dt>Language</dt>
+                            <dd>{{talk.orig_language.display_name}}</dd>
+                            <dt>Abstract</dt>
+                            {% if talk.abstract != "None" %}
+                               <dd>{{talk.abstract|linebreaksbr}}</dd>
+                            {% else %}
+                               <dd> - </dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="Description">
+                        {% if talk.description != "None" %}
+                            <p>{{talk.description|linebreaksbr}}</p>
                         {% else %}
-                            <dd>Not yet available</dd>
-                        {% endif %}
-                        <dt>Language</dt>
-                        <dd>{{talk.orig_language.display_name}}</dd>
-                        <dt>Abstract</dt>
-                        {% if talk.abstract != "None" %}
-                           <dd>{{talk.abstract|linebreaksbr}}</dd>
-                        {% else %}
-                           <dd> - </dd>
-                        {% endif %}
-                     </dl>
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="Description">
-                     {% if talk.description != "None" %}
-                        <p>{{talk.description|linebreaksbr}}</p>
-                     {% else %}
-                        <p>No description available.</p>
-                     {% endif%}
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="Misc">
-                     <dl class="dl-horizontal">
-                        <dt>Talk ID</dt>
-                        <dd>{{talk.frab_id_talk}}</dd>
-                        <dt>Event:</dt>
-                        <dd>{{talk.event.acronym}}</dd>
-                        <dt>Day</dt>
-                        <dd>{{talk.day.index}}</dd>
-                        <dt>Room</dt>
-                        <dd>{{talk.room}}</dd>
-                        <dt>Start</dt>
-                        <dd>{{talk.start}}</dd>
-                        <dt>Duration</dt>
-                        <dd>{{talk.duration | date:"H:i:s"}}</dd>
-                        <dt>Track</dt>
-                        <dd>{{talk.track}}</dd>
-                        <dt>Type of</dt>
-                        <dd>{{talk.type_of}}</dd>
-                        <dt>Speaker</dt>
-                        {% for speaker in talk.persons.all %}
-                        <dd><abbr title="id {{speaker.id}}">{{speaker.name}}</abbr></dd>
-                        {% endfor %}
-                     </dl>
-                  </div>
-                  {% if talk.has_statistics %}
-	                  <div role="tabpanel" class="tab-pane" id="Statistics">
-	                     <h3>Talk &amp; Speaker speed statistics</h3>
-	                     <div class="Table">
+                            <p>No description available.</p>
+                        {% endif%}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="Misc">
+                        <dl class="dl-horizontal">
+                            <dt>Talk ID</dt>
+                            <dd>{{talk.frab_id_talk}}</dd>
+                            <dt>Event:</dt>
+                            <dd>{{talk.event.acronym}}</dd>
+                            <dt>Day</dt>
+                            <dd>{{talk.day.index}}</dd>
+                            <dt>Room</dt>
+                            <dd>{{talk.room}}</dd>
+                            <dt>Start</dt>
+                            <dd>{{talk.start}}</dd>
+                            <dt>Duration</dt>
+                            <dd>{{talk.duration | date:"H:i:s"}}</dd>
+                            <dt>Track</dt>
+                            <dd>{{talk.track}}</dd>
+                            <dt>Type of</dt>
+                            <dd>{{talk.type_of}}</dd>
+                            <dt>Speaker</dt>
+                            {% for speaker in talk.persons.all %}
+                            <dd><abbr title="id {{speaker.id}}">{{speaker.name}}</abbr></dd>
+                            {% endfor %}
+                        </dl>
+                    </div>
+                    {% if talk.has_statistics %}
+                        <div role="tabpanel" class="tab-pane" id="Statistics">
+                            <h3>Talk &amp; Speaker speed statistics</h3>
+                            <div class="Table">
+                                <div class="TableRow">
+                                    <div id="TableLabel" class="TableCell">Very rough underestimation:</div>
+                                    <div class="TableCell">
+                                    {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
+                                    {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                                </div>
+                            </div>
+	                        {% if talk.has_speakers_statistic %}
 	                        <div class="TableRow">
-	                            <div id="TableLabel" class="TableCell">Very rough underestimation:</div>
-	                            <div class="TableCell">
-	                              {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
-	                              {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-	                           </div>
-	                         </div>
-	                         {% if talk.has_speakers_statistic %}
-	                        	<div class="TableRow">
-	                           	<div id="TableLabel" class="TableCell">While speaker(s) speak(s):</div>
+                                <div id="TableLabel" class="TableCell">While speaker(s) speak(s):</div>
 	                           	<div class="TableCell">
 	                              	{{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
 	                              	{{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
 	                           	</div>
-	                        	</div>
+	                        </div>
 	                        {% endif %}
 	                        {% for any in talk_speakers_statistics %}
 	                        	{% if any.has_statistics %}
 	                        		<div class="TableRow">
-	                           		<div id="TableLabel" class="TableCell">{{any.speaker.name}}</div>
-	                           		<div class="TableCell">
-	                              		{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-	                              		{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-	                           		</div>
+                                        <div id="TableLabel" class="TableCell">{{any.speaker.name}}</div>
+                                        <div class="TableCell">{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                                        </div>
 	                        		</div>
 	                        	{% endif %}
 	                        {% endfor %}
-	                     </div>
-	                  </div>
-                  {% endif %}
-               </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if talk.has_links %}
+                        <div role="tabpanel" class="tab-pane" id="Links">
+                            <dl class="dl-horizontal">
+                                {% for link in talk.links_set.all %}
+                                    <dt></dt>
+                                    <dd><a href="{{link.url}}">{{link.title}}</a></dd>
+                                {% endfor %}
+                            </dl>   
+                        </div>
+                    {% endif %}
+                </div>
             </div>
          </div>
 			

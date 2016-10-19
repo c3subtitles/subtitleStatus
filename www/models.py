@@ -424,6 +424,14 @@ class Talk(BasisModell):
     @property
     def page_sub_titles(self):
         return self.event.page_sub_titles + [self.title]
+    
+    @property
+    def has_links(self):
+        talk_links = Links.objects.filter(talk = self)
+        if talk_links.count() == 0:
+            return False
+        else:
+            return True
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):

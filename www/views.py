@@ -25,12 +25,7 @@ def start(request):
                 .exclude(average_wpm = None, average_spm = None) \
                 .order_by("language__language_en")
             every_event.has_statistics = True
-            
-            # Create chunks for Statistics-Data
-            # Create cunk for the 3 columns display of talks on event page
-            statistics_per_line = 3
-            every_event.statistics_chunk = [every_event.statistics[x:x+statistics_per_line] for x in range(0, every_event.statistics.count(), statistics_per_line)]
-            
+
     except ObjectDoesNotExist:
         raise Http404
 

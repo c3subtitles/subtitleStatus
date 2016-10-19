@@ -45,18 +45,20 @@
 		    <div id="event_statistics" style="padding-bottom: 20px;" class="container">
 				<h3>Statistics:</h3>
 
-				{% for every_statistics_line in event.statistics_chunk %}
-                    <div class="row">
-                    {% for every_statistics in every_statistics_line %}
-                            <div class="col-md-4">
-                                <div class="col-xs-5">{{ every_statistics.language.display_name }}:</div>
-                                <div class="col-xs-3">
-                                    {{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-                                    {{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-                                </div>
+				{% for every_statistics in event.statistics_event_set.all %}
+                {% if every_statistics.has_statistics %}
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div class="col-md-4">
+                            <div class="col-xs-5">{{ every_statistics.language.display_name }}:</div>
+                            <div class="col-xs-3">
+                                {{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+                                {{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
                             </div>
-                    {% endfor %}
+                        </div>
+                        <div class="col-md-8">
+                        </div>
                     </div>
+                {% endif %}
                 {% endfor %}
             </div>
 		{% endif %}

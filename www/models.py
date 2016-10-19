@@ -42,6 +42,8 @@ class Event(BasisModell):
     ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
     hashtag = models.CharField(max_length = 10, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
+    speaker_json_link = models.URLField(blank = True, default = "")
+    speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -133,6 +135,8 @@ class Speaker(BasisModell):
     frab_id = models.PositiveSmallIntegerField(default = -1)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
+    abstract = models.TextField(default = "", blank = True, null = True)
+    description = models.TextField(default = "", blank = True, null = True)
 
     @property
     def has_statistics(self):
@@ -178,6 +182,14 @@ class Speaker(BasisModell):
     @property
     def page_sub_titles(self):
         return ['Speakers', self.name]
+        
+
+# Links from the Fahrplan
+class Speaker_Links(BasisModell):
+    speaker = models.ForeignKey(Speaker, blank = True)
+    title = models.CharField(max_length = 200, default = "", blank = True)
+    url = models.URLField(blank = True)
+        
 
 # Talk with all its data
 class Talk(BasisModell):

@@ -684,7 +684,14 @@ class Statistics_Event(BasisModell):
     # Return the n most common words as dict
     @property
     def n_common_words(self):
-        return json.loads(self.n_most_frequent_words)    
+        return json.loads(self.n_most_frequent_words)
+    
+    @property
+    def has_statistics(self):
+        if self.average_wpm is not None and self.average_spm is not None:
+            return True
+        else:
+            return False
 
 
 # m:n Connection between Talks and Speakers and their Statistics data

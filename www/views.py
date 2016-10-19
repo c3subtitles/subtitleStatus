@@ -33,8 +33,8 @@ def start(request):
             
     except ObjectDoesNotExist:
         raise Http404
-    
-    return render(request, "www/main.html", {"events" : my_events} )
+
+    return render(request, "www/main.html", {"events" : my_events, "request": request} )
 
 # Overview over the Talks of one event
 def event (request, event_acronym, *args, **kwargs):
@@ -69,7 +69,8 @@ def event (request, event_acronym, *args, **kwargs):
         "my_days" : my_event.event_days_set.all(),
         "my_langs" : my_langs,
         "page_sub_titles": my_event.page_sub_titles,
-        "talks_chunk" : talks_chunk} )
+        "talks_chunk" : talks_chunk,
+        "request": request} )
 
 # Form to save the progress of a subtitle
 def get_subtitle_form(request, talk, sub):
@@ -158,7 +159,8 @@ def talk(request, talk_id):
                   {"talk" : my_talk,
                    "subtitles": my_subtitles,
                    "page_sub_titles": my_talk.page_sub_titles,
-                   "talk_speakers_statistics": speakers_in_talk_statistics} ) #"speakers": my_speakers,
+                   "talk_speakers_statistics": speakers_in_talk_statistics,
+                   "request": request} ) #"speakers": my_speakers,
 
 
 def talk_by_frab(request, frab_id):
@@ -302,7 +304,8 @@ def speaker(request, speaker_id):
         "speakers_languages" : my_languages,
         "talks_chunk" : my_talks_chunk,
         "page_sub_titles": my_speaker.page_sub_titles,
-        "speakers_tracks" : my_tracks} )
+        "speakers_tracks" : my_tracks,
+        "request": request} )
 
 def eventCSS(request, event):
     return render(request, "css/{}".format(event.lower()))

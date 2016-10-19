@@ -4,8 +4,10 @@ flattr button
 Includes some magic to generate correct URLs in requests.
 {% endcomment %}
 
-{% with flattr_id = "j9rqkg" %}
-<a href="https://flattr.com/submit/auto?fid={{ flattr_id }}&url={{ request.path }}" target="_blank">
-  <img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
+{% with flattr_id="j9rqkg" %}
+{% if request %}
+<a href="https://flattr.com/submit/auto?fid={{ flattr_id }}&url={{ request.build_absolute_uri }}" target="_blank">
+  <img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" style="opacity: 0.5;">
 </a>
+{% endif %}
 {% endwith %}

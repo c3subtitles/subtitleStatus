@@ -68,6 +68,7 @@ def event (request, event_acronym, *args, **kwargs):
         "my_event" : my_event,
         "my_days" : my_event.event_days_set.all(),
         "my_langs" : my_langs,
+        "page_sub_titles": my_event.page_sub_titles,
         "talks_chunk" : talks_chunk} )
 
 # Form to save the progress of a subtitle
@@ -153,7 +154,11 @@ def talk(request, talk_id):
       
     speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
 
-    return render(request, "www/talk.html", {"talk" : my_talk, "subtitles": my_subtitles,  "talk_speakers_statistics": speakers_in_talk_statistics} ) #"speakers": my_speakers,
+    return render(request, "www/talk.html",
+                  {"talk" : my_talk,
+                   "subtitles": my_subtitles,
+                   "page_sub_titles": my_talk.page_sub_titles,
+                   "talk_speakers_statistics": speakers_in_talk_statistics} ) #"speakers": my_speakers,
 
 
 def talk_by_frab(request, frab_id):
@@ -296,6 +301,7 @@ def speaker(request, speaker_id):
         "speakers_events" : my_events,
         "speakers_languages" : my_languages,
         "talks_chunk" : my_talks_chunk,
+        "page_sub_titles": my_speaker.page_sub_titles,
         "speakers_tracks" : my_tracks} )
 
 def eventCSS(request, event):

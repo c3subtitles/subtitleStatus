@@ -116,7 +116,7 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
 
 
     
-basis_url = "http://www.amara.org/api2/partners/videos/"
+basis_url = "https://amara.org/api/videos/"
 anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64; U; de) Presto/2.10.289 Version/12.01',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -152,7 +152,7 @@ for any_talk in all_talks_with_amara_key:
         if amara_num_versions > 0:
             print("version in json: ",amara_num_versions)
             amara_language_code = amara_answer["objects"][subtitles_counter]["language_code"]
-            amara_is_original = amara_answer["objects"][subtitles_counter]["is_original"]
+            amara_is_original = amara_answer["objects"][subtitles_counter]["is_primary_audio_language"]
             amara_subtitles_complete = amara_answer["objects"][subtitles_counter]["subtitles_complete"]
 
             language = Language.objects.get(lang_amara_short = amara_language_code)

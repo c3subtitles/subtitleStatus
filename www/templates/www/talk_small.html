@@ -1,4 +1,8 @@
-﻿{% load subtitle_progress %}
+﻿{% comment %}
+This template is used in the events pages to display single talks in event.html
+{% endcomment %}
+
+{% load subtitle_progress %}
 <a href="/talk/{{talk.pk}}" class="thumbnail">
 	<h3>{{talk.title}}</h3>
 	<dl class="dl-horizontal">

@@ -1,4 +1,8 @@
-﻿{% load subtitle_progress %}
+﻿{% comment %}
+This template is used in the speakers pages to display single talks of a speaker in speaker.html
+{% endcomment %}
+
+{% load subtitle_progress %}
 <a href="/talk/{{talk.pk}}" class="thumbnail">
 	<h3>{{talk.title}}</h3>
 	<dl class="dl-horizontal">

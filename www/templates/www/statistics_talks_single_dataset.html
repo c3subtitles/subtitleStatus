@@ -1,0 +1,27 @@
+{% comment %}
+Used in statistics_talks.html to display a single dataset
+{% endcomment %}
+<div class="thumbnail">
+<div class="row" style="padding-bottom: 10px; padding-left: 10px;">
+
+    <div class="col-md-4">
+        <a href="/talk/{{talk.pk}}"><h3>{{ talk.title }}</h3></a>
+    </div>
+
+    <div class="col-md-4">
+        <h3><a href="/event/{{talk.event.acronym}}">{{ talk.event.acronym }}</a></h3>
+		<h3>{{ talk.orig_language.display_name }}</h3>
+    </div>
+
+    <div class="col-md-4">
+		{% if sort_by = "wpm" %}
+			<h3>{{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
+			<h3>{{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
+		{% elif sort_by = "spm" %}
+			<h3>{{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
+			<h3>{{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
+		{% endif %}
+    </div>
+
+</div>
+</div>

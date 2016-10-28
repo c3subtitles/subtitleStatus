@@ -17,7 +17,9 @@ urlpatterns = patterns('',
         url(r'^clock/$',views.clock),
         #url(r'^logo', views.eventLogo),
         #url(r'^', views.eventStatus),
-        
+        url(r'^statistics/talks/$',views.statistics_talks),
+        url(r'^statistics/speakers/$',views.statistics_speakers),
+        url(r'^statistics/speakers_in_talks/$',views.statistics_speakers_in_talks),
 )
 if settings.DEBUG:
     urlpatterns += patterns('django.contrib.staticfiles.views',

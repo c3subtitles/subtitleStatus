@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}C3Subtitles Statistics{% endblock %}
+
+{% block content %}
+
+<h1>Talks Statistics</h1>
+
+{% for talk in talks %}
+    {% include "www/statistics_talks_single_dataset.html" with talk=talk sort_by="wpm" %}
+{% endfor %}
+
+
+{% endblock %}

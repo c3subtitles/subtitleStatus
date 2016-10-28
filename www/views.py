@@ -7,6 +7,7 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 import datetime
+#from django import forms
 #from copy import deepcopy
 
 # Create your views here.
@@ -362,3 +363,21 @@ def progress_bar_for_talks(talks):
                          green=checked,
                          orange=synced,
                          red=transcribed)
+
+# Statistics of talks
+def statistics_talks(request):
+    my_talks = Talk.objects.all().exclude(average_wpm = None).order_by("-average_spm")
+    return render(request, "www/statistics_talks.html",
+        {"talks" : my_talks})
+
+# Statistics of speakers
+def statistics_speakers(request):
+    my_statistics_speakers = Statistics_Speaker.objects.all().exclude(average_wpm = None).order_by("-average_spm")
+    return render(request, "www/statistics_speakers.html",
+        {"statistics_speakers" : my_statistics_speakers})
+
+# Statistics of speakers in talks
+def statistics_speakers_in_talks(request):
+    my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
+    return render(request, "www/statistics_speakers_in_talks.html",
+        {"talk_persons" : my_talk_persons})

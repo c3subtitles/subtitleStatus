@@ -1,0 +1,25 @@
+{% comment %}
+Used in statistics_speakers.html to display a single dataset
+{% endcomment %}
+
+<div class="thumbnail">
+<div class="row" style="padding-bottom: 10px; padding-left: 10px;">
+    <div class="col-md-4">
+        <a href="/speaker/{{statistics_speaker.speaker.pk}}"><h3>{{ statistics_speaker.speaker.name }}</h3></a>
+    </div>
+
+    <div class="col-md-4">
+        <h3>{{ statistics_speaker.language.display_name }}</h3>
+    </div>
+
+    <div class="col-md-4">
+		{% if sort_by = "wpm" %}
+			<h3>{{statistics_speaker.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
+			<h3>{{statistics_speaker.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
+		{% elif sort_by = "spm" %}
+			<h3>{{statistics_speaker.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
+			<h3>{{statistics_speaker.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
+		{% endif %}
+    </div>
+</div>
+</div>

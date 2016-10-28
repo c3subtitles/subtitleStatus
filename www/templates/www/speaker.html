@@ -44,16 +44,16 @@
                         <div class="TableRow">
                             <div id="TableLabel" class="TableCell"><div class='text-left'>{{statistics.language.display_name}}</div></div>
                             <div class="TableCell">
-                              {{statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr><br>
-                              {{statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr>
+                              {{statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
+                              {{statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
                            </div>
                         </div>
                     </div>
                 {% endcomment %} 
                 <dl  class="dl-horizontal">
                     <dt>{{statistics.language.display_name}}</dt>
-                    <dd>{{statistics.average_wpm | floatformat:-1}} <abbr title="words per minute">wpm</abbr></dd>
-                    <dd>{{statistics.average_spm | floatformat:-1}} <abbr title="strokes per minute">spm</abbr></dd>
+                    <dd>{{statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+                    <dd>{{statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
                 </dl>
             </div>
             <div class="col-md-8">

@@ -67,3 +67,11 @@ body {
 .tab-content div {
     padding-top: 10px;
 }
+
+
+.column_has-backgound-color .col-md-4{
+        padding: 4px 0;
+    }   
+.column_has-backgound-color .col-md-4:nth-child(even){
+        background-color: rgb(240,240,240);
+    }

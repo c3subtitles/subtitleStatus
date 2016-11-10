@@ -115,7 +115,7 @@
                                     {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
                                 </div>
                             </div>
-	                        {% if talk.has_speakers_statistic %}
+	                        {% if talk.has_speakers_statistics and talk.persons.count > 1 %}
 	                        <div class="TableRow">
                                 <div id="TableLabel" class="TableCell">While speaker(s) speak(s):</div>
 	                           	<div class="TableCell">
@@ -257,7 +257,7 @@
 </div>
 {% endif %}
 
-{% if talk.has_speakers_statistics %}
+{% if talk.has_speakers_statistics and talk.persons.count > 1 %}
 <div class="row" style="padding-bottom: 20px;">
     <div class="col-md-4">
         <div class="col-xs-5">While speakers speak:</div>

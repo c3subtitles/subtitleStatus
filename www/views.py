@@ -1,7 +1,7 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker
-from www.forms import SubtitleForm
+from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
+from www.forms import SubtitleForm, TestForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
@@ -9,6 +9,7 @@ from django.contrib import messages
 import datetime
 #from django import forms
 #from copy import deepcopy
+#import django_filters
 
 # Create your views here.
 
@@ -381,3 +382,43 @@ def statistics_speakers_in_talks(request):
     my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
     return render(request, "www/statistics_speakers_in_talks.html",
         {"talk_persons" : my_talk_persons})
+        
+# Test-View
+def test(request):
+    
+    if request.method == "POST":
+        form = TestForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            sort_spm = cd.get("sort_spm")
+            sort_desc = cd.get("sort_desc")
+        else:
+            sort_spm = False
+            sort_desc = False
+    else:
+        sort_spm = False
+        sort_desc = False
+        form = TestForm()
+
+
+    my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
+    my_langs = Language.objects.filter(pk__in=[a['talk__orig_language'] for a in my_talk_persons.values('talk__orig_language')])
+    my_events = Event.objects.filter(pk__in=[a['talk__event'] for a in my_talk_persons.values('talk__event')])
+    my_event_days = Event_Days.objects.filter(pk__in=[a['talk__day'] for a in my_talk_persons.values('talk__day')])
+    event_days = {}
+    for any in my_event_days:
+        if any.index in event_days:
+            pass
+        else:
+            event_days[any.index] = 0
+    
+    
+    return render(request, "www/test.html",
+        {"talk_persons" : my_talk_persons,
+        "my_langs" : my_langs,
+        "my_events" : my_events,
+        "event_days" : event_days,
+        "sort_spm" : sort_spm,
+        "sort_desc" : sort_desc,
+        "form" : form}
+        )

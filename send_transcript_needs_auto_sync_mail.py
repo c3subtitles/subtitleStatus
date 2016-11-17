@@ -132,8 +132,9 @@ for any in my_subtitles:
     # Save File in ./downloads
     file = open(folder+filename,mode = "w",encoding = "utf-8")
     for line in transcript:
-        line = re.sub("<i>","*",line)
-        line = re.sub("</i>","*",line)
+        line = re.sub("<i>", "*", line)
+        line = re.sub("</i>", "*", line)
+        line = re.sub("&amp;", "&", line)
         file.write(line)
     file.close()   
 

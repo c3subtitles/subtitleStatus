@@ -1,4 +1,5 @@
 ﻿{% extends "base.html" %}
+{% load word_cloud %}
 
 {% block title %}C3Subtitles{% endblock %}
 
@@ -10,6 +11,13 @@
 {% endif %}
 <h2>Infos</h2>
 <div class="row" style="padding-bottom: 20px;">
+    <div class="col-md-4">
+
+            <dl  class="dl-horizontal">
+                <dt>Event(s):</dt>
+                <dd>{{speakers_events}}</dd>
+            </dl>
+	</div>
     <div class="col-md-4">
         <dl  class="dl-horizontal">
             <dt>Event(s):</dt>
@@ -30,16 +38,13 @@
             {% endif %}
         </dl>
     </div>
-    <div class="col-md-4">
-        <p>{{speaker.description}}</p>
-    </div>
-</div>    
+</div>
 <h2>Statistics</h2>
 {% if speaker.has_statistics %}
-    {% for statistics in speaker_statistics %}                
-        <div class="row" style="padding-bottom: 20px;">   
+    {% for statistics in speaker_statistics %}
+        <div class="row" style="padding-bottom: 20px;">
             <div class="col-md-4">
-                {% comment %}                
+                {% comment %}
                     <div class="Table">
                         <div class="TableRow">
                             <div id="TableLabel" class="TableCell"><div class='text-left'>{{statistics.language.display_name}}</div></div>
@@ -49,7 +54,7 @@
                            </div>
                         </div>
                     </div>
-                {% endcomment %} 
+                {% endcomment %}
                 <dl  class="dl-horizontal">
                     <dt>{{statistics.language.display_name}}</dt>
                     <dd>{{statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
@@ -57,15 +62,19 @@
                 </dl>
             </div>
             <div class="col-md-8">
-                <h2>...</h2>
-                <p></p>
-            </div>	
+                <h2>Frequent words</h2>
+                {% for statistics in speaker_statistics %}
+                    {% common_words_cloud item=statistics %}
+                {% empty %}
+                    No statistics yet. :(
+                {% endfor %}
+            </div>
         </div>
-    {% endfor %}      
+    {% endfor %}
 {% else %}
     <p> Nothing yet? :(<br \>Create more subtitles!</p>
 {% endif %}
-    
+
 {% include "www/progress_bar_original.html" with value=speaker %}
 
 {% for talks_line in talks_chunk %}
@@ -76,6 +85,6 @@
             </div>
         {% endfor %}
     </div>
-{% endfor %}	
+{% endfor %}
 
 {% endblock %}

@@ -1,5 +1,6 @@
 ﻿{% extends "base.html" %}
 {% load bootstrap %}
+{% load word_cloud %}
 {% load subtitle_progress %}
 
 {% block title %}C3Subtitles{% endblock %}
@@ -27,7 +28,7 @@
 
 <div class="container">
    <div class="row">
-      <div class="col-md-6">        
+      <div class="col-md-6">
          <div>
             <div role="tabpanel">
 
@@ -143,13 +144,13 @@
                                     <dt></dt>
                                     <dd><a href="{{link.url}}">{{link.title}}</a></dd>
                                 {% endfor %}
-                            </dl>   
+                            </dl>
                         </div>
                     {% endif %}
                 </div>
             </div>
          </div>
-			
+
          {% for sub in subtitles %}
          <div class="container" >
             <div class="row">
@@ -198,7 +199,7 @@
             {{ sub.form|bootstrap }}
             {% csrf_token %}
             <input class="btn btn-success"  type="submit" value="Save">
-                    <span style="margin-left: 1em;">Last revision: {{ sub.last_changed_on_amara|timesince }} ago</span> 
+                    <span style="margin-left: 1em;">Last revision: {{ sub.last_changed_on_amara|timesince }} ago</span>
             {%if sub.form.quick_btn %}
             <input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
             {% endif %}
@@ -282,6 +283,7 @@
             </div>
         </div>
         <div class="col-md-8">
+          {% common_words_cloud item=talk_person height="18em" %}
         </div>
     </div>
 {% endif %}

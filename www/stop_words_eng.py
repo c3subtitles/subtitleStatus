@@ -720,6 +720,7 @@ dict = {
 "world" : 0,
 "would" : 0,
 "wouldnt" : 0,
+"wouldn't" : 0,
 "www" : 0,
 "x" : 0,
 "y" : 0,

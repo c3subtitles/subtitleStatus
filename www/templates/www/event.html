@@ -1,9 +1,11 @@
 ﻿{% extends "base.html" %}
+{% load word_cloud %}
 
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
 <h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
+{% include "www/progress_bar_original.html" with value=my_event %}
 
 {% for every_statistics in my_event.statistics_event_set.all %}
 {% if every_statistics.has_statistics %}
@@ -16,6 +18,9 @@
             </div>
         </div>
         <div class="col-md-8">
+            <div style="height: 18em;">
+              {{ every_statistics.n_common_words|word_cloud:every_statistics.id }}
+            </div>
         </div>
     </div>
 {% endif %}
@@ -48,5 +53,5 @@
 				</div>
 			{% endfor %}
 		</div>
-	{% endfor %}	
+	{% endfor %}
 {% endblock %}

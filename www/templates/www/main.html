@@ -1,4 +1,5 @@
 ﻿{% extends "base.html" %}
+{% load word_cloud %}
 
 {% block content %}
 <div class="jumbotron" >
@@ -34,10 +35,7 @@
 {% for event in events %}
 	{% if event.pk != 3 %}
 	<h2>
-		<a href="/event/{{event.acronym}}">
-			{{ event.title }}
-		</a>
-
+		<a href="/event/{{event.acronym}}">{{ event.title }}</a>
 		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
 	</h2>
 	<div class="collapse" id="{{ event.pk }}_id">
@@ -49,15 +47,20 @@
 
                 <div class="row column_has-backgound-color" style="padding-bottom: 20px;">
 				{% for every_statistics in event.statistics_event_set.all %}
-                {% if every_statistics.has_statistics %}
-                        <div class="col-md-4">
-                            <div class="col-xs-5">{{ every_statistics.language.display_name }}:</div>
-                            <div class="col-xs-3">
-                                {{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-                                {{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                    {% if every_statistics.has_statistics %}
+                        <div class="row" style="padding-bottom: 20px;">
+                            <div class="col-md-3">
+                                <dl class="dl-horizontal">
+                                    <dt>{{ every_statistics.language.display_name }}:</dt>
+                                    <dd>{{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+                                    <dd>{{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+                                <dl>
+                            </div>
+                            <div class="col-md-9">
+                                {% common_words_cloud item=every_statistics height="18em" %}  
                             </div>
                         </div>
-                {% endif %}
+                    {% endif %}
                 {% endfor %}
                 </div>
             </div>

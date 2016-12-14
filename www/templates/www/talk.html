@@ -101,7 +101,7 @@
                             <dd>{{talk.type_of}}</dd>
                             <dt>Speaker</dt>
                             {% for speaker in talk.persons.all %}
-                            <dd><abbr title="id {{speaker.id}}">{{speaker.name}}</abbr></dd>
+                            <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
                             {% endfor %}
                         </dl>
                     </div>
@@ -128,7 +128,7 @@
 	                        {% for any in talk_speakers_statistics %}
 	                        	{% if any.has_statistics %}
 	                        		<div class="TableRow">
-                                        <div id="TableLabel" class="TableCell">{{any.speaker.name}}</div>
+                                        <div id="TableLabel" class="TableCell"><a href="/speaker/{{any.speaker.id}}">{{any.speaker.name}}:</a></div>
                                         <div class="TableCell">{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
                                         </div>
 	                        		</div>
@@ -246,14 +246,14 @@
 {% if talk.has_statistics %}
 <h2>Talk &amp; Speaker speed statistics with word clouds</h2>
 <div class="row" style="padding-bottom: 20px;">
-    <div class="col-md-4">
-        <div class="col-xs-5">Whole talk:</div>
-        <div class="col-xs-3">
-            {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-            {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-        </div>
+    <div class="col-md-3">
+        <dl class="dl-horizontal">
+            <dt>Whole talk:</dt>
+            <dd>{{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+            <dd>{{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+        </dl>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
       {% common_words_cloud item=talk height="18em" %}
     </div>
 </div>
@@ -261,36 +261,33 @@
 
 {% if talk.has_speakers_statistics and talk.persons.count > 1 %}
 <div class="row" style="padding-bottom: 20px;">
-    <div class="col-md-4">
-        <div class="col-xs-5">While speakers speak:</div>
-        <div class="col-xs-3">
-            {{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-            {{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-        </div>
+    <div class="col-md-3">
+        <dl class="dl-horizontal">
+            <dt>While speakers speak:</dt>
+            <dd>{{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+            <dd>{{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+        </dl>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
       {% common_words_cloud item=talk height="18em" property="n_common_words_speakers" id="speakers" %}
     </div>
 </div>
 {% endif %}
 
 {% for talk_person in talk.talk_persons_set.all %}
-{% if talk_person.has_statistics %}
-    <div class="row" style="padding-bottom: 20px;">
-        <div class="col-md-4">
-            <div class="col-xs-5">{{ talk_person.speaker.name }}:</div>
-            <div class="col-xs-3">
-                {{talk_person.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-                {{talk_person.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+    {% if talk_person.has_statistics %}
+        <div class="row" style="padding-bottom: 20px;">
+            <div class="col-md-3">
+                <dl class="dl-horizontal">
+                    <dt><a href="/speaker/{{talk_person.speaker.id}}">{{talk_person.speaker.name}}:</a></dt>
+                    <dd>{{talk_person.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+                    <dd>{{talk_person.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+                </dl>
+            </div>
+            <div class="col-md-9">
+              {% common_words_cloud item=talk_person height="18em" %}
             </div>
         </div>
-        <div class="col-md-8">
-          {% common_words_cloud item=talk_person height="18em" %}
-        </div>
-    </div>
-{% endif %}
+    {% endif %}
 {% endfor %}
-
-
-
 {% endblock %}

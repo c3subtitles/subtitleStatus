@@ -44,6 +44,7 @@ class Event(BasisModell):
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
+    blacklisted = models.BooleanField(default = False, blank = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:

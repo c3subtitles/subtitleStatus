@@ -269,6 +269,7 @@ dict = {
 "warst" : 0,
 "warum" : 0,
 "was" : 0,
+"wäre" : 0,
 "weg" : 0,
 "weil" : 0,
 "weiter" : 0,

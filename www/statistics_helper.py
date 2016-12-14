@@ -20,7 +20,7 @@ import copy
 
 # Characters to replace, some masked due to regex problems
 characters_to_replace = ['"', "\?", "\!", "\.", ",", "„", "“",
-    ":", ";", "\(", "\)", "\[", "\]", "\{", "\}", "…", "”"]
+    ":", ";", "\(", "\)", "\[", "\]", "\{", "\}", "…", "”", "\*"]
 
 #  The most n common words should apprea in the word_frequencies
 n = 50

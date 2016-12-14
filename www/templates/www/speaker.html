@@ -43,31 +43,15 @@
 {% if speaker.has_statistics %}
     {% for statistics in speaker_statistics %}
         <div class="row" style="padding-bottom: 20px;">
-            <div class="col-md-4">
-                {% comment %}
-                    <div class="Table">
-                        <div class="TableRow">
-                            <div id="TableLabel" class="TableCell"><div class='text-left'>{{statistics.language.display_name}}</div></div>
-                            <div class="TableCell">
-                              {{statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
-                              {{statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-                           </div>
-                        </div>
-                    </div>
-                {% endcomment %}
-                <dl  class="dl-horizontal">
+            <div class="col-md-3">
+                <dl class="dl-horizontal">
                     <dt>{{statistics.language.display_name}}</dt>
                     <dd>{{statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
                     <dd>{{statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
                 </dl>
             </div>
-            <div class="col-md-8">
-                <h2>Frequent words</h2>
-                {% for statistics in speaker_statistics %}
-                    {% common_words_cloud item=statistics %}
-                {% empty %}
-                    No statistics yet. :(
-                {% endfor %}
+            <div class="col-md-9">
+                {% common_words_cloud item=statistics %}
             </div>
         </div>
     {% endfor %}

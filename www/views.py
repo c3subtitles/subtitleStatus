@@ -36,7 +36,7 @@ def start(request):
 # Overview over the Talks of one event
 def event (request, event_acronym, *args, **kwargs):
     try:
-        my_event = Event.objects.select_related('Event_Days','Talk','Language','Subtitle','Rooms').get(acronym = event_acronym)
+        my_event = Event.objects.prefetch_related('event_days_set','talk_set').get(acronym = event_acronym)
         my_talks = my_event.talk_set.filter(blacklisted = False).order_by("day",
             "date",
             "start",
@@ -227,7 +227,7 @@ def speaker(request, speaker_id):
     if my_speaker.doppelgaenger_of is not None :
         return redirect('speaker', speaker_id = my_speaker.doppelgaenger_of.id)
     
-    my_talk_persons = Talk_Persons.objects.filter(speaker = my_speaker).order_by("-talk__date").select_related('Talk','Subtitle','Speaker')
+    my_talk_persons = Talk_Persons.objects.filter(speaker = my_speaker).order_by("-talk__date").select_related('talk', 'speaker').prefetch_related('talk__subtitle_set')
     
     my_speakers_statistics = Statistics_Speaker.objects.filter(speaker = my_speaker) \
         .exclude(average_wpm = None, average_spm = None) \
@@ -285,7 +285,7 @@ def speaker(request, speaker_id):
       
     # Get all non blacklisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
-    my_talks = my_talks.filter(blacklisted = False).order_by("-date").select_related("Speaker", "Talk_Persons")
+    my_talks = my_talks.filter(blacklisted = False).order_by("-date").prefetch_related("talk_persons_set")
       
     # Create talk_chunks of 3 per line
     talks_per_line = 3

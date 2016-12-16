@@ -23,10 +23,12 @@ def start(request):
             my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
             every_event.__dict__.update(progress_bar_for_talks(my_talks))
             # Every Statistics dataset except for those without data
-            every_event.statistics = Statistics_Event.objects.filter(event = every_event) \
-                .exclude(average_wpm = None, average_spm = None) \
-                .order_by("language__language_en")
-            every_event.has_statistics = True
+            try:
+                every_event.statistics = Statistics_Event.objects.filter(event = every_event) \
+                    .exclude(average_wpm = None, average_spm = None) \
+                    .order_by("language__language_en")
+            except:
+                every_event.statistics = None
 
     except ObjectDoesNotExist:
         raise Http404

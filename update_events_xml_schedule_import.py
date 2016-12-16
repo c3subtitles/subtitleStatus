@@ -24,7 +24,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
-from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States
+from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States, Talk_Persons
 
 
 # Var for all urls in the database in the Event-model
@@ -482,8 +482,8 @@ def save_talk_data ():
         my_link = Links.objects.get_or_create(url = some_link[0], title = some_link[1], talk = my_talk)
     
     for any_person in my_persons:
-        my_talk.persons.add(any_person)
-        
+        this_talk_persons, created = Talk_Persons.objects.get_or_create(talk = my_talk, speaker = any_person)
+        this_talk_persons.save()
     
     
 #===============================================================================
@@ -519,4 +519,3 @@ for url_to_this_fahrplan in url_array:
 
 print ("Durch gelaufen, Error Code: ", error_code)
 print ("Fehler: ",error_string)
-

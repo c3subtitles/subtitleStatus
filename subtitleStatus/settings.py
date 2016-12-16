@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'frab',
     'unisubs',
     'django_extensions',
-    'subtitleStatus'
+    'subtitleStatus',
 )
 
 MIDDLEWARE_CLASSES = (

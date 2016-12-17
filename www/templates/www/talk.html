@@ -27,117 +27,119 @@
 {% endif %}
 
 <div class="container">
-   <div class="row">
-      <div class="col-md-6">
-         <div>
-            <div role="tabpanel">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <div role="tabpanel">
+                <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                       <!--li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li-->
+                       <li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
+                        <li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
+                        <li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
+                        {% if talk.has_statistics %}
+                            <li role="presentation"><a href="#Statistics" aria-controls="Statistics" role="tab" data-toggle="tab">Statistics</a></li>
+                        {% endif %}
+                        {% if talk.has_links %}
+                            <li role="presentation"><a href="#Links" aria-controls="Links" role="tab" data-toggle="tab">Links</a></li>
+                        {% endif %}
+                    </ul>
 
-           <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                   <!--li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li-->
-                   <li role="presentation" class="active"><a href="#video_data" aria-controls="profile" role="tab" data-toggle="tab">Video Data</a></li>
-                    <li role="presentation"><a href="#Description" aria-controls="settings" role="tab" data-toggle="tab">Description</a></li>
-                   <li role="presentation"><a href="#Misc" aria-controls="Description" role="tab" data-toggle="tab">Misc</a></li>
-                   {% if talk.has_statistics %}
-                        <li role="presentation"><a href="#Statistics" aria-controls="Statistics" role="tab" data-toggle="tab">Statistics</a></li>
-                    {% endif %}
-                    {% if talk.has_links %}
-                        <li role="presentation"><a href="#Links" aria-controls="Links" role="tab" data-toggle="tab">Links</a></li>
-                    {% endif %}
-                </ul>
-
-           <!-- Tab panes -->
-                <div class="tab-content">
-                  <!--div role="tabpanel" class="tab-pane active" id="home">
-                     <ul class="list" >
-                        <li>Language: {{talk.orig_language}}</li>
-                        <li>Room: {{talk.room}}</li>
-                        <li>Video Duration: {{talk.video_duration | date:"H:i:s"}}</li>
-                        <li>Abstract: {{talk.abstract}}</li>
-                     </ul>
-                  </div-->
-                    <div role="tabpanel" class="tab-pane active" id="video_data">
-                        <dl class="dl-horizontal">
-                            <dt>Video duration</dt>
-                            {% if talk.amara_key != "" %}
-                                <dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+                <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- Tab panel Video Data -->
+                        <div role="tabpanel" class="tab-pane active" id="video_data">
+                            <dl class="dl-horizontal">
+                                <dt>Video duration</dt>
+                                {% if talk.amara_key != "" %}
+                                    <dd>{{talk.video_duration | date:"H:i:s"}}</dd>
+                                {% else %}
+                                    <dd>Not yet available</dd>
+                                {% endif %}
+                                <dt>Language</dt>
+                                <dd>{{talk.orig_language.display_name}}</dd>
+                                <dt>Abstract</dt>
+                                {% if talk.abstract != "None" %}
+                                   <dd>{{talk.abstract|linebreaksbr}}</dd>
+                                {% else %}
+                                   <dd> - </dd>
+                                {% endif %}
+                            </dl>
+                        </div> <!-- End Tab panel Video Data -->
+                        
+                        <!-- Tab panel Description -->
+                        <div role="tabpanel" class="tab-pane" id="Description">
+                            {% if talk.description != "None" %}
+                                <p>{{talk.description|linebreaksbr}}</p>
                             {% else %}
-                                <dd>Not yet available</dd>
-                            {% endif %}
-                            <dt>Language</dt>
-                            <dd>{{talk.orig_language.display_name}}</dd>
-                            <dt>Abstract</dt>
-                            {% if talk.abstract != "None" %}
-                               <dd>{{talk.abstract|linebreaksbr}}</dd>
-                            {% else %}
-                               <dd> - </dd>
-                            {% endif %}
-                        </dl>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="Description">
-                        {% if talk.description != "None" %}
-                            <p>{{talk.description|linebreaksbr}}</p>
-                        {% else %}
-                            <p>No description available.</p>
-                        {% endif%}
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="Misc">
-                        <dl class="dl-horizontal">
-                            <dt>Talk ID</dt>
-                            <dd>{{talk.frab_id_talk}}</dd>
-                            <dt>Event:</dt>
-                            <dd>{{talk.event.acronym}}</dd>
-                            <dt>Day</dt>
-                            <dd>{{talk.day.index}}</dd>
-                            <dt>Room</dt>
-                            <dd>{{talk.room}}</dd>
-                            <dt>Start</dt>
-                            <dd>{{talk.start}}</dd>
-                            <dt>Duration</dt>
-                            <dd>{{talk.duration | date:"H:i:s"}}</dd>
-                            <dt>Track</dt>
-                            <dd>{{talk.track}}</dd>
-                            <dt>Type of</dt>
-                            <dd>{{talk.type_of}}</dd>
-                            <dt>Speaker</dt>
-                            {% for speaker in talk.persons.all %}
-                            <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
-                            {% endfor %}
-                        </dl>
-                    </div>
-                    {% if talk.has_statistics %}
-                        <div role="tabpanel" class="tab-pane" id="Statistics">
-                            <h3>Talk &amp; Speaker speed statistics</h3>
-                            <div class="Table">
-                                <div class="TableRow">
-                                    <div id="TableLabel" class="TableCell">Very rough underestimation:</div>
-                                    <div class="TableCell">
-                                    {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
-                                    {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-                                </div>
-                            </div>
-	                        {% if talk.has_speakers_statistics and talk.persons.count > 1 %}
-	                        <div class="TableRow">
-                                <div id="TableLabel" class="TableCell">While speaker(s) speak(s):</div>
-	                           	<div class="TableCell">
-	                              	{{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
-	                              	{{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
-	                           	</div>
-	                        </div>
-	                        {% endif %}
-	                        {% for any in talk_speakers_statistics %}
-	                        	{% if any.has_statistics %}
-	                        		<div class="TableRow">
-                                        <div id="TableLabel" class="TableCell"><a href="/speaker/{{any.speaker.id}}">{{any.speaker.name}}:</a></div>
-                                        <div class="TableCell">{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                                <p>No description available.</p>
+                            {% endif%}
+                        </div> <!-- End Tab panel Description -->
+                        
+                        <!-- Tab panel Misc -->
+                        <div role="tabpanel" class="tab-pane" id="Misc">
+                            <dl class="dl-horizontal">
+                                <dt>Talk ID</dt>
+                                <dd>{{talk.frab_id_talk}}</dd>
+                                <dt>Event:</dt>
+                                <dd>{{talk.event.acronym}}</dd>
+                                <dt>Day</dt>
+                                <dd>{{talk.day.index}}</dd>
+                                <dt>Room</dt>
+                                <dd>{{talk.room}}</dd>
+                                <dt>Start</dt>
+                                <dd>{{talk.start}}</dd>
+                                <dt>Duration</dt>
+                                <dd>{{talk.duration | date:"H:i:s"}}</dd>
+                                <dt>Track</dt>
+                                <dd>{{talk.track}}</dd>
+                                <dt>Type of</dt>
+                                <dd>{{talk.type_of}}</dd>
+                                <dt>Speaker</dt>
+                                {% for speaker in talk.persons.all %}
+                                <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
+                                {% endfor %}
+                            </dl>
+                        </div> <!-- End Tab panel Misc -->
+                        
+                        <!-- Tab panel Statistics -->
+                        {% if talk.has_statistics %}
+                            <div role="tabpanel" class="tab-pane" id="Statistics">
+                                <h3>Talk &amp; Speaker speed statistics</h3>
+                                <div class="Table">
+                                    <div class="TableRow">
+                                        <div id="TableLabel" class="TableCell">Very rough underestimation:</div>
+                                        <div class="TableCell">
+                                        {{talk.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br>
+                                        {{talk.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
                                         </div>
-	                        		</div>
-	                        	{% endif %}
-	                        {% endfor %}
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% if talk.has_links %}
+                                    </div>
+
+                                {% if talk.has_speakers_statistics and talk.persons.count > 1 %}
+                                    <div class="TableRow">
+                                        <div id="TableLabel" class="TableCell">While speaker(s) speak(s):</div>
+                                        <div class="TableCell">
+                                            {{talk.speakers_average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />
+                                            {{talk.speakers_average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% for any in talk_speakers_statistics %}
+                                    {% if any.has_statistics %}
+                                        <div class="TableRow">
+                                            <div id="TableLabel" class="TableCell"><a href="/speaker/{{any.speaker.id}}">{{any.speaker.name}}:</a></div>
+                                            <div class="TableCell">{{any.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr><br />{{any.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                </div> <!-- End table -->
+                            </div> <!-- End Tab panel Statistics -->
+                        {% endif %}
+                        
+                        <!-- Tab panel Links -->
+                        {% if talk.has_links %}
                         <div role="tabpanel" class="tab-pane" id="Links">
                             <dl class="dl-horizontal">
                                 {% for link in talk.links_set.all %}
@@ -145,45 +147,53 @@
                                     <dd><a href="{{link.url}}">{{link.title}}</a></dd>
                                 {% endfor %}
                             </dl>
-                        </div>
-                    {% endif %}
+                        </div><!-- End Tab panel Links -->
+                        {% endif %}
+                    </div> <!-- End Tab panes -->                     
+                </div> <!-- End tab panel -->
+            </div> <!-- End additional div -->
+        
+
+            {% for sub in subtitles %}
+            <div class="container" >
+                <div class="row">
+                   <div class="col-md-1">
+                    {% comment %}
+                      Spaghetti-Code because works!
+                    {% endcomment %}
+                        <a href="https://www.amara.org/videos/{{ talk.amara_key }}/" target="_blank">
+                        {% if sub.complete%}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        {% endif %}
+                        <span style="margin-left: 5px;">{{ sub.language.display_name }}</span>
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        {{ sub|progress_bar }}
+                    </div>
                 </div>
             </div>
-         </div>
+            {% endfor %}
+        </div> <!-- End col-md-6 -->
 
-         {% for sub in subtitles %}
-         <div class="container" >
-            <div class="row">
-               <div class="col-md-1">
-               {% comment %}
-                  Spaghetti-Code because works!
-               {% endcomment %}
-                  <a href="https://www.amara.org/videos/{{ talk.amara_key }}/" target="_blank">
-                     {% if sub.complete%}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{% endif %}<span style="margin-left: 5px;">{{ sub.language.display_name }}</span>
-                  </a>
-               </div>
-               <div class="col-md-5">
-                      {{ sub|progress_bar }}
-               </div>
-            </div>
-         </div>
-         {% endfor %}
-      </div>
-      <div class="col-md-6">
-          {% if talk.amara_key != "" %}
-             <div class="amara-embed" data-height="300px" data-width="540px" data-url="{% if talk.link_to_video_file != "" %}{{talk.link_to_video_file}}{% else %}https://www.youtube.com//watch?v={{talk.youtube_key}}{% endif %}">
-             </div>
-         {% endif %}
-         <div>
-             {% if talk.amara_key != "" %}
-                <h4><a href="https://www.amara.org/videos/{{ talk.amara_key }}/" target="_blank"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Work on this video on Amara!</a></h4>
-            {% else %}
-                <h4>The video is not yet available</h4>
+        <div class="col-md-6">
+            {% if talk.amara_key != "" %}
+                <div class="amara-embed" data-height="300px" data-width="540px" data-url="{% if talk.link_to_video_file != "" %}{{talk.link_to_video_file}}{% else %}https://www.youtube.com//watch?v={{talk.youtube_key}}{% endif %}">
+                </div>
             {% endif %}
-         </div>
-      </div>
-   </div>
-</div>
+            <div>
+                {% if talk.amara_key != "" %}
+                    <h4><a href="https://www.amara.org/videos/{{ talk.amara_key }}/" target="_blank"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Work on this video on Amara!</a></h4>
+                {% else %}
+                    <h4>The video is not yet available</h4>
+                {% endif %}
+            </div>
+        </div> <!-- End col-md-6 -->
+    </div><!-- End class container -->
+</div><!-- End class row -->
+
 <div>
    <div>
    {% for sub in subtitles %}

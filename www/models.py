@@ -73,6 +73,17 @@ class Event(BasisModell):
     def page_sub_titles(self):
         return [self.acronym]
 
+    @property
+    def has_statistics(self):
+        statistics_this_event = Statistics_Event.objects.filter(event = self)
+        if statistics_this_event.count() == 0:
+            return False
+        else:
+            for any in statistics_this_event:
+                if any.words != None:
+                    return True
+            return False
+
 # Days which belong to an event
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)

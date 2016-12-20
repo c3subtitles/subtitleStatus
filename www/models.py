@@ -80,10 +80,51 @@ class Event(BasisModell):
             return False
         else:
             for any in statistics_this_event:
-                if any.words != None:
-                    return True
-            return False
+                if any.words == None:
+                    return False
+            return True
+    
+    # Save Fahrplan xml file with version in the name into ./www/static/
+    def save_fahrplan_xml_file(self):
+        if self.schedule_xml_link[0:1] == "#" or self.schedule_xml_link == "":
+            return None
+        from urllib import request
+        from lxml import etree
+        response = request.urlopen(self.schedule_xml_link)
+        # Read as file
+        file_content = response.read()
+        file_content = str(file_content,encoding = "UTF-8")
+        # Get the version from the xml
+        tree = etree.parse(request.urlopen(self.schedule_xml_link))
+        fahrplan = tree.getroot()
+        fahrplan_version = fahrplan[0].text
+        # Create the filename and save
+        folder = "./www/static/fahrplan_files/"
+        filename = self.acronym + " fahrplan version "  + fahrplan_version
+        file = open(folder + filename + ".xml", mode = "w", encoding = "utf-8")
+        file.write(file_content)
+        file.close()
+        return True
 
+    # Save Speaker json file with version in the name into ./www/static/
+    def save_speaker_json_file(self):
+        if self.speaker_json_link[0:1] == "#" or self.speaker_json_link == "":
+            return None
+        from urllib import request
+        response = request.urlopen(self.speaker_json_link)
+        result = response.read()
+        result = result.decode("utf8")
+        file_content = result
+        result = json.loads(result)
+        fahrplan_version = result["schedule_speakers"]["version"]
+        folder = "./www/static/fahrplan_files/"
+        filename = self.acronym + " speaker version " + fahrplan_version
+        file = open(folder + filename + ".json",mode = "w",encoding = "utf-8")
+        file.write(file_content)
+        file.close()
+        return True
+
+    
 # Days which belong to an event
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event)

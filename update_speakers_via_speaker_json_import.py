@@ -32,6 +32,7 @@ my_events = Event.objects.all().exclude(id = 3).order_by("start")
 for event in my_events:
     print(event.title)
     any_url = event.speaker_json_link
+    event.save_speaker_json_file()
     # Stop here if the url starts with a '#' and start over with the next event
     if any_url[0:1] == "#":
         print("No active link, remove '#' to allow an update\n")
@@ -48,13 +49,13 @@ for event in my_events:
         continue
     # Iterate over any speaker
     for any_speaker in result["schedule_speakers"]["speakers"]:
-        print(any_speaker["id"])
-        print(any_speaker["full_public_name"])
-        print(any_speaker["abstract"])
-        print(any_speaker["description"])
-        for any_link in any_speaker["links"]:
-            print(any_link["title"])
-            print(any_link["url"])
+        #print(any_speaker["id"])
+        #print(any_speaker["full_public_name"])
+        #print(any_speaker["abstract"])
+        #print(any_speaker["description"])
+        #for any_link in any_speaker["links"]:
+            #print(any_link["title"])
+            #print(any_link["url"])
         # Get or create a speaker with the same frab id
         my_speaker, created = Speaker.objects.get_or_create(frab_id = any_speaker["id"])
         # Only alter the entry if the name has changed
@@ -77,5 +78,5 @@ for event in my_events:
                 
     event.speaker_json_version = result["schedule_speakers"]["version"]
     event.save()
-        
+    
         

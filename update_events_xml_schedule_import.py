@@ -497,6 +497,9 @@ for e in my_events:
     # Only if the fahrplan field is not empty and doesn't start with an "#"
     if fahrplan_link != "" and fahrplan_link[0] != '#':
         url_array.append(fahrplan_link)
+        
+    # For later comparison if necessary
+    e.save_fahrplan_xml_file()
 
 # For every fahrplan file
 for url_to_this_fahrplan in url_array:

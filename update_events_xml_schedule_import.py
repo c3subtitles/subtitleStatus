@@ -25,7 +25,8 @@ from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States, Talk_Persons
-
+from datetime import datetime
+import dateutil.parser
 
 # Var for all urls in the database in the Event-model
 url_array = []
@@ -386,14 +387,27 @@ def save_event_data():
     schedule_url = url_to_this_fahrplan
     
     my_event = Event.objects.get(schedule_xml_link = schedule_url)
-    my_event.schedule_version = schedule_version
-    my_event.acronym = acronym
-    my_event.title = event_title
-    my_event.start = event_start
-    my_event.end = event_end
-    my_event.days = event_days
-    my_event.timeslot_duration = timeslot_duration
-    my_event.save()
+    if my_event.schedule_version != schedule_version:
+        my_event.schedule_version = schedule_version
+        my_event.save()
+    if my_event.acronym != acronym:
+        my_event.acronym = acronym
+        my_event.save()
+    if my_event.title != event_title:
+        my_event.title = event_title
+        my_event.save()
+    if my_event.start != event_start:
+        my_event.start = event_start
+        my_event.save()
+    if my_event.end != event_end:
+        my_event.end = event_end
+        my_event.save()
+    if my_event.days != event_days:
+        my_event.days = event_days
+        my_event.save()
+    if my_event.timeslot_duration != timeslot_duration:
+        my_event.timeslot_duration = timeslot_duration
+        my_event.save()
 
 # Save the data of the days into the database
 def save_day_data():
@@ -401,17 +415,21 @@ def save_day_data():
     global day_index, day_date, day_start, day_end
 
     my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index, date = day_date)[0]
-    
-    my_day.day_start = day_start
-    my_day.day_end = day_end
-    my_day.date = day_date
-    my_day.save()
+    if my_day.day_start != dateutil.parser.parse(day_start):
+        my_day.day_start = day_start
+        my_day.save()
+    if my_day.day_end != dateutil.parser.parse(day_end):
+        my_day.day_end = day_end
+        my_day.save()
+    if my_day.date != dateutil.parser.parse(day_date).date():
+        my_day.date = day_date
+        my_day.save()
     
 # Save the data of the room into the database
 def save_room_data():
     global talk_room, my_room
-    my_room = Rooms.objects.get_or_create(room = talk_room)
-    my_room = Rooms.objects.get(room = talk_room)
+    my_room = Rooms.objects.get_or_create(room = talk_room)[0]
+    #my_room = Rooms.objects.get(room = talk_room)
 
 # Save the data of the speakers into the database
 def save_persons_data ():
@@ -420,8 +438,9 @@ def save_persons_data ():
     my_person = []
     for someone in talk_persons:
         my_person = Speaker.objects.get_or_create(frab_id = someone[0])[0]
-        my_person.name = someone[1]
-        my_person.save()
+        if my_person.name != someone[1]:
+            my_person.name = someone[1]
+            my_person.save()
     
         # Array to acces all linked speakers for the saving of the talk
         my_persons.append(my_person)
@@ -453,26 +472,59 @@ def save_talk_data ():
     my_talk = []
     
     my_talk = Talk.objects.get_or_create(frab_id_talk = talk_frab_id)[0]
-    my_talk.room = my_room
-    my_talk.track = my_track
-    my_talk.type_of = my_type
-    my_talk.orig_language = my_language
-    my_talk.date = talk_date
-    my_talk.start = talk_start
-    my_talk.duration = talk_duration
-    my_talk.slug = talk_slug
-    my_talk.title = talk_title
-    my_talk.subtitle_talk = talk_subtitle
-    my_talk.abstract = talk_abstract
-    my_talk.description = talk_description
-    my_talk.guid = talk_guid
-    if (talk_optout=="true"):
-        my_talk.blacklisted = True
-    
-    my_talk.day = my_day
-    my_talk.event = my_event
-    
-    my_talk.save()
+    if my_talk.room != my_room:
+        my_talk.room = my_room
+        my_talk.save()
+    if my_talk.track != my_track:
+        my_talk.track = my_track
+        my_talk.save()
+    if my_talk.type_of != my_type:
+        my_talk.type_of = my_type
+        my_talk.save()
+    if my_talk.orig_language != my_language:
+        my_talk.orig_language = my_language
+        my_talk.save()
+    if my_talk.date != dateutil.parser.parse(talk_date):
+        my_talk.date = talk_date
+        my_talk.save()
+    if my_talk.start != dateutil.parser.parse(talk_start).time():
+        my_talk.start = talk_start
+        my_talk.save()
+    if my_talk.duration != dateutil.parser.parse(talk_duration).time():
+        my_talk.duration = talk_duration
+        my_talk.save()
+    if my_talk.slug != talk_slug:
+        my_talk.slug = talk_slug
+        my_talk.save()
+    if my_talk.title != talk_title:
+        my_talk.title = talk_title
+        my_talk.save()
+    if my_talk.subtitle_talk != talk_subtitle:
+        my_talk.subtitle_talk = talk_subtitle
+        my_talk.save()
+    if my_talk.abstract != talk_abstract:
+        my_talk.abstract = talk_abstract
+        my_talk.save()
+    if my_talk.description != talk_description:
+        my_talk.description = talk_description
+        my_talk.save()
+    if my_talk.guid != talk_guid:
+        my_talk.guid = talk_guid
+        my_talk.save()
+    if my_talk.blacklisted != True:
+        if (talk_optout=="true"):
+            my_talk.blacklisted = True
+            my_talk.save()
+    if my_talk.blacklisted == True:
+        if (talk_optout != "true"):
+            my_talk.blacklisted = False
+            my_talk.save()
+    if my_talk.day != my_day:
+        my_talk.day = my_day
+        my_talk.save()
+    if my_talk.event != my_event:
+        my_talk.event = my_event
+        my_talk.save()
     
     # Prepare to save links
     my_links = []
@@ -483,7 +535,7 @@ def save_talk_data ():
     
     for any_person in my_persons:
         this_talk_persons, created = Talk_Persons.objects.get_or_create(talk = my_talk, speaker = any_person)
-        this_talk_persons.save()
+        #this_talk_persons.save()
     
     
 #===============================================================================

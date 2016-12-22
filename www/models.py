@@ -79,10 +79,14 @@ class Event(BasisModell):
         if statistics_this_event.count() == 0:
             return False
         else:
+            counter_statistics_with_none = 0
             for any in statistics_this_event:
                 if any.words == None:
-                    return False
-            return True
+                    counter_statistics_with_none += 1
+            if counter_statistics_with_none == statistics_this_event.count():
+                return False
+            else:
+                return True
     
     # Save Fahrplan xml file with version in the name into ./www/static/
     def save_fahrplan_xml_file(self):

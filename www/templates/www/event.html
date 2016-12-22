@@ -4,29 +4,32 @@
 {% block title %}C3Subtitles{% endblock %}
 
 {% block content %}
-<h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a> </h1>
+<h1> <a href="/event/{{my_event.acronym}}">{{my_event.title}}</a>{% if my_event.has_statistics %} <a data-toggle="collapse" href="#{{ my_event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>{% endif %}</h1>
 
+<div class="collapse" id="{{ my_event.pk }}_id">
 {% if my_event.has_statistics %}
     {% include "www/progress_bar_original.html" with value=my_event %}
 {% endif %}
     
 {% for every_statistics in my_event.statistics_event_set.all %}
     {% if every_statistics.has_statistics %}
-        <div class="row" style="padding-bottom: 20px;">
-            <div class="col-md-3">
-                <dl class="dl-horizontal">
-                    <dt>{{ every_statistics.language.display_name }}:</dt>
-                    <dd>{{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
-                    <dd>{{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
-                </dl>
-            </div>
-            <div class="col-md-9">
-              {% common_words_cloud item=every_statistics height="18em" %}
-            </div>
-        </div>
+		<div id="event_statistics" style="padding-bottom: 20px;" class="container">
+			<div class="row" style="padding-bottom: 20px;">
+				<div class="col-md-3">
+					<dl class="dl-horizontal">
+						<dt>{{every_statistics.language.display_name}}:</dt>
+						<dd>{{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
+						<dd>{{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
+					</dl>
+				</div>
+				<div class="col-md-9">
+				    {% common_words_cloud item=every_statistics height="18em" container=my_event.pk %}
+				</div>
+			</div>
+		</div>
     {% endif %}
 {% endfor %}
-
+</div>
 {% include "www/progress_bar_original.html" with value=my_event %}
 
 <div class="btn-group" role="group" aria-label="Filter by event day">

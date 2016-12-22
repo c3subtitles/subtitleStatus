@@ -45,13 +45,13 @@
 		    <div id="event_statistics" style="padding-bottom: 20px;" class="container">
 				<h3>Statistics:</h3>
 
-                <div class="row column_has-backgound-color" style="padding-bottom: 20px;">
+                <div class="row" style="padding-bottom: 20px;">
 				{% for every_statistics in event.statistics_event_set.all %}
                     {% if every_statistics.has_statistics %}
                         <div class="row" style="padding-bottom: 20px;">
                             <div class="col-md-3">
                                 <dl class="dl-horizontal">
-                                    <dt>{{ every_statistics.language.display_name }}:</dt>
+                                    <dt>{{every_statistics.language.display_name}}:</dt>
                                     <dd>{{every_statistics.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></dd>
                                     <dd>{{every_statistics.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></dd>
                                 <dl>
@@ -65,8 +65,6 @@
                 </div>
             </div>
 		{% endif %}
-
-
 	</div>
 	<div>
 	{% include "www/progress_bar_original.html" with value=event %}

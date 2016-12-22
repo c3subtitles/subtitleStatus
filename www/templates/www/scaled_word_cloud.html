@@ -1,4 +1,11 @@
 {% load word_cloud %}
 <div style="height: {{ height }};">
   {{ words|word_cloud:id }}
+  {% if container_id %}
+    <script type="text/javascript">
+      $('#{{ container_id }}').on('shown.bs.collapse', function(){
+        $('#wc-{{ id }}').resize();
+      });
+    </script>
+  {% endif %}
 </div>

@@ -28,7 +28,8 @@ def word_cloud(word_frequencies, element_id, autoescape=True):
 
 
 @register.inclusion_tag('www/scaled_word_cloud.html')
-def common_words_cloud(item, height='23em', property='n_common_words', id=None):
+def common_words_cloud(item, height='23em', property='n_common_words',
+                       id=None, container=None):
     """Generate a word cloud from any object having a `n_common_words`
     property. A suitable HTML ID is generated from `item.id` if
     applicable, otherwise an id is generated randomly.
@@ -41,11 +42,16 @@ def common_words_cloud(item, height='23em', property='n_common_words', id=None):
 
     The `id` argument allows to specify a suffix used for
     disambiguation of generated HTML IDs, for example to genarate
-    multiple clouds for the same `item`."""
+    multiple clouds for the same `item`.
+
+    If `container` is not None, a `shown.bs.collapse` event is registered
+    on this id that forces a resize of the word cloud.
+    """
 
     context = {'words': getattr(item, property),
                'height': height,
                'id': getattr(item, 'id', randint(0, 16384)),
+               'container_id': '%s_id' % container,
               }
 
     if id is not None:

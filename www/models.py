@@ -90,6 +90,7 @@ class Event(BasisModell):
     
     # Save Fahrplan xml file with version in the name into ./www/static/
     def save_fahrplan_xml_file(self):
+        import datetime
         if self.schedule_xml_link[0:1] == "#" or self.schedule_xml_link == "":
             return None
         from urllib import request
@@ -104,7 +105,7 @@ class Event(BasisModell):
         fahrplan_version = fahrplan[0].text
         # Create the filename and save
         folder = "./www/static/fahrplan_files/"
-        filename = self.acronym + " fahrplan version "  + fahrplan_version
+        filename = self.acronym + " fahrplan version "  + fahrplan_version + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())
         file = open(folder + filename + ".xml", mode = "w", encoding = "utf-8")
         file.write(file_content)
         file.close()
@@ -112,6 +113,7 @@ class Event(BasisModell):
 
     # Save Speaker json file with version in the name into ./www/static/
     def save_speaker_json_file(self):
+        import datetime
         if self.speaker_json_link[0:1] == "#" or self.speaker_json_link == "":
             return None
         from urllib import request
@@ -122,7 +124,7 @@ class Event(BasisModell):
         result = json.loads(result)
         fahrplan_version = result["schedule_speakers"]["version"]
         folder = "./www/static/fahrplan_files/"
-        filename = self.acronym + " speaker version " + fahrplan_version
+        filename = self.acronym + " speaker version " + fahrplan_version + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())
         file = open(folder + filename + ".json",mode = "w",encoding = "utf-8")
         file.write(file_content)
         file.close()
@@ -816,3 +818,4 @@ class Talk_Persons(BasisModell):
             return True
         else:
             return False
+0

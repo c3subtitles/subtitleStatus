@@ -89,8 +89,9 @@ for this_event in my_events:
                     print(new_result)
                     print(" ")
                     # Save into database
-                    every_talk.filename = new_result
-                    every_talk.save()
+                    if every_talk.filename != new_result:
+                        every_talk.filename = new_result
+                        every_talk.save()
         
 # Close sftp connection
 sftp.close()

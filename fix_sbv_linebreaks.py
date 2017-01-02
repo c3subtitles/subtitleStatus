@@ -17,7 +17,10 @@ import sys
 
 def chunks(file):
     """Read `file`, splitting it at doubled linebreaks"""
-    return file.read().replace('\r\n', '\n').split('\n\n')
+    lines = []
+    for line in file:
+        lines.append(line.rstrip())
+    return '\n'.join(lines).split('\n\n')
 
 
 if __name__ == '__main__':

@@ -52,8 +52,8 @@ if __name__ == '__main__':
 
             for chunk in chunks:
                 parts = chunk.split('\n')
-                sbv_timestamps.append(parts[0])
-                sbv_chunks.append('\n'.join(parts[1:]))
+                sbv_timestamps += [parts[0]] * (len(parts) - 1)
+                sbv_chunks += parts[1:]
     except IOError as e:
         sys.exit("SBV file is not readable or does not exist: {}".format(e))
 

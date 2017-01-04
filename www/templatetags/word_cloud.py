@@ -22,12 +22,12 @@ def word_cloud(word_frequencies, element_id, autoescape=True):
         words.append({'text': escape(word), 'weight': frequency})
 
     wordlist = dumps(words, ensure_ascii=False)
-    return mark_safe(render_to_string('www/word_cloud.html',
+    return mark_safe(render_to_string('word_cloud.html',
                                       {'words': wordlist,
                                        'element_id': element_id}))
 
 
-@register.inclusion_tag('www/scaled_word_cloud.html')
+@register.inclusion_tag('scaled_word_cloud.html')
 def common_words_cloud(item, height='23em', property='n_common_words',
                        id=None, container=None):
     """Generate a word cloud from any object having a `n_common_words`

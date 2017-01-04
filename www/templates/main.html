@@ -65,14 +65,13 @@
                 {% endfor %}
                 </div>
             </div>
-        {% endif %}
-    </div>
-    <div>
-    {% include "www/progress_bar_original.html" with value=event %}
-    </div>
-    {% endif %}
+		{% endif %}
+	</div>
+	<div>
+	{% include "progress_bar_original.html" with value=event %}
+	</div>
+	{% endif %}
 {% endfor %}
 
 </div>
 {% endblock %}
-

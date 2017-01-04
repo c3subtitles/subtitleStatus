@@ -8,6 +8,8 @@
 <h1>Talks Statistics</h1>
 
 {% for talk in talks %}
-    {% include "www/statistics_talks_single_dataset.html" with talk=talk sort_by="wpm" %}
+    {% include "statistics_talks_single_dataset.html" with talk=talk sort_by="wpm" %}
 {% endfor %}
+
+
 {% endblock %}

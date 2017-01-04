@@ -58,13 +58,13 @@
     <p> Nothing yet? :(<br \>Create more subtitles!</p>
 {% endif %}
 
-{% include "www/progress_bar_original.html" with value=speaker %}
+{% include "progress_bar_original.html" with value=speaker %}
 
 {% for talks_line in talks_chunk %}
     <div class="row">
         {% for single_talk in talks_line %}
             <div class="col-md-4">
-                {% include "www/speaker_talk_small.html" with talk=single_talk %}
+                {% include "speaker_talk_small.html" with talk=single_talk %}
             </div>
         {% endfor %}
     </div>

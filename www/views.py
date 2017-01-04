@@ -307,7 +307,7 @@ def speaker(request, speaker_id):
     my_speaker.__dict__.update(progress_bar_for_talks(my_talks))
 
 
-    return render(request, "www/speaker.html", {"speaker" : my_speaker,
+    return render(request, "speaker.html", {"speaker" : my_speaker,
         "speaker_statistics" : my_speakers_statistics,
         "speakers_events" : my_events,
         "speakers_languages" : my_languages,
@@ -380,19 +380,19 @@ def progress_bar_for_talks(talks):
 # Statistics of talks
 def statistics_talks(request):
     my_talks = Talk.objects.all().exclude(average_wpm = None).order_by("-average_spm")
-    return render(request, "www/statistics_talks.html",
+    return render(request, "statistics_talks.html",
         {"talks" : my_talks})
 
 # Statistics of speakers
 def statistics_speakers(request):
     my_statistics_speakers = Statistics_Speaker.objects.all().exclude(average_wpm = None).order_by("-average_spm")
-    return render(request, "www/statistics_speakers.html",
+    return render(request, "statistics_speakers.html",
         {"statistics_speakers" : my_statistics_speakers})
 
 # Statistics of speakers in talks
 def statistics_speakers_in_talks(request):
     my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
-    return render(request, "www/statistics_speakers_in_talks.html",
+    return render(request, "statistics_speakers_in_talks.html",
         {"talk_persons" : my_talk_persons})
 
 

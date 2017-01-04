@@ -12,22 +12,9 @@
 
 <h1><a href="/event/{{my_event.acronym}}">{{my_event.title}}</a>{% if my_event.has_statistics %} <a data-toggle="collapse" href="#{{ my_event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><div class="pull-right">{{my_event.complete_content_duration.1}}h {{my_event.complete_content_duration.2|stringformat:"02d"}}m {{my_event.complete_content_duration.3|stringformat:"02d"}}s</div></a>{% endif %}  </h1>
 
-	{% include "progress_bar_original.html" with value=my_event %}
-
-    <div class="btn-group">
-        {% for day in my_event.event_days_set.all %}
-             <a href= "/event/{{my_event.acronym}}/day/{{day.index}}"><button type="button" class="btn btn-default">{{day.index}} </button></a>
-        {% endfor %}
-    </div>
-    <div class="btn-group">
-        {% for lang in my_langs %}
-            <a href= "/event/{{my_event.acronym}}/day/0/lang/{{lang.lang_amara_short}}"><button type="button" class="btn btn-default">{{lang.language_en}}</button></a>
-        {% endfor %}
-    </div>
-
 <div class="collapse" id="{{ my_event.pk }}_id">
 {% if my_event.has_statistics %}
-    {% include "www/progress_bar_original.html" with value=my_event %}
+    {% include "progress_bar_original.html" with value=my_event %}
 {% endif %}
 
 {% for every_statistics in my_event.statistics_event_set.all %}
@@ -49,7 +36,7 @@
     {% endif %}
 {% endfor %}
 </div>
-{% include "www/progress_bar_original.html" with value=my_event %}
+{% include "progress_bar_original.html" with value=my_event %}
 
 <div class="btn-group" role="group" aria-label="Filter by event day">
     {% for day in my_event.event_days_set.all %}

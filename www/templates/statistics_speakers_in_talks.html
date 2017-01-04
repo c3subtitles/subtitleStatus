@@ -7,7 +7,7 @@
 <h1>Speakers in Talks Statistics</h1>
 
 {% for talk_person in talk_persons %}
-    {% include "www/statistics_speakers_in_talks_single_dataset.html" with talk_person=talk_person sort_by="wpm" %}
+    {% include "statistics_speakers_in_talks_single_dataset.html" with talk_person=talk_person sort_by="wpm" %}
 {% endfor %}
 
 {% endblock %}

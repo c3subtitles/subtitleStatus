@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -7,7 +7,7 @@
 # This was used for the sync to the cdn, this is not used any more!
 # Related database fields are removed!
 #
-# This scripts checks for the flag "needs_sync_to_ftp" and 
+# This scripts checks for the flag "needs_sync_to_ftp" and
 # "needs_removal_from_ftp"
 # It downloads the corresponding files from amara, removes the <i> and </i>
 # and saves them in /downloads/subtitles_srt als subtitle_id.lang.srt
@@ -73,9 +73,8 @@ os.system("touch stupid_temp_file")
 os.system("rm *")
 
 # Get all subtitles with flag "needs_sync_to_ftp"
-my_subtitles = Subtitle.objects.filter(needs_sync_to_ftp = True)#.select_related("talk","talk__event")
+my_subtitles = Subtitle.objects.filter(needs_sync_to_ftp = True).select_related("talk", "talk__event", "language").prefetch_re
 
-    
 # Access sftp server
 sftp = pysftp.Connection(username = USER, host = HOST, private_key = PRIV_KEY)
 
@@ -83,27 +82,27 @@ sftp = pysftp.Connection(username = USER, host = HOST, private_key = PRIV_KEY)
 for this_subtitle in my_subtitles:
     # Create filename with subtitle_id.lang_short_srt.srt
     filename = str(this_subtitle.id)+"."+this_subtitle.language.lang_short_srt+".srt"
-    
+
     #print(filename)
-    
+
     language = this_subtitle.language.lang_amara_short
     language_srt = this_subtitle.language.lang_short_srt
     amara_key = this_subtitle.talk.amara_key
     # Create download url
     url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
-    
+
     # Download *.srt-File from Amara
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     file_content = response.read()
     # Convert from bytes object to string object
     file_content = str(file_content,encoding = "UTF-8")
-    
+
     # Split in single lines:
     text_content = file_content.splitlines()
-    
+
     file = open(filename, mode = "w",encoding = "utf-8")
-    
+
     # First fix <i> and </i> issue and than save into file
     # Also fix other amara html-issues
     for line in text_content:
@@ -116,33 +115,33 @@ for this_subtitle in my_subtitles:
         file.write("\n")
         #print(line)
     file.close()
-    
+
     # Get Event Subfolder and format folders
     event_subfolder = this_subtitle.talk.event.ftp_startfolder
-    
+
     # If the event doesn't have a subfolder on the ftp server for $reason, next loop
     if event_subfolder == "":
         continue
-    
+
     # All possible subfolders for an event and their file extensions
     event_file_formats = this_subtitle.talk.event.ftp_subfolders_extensions.all()
-    
+
     # "Save" offset directory
     with sftp.cd():
         # Temporarily change to event subfolder
         sftp.chdir(event_subfolder)
         #print(sftp.pwd)
-        
+
         for every_file_format in event_file_formats:
             # Keep event subfolder "in mind"
             with sftp.cd():
                 # Change to format associated subfolder
                 sftp.chdir(every_file_format.subfolder)
                 #print(sftp.pwd)
-                
+
                 # Get the name of all files in current folder
                 subfolder_file_list = sftp.listdir()
-                
+
                 # Get frab_id from database to compare all file entries with
                 frab_id = str(this_subtitle.talk.frab_id_talk)
                 pattern = "(?P<filename>^\S*-"+frab_id+"\S*[.])(?P<extension>\S*)"
@@ -156,21 +155,21 @@ for this_subtitle in my_subtitles:
                         # Get Filename from regex
                         filename_talk = result.group("filename")
                         #print(filename_talk)
-                        
+
                         # Create the name for the *.srt-File and copy the file created from amara with that name
                         filename_subtitle = filename_talk+language_srt+".srt"
                         shutil.copyfile(filename,filename_subtitle)
                         #print(filename_subtitle)
-                        
+
                         # Copy created *.srt-file on sftp
                         with sftp.cd():
                             sftp.chdir("subtitles")
                             sftp.put(filename_subtitle)
-                        
+
                         # Add text to email body
                         email_text_added_subtitles+=filename_subtitle+"\n"
-        
-        
+
+
         # root-subtitles-folder
         # Go in the subtitles folder and also save the file here with another file-name
         filename_root_subtitles_folder = this_subtitle.talk.filename + "." + language_srt + ".srt"
@@ -178,43 +177,43 @@ for this_subtitle in my_subtitles:
             sftp.chdir("subtitles")
             shutil.copyfile(filename, filename_root_subtitles_folder)
             sftp.put(filename_root_subtitles_folder)
-        
+
             # When done add Name to email body
             email_text_added_subtitles += filename_root_subtitles_folder + "\n"
-                        
+
     # Reset needs_sync_to_ftp Flag
     this_subtitle.needs_sync_to_ftp = False
     this_subtitle.save()
-    
- 
+
+
 # Get all subtitles with flag "needs_removal_from_ftp"
-my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True)#.select_related("talk","event")
+my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True).select_related("talk", "talk__event").prefetch_related("talk__event__ftp_subfolders_extensions")
 
 for this_subtitle in my_subtitles:
     frab_id = str(this_subtitle.talk.frab_id_talk)
     print(frab_id)
-    
+
     # Get Event Subfolder and format folders
     event_subfolder = this_subtitle.talk.event.ftp_startfolder
-    
+
     # srt-Ending
     language_srt = this_subtitle.language.lang_short_srt
-    
+
     # If the event doesn't have a subfolder on the ftp server for $reason, next loop
     if event_subfolder == "":
         continue
-    
+
     # All possible subfolders for an event and their file extensions
     event_file_formats = this_subtitle.talk.event.ftp_subfolders_extensions.all()
-    
+
     # Create regex and compile
     pattern = "(?P<filename>^\S*-"+frab_id+"\S*[.]srt)"
     reg_pattern = re.compile(pattern)
-    
+
     # Temporarily change to event subfolder
     with sftp.cd():
         sftp.chdir(event_subfolder)
-    
+
         # Change to format associated subfolder
         for every_file_format in event_file_formats:
             # Keep event subfolder "in mind"
@@ -222,10 +221,10 @@ for this_subtitle in my_subtitles:
                 # Change to format associated subfolder
                 sftp.chdir(every_file_format.subfolder+"/subtitles")
                 #print(sftp.pwd)
-                
+
                 # Get the name of all files in current folder
                 subfolder_file_list = sftp.listdir()
-                
+
                 for every_filename in subfolder_file_list:
                     #print(frab_id)
                     result = reg_pattern.match(every_filename)
@@ -252,12 +251,12 @@ for this_subtitle in my_subtitles:
                 # If the file is removed now, add the filename to the email
                 if not sftp.exists(filename_root_subtitles_folder):
                     email_text_removed_subtitles += filename_root_subtitles_folder + "\n"
-        
-                            
+
+
     # Reset needs_removal_from_ftp Flag
     this_subtitle.needs_removal_from_ftp = False
     this_subtitle.save()
-    
+
 #print()
 #print(email_text_added_subtitles)
 #print(email_text_removed_subtitles)
@@ -276,5 +275,5 @@ if email_text_added_subtitles != "Added subtitle files:\n" or email_text_removed
     s = smtplib.SMTP('localhost')
     s.send_message(msg)
     s.quit()
-else: 
+else:
     print("Nothing done!")

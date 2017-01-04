@@ -20,7 +20,7 @@ def chunks(file):
     """Read `file`, splitting it at doubled linebreaks"""
     lines = []
     for line in file:
-        lines.append(re.sub(' {2,}', ' ', line.rstrip()))
+        lines.append(re.sub(' {2,}', ' ', line.strip()))
     return '\n'.join(lines).split('\n\n')
 
 

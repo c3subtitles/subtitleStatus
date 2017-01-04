@@ -22,13 +22,6 @@ class EventFactory(DjangoModelFactory):
         return '#{}'.format(self.acronym)
 
 
-class Event_Days(DjangoModelFactory):
-    class Meta:
-        model = models.Event_Days
-
-    event = factory.SubFactory(EventFactory)
-
-
 class Fixture(TestCase):
     """basic test fixture
     """

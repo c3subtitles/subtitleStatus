@@ -68,7 +68,7 @@ os.system("touch stupid_temp_file")
 os.system("rm *")
 
 # Get all subtitles with flag "needs_sync_to_ftp"
-my_subtitles = Subtitle.objects.filter(needs_sync_to_ftp = True).select_related("Talk","Event","Folders_Extensions","Language")
+my_subtitles = Subtitle.objects.filter(needs_sync_to_ftp = True)#.select_related("talk","talk__event")
 
     
 # Access sftp server
@@ -182,7 +182,7 @@ for this_subtitle in my_subtitles:
     
  
 # Get all subtitles with flag "needs_removal_from_ftp"
-my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True).select_related("Talk","Event","Folders_Extensions")
+my_subtitles = Subtitle.objects.filter(needs_removal_from_ftp = True)#.select_related("talk","event")
 
 for this_subtitle in my_subtitles:
     frab_id = str(this_subtitle.talk.frab_id_talk)

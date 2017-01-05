@@ -44,17 +44,42 @@ def reset_subtitle(my_subtitle):
         my_subtitle.time_processed_syncing = "00:00:00"
         my_subtitle.time_quality_check_done = "00:00:00"
         my_subtitle.state_id = 2 # Transcribed until
-        # Reset all related statistics to None to recalculate them
+        # Reset all related statistics data to None and do recalculate
         # In the Talk model
         my_talk = Talk.objects.get(id = my_subtitle.talk.id)
         my_talk.recalculate_talk_statistics = True
         my_talk.recalculate_speakers_statistics = True
+        my_talk.average_spm = None
+        my_talk.average_wpm = None
+        my_talk.strokes = None
+        my_talk.words = None
+        my_talk.time_delta = None
+        my_talk.speakers_average_spm = None
+        my_talk.speakers_average_wpm = None
+        my_talk.n_most_frequent_words = "{}"
+        my_talk.n_most_frequent_words_speakers = "{}"
         my_talk.save()
-        # In the Statistics model
+        # In the Statistics_Raw_Data model
         my_statistics = Statistics_Raw_Data.objects.filter(talk = my_subtitle.talk)
         for any_statistics in my_statistics:
             any_statistics.recalculate_statistics = True
+            any_statistics.time_delta = None
+            any_statistics.words = None
+            any_statistics.strokes = None
             any_statistics.save()
+        # In the Talk_Persons model
+        my_talk_persons = Talk_Persons.objects.filter(talk = my_talk)
+        for any in my_talk_persons:
+            any.average_spm = None
+            any.average_wpm = None
+            any.recalculate_statistics = True
+            any.strokes = None
+            any.time_delta = None
+            any.words = None
+            any.n_most_frequent_words = "{}"
+            any.save()
+            # TO DO: Statistics_Speaker reset and Statistics_Event reset
+        
         
     # If the subtitle is a translation..
     elif not my_subtitle.is_original_lang:
@@ -127,7 +152,7 @@ anti_bot_header = {'User-Agent': 'Mozilla/5.0, Opera/9.80 (Windows NT 6.1; WOW64
     'X-api-key': cred.AMARA_API_KEY}
 
 # Query for all talks who have an amara key
-all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").select_related("Subtitle").select_related("Subtitle__talk").order_by("-touched")
+all_talks_with_amara_key = Talk.objects.exclude(amara_key__exact = "").order_by("-touched")
 #print(all_talks_with_amara_key.count())
 for any_talk in all_talks_with_amara_key:
     # Create URL depending on amara_key
@@ -218,7 +243,7 @@ for any_talk in all_talks_with_amara_key:
 print("Import Done!")
 
 print("Checking the states..")
-my_subtitles = Subtitle.objects.all().order_by("-id").select_related("States").select_related("talk__video_duration")
+my_subtitles = Subtitle.objects.all().order_by("-id")#.select_related("states").select_related("talk__video_duration")
 # Check every Subtitle in the Database for the states if they fit the flags
 for my_subtitle in my_subtitles:
     # Original language

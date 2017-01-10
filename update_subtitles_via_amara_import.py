@@ -24,7 +24,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
-from www.models import Talk, Language, Subtitle, States, Statistics_Raw_Data
+from www.models import Talk, Language, Subtitle, States, Statistics_Raw_Data, Talk_Persons
 
 import credentials as cred
 
@@ -228,6 +228,10 @@ for any_talk in all_talks_with_amara_key:
                     # Also reset the timestamps
                     if subtitle.state_id == 8:
                         reset_subtitle(subtitle)
+                        
+                # If was set to finished but isn't any more, remove:
+                if (not subtitle.complete and subtitle_was_already_complete):
+                    reset_subtitle(subtitle)
 
             # If the revision is the same, still check the complete-Flag!
             if (subtitle.revision == amara_num_versions):

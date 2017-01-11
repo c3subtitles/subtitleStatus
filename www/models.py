@@ -45,6 +45,7 @@ class Event(BasisModell):
     speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     blacklisted = models.BooleanField(default = False, blank = True)
+    cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:

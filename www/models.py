@@ -495,6 +495,22 @@ class Talk(BasisModell):
         else:
             return True
 
+    # Override delete function        
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        # Delete related Talk_Persons datasets
+        Talk_Persons.objects.filter(talk = self).delete()
+        # Delete related Links datasets
+        Links.objects.filter(talk = self).delete()
+        # Delete related Subtitle datasets
+        Subtitle.objects.filter(talk = self).delete()
+        # Delete realted Statistics_Raw_Data
+        Statistics_Raw_Data.objects.filter(talk = self).delete()
+
+        # Call super delete function
+        super(Talk, self).delete(*args, **kwargs) 
+
+
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):
     state_de = models.CharField(max_length = 100)

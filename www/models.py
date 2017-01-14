@@ -542,6 +542,7 @@ class Subtitle(BasisModell):
     #comment = models.TextField(default = "")
     last_changed_on_amara = models.DateTimeField(default = datetime.min, blank = True)
     yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
+    blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

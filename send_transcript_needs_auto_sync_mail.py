@@ -135,6 +135,7 @@ for any in my_subtitles:
         line = re.sub("<i>", "*", line)
         line = re.sub("</i>", "*", line)
         line = re.sub("&amp;", "&", line)
+        line = re.sub("&gt;", ">", line)
         file.write(line)
     file.close()   
 

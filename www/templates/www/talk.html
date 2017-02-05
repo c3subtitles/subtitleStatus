@@ -214,7 +214,7 @@
     {% endif %}
     {% for sub in subtitles %}
 	    {% if sub.blocked %}
-	    <p>{{ sub.language.display_name }}: Not available right now. Probably autosync in progress, please come back later!</p>
+	    <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  <strong>{{ sub.language.display_name }}:</strong> Not available right now. Probably autosync in progress, please come back later!</div>
 	    {% elif sub.form.visible_fields != NULL %}
 	     <form class="form" id="form_{{ sub.pk }}" action="/subtitle/{{sub.pk}}/" method="POST">
 		    <div class="panel panel-warning">

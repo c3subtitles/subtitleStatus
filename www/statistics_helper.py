@@ -19,10 +19,39 @@ from datetime import datetime
 import copy
 
 # Characters to replace, some masked due to regex problems
-characters_to_replace = ['"', "\?", "\!", "\.", ",", "„", "“",
-    ":", ";", "\(", "\)", "\[", "\]", "\{", "\}", "…", "”", "\*"]
+characters_to_replace = [
+    [", ", " "],    # To avoid the substitution in numbers
+    ["\. ", " "],   # To avoid the substitution in numbers
+    [": ", " "],    # These lines are doubled to subtitute this no matter if it is behind a bracket or not
+    [";", ""],
+    ["…", ""],
+    ["”", ""],
+    ["“", ""],
+    ["„", ""],
+    ["’ ", " "],
+    [" ‘", " "],
+    ["\’ ", " "],
+    ["\(", ""],
+    ["\)", ""],
+    ["\[", ""],
+    ["\]", ""],
+    ["\{", ""],
+    ["\{", ""],
+    ["\*", ""],
+    ['"', ""],
+    ["&gt;", ">"],
+    ["&lt;", "<"],
+    ["&amp;", "&"],
+    [";", ""],
+    ["\? ", " "],
+    ["\!", ""],
+    [", ", " "],    # To avoid the substitution in numbers
+    ["\. ", " "],    # To avoid the substitution in numbers
+    [": ", " "],
+    [" - ", " "]
+]
 
-#  The most n common words should apprea in the word_frequencies
+#  The most n common words should appear in the word_frequencies
 n = 50
 
 # Calculate seconds from time element of a models
@@ -249,9 +278,8 @@ def prepare_string_for_word_counts(string, language = None):
     from . import stop_words_ger as sw_ger
     # Replace lots of stuff
     #print(characters_to_replace)
-    for any_char in characters_to_replace:
-        string = re.sub(any_char, "", string)
-    string = re.sub(" - ", " ", string)
+    for any_chars in characters_to_replace:
+        string = re.sub(any_chars[0], any_chars[1], string)
     # Convert to lower case
     string = str.lower(string)
     # Split into words withough spaces around

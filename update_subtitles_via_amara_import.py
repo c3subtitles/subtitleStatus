@@ -104,10 +104,12 @@ def reset_subtitle(my_subtitle):
 # Set all states to complete and sync and sets the tweet-flags, only if not choosen otherwise
 # - no matter if the subtitle is a translation or a original
 def set_subtitle_complete(my_subtitle, tweet_about_it = True):
-    # Stuff which need to be done anyway..
+    # Stuff which needs to be done anyway..
     my_subtitle.complete = True
-    my_subtitle.needs_sync_to_YT = True
-    my_subtitle.needs_sync_to_ftp = True
+    # Only set the sync flags if the subtitle is not blacklisted
+    if not my_subtitle.blacklisted:
+        my_subtitle.needs_sync_to_YT = True
+        my_subtitle.needs_sync_to_ftp = True
     my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
 
     # Only tweet if it is not a rerelease
@@ -115,7 +117,10 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
         my_subtitle.tweet = True
     else:
         my_subtitle.tweet = False
-
+    # Don't tweet if the subtitle is blacklisted
+    if my_subtitle.blacklisted:
+        my_subtitle.tweet = False    
+        
     # Stuff only if the subtitle is the orignal language
     if my_subtitle.is_original_lang:
         my_subtitle.time_processed_transcribing = my_subtitle.talk.video_duration
@@ -213,8 +218,10 @@ for any_talk in all_talks_with_amara_key:
                     subtitle.save()
 
                 # If orignal or translation and finished set state to finished
-                if subtitle.complete:
-                    set_subtitle_complete(subtitle, not subtitle_was_already_complete)
+                if subtitle.complete and subtitle_was_already_complete:
+                    set_subtitle_complete(subtitle, False) # Don't tweet about it
+                elif subtitle.complete and not subtitle_was_already_complete:
+                    set_subtitle_complete(subtitle, True) # Tweet about it
                     
                 # If translation and not finished set state to translation in progress
                 elif (not subtitle.is_original_lang and not subtitle.complete):
@@ -240,7 +247,7 @@ for any_talk in all_talks_with_amara_key:
                     reset_subtitle(subtitle)
                 # If the saved subtitle is not complete but amara is complete, set to complete
                 if amara_subtitles_complete and not subtitle.complete:
-                    set_subtitle_complete(subtitle)
+                    set_subtitle_complete(subtitle, True)
 
         subtitles_counter += 1
 

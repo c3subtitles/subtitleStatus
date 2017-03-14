@@ -1,7 +1,7 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
-from www.forms import SubtitleForm, TestForm
+from www.forms import SubtitleForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
@@ -166,10 +166,17 @@ def talk_by_frab(request, frab_id):
     return redirect(get_object_or_404(Talk, frab_id_talk=frab_id),
                     permanent=True)
 
-
 def talk_by_guid(request, guid):
     return redirect(get_object_or_404(Talk, guid=guid), permanent=True)
 
+
+def talk_by_subtitle(request, subtitle_id):
+    try:
+        my_subtitle = Subtitle.objects.get(id = subtitle_id)
+    except ObjectDoesNotExist:
+        raise Http404
+    my_talk = Talk.objects.filter(id = my_subtitle.talk.id)
+    return redirect(get_object_or_404(my_talk), permanent=True)
 
 def updateSubtitle(request, subtitle_id):
     try:

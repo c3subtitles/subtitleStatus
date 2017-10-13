@@ -64,21 +64,13 @@
                                 <dt>Language</dt>
                                 <dd>{{talk.orig_language.display_name}}</dd>
                                 <dt>Abstract</dt>
-                                {% if talk.abstract != "None" %}
-                                   <dd>{{talk.abstract|linebreaksbr}}</dd>
-                                {% else %}
-                                   <dd> - </dd>
-                                {% endif %}
+				<dd>{{talk.abstract|safe|linebreaksbr|default_if_none:" - "}}</dd>
                             </dl>
                         </div> <!-- End Tab panel Video Data -->
                         
                         <!-- Tab panel Description -->
                         <div role="tabpanel" class="tab-pane" id="Description">
-                            {% if talk.description != "None" %}
-                                <p>{{talk.description|linebreaksbr}}</p>
-                            {% else %}
-                                <p>No description available.</p>
-                            {% endif%}
+                            <p>{{talk.description|safe|linebreaksbr|default_if_none:"No description available."}}</p>
                         </div> <!-- End Tab panel Description -->
                         
                         <!-- Tab panel Misc -->

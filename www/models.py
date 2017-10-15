@@ -581,6 +581,95 @@ class Subtitle(BasisModell):
         else:
             return None
 
+    # Return the transcript file with amara fails fixed
+    def as_transcript(self, save = False):
+        import re
+        import requests
+        # Create the url for the srt File
+        # Only the srt-Version of all possible fileformats includes the "*" and "&"
+        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
+        # If this fails for any reason return None
+        try:
+        # No header necessary, this works without identification
+            r = requests.get(url)
+        except:
+            return None
+        srt_file =  r.text
+        # Split the file at every double linebreak
+        srt_file = srt_file.split("\r\n\r\n")
+        transcript = ""
+        for any_block in srt_file:
+            # Split every textblock in its lines
+            any_block = any_block.split("\r\n")
+            line_counter = 2
+            while line_counter < len(any_block):
+                # Ignore empty subtitle lines
+                if any_block[line_counter] != "":
+                    transcript += any_block[line_counter] + "\n"
+                line_counter += 1
+            # Double line break after a complete block
+            transcript += "\n"
+        # Fix some amara fails
+        transcript = re.sub("<i>", "*", transcript)
+        transcript = re.sub("</i>", "*", transcript)
+        transcript = re.sub("&amp;", "&", transcript)
+        if save:
+            filename = self.talk.slug+"." + self.language.lang_amara_short + ".transcript"
+            folder = "./downloads/subtitle_transcript_files/"
+            # Save File in ./downloads
+            file = open(folder+filename,mode = "w",encoding = "utf-8")
+            file.write(transcript)
+            file.close()
+        return transcript
+
+    # Return the sbv_file with fixes (no fixes necessary, but "*" get lost)
+    def as_sbv(self, save = False):
+        import requests
+        # Create the url for the sbv File
+        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=sbv"
+        # If this fails for any reason return None
+        try:
+        # No header necessary, this works without identification
+            r = requests.get(url)
+        except:
+            return None
+        sbv_file =  r.text
+        if save:
+            filename = self.talk.slug+"." + self.language.lang_amara_short + ".sbv"
+            folder = "./downloads/subtitle_sbv_files/"
+            # Save File in ./downloads
+            file = open(folder+filename,mode = "w",encoding = "utf-8")
+            file.write(sbv_file)
+            file.close()
+        return sbv_file
+
+    # Return the srt_file with fixes
+    def as_srt(self, save = False):
+        import re
+        import requests
+        # Create the url for the srt File
+        # Only the srt-Version of all possible fileformats includes the "*" and "&"
+        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
+        # If this fails for any reason return None
+        try:
+        # No header necessary, this works without identification
+            r = requests.get(url)
+        except:
+            return None
+        srt_file =  r.text
+        # Fix some amara fails
+        srt_file = re.sub("<i>", "*", srt_file)
+        srt_file = re.sub("</i>", "*", srt_file)
+        srt_file = re.sub("&amp;", "&", srt_file)
+        if save:
+            filename = self.talk.slug+"." + self.language.lang_amara_short + ".srt"
+            folder = "./downloads/subtitle_srt_files/"
+            # Save File in ./downloads
+            file = open(folder+filename,mode = "w",encoding = "utf-8")
+            file.write(srt_file)
+            file.close()
+        return srt_file
+
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)

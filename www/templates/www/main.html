@@ -3,50 +3,50 @@
 
 {% block content %}
 <div class="jumbotron" >
-	<h1>C3Subtitles</h1>
-	<div class="row">
-		<div class="col-md-4">
-			<p>How do I use this page?</p>
-			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:postprocessing:contribute" role="button" target="_blank">Wiki de »</a>
-			<a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:postprocessing:contribute" role="button" target="_blank">Wiki en »</a></p>
-			<p>Also check the wiki for the subtitles style guide!</p>
-			<p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:styleguide" role="button" target="_blank">Styling de »</a>
-			<a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:styleguide" role="button" target="_blank">Styling en »</a></p>
-		</div>
-		<div class="col-md-4">
-			<p>Where do I find the finished subtitles?</p>
-			<p><a class="btn btn-primary btn-lg" href="http://cdn.media.ccc.de/congress/" role="button" target="_blank">CCC cdn »</a></p>
-			<p>Choose an event and check for the "subtitles" subfolder in the video folders!</p>
+    <h1>C3Subtitles</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <p>How do I use this page?</p>
+            <p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:postprocessing:contribute" role="button" target="_blank">Wiki de »</a>
+            <a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:postprocessing:contribute" role="button" target="_blank">Wiki en »</a></p>
+            <p>Also check the wiki for the subtitles style guide!</p>
+            <p><a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/de:styleguide" role="button" target="_blank">Styling de »</a>
+            <a class="btn btn-primary btn-lg" href="https://c3subtitles.de/wiki/en:styleguide" role="button" target="_blank">Styling en »</a></p>
+        </div>
+        <div class="col-md-4">
+            <p>Where do I find the finished subtitles?</p>
+            <p><a class="btn btn-primary btn-lg" href="https://mirror.selfnet.de/c3subtitles/" role="button" target="_blank">CCC cdn »</a></p>
+            <p>Choose an event and you will find the subtitles!</p>
             <p>Like what we do? Flattr us!<p>
             {% include "www/flattr.html" with opacity=1.0 %}
-		</div>
-		<div class="col-md-4">
-			<p>Twitter</p>
-			<p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3subtitles" role="button" target="_blank">@c3subtitles »</a></p>
-			<p>Newest infos on twitter or visit us in <a href="https://webirc.hackint.org/#subtitles" target="_blank">#subtitles on hackint.org</a><br /><a href="https://webirc.hackint.org/#subtitles-angel" target="_blank">#subtitles-angel on hackint.org</a></p>
-				<p>Latest releases:</p>
-				<p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3srt_releases" role="button" target="_blank">@c3srt_releases »</a></p>
-		</div>
-	</div>
+        </div>
+        <div class="col-md-4">
+            <p>Twitter</p>
+            <p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3subtitles" role="button" target="_blank">@c3subtitles »</a></p>
+            <p>Newest infos on twitter or visit us in <a href="https://webirc.hackint.org/#subtitles" target="_blank">#subtitles on hackint.org</a><br /><a href="https://webirc.hackint.org/#subtitles-angel" target="_blank">#subtitles-angel on hackint.org</a></p>
+                <p>Latest releases:</p>
+                <p><a class="btn btn-primary btn-lg" href="https://www.twitter.com/c3srt_releases" role="button" target="_blank">@c3srt_releases »</a></p>
+        </div>
+    </div>
 </div>
 
 <div>
 
 {% for event in events %}
-	{% if not event.blacklisted %}
-	<h2>
-		<a href="/event/{{event.acronym}}">{{ event.title }}</a>
-		<a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
-	</h2>
-	<div class="collapse" id="{{ event.pk }}_id">
-		<h2>{{ event.start }} - {{ event.end }}</h2>
-		<h2>{{ event.building }}, {{ event.city }}</h2>
-		{% if event.has_statistics %}
-		    <div id="event_statistics" style="padding-bottom: 20px;" class="container">
-				<h3>Statistics:</h3>
+    {% if not event.blacklisted %}
+    <h2>
+        <a href="/event/{{event.acronym}}">{{ event.title }}</a>
+        <a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+    </h2>
+    <div class="collapse" id="{{ event.pk }}_id">
+        <h2>{{ event.start }} - {{ event.end }}</h2>
+        <h2>{{ event.building }}, {{ event.city }}</h2>
+        {% if event.has_statistics %}
+            <div id="event_statistics" style="padding-bottom: 20px;" class="container">
+                <h3>Statistics:</h3>
 
                 <div class="row" style="padding-bottom: 20px;">
-				{% for every_statistics in event.statistics_event_set.all %}
+                {% for every_statistics in event.statistics_event_set.all %}
                     {% if every_statistics.has_statistics %}
                         <div class="row" style="padding-bottom: 20px;">
                             <div class="col-md-3">
@@ -64,12 +64,12 @@
                 {% endfor %}
                 </div>
             </div>
-		{% endif %}
-	</div>
-	<div>
-	{% include "www/progress_bar_original.html" with value=event %}
-	</div>
-	{% endif %}
+        {% endif %}
+    </div>
+    <div>
+    {% include "www/progress_bar_original.html" with value=event %}
+    </div>
+    {% endif %}
 {% endfor %}
 
 </div>

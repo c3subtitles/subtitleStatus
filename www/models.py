@@ -573,6 +573,13 @@ class Subtitle(BasisModell):
         lang = self.language.lang_short_srt
         return self.language.lang_short_srt
 
+    # Get the filename for the fileservers
+    def get_filename_srt(self):
+        if talk.filename != "":
+            filename = self.talk.filename + "." + self.language.language_srt + ".srt"
+            return filename
+        else:
+            return None
 
 # Links from the Fahrplan
 class Links(BasisModell):

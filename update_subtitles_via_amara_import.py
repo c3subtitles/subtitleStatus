@@ -36,6 +36,7 @@ def reset_subtitle(my_subtitle):
     my_subtitle.complete = False
     my_subtitle.needs_removal_from_ftp = True
     my_subtitle.needs_removal_from_YT = True
+    my_subtitle_needs_removal_from_sync_folder = True
     my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
 
     # If the subtitle is the original language,reset all states to the start
@@ -110,6 +111,7 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
     if not my_subtitle.blacklisted:
         my_subtitle.needs_sync_to_YT = True
         my_subtitle.needs_sync_to_ftp = True
+        my_subtitle.needs_sync_to_sync_folder = True
     my_subtitle.last_changed_on_amara = datetime.now(timezone.utc)
 
     # Only tweet if it is not a rerelease
@@ -119,7 +121,7 @@ def set_subtitle_complete(my_subtitle, tweet_about_it = True):
         my_subtitle.tweet = False
     # Don't tweet if the subtitle is blacklisted
     if my_subtitle.blacklisted:
-        my_subtitle.tweet = False    
+        my_subtitle.tweet = False
         
     # Stuff only if the subtitle is the orignal language
     if my_subtitle.is_original_lang:

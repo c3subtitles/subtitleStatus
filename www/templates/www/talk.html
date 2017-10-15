@@ -213,29 +213,29 @@
    
     {% endif %}
     {% for sub in subtitles %}
-	    {% if sub.blocked %}
-	    <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  <strong>{{ sub.language.display_name }}:</strong> Not available right now. Probably autosync in progress, please come back later!</div>
-	    {% elif sub.form.visible_fields != NULL %}
-	     <form class="form" id="form_{{ sub.pk }}" action="/subtitle/{{sub.pk}}/" method="POST">
-		    <div class="panel panel-warning">
-			<div class="panel-heading">
-			    <p>{{ sub.language.display_name }}: {{ sub.state }}</p>
-			</div>
-			<div class="panel-body">
-			{{ sub.form|bootstrap }}
-			{% csrf_token %}
-			<input class="btn btn-success"  type="submit" value="Save">
-					<span style="margin-left: 1em;">Last revision: {{ sub.last_changed_on_amara|timesince }} ago</span>
-			{%if sub.form.quick_btn %}
-			<input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
-			{% endif %}
-			</div>
-		</div>
-	    </form>
-	    {% else %}
-	    <div class="alert alert-success" role="alert">
-	        <p>{{ sub.language.display_name }}: Finished</p>
-	    </div>
+        {% if sub.blocked %}
+        <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  <strong>{{ sub.language.display_name }}:</strong> Not available right now. Probably autosync in progress, please come back later!</div>
+        {% elif sub.form.visible_fields != NULL %}
+        <form class="form" id="form_{{ sub.pk }}" action="/subtitle/{{sub.pk}}/" method="POST">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <p>{{ sub.language.display_name }}: {{ sub.state }}</p>
+            </div>
+            <div class="panel-body">
+            {{ sub.form|bootstrap }}
+            {% csrf_token %}
+            <input class="btn btn-success"  type="submit" value="Save">
+                    <span style="margin-left: 1em;">Last revision: {{ sub.last_changed_on_amara|timesince }} ago</span>
+            {%if sub.form.quick_btn %}
+            <input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
+            {% endif %}
+            </div>
+        </div>
+        </form>
+        {% else %}
+        <div class="alert alert-success" role="alert">
+            <p>{{ sub.language.display_name }}: Finished</p>
+        </div>
     {% endif %}
     {% endfor %}
     </div>

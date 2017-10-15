@@ -46,6 +46,7 @@ class Event(BasisModell):
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     blacklisted = models.BooleanField(default = False, blank = True)
     cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
+    subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -543,6 +544,8 @@ class Subtitle(BasisModell):
     last_changed_on_amara = models.DateTimeField(default = datetime.min, blank = True)
     yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
     blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
+    needs_sync_to_sync_folder = models.BooleanField(default = False)
+    needs_removal_from_sync_folder = models.BooleanField(default = False)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

@@ -179,13 +179,11 @@
                         {{ sub|progress_bar }}
                     </div>
                     <div class="col-md-4">
-                    {% comment %}
                     {% if sub.complete and not sub.blacklisted %}
-                        <a href="{{sub.talk.event.cdn_subtitles_root_folder}}{{sub.talk.filename}}.{{sub.language.lang_short_srt}}.srt" target="_blank" >
+                        <a href="https://mirror.selfnet.de/c3subtitles/{{sub.talk.event.subfolder_in_sync_folder}}/{{sub.talk.filename}}.{{sub.language.lang_short_srt}}.srt" target="_blank" >
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Subtitles"></span>
                         </a>
                     {% endif %}
-                    {% endcomment %}
                     </div>
                 </div>
             </div>

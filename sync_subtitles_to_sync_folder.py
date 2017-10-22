@@ -15,19 +15,20 @@
 #==============================================================================
 
 import os
-#import sys
+import sys
 import urllib
 #import re
 #import pysftp
 #import shutil
 
 # E-Mail-Stuff
-import smtplib
+#import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 #from email.mime.image import MIMEImage
 from email import encoders
+from subprocess import Popen, PIPE
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -73,11 +74,23 @@ msg = MIMEMultipart()
 msg["Subject"] = "Synced or removed srt files from sync folder"
 msg["From"] = FROM
 msg["To"] = TO
+# Only send an email if something has changed
 if email_text_added_subtitles != "Added subtitle files:\n" or email_text_removed_subtitles != "Removed subtitle files:\n":
     text = MIMEText(email_text_added_subtitles+"\n\n"+email_text_removed_subtitles, "plain")
     msg.attach(text)
-    s = smtplib.SMTP('mail.selfnet.de')
-    s.send_message(msg)
-    s.quit()
+    try:
+        p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
+        p.communicate(msg.as_string())
+        sys.exit(0)
+    except:
+        sys.exit(1)
+    #s = smtplib.SMTP('mail.selfnet.de')
+    #try:
+    #    s.send_message(msg)
+    #except:
+    #    sys.exit(1)
+    #s.quit()
+
 else: 
-    print("Nothing done!")
+    #print("Nothing done!")
+    sys.exit(0)

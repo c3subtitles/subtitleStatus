@@ -13,6 +13,7 @@
 
 import os
 import sys
+import requests
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -34,13 +35,23 @@ for every in my_subtitles:
 print(my_subtitles.count())
 """
 
-# Get alls Subtitles which are already synced to the ftp and still need a tweet
-my_subtitles = Subtitle.objects.filter(tweet = True, needs_sync_to_ftp = False)
+# Get all Subtitles which are already synced to the sync folder and still might need a tweet
+my_subtitles = Subtitle.objects.filter(tweet = True, needs_sync_to_sync_folder = False)
 
+# Tweet for every subtitle synced to sync folder if the file is already on the mirror
 for s in my_subtitles:
-    tweets.tweet_subtitles_update_media(s.id)
-    s.tweet = False
-    s.save()
+    link = "https://mirror.selfnet.de/c3subtitles/" + s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt()
+    try:
+        request = requests.head(link)
+    except:
+        continue
+    # Only tweet it the file is on the mirror
+    if request.status_code == 200:
+        tweets.tweet_subtitles_update_mirror(s.id)
+        s.tweet = False
+        s.save()
+    else:
+        continue
 
 # Tweet which talk needs an Review
 my_subtitles = Subtitle.objects.filter(state_id = 7, tweet_autosync_done = True)

@@ -85,10 +85,10 @@ for any in my_subtitles:
         "13. Oben rechts 'Actions' -> 'discard edits' auswählen und bestätigen. Jetzt sollten alle Untertitel gelöscht sein.\n" +
         "14. Die entsprechende Seite auf Amara öffnen und sich bei amara einloggen. Links auf 'Upload them directly' klicken.\n" +
         "15. Sprache auswählen, 'None direct from Video' so stehen lassen, das File aussuchen und unbedingt den Haken bei 'The subtitle file is 100% complete' entfernen.\n" +
-        "16. Auf subtitles.ber.c3voc.de per ssh einloggen.\n" +
+        "16. Auf c3subtitles.ext.selfnet.de per ssh einloggen.\n" +
         "17. 'cd /opt/subtitleStatus && source virtualEnv/bin/activate' auf der Shell ausführen.\n"+
         "18. 'python reset_subtitle_from_blocked_to_quality_control.py " + str(any.id) + "' ausführen.\n" +
-        "19. Auf subtitles.media.ccc.de nachsehen ob es funktioniert hat und auf https://twitter.com/c3srt_releases nachsehen ob ein Tweet kam.", "plain")
+        "19. Auf www.c3subtitles.de nachsehen ob es funktioniert hat und auf https://twitter.com/c3srt_releases nachsehen ob ein Tweet kam.", "plain")
     msg.attach(text)
     msg["Subject"] = "Transcript needs your attention: "+str(any.talk.frab_id_talk)+' "'+any.talk.title+'"'
     msg["From"] = FROM

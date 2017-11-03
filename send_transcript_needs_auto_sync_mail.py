@@ -22,6 +22,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 #from email.mime.image import MIMEImage
 from email import encoders
+from subprocess import Popen, PIPE
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -147,13 +148,21 @@ for any in my_subtitles:
     encoders.encode_base64(attachment)
     attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
     msg.attach(attachment)
+
+    try:
+        p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
+        p.communicate(msg.as_string())
+    except:
+        sys.exit(1)
     
-    s = smtplib.SMTP('localhost')
-    s.send_message(msg)
-    s.quit()
+    
+    # old
+    #s = smtplib.SMTP('localhost')
+    #s.send_message(msg)
+    #s.quit()
     
     # Reset Flag
     any.needs_automatic_syncing = False
     any.save()
     
-    
+sys.exit(0)

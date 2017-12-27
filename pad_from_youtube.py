@@ -1,19 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import os
 import sys
 import re
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
-
-import django
-django.setup()
-from django.core.management.base import BaseCommand, CommandError
-from django.db import transaction
-from django.core.exceptions import ObjectDoesNotExist
-
-from www.models import Talk, Language, Subtitle
 
 def chunks(file):
     """Read `file`, splitting it at doubled linebreaks"""

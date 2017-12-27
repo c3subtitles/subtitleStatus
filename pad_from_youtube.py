@@ -39,10 +39,12 @@ if __name__ == '__main__':
         lines = chunk.split('\n')
 
         for line in lines[1:]:
+            if line == '':
+                continue
             if line[0] == '[' and line[-1] == ']':
                  # keep this as a separate line
                  out += '\n' + line + '\n'
             else:
                  out += ' ' + line
 
-    print(out)
+    print(out.replace('\n\n', '\n'))

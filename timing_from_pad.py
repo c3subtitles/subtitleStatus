@@ -22,6 +22,17 @@ if __name__ == '__main__':
     except IOError as err:
         sys.exit("Transcript not readable: {}").format(err)
 
-    chunks = ["\n".join([transcript[i], transcript[i + 1], '']) for i in range(0, len(transcript), 2)]
+    length = len(transcript)
+    odd = False
 
-    print("\n".join(chunks))
+    if length % 2 == 1:
+        length -= 1
+        odd = True
+
+    chunks = ["\n".join([transcript[i], transcript[i + 1], ''])
+              for i in range(0, length, 2)]
+
+    if odd:
+        chunks.append(transcript[-1])
+
+    print("\n".join(chunks).replace("\n\n\n", "\n\n"))

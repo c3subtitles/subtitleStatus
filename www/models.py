@@ -578,8 +578,8 @@ class Subtitle(BasisModell):
 
     # Get the filename for the fileservers
     def get_filename_srt(self):
-        if talk.filename != "":
-            filename = self.talk.filename + "." + self.language.language_srt + ".srt"
+        if self.talk.filename != "":
+            filename = self.talk.filename + "." + self.language.lang_short_srt + ".srt"
             return filename
         else:
             return None

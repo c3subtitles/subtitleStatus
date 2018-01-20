@@ -66,7 +66,10 @@ def calculate_time_delta(start, end):
    
 # Calculate average wpm or spm   
 def calculate_per_minute(number, time_delta_seconds):
-    return number * 60.0 / time_delta_seconds
+    if time_delta_seconds != 0:
+        return number * 60.0 / time_delta_seconds
+    else:
+        return 0
 
 # Functions calculates the words and strokes of a whole subtitle file or a slice of items
 # The language code must be the amara version

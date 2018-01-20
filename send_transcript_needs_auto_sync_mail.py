@@ -38,18 +38,20 @@ import credentials as cred
 
 # Search for subtitles with set flag "needs_automatic_syncing"
 my_subtitles = Subtitle.objects.filter(needs_automatic_syncing = True)
+#print(my_subtitles.count())
 
-FROM = "localhost@subtitles.ber.c3voc.de"
+FROM = "subtitles@c3subtitles.ext.selfnet.de"
 TO = cred.E_MAIL_TO_FOR_TRANSCRIPTS_TIMING
 TEXT = []
 TEXT.append("These Subtitle-Files need your attention: ")
 
 for any in my_subtitles:
+    #print(any.id)
     language = any.language.lang_amara_short
     amara_key = any.talk.amara_key
     #url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=txt"
     slug = any.talk.slug
-    url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
+    url = "https://amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
     
     # Building the email
     msg = MIMEMultipart()
@@ -68,6 +70,9 @@ for any in my_subtitles:
         "Video-Adresse: "+video_link+"\n"+
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
+        "Pad-ID: " + any.talk.pad_id + "\n" +
+        "Pad writable link: " + any.talk.link_to_writable_pad + "\n" +
+        "Pad only readable link: " + any.talk.link_to_readable_pad + "\n" +
         "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
         "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
         "1. File aus dem Anhang dieser E-Mail runter laden\n" +
@@ -100,21 +105,24 @@ for any in my_subtitles:
     file_content = response.read()
     # Convert from bytes object to string object
     file_content = str(file_content,encoding = "UTF-8")
-    
+    #print(file_content)
     # Split in single lines:
     text_content = file_content.splitlines()
-    
+    #print(text_content)
     transcript = []
     # Ignore first two lines and check lines afterwards
     transcript.append(text_content[2]+"\n")
-    if len(text_content) < 5:
-        continue
-    if text_content[3] == "":
+    if len(text_content) <= 3:
+        i = 4
+    elif len(text_content) < 5:
+        i = 2
+    elif text_content[3] == "":
         i = 3
     elif text_content[4] == "":
         i = 4
     elif text_content[5] == "":
         i = 5
+    
     
     # Check rest of whole file
     while i < len(text_content):
@@ -129,6 +137,7 @@ for any in my_subtitles:
             
     filename = slug+"."+str(language)+".transcript"
     folder = "./downloads/"
+    print(filename)
     
     # Save File in ./downloads
     file = open(folder+filename,mode = "w",encoding = "utf-8")
@@ -141,6 +150,7 @@ for any in my_subtitles:
     file.close()   
 
     filename = folder+filename
+    print(filename)
     
     # Build attachment File for email an attach
     attachment = MIMEBase('application', 'octet-stream')
@@ -153,6 +163,7 @@ for any in my_subtitles:
         p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
         p.communicate(msg.as_string())
     except:
+        print("Mail Exception")
         sys.exit(1)
     
     

@@ -59,8 +59,11 @@ for event in my_events:
         # Get or create a speaker with the same frab id
         my_speaker, created = Speaker.objects.get_or_create(frab_id = any_speaker["id"])
         # Only alter the entry if the name has changed
-        if my_speaker.name != any_speaker["full_public_name"]:
+        if len(any_speaker["full_public_name"]) <= 50 and my_speaker.name != any_speaker["full_public_name"]:
             my_speaker.name = any_speaker["full_public_name"]
+            my_speaker.save()
+        elif len(any_speaker["full_public_name"]) > 50 and my_speaker.name != any_speaker["full_public_name"]:
+            my_speaker.name = my_speaker.name[0:50]
             my_speaker.save()
         # Only alter the entry if the abstract has changed
         if my_speaker.abstract != any_speaker["abstract"]:

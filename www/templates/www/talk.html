@@ -174,7 +174,7 @@
                         {% endif %}
                         <span style="margin-left: 5px;">{{ sub.language.display_name }}</span>
                         </a>
-                    </div>
+                    </div><!-- End col-md-1 -->
                     <div class="col-md-4">
                         {{ sub|progress_bar }}
                     </div>
@@ -184,7 +184,7 @@
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Subtitles"></span>
                         </a>
                     {% endif %}
-                    </div>
+                    </div><!-- End col-md-4 -->
                 </div>
             </div>
             {% endfor %}
@@ -207,10 +207,17 @@
 </div><!-- End class row -->
 
 <div>
+    {% if show_etherpad and talk.link_to_writable_pad != ""  %}
+        <div class="alert alert-info" role="alert">
+            <strong>This talk has a pad for the transcript, please use this instead of the amara editor:</strong> <a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a>
+        </div>
+    {% endif %}
+
     <div>
     {% if subtitles.count == 0 %}
-	<div class="alert alert-info" role="alert"><strong>Missing form or progress bar?</strong> It may take up to ten minutes until the form appears, after you saved your progress on amara. Please give it a little patience and reload the page.</div>
-   
+    <div class="alert alert-info" role="alert"><strong>Missing form or progress bar?</strong> It may take up to ten minutes until the form appears, after you saved your progress on amara. Please give it a little patience and reload the page.</div>
+    
+
     {% endif %}
     {% for sub in subtitles %}
         {% if sub.blocked %}
@@ -242,8 +249,6 @@
 </div>
 <script type="text/javascript" src='https://amara.org/embedder-iframe'>
 </script>
-
-
 
 
 {% for sub in subtitles %}

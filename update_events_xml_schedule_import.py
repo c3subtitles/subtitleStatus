@@ -280,60 +280,84 @@ def read_xml_and_save_to_database():
                     error("Problem with slug")
                 
                 # recording optout, no bool-var!
-                if fahrplan[counter_day][counter_room][counter_event][5].tag == "recording":
-                    talk_optout = fahrplan[counter_day][counter_room][counter_event][5][1].text
+                # start at position 0 to search for links
+                counter = 0
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "recording" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "recording":
+                    talk_optout = fahrplan[counter_day][counter_room][counter_event][counter][1].text
                 else:
                     error("Problem with optout")
                 
                 # talk/event_title
-                if fahrplan[counter_day][counter_room][counter_event][6].tag == "title":
-                    talk_title = fahrplan[counter_day][counter_room][counter_event][6].text
+                # start at position 0 to search for event_title
+                counter = 0
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "title" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "title":
+                    talk_title = fahrplan[counter_day][counter_room][counter_event][counter].text
                 else:
                     error("Problem with event_title")
                 
                 # subtitle
-                if fahrplan[counter_day][counter_room][counter_event][7].tag == "subtitle":
-                    talk_subtitle = str(fahrplan[counter_day][counter_room][counter_event][7].text)
+                # start at position 0 to search for subtitle
+                counter = 0
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "subtitle" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "subtitle":
+                    talk_subtitle = str(fahrplan[counter_day][counter_room][counter_event][counter].text)
                 else:
                     error("Problem with subtitle")
-                
+
                 # track
-                if fahrplan[counter_day][counter_room][counter_event][8].tag == "track":
-                    talk_track = str(fahrplan[counter_day][counter_room][counter_event][8].text)
+                # start at position 0 to search for track
+                counter = 0
+                while fahrplan[counter_day][counter_room][counter_event][counter].tag != "track" and counter <= len_of_tags:
+                    counter += 1
+                if fahrplan[counter_day][counter_room][counter_event][counter].tag == "track":
+                    talk_track = str(fahrplan[counter_day][counter_room][counter_event][counter].text)
                 else:
                     error("Problem with track")
-                    
+
                 # Write track data to database
                 save_track_data()
                 
                 # type of talk
                 if fahrplan[counter_day][counter_room][counter_event][9].tag == "type":
                     talk_type = str(fahrplan[counter_day][counter_room][counter_event][9].text)
+                elif fahrplan[counter_day][counter_room][counter_event][10].tag == "type":
+                    talk_type = str(fahrplan[counter_day][counter_room][counter_event][10].text)
                 else:
                     error("Problem with type")
-                
+
                 # Write type of data to database
                 save_type_of_data()
                 
                 # language
                 if fahrplan[counter_day][counter_room][counter_event][10].tag == "language":
                     talk_language = str(fahrplan[counter_day][counter_room][counter_event][10].text)
+                elif fahrplan[counter_day][counter_room][counter_event][11].tag == "language":
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][11].text)                    
                 else:
                     error("Problem with language")
                 my_language = Language.objects.get(lang_amara_short = talk_language)
-                
+
                 # abstract
                 if fahrplan[counter_day][counter_room][counter_event][11].tag == "abstract":
                     talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][11].text)
+                elif fahrplan[counter_day][counter_room][counter_event][12].tag == "abstract":
+                    talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][12].text)                    
                 else:
                     error("Problem with abstract")
-                
+
                 # description
                 if fahrplan[counter_day][counter_room][counter_event][12].tag == "description":
                     talk_description = str(fahrplan[counter_day][counter_room][counter_event][12].text)
+                elif fahrplan[counter_day][counter_room][counter_event][13].tag == "description":
+                    talk_description = str(fahrplan[counter_day][counter_room][counter_event][13].text)                    
                 else:
                     error("Problem with description")
-                
+
                 # persons (on different positions depending on schedule version)
                 talk_persons = []
                 # start at position 13 to search for persons
@@ -358,7 +382,7 @@ def read_xml_and_save_to_database():
                 talk_links = []
                 # start at position 14 to search for links
                 counter = 14
-                
+
                 while fahrplan[counter_day][counter_room][counter_event][counter].tag != "links" and counter <= len_of_tags:
                     counter += 1
                 if fahrplan[counter_day][counter_room][counter_event][counter].tag == "links":
@@ -372,7 +396,6 @@ def read_xml_and_save_to_database():
                 
                 # Write event/talk data to database
                 save_talk_data()
-                
                 
                 counter_event += 1
             counter_room +=1
@@ -440,6 +463,8 @@ def save_persons_data ():
         my_person = Speaker.objects.get_or_create(frab_id = someone[0])[0]
         if my_person.name != someone[1]:
             my_person.name = someone[1]
+            if len(my_person.name) > 50:
+                my_person.name = my_person.name[0:50]
             my_person.save()
     
         # Array to acces all linked speakers for the saving of the talk

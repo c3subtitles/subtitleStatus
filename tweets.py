@@ -60,6 +60,45 @@ def create_tweet_for_media(subtitle_id):
     return my_tweet
 
 
+# A subtitle on the selfnet mirror has been released or updated
+def create_tweet_for_selfnet_mirror(subtitle_id):
+    # Check if there really is a subtitle available with this Id:
+    try:
+        my_subtitle = Subtitle.objects.get(id = subtitle_id)
+    except:
+        return(None)
+    #  Stop if the subtitle is not completed
+    if not my_subtitle.complete:
+        return(None)
+    # Check if the file really is on the mirror and only then proceed
+    
+    
+    
+    # Get associated Data from the database
+    try:
+        my_talk = Talk.objects.get(id = my_subtitle.talk_id)
+        my_language = Language.objects.get(id = my_subtitle.language_id)
+        my_event = Event.objects.get(id = my_talk.event_id)
+    except:
+        return(None)
+
+    # Workaround for Klingon :D
+    if my_language.id == 289:
+        my_language.language_en = "Original"
+    string = my_language.language_en + " #subtitles released for "
+    name_of_talk = my_talk.title
+    hashtag = my_event.hashtag
+    link = "https://mirror.selfnet.de/c3subtitles/" + my_subtitle.talk.event.subfolder_in_sync_folder
+    # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
+    while len(string) + 4 + len(name_of_talk) + 3 + 23 + len(hashtag) + 1 > max_tweet_length:
+        name_of_talk = name_of_talk[:-2]
+        name_of_talk = name_of_talk + "…"
+    
+    my_tweet = string + '"' + name_of_talk + '" on: ' + link + " " + hashtag
+    #print (my_tweet)
+    return my_tweet
+
+
 # A subtitle on YT has been released or updated    
 def create_tweet_for_YT(subtitle_id):
     # Check if there really is a subtitle available with this Id:
@@ -164,3 +203,6 @@ def tweet_subtitles_update(id):
         return True
     else:
         return False
+
+def tweet_subtitles_update_mirror(id):
+    return do_tweet(create_tweet_for_selfnet_mirror(id))

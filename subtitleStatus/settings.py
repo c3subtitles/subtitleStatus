@@ -20,7 +20,7 @@ TEMPLATE_DIRS = [PROJECT_ROOT+'/templates']
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')8^-u=gdtnye8jv6%d1r%$7sg!(wl4ki3++j3z%2b#@5-r=^c3'
+SECRET_KEY = 'YOUR SECRET KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -70,7 +70,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'subtitlestatus',
         'USER': 'subtitlestatus',
-        'PASSWORD': 'zKpVBpWngEPz3Vb7wTp2AdqM3tCY6w2e',
+        'PASSWORD': 'YOUR PASWORD',
         'HOST': 'localhost'
     }
 }

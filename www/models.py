@@ -673,6 +673,42 @@ class Subtitle(BasisModell):
             file.close()
         return srt_file
 
+    # Saves Subtitles Files to the sync folder
+    def sync_subtitle_to_sync_folder(self, force = False):
+        # Sync the subtitle if it is not blacklisted and the sync flag is true of when it is forced
+        if (not self.blacklisted and self.needs_sync_to_sync_folder) or force:
+            import shutil
+            # Download the subtitle as srt file
+            self.as_srt(save = True)
+            # Copy the subtitle to the right folder
+            file_from = "/opt/subtitleStatus/downloads/subtitle_srt_files/" + self.talk.slug + "." + self.language.lang_amara_short + ".srt"
+            file_to = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
+            try:
+                shutil.copy2(file_from, file_to)
+            except:
+                print("Exception")
+                return False
+            # Remove the sync flag and save
+            self.needs_sync_to_sync_folder = False
+            self.save()
+            return True
+        else:
+            return False
+
+    # Removes Subtitles Files from the sync folder
+    def remove_subtitle_from_sync_folder(self, force = False):
+        if self.needs_removal_from_sync_folder or force:
+            file_name = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
+            import os
+            try:
+                os.remove(file_name)
+            except:
+                pass
+            self.needs_removal_from_sync_folder = False
+            self.save()
+
+
+
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)

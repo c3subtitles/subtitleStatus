@@ -22,6 +22,7 @@ from www.models import Subtitle, Talk, Event, Language
 import twitter as tw
 import credentials as cred
 
+max_tweet_length = 280
 
 # A subtitle on media has been released or updated
 def create_tweet_for_media(subtitle_id):
@@ -50,15 +51,15 @@ def create_tweet_for_media(subtitle_id):
     hashtag = my_event.hashtag
     link = "https://cdn.media.ccc.de" + my_event.ftp_startfolder[3:]
     # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
-    while len(string) + 4 + len(name_of_talk) + 3 + 23 + len(hashtag) + 1 > 140:
+    while len(string) + 4 + len(name_of_talk) + 3 + 23 + len(hashtag) + 1 > max_tweet_length:
         name_of_talk = name_of_talk[:-2]
         name_of_talk = name_of_talk + "…"
     
     my_tweet = string + '"' + name_of_talk + '" on: ' + link + " " + hashtag
     #print (my_tweet)
     return my_tweet
-  
-  
+
+
 # A subtitle on YT has been released or updated    
 def create_tweet_for_YT(subtitle_id):
     # Check if there really is a subtitle available with this Id:
@@ -86,7 +87,7 @@ def create_tweet_for_YT(subtitle_id):
     hashtag = my_event.hashtag
     link = "https://youtube.com/user/mediacccde"
     # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
-    while len(string) + 4 + len(name_of_talk) + 3 + 23 + len(hashtag) + 1 > 140:
+    while len(string) + 4 + len(name_of_talk) + 3 + 23 + len(hashtag) + 1 > max_tweet_length:
         name_of_talk = name_of_talk[:-2]
         name_of_talk = name_of_talk + "…"
     
@@ -121,7 +122,7 @@ def create_tweet_for_needs_quality_control(id):
     hashtag = my_event.hashtag
     link = "https://c3subtitles.de/talk/" + str(my_subtitle.talk_id)
     # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
-    while len(string) + 1 + len(name_of_talk) + 35 + 23 + 1 + len(hashtag) > 140:
+    while len(string) + 1 + len(name_of_talk) + 35 + 23 + 1 + len(hashtag) > max_tweet_length:
         name_of_talk = name_of_talk[:-2]
         name_of_talk = name_of_talk + "…"
     

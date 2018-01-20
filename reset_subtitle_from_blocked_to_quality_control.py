@@ -34,6 +34,7 @@ try:
         subt.blocked = False
         subt.state_id = 7 # Quality control done until
         subt.tweet_autosync_done = True
+        subt.recalculate_talk_statistics = True
         subt.save()
         print("Done")
 except:

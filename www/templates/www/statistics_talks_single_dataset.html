@@ -1,4 +1,5 @@
 {% comment %}
+{% load word_cloud %}
 Used in statistics_talks.html to display a single dataset
 {% endcomment %}
 <div class="thumbnail">
@@ -24,4 +25,9 @@ Used in statistics_talks.html to display a single dataset
     </div>
 
 </div>
+{% comment %}
+<div>
+{% common_words_cloud item=talk height="18em" %}
+</div>
+{% endcomment %}
 </div>

@@ -35,3 +35,5 @@ try:
         subt.blocked = False
         subt.save()
         print("Done")
+finally:
+    pass

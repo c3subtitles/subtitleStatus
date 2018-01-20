@@ -24,10 +24,10 @@ This template is used in the events pages to display single talks in event.html
                     <th>{{ subtitle.language_short }}:</th>
                     <td>{{ subtitle|progress_bar:True }}</td>
                 </tr>
-                    <tr>
-                        <th></th>
-                        <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
+                </tr>
             {% endfor %}
         </table>
 	{% else %}

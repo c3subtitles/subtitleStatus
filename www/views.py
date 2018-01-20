@@ -16,7 +16,7 @@ import datetime
 # Start of the Website with all the events
 def start(request):
     try:
-        my_events = list(Event.objects.all().order_by("-start"))     
+        my_events = list(Event.objects.all().order_by("-start"))
 
         # Function for the progress bars
         for every_event in my_events:
@@ -43,6 +43,9 @@ def event (request, event_acronym, *args, **kwargs):
             "date",
             "start",
             "room__room")
+        # Special case for 34c4
+        if my_event.id == 6:
+            my_talks = my_talks.all().exclude(video_duration = "00:00:00").exclude(amara_key = "").exclude(filename = "")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
         if "day" in kwargs and int(kwargs.get("day")) > 0:
             day = kwargs.pop("day")
@@ -153,12 +156,17 @@ def talk(request, talk_id):
         s.form = get_subtitle_form(request, my_talk, s)
       
     speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
+    
+    show_pad = False
+    if my_talk.link_to_writable_pad[0:1] != "#":
+        show_pad = True
 
     return render(request, "www/talk.html",
                   {"talk" : my_talk,
                    "subtitles": my_subtitles,
                    "page_sub_titles": my_talk.page_sub_titles,
                    "talk_speakers_statistics": speakers_in_talk_statistics,
+                   "show_etherpad": show_pad,
                    "request": request} ) #"speakers": my_speakers,
 
 

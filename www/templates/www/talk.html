@@ -207,7 +207,7 @@
 </div><!-- End class row -->
 
 <div>
-    {% if show_etherpad and talk.link_to_writable_pad != ""  %}
+    {% if show_etherpad and talk.link_to_writable_pad != "" and talk.has_original_subtitle_in_transcript_state  %}
         <div class="alert alert-info" role="alert">
             <strong>This talk has a pad for the transcript, please use this instead of the amara editor:</strong> <a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a>
         </div>

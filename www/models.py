@@ -483,6 +483,13 @@ class Talk(BasisModell):
             return True
         else:
             return False
+    
+    @property
+    def has_original_subtitle_in_transcript_state(self):
+        if self.subtitle_set.filter(is_original_lang = True, state_id = 2).count() >= 1:
+            return True
+        else:
+            return False
 
     @property
     def page_sub_titles(self):

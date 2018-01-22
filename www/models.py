@@ -307,7 +307,9 @@ class Talk(BasisModell):
     recalculate_speakers_statistics = models.BooleanField(default = False)
     n_most_frequent_words = models.TextField(default = "{}")    # n most common words as json string
     n_most_frequent_words_speakers = models.TextField(default = "{}")    # n most common words as json string
-
+    transcript_from_trint = models.BooleanField(default = False)        # If the transcript was from trint
+    has_priority = models.BooleanField(default = False)                 # If the talk has priority because it was requested by someone
+    
     # Recalculate statistics data over the whole talk
     @transaction.atomic
     def recalculate_whole_talk_statistics(self, force = False):
@@ -980,4 +982,4 @@ class Talk_Persons(BasisModell):
             return True
         else:
             return False
-0
+

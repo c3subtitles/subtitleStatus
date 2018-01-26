@@ -260,7 +260,15 @@ class Speaker_Links(BasisModell):
     speaker = models.ForeignKey(Speaker, blank = True)
     title = models.CharField(max_length = 200, default = "", blank = True)
     url = models.URLField(blank = True)
-        
+ 
+
+"""
+# Where is the Transcipt from
+class Transcript (BasisModell):
+    creator = models.CharField(max_length = 20, default = None, blank = True) # None, trint, youtube, scribie, handmade ...
+  
+"""
+ 
 
 # Talk with all its data
 class Talk(BasisModell):
@@ -309,6 +317,7 @@ class Talk(BasisModell):
     n_most_frequent_words_speakers = models.TextField(default = "{}")    # n most common words as json string
     transcript_from_trint = models.BooleanField(default = False)        # If the transcript was from trint
     has_priority = models.BooleanField(default = False)                 # If the talk has priority because it was requested by someone
+    #transcript_by = models.ForeignKey(Transcript, default = 0)
     
     # Recalculate statistics data over the whole talk
     @transaction.atomic
@@ -982,4 +991,3 @@ class Talk_Persons(BasisModell):
             return True
         else:
             return False
-

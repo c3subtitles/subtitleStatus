@@ -1,7 +1,7 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
-from www.forms import SubtitleForm
+from www.forms import SubtitleForm, BForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
@@ -438,4 +438,56 @@ def test(request):
         "sort_spm" : sort_spm,
         "sort_desc" : sort_desc,
         "form" : form}
+        )
+
+# B Test-Form
+def b_test(request):
+    text = "Enter Data here"
+     # If this is a POST request then process the Form data
+    if request.method == 'POST':
+        my_form = BForm(request.POST)
+        if my_form.is_valid():
+            text = my_form.cleaned_data["my_text"]
+            """
+            # Part for the questions
+            # Remove double newlines
+            text = text.replace("\r\n\r\n", "\r\n")
+            # Replace linebreaks with spaces
+            text = text.replace("\r\n", " ")
+            for letter in ["A", "B", "C", "D"]:
+                text = text.replace(" " + letter + ".", "\r\n" + letter + ".")
+            for letter in ["i.", "ii.", "iii.", "iv.", "v."]:
+                text = text.replace(" " + letter, "\r\n" + letter)
+            """
+
+            #"""
+            # Part for the answers
+
+            # Remove the lines with the broken boxes
+            text = text.replace("✗\r\n","")
+            # Replace double empty lines
+            text = text.replace("\r\n\r\n", "\r\n")
+            # Replace linebreaks with spaces
+            text = text.replace("\r\n"," ")
+            text = text.replace(" ☐","\r\n☐")
+            text = text.replace(" •", "\r\n•")
+            #"""
+            counter = len(text)
+            if text[counter - 1]==" ":
+                text = text[0:-1]
+            #my_form.my_text = text
+            my_form = BForm(initial={"my_text":text,})
+        else:
+            #my_form.cleaned_data["my_text"] = "BÄtsch"
+            text = "Bätsch"
+            #text += "Ätsch!"
+            #return HttpResponseRedirect(reverse(text))
+     # If this is a GET (or any other method) create the default form.
+    else:
+        my_form = BForm()#initial={"my_text":text,})        
+ 
+    return render(request, "www/b_test.html",
+        {
+        "form" : my_form,
+        "my_text": text}
         )

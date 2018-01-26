@@ -76,6 +76,7 @@ if __name__ == '__main__':
         # append SBV chunks until we match the current transcript chunk
         while chunk != line and current_chunk < total_sbv_chunks:
             # separator may be a space or newline
+            #print(repr(chunk), repr(line), len(chunk), len(line))
             separator = chunk[len(line)]
             line += separator + sbv_chunks[current_chunk]
             # collect then timestamp, in case this is then last SBV chunk

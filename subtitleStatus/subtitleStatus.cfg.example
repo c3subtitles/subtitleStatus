@@ -1,4 +1,5 @@
 [sql]
+type=postgresql
 database=subtitlestatus
 user=subtitlestatus
 password=a_very_secure_password

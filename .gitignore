@@ -51,6 +51,7 @@ coverage.xml
 /static/*
 www/migrations/
 www/static/
+subtitleStatus/settings.py
 
 # Sphinx documentation
 docs/_build/
@@ -67,6 +68,7 @@ downloads/*
 
 # Personal folders
 andi-temp/*
+barbara-temp/
 
 # Credentials files
 credentials.py
@@ -79,3 +81,11 @@ subtitles.png
 
 #PyCharm
 .idea/
+
+# Data Dumps
+django_data_dumps/
+data_dump.py
+
+# Sync Folder
+subtitles_sync_folder
+subtitles_sync_folder/*

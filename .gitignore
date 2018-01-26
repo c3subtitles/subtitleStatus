@@ -89,3 +89,4 @@ data_dump.py
 # Sync Folder
 subtitles_sync_folder
 subtitles_sync_folder/*
+subtitleStatus/subtitleStauts.cfg

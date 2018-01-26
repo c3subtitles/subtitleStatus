@@ -10,17 +10,37 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import configparser
+from django.utils.crypto import get_random_string
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = BASE_DIR
 
 TEMPLATE_DIRS = [PROJECT_ROOT+'/templates']
 
+config = configparser.RawConfigParser()
+config.read([os.path.join(BASE_DIR, 'subtitleStatus.cfg'), '/etc/billing/subtitleStatus.cfg',
+            os.path.expanduser('~/.subtitleStatus.cfg'),
+            os.environ.get('SUBTITLESTATUS_CONFIG', 'subtitleStatus.cfg')],
+            encoding='utf-8')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'YOUR SECRET KEY'
+if config.has_option('django', 'secret'):
+    SECRET_KEY = config.get('django', 'secret')
+else:
+    SECRET_FILE = os.path.join(os.path.dirname(__file__), '.secret')
+    if os.path.exists(SECRET_FILE):
+        with open(SECRET_FILE, 'r') as f:
+            SECRET_KEY = f.read().strip()
+    else:
+        SECRET_KEY = get_random_string(50, string.printable)
+        with open(SECRET_FILE, 'w') as f:
+            os.chmod(SECRET_FILE, 0o600)
+            os.chown(SECRET_FILE, os.getuid(), os.getgid())
+            f.write(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -68,10 +88,10 @@ WSGI_APPLICATION = 'subtitleStatus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'subtitlestatus',
-        'USER': 'subtitlestatus',
-        'PASSWORD': 'YOUR PASWORD',
-        'HOST': 'localhost'
+        'NAME': config.get('sql', 'database', fallback='subtitlestatus'),
+        'USER': config.get('sql', 'user', fallback='subtitlestatus'),
+        'PASSWORD': config.get('sql', 'password'),
+        'HOST': config.get('sql', 'host', fallback='localhost'),
     }
 }
 

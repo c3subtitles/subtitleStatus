@@ -90,3 +90,4 @@ data_dump.py
 subtitles_sync_folder
 subtitles_sync_folder/*
 subtitleStatus/subtitleStauts.cfg
+.secret

@@ -86,15 +86,32 @@ WSGI_APPLICATION = 'subtitleStatus.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config.get('sql', 'database', fallback='subtitlestatus'),
-        'USER': config.get('sql', 'user', fallback='subtitlestatus'),
-        'PASSWORD': config.get('sql', 'password'),
-        'HOST': config.get('sql', 'host', fallback='localhost'),
+# database configuration from config file
+if config.get('sql', 'type', fallback='sqlite').lower() == 'sqlite':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'billing_db.sqlite3'),
     }
-}
+elif config.get('sql', 'type').lower() == 'postgresql':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config.get('sql', 'database'),
+        'USER': config.get('sql', 'user'),
+        'PASSWORD': config.get('sql', 'password'),
+        'HOST': config.get('sql', 'host', fallback=''),
+        'PORT': config.get('sql', 'port', fallback='')
+    }
+elif config.get('sql', 'type').lower() == 'mysql':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config.get('sql', 'database'),
+        'USER': config.get('sql', 'user'),
+        'PASSWORD': config.get('sql', 'password'),
+        'HOST': config.get('sql', 'host', fallback=''),
+        'PORT': config.get('sql', 'port', fallback='')
+    }
+else:
+    raise ValueError('invalid database type "%s"' % config.get('sql', 'type').lower())
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

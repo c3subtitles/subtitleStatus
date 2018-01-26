@@ -96,7 +96,7 @@ if config.get('sql', 'type', fallback='sqlite').lower() == 'sqlite':
     }
 elif config.get('sql', 'type').lower() == 'postgresql':
     DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config.get('sql', 'database'),
         'USER': config.get('sql', 'user'),
         'PASSWORD': config.get('sql', 'password'),

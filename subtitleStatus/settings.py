@@ -86,6 +86,8 @@ WSGI_APPLICATION = 'subtitleStatus.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+DATABASES = {}
+
 # database configuration from config file
 if config.get('sql', 'type', fallback='sqlite').lower() == 'sqlite':
     DATABASES['default'] = {

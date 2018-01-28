@@ -33,7 +33,38 @@ This template is used in the events pages to display single talks in event.html
 	{% else %}
 		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
     {% endif %}
+    
+    <h4>
+    {% if talk.has_priority %}
+        <button type="button" class="btn btn-primary btn">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Priority
+        </button>
+    {% endif %}
+    
+    {% if talk.has_transcript_by_trint %}
+        <button type="button" class="btn btn-info btn">
+            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Trint Transcript
+        </button>
+    {% endif %}
+    
+    {% if talk.has_transcript_by_scribie %}
+        <button type="button" class="btn btn-info btn">
+            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Scribie Transcript
+        </button>
+    {% endif %}
+    
+    {% if talk.has_transcript_by_youtube %}
+    <button type="button" class="btn btn-default btn">
+        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Youtube Transcript
+    </button>
+    {% endif %}
+    </h4>
+
 </a>
+
+
+
+
 {% comment %}
 <ul>
 	<li><a href="/talk/{{talk.pk}}">{{talk.title}}</a></li>

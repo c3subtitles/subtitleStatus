@@ -498,6 +498,34 @@ class Talk(BasisModell):
             return True
         else:
             return False
+            
+    @property
+    def has_transcript_by_trint(self):
+        if self.transcript_by.id == 3:
+            return True
+        else:
+            return False
+
+    @property
+    def has_transcript_by_scribie(self):
+        if self.transcript_by.id == 4:
+            return True
+        else:
+            return False
+
+    @property
+    def has_transcript_by_youtube(self):
+        if self.transcript_by.id == 2:
+            return True
+        else:
+            return False
+
+    @property
+    def has_transcript_by_human(self):
+        if self.transcript_by.id == 1:
+            return True
+        else:
+            return False
 
     @property
     def page_sub_titles(self):

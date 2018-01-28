@@ -400,12 +400,47 @@ class Talk(BasisModell):
                 self.n_most_frequent_words_speakers = "{}"
                 self.save()
 
-
     # Recalculate statistics-data
     @transaction.atomic
     def recalculate(self, force = False):
         self.recalculate_whole_talk_statistics(force)
         self.recalculate_speakers_in_talk_statistics(force)
+
+    # Reset statistics data related to this talk
+    # Is used for a original_subtitle update
+    # use hard_reset = True if a subtitle is reset from complete to not complete any more
+    @transaction.atomic
+    def reset_related_statistics_data(self, hard_reset = False):
+        # Set the recalculate flags no matter if hard_reset or not
+        self.recalculate_talk_statistics = True
+        self.recalculate_speakers_statistics = True
+        if hard_reset:
+            # Reset everything of the talk and directly related to the talk
+            self.average_spm = None
+            self.average_wpm = None
+            self.strokes = None
+            self.words = None
+            self.time_delta = None
+            self.speakers_average_spm = None
+            self.speakers_average_wpm = None
+            self.n_most_frequent_words = "{}"
+            self.n_most_frequent_words_speakers = "{}"
+            Statistics_Raw_Data.objects.filter(talk = self).update(recalculate_statistics = True,
+                time_delta = None,
+                words = None,
+                strokes = None)
+            Talk_Persons.objects.filter(talk = self).update(recalculate_statistics = True,
+                average_spm = None,
+                average_wpm = None,
+                words = None,
+                strokes = None,
+                time_delta = None,
+                n_most_frequent_words = "{}")
+        # If no hard_reset only also set the Statistics_Raw_Data to recalculate and the Talk_Persons Data
+        else:
+            Statistics_Raw_Data.objects.filter(talk = self).update(recalculate_statistics = True)
+            Talk_Persons.objects.filter(talk = self).update(recalculate_statistics = True)
+        self.save()
 
     # Return the n most common words as dict
     @property

@@ -443,14 +443,6 @@ class Talk(BasisModell):
             Talk_Persons.objects.filter(talk = self).update(recalculate_statistics = True)
         self.save()
 
-    # Create a timedelta of the amara_update_interval, for much easier use
-    @property
-    def calculated_time_delta_for_activities(self):
-        return timedelta(seconds = self.amara_update_interval.second,
-            minutes = self.amara_update_interval.minute,
-            hours = self.amara_update_interval.hour,
-            microseconds = self.amara_update_interval.microsecond)
-
     # Return the n most common words as dict
     @property
     def n_common_words(self):
@@ -601,6 +593,14 @@ class Talk(BasisModell):
 
         # Call super delete function
         super(Talk, self).delete(*args, **kwargs)
+
+    # Create a timedelta of the amara_update_interval, for much easier use
+    @property
+    def calculated_time_delta_for_activities(self):
+        return timedelta(seconds = self.amara_update_interval.second,
+            minutes = self.amara_update_interval.minute,
+            hours = self.amara_update_interval.hour,
+            microseconds = self.amara_update_interval.microsecond)
 
 
 # States for every subtitle like "complete" or "needs sync"

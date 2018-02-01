@@ -865,6 +865,15 @@ class Subtitle(BasisModell):
             self.needs_removal_from_sync_folder = False
             self.save()
 
+    # Set all flags for a sync to cdn, media frontend, YT ...
+    def set_all_sync_flags(self, save = False):
+        #self.needs_sync_to_ftp = True
+        #self.needs_sync_to_media = True
+        #self.needs_sync_to_YT = True
+        self.needs_sync_to_sync_folder = True
+        if save:
+            self.save()
+
 
     # Set to autotiming in progress
     @transaction.atomic

@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db import transaction
 from .statistics_helper import *
 import json
+import credentials as cred
 
 # Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
@@ -599,7 +600,7 @@ class Talk(BasisModell):
         Statistics_Raw_Data.objects.filter(talk = self).delete()
 
         # Call super delete function
-        super(Talk, self).delete(*args, **kwargs) 
+        super(Talk, self).delete(*args, **kwargs)
 
 
 # States for every subtitle like "complete" or "needs sync"

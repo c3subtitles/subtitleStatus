@@ -602,6 +602,73 @@ class Talk(BasisModell):
             hours = self.amara_update_interval.hour,
             microseconds = self.amara_update_interval.microsecond)
 
+    # Check activity on amara
+    @transaction.atomic
+    def check_activity_on_amara(self, force = False):
+        # Take the timestamp for "last executed at" at the beginning of the function
+        start_timestamp = datetime.now(timezone.utc)
+        # Only proceed if forced or if the time delta for another query has passed
+        if force or (start_timestamp > self.next_amara_activity_check):
+            import requests
+            # Only check for new versions. New urls or other stuff is not interesting
+            # Check for changes after the last check
+            # If the check is forced, do not care about the last time the activity was checked
+            if force:
+                parameters = {'type': 'version-added'}
+            else:
+                parameters = {'type': 'version-added',
+                    'after': self.amara_activity_last_checked}
+            basis_url = "https://amara.org/api/videos/"
+            url = basis_url + self.amara_key + "/activity/"
+            results = {}
+            # Loop as long as not all new activity datasets have been checked
+            # The json result from amara includes a "next" field which has the url for the next query if not 
+            # all results came with the first query
+            while url != None:
+                r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
+                activities = json.loads(r.text)
+                url = activities["meta"]["next"]
+                # Get the results for any language separate
+                for any in activities["objects"]:
+                    language = any["language"]
+                    # Parse the date time string into a datetime object
+                    timestamp = datetime.strptime(any["date"], '%Y-%m-%dT%H:%M:%SZ')
+                    # Amara Timestamps are all in utc, they just don't know yet, so they need to be force told
+                    timestamp = timestamp.replace(tzinfo = timezone.utc)
+                    # Add the new key to the dictionary and only at insert set the timestamp
+                    results.setdefault(language, timestamp)
+                    # Keep the newest timestamp over all api queries
+                    if results[language] < timestamp:
+                        results[language] = timestamp
+            #print(results)
+            # check if subtitles are present and need new data..
+            for any_language in results.keys():
+                my_subtitles = Subtitle.objects.filter(talk = self, language__lang_amara_short = any_language)
+                # Set flag for big query, this means a subtitle is missing because it was recently new added
+                if my_subtitles.count() == 0:
+                    # Set the big update flag
+                    self.needs_complete_amara_update = True
+                    my_language = Language.objects.get(lang_amara_short = any_language)
+                    # Don't create a subtitle here, this will cause subtitles with revision = 0
+                    #my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language, last_changed_on_amara = results[any_language])
+                    print("Talk id: ",self.id, " will get a new created subtitle")
+                elif my_subtitles.count() == 1:
+                    # Only proceed if the last activity has changed
+                    # The copy is a dirty workaround because saving in my_subtitles[0] did not work!
+                    my_subtitle = my_subtitles[0]
+                    if my_subtitle.last_changed_on_amara < results[any_language]:
+                        my_subtitle.last_changed_on_amara = results[any_language]
+                        # Set the big update flag
+                        self.needs_complete_amara_update = True
+                        my_subtitle.save()
+                        print("Talk id: ",self.id, "Subtitle id: ", my_subtitle.id, " new last changes:  ", my_subtitle.last_changed_on_amara  )
+                else:
+                    print("Something wrong with talk", self.id, self.title)
+            # Save the timestamp of the start of the function as last checked activity on amara timestamp
+            self.amara_activity_last_checked = start_timestamp
+            self.next_amara_activity_check = start_timestamp + self.calculated_time_delta_for_activities
+            self.save()
+
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):

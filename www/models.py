@@ -586,7 +586,7 @@ class Talk(BasisModell):
         else:
             return True
 
-    # Override delete function        
+    # Override delete function
     @transaction.atomic
     def delete(self, *args, **kwargs):
         # Delete related Talk_Persons datasets

@@ -2,12 +2,16 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script checks for every talk with an amara key if there are updates or
-# new subtitles for this talk and if so puts them in the database or updates
-# them
+# This script checks for every talk with an amara key if there were any
+# "activities" since the last check
+# If there was an activity it triggerts the "big" amara update
 #
-# Currently missing: The setting of the corresponding timestamps because there
-# is now way to read them from a nonfinished file
+# If a talk didn't have a big amara update during the last 24h it forces also
+# a big update for this talk to avoid missing a complete flag which can
+# unfortunately be set without a change of revision which means the talk has
+# no acitivity in the activity check
+#
+# This script is meant to be run as a cronjob
 #==============================================================================
 
 import os

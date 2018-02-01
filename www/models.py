@@ -968,6 +968,25 @@ class Subtitle(BasisModell):
         if save:
             self.save()
 
+    # Set the subtitle complete
+    @transaction.atomic
+    def set_complete(self, was_already_complete = False):
+        if self.is_original_lang:
+            self.time_processed_transcribing = self.talk.video_duration
+            self.time_processed_syncing = self.talk.video_duration
+            self.time_quality_check_done = self.talk.video_duration
+            self.state_id = 8
+        else:
+            self.time_processed_translating = self.talk.video_duration
+            self.state_id = 12
+        # Only tweet if the file was not already complete
+        if not was_already_complete:
+            self.tweet = True
+        self.blocked = False
+        self.set_all_sync_flags()
+        self.needs_automatic_syncing = False
+        self.save()
+
 
     # Set to autotiming in progress
     @transaction.atomic

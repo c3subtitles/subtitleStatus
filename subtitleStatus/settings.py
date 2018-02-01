@@ -92,7 +92,7 @@ DATABASES = {}
 if config.get('sql', 'type', fallback='sqlite').lower() == 'sqlite':
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'billing_db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'subtitlestatus.sqlite3'),
     }
 elif config.get('sql', 'type').lower() == 'postgresql':
     DATABASES['default'] = {

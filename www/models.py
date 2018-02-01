@@ -987,6 +987,21 @@ class Subtitle(BasisModell):
         self.needs_automatic_syncing = False
         self.save()
 
+    # Reset subtitle if it was complete but it is not any more
+    @transaction.atomic
+    def reset_from_complete(self):
+        self.time_processed_transcribing = "00:00:00"
+        self.time_processed_syncing = "00:00:00"
+        self.time_quality_check_done = "00:00:00"
+        self.time_processed_translating = "00:00:00"
+        if self.is_original_lang:
+            self.state_id = 2
+        else:
+            self.state_id = 11
+        self.set_all_removal_flags()
+        self.needs_automatic_syncing = False
+        self.blocked = False
+        self.save()
 
     # Set to autotiming in progress
     @transaction.atomic

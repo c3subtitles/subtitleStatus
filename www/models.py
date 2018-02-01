@@ -798,6 +798,28 @@ class Subtitle(BasisModell):
             self.save()
 
 
+    # Set to autotiming in progress
+    @transaction.atomic
+    def set_to_autotiming_in_progress(self):
+        # Stop if the subtitle is not the original language
+        if not self.is_original_lang:
+            return None
+        needs_save = False
+        if self.time_processed_transcribing != self.talk.video_duration:
+            self.time_processed_transcribing = self.talk.video_duration
+            needs_save = True
+        if self.blocked == False:
+            self.blocked = True
+            needs_save = True
+        if self.needs_automatic_syncing == False:
+            self.needs_automatic_syncing = True
+            needs_save = True
+        if self.state_id != 4:
+            self.state_id = 4
+            needs_save = True
+        if needs_save:
+            self.save()
+        return needs_save
 
 # Links from the Fahrplan
 class Links(BasisModell):

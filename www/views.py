@@ -62,7 +62,9 @@ def event (request, event_acronym, *args, **kwargs):
         # Create cunk for the 3 columns display of talks on event page
         talks_per_line = 3
         talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, len(my_talks), talks_per_line)]
-        
+
+        datetime_min = datetime.datetime.min
+
     except ObjectDoesNotExist:
         raise Http404
 
@@ -72,7 +74,8 @@ def event (request, event_acronym, *args, **kwargs):
         "my_langs" : my_langs,
         "page_sub_titles": my_event.page_sub_titles,
         "talks_chunk" : talks_chunk,
-        "request": request} )
+        "request": request,
+        "datetime_min": datetime_min})
 
 # Form to save the progress of a subtitle
 def get_subtitle_form(request, talk, sub):
@@ -154,20 +157,23 @@ def talk(request, talk_id):
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
-      
+
     speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
-    
+
     show_pad = False
     if my_talk.link_to_writable_pad[0:1] != "#":
         show_pad = True
 
+    datetime_min = datetime.datetime.min
+
     return render(request, "www/talk.html",
                   {"talk" : my_talk,
-                   "subtitles": my_subtitles,
-                   "page_sub_titles": my_talk.page_sub_titles,
-                   "talk_speakers_statistics": speakers_in_talk_statistics,
-                   "show_etherpad": show_pad,
-                   "request": request} ) #"speakers": my_speakers,
+                    "subtitles": my_subtitles,
+                    "page_sub_titles": my_talk.page_sub_titles,
+                    "talk_speakers_statistics": speakers_in_talk_statistics,
+                    "show_etherpad": show_pad,
+                    "request": request,
+                    "datetime_min": datetime_min})
 
 
 def talk_by_frab(request, frab_id):
@@ -243,9 +249,9 @@ def speaker(request, speaker_id):
     # If the speaker has an doppelgaenger, do a redirect to this site
     if my_speaker.doppelgaenger_of is not None :
         return redirect('speaker', speaker_id = my_speaker.doppelgaenger_of.id)
-    
+
     my_talk_persons = Talk_Persons.objects.filter(speaker = my_speaker).order_by("-talk__date").select_related('talk', 'speaker').prefetch_related('talk__subtitle_set')
-    
+
     my_speakers_statistics = Statistics_Speaker.objects.filter(speaker = my_speaker) \
         .exclude(average_wpm = None, average_spm = None) \
         .order_by("language__language_en")
@@ -279,7 +285,7 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_events += ", " + any
-    
+
     # All tracks the speaker spoke in
     my_tracks = ""
     first_flag = True
@@ -289,7 +295,7 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_tracks += ", " + any
-    
+
     # Get all languages the speaker spoke in and convert to a string with commas
     first_flag = True
     my_languages = ""
@@ -299,7 +305,7 @@ def speaker(request, speaker_id):
             first_flag = False
         else:
             my_languages += ", " + any
-      
+
     # Get all non blacklisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
     my_talks = my_talks.filter(blacklisted = False).order_by("-date").prefetch_related("talk_persons_set")
@@ -356,7 +362,7 @@ def _progress_bar(total, green=0.0, orange=0.0, red=0.0, precision=1):
             'bar_synced': orange_amount,
             'bar_transcribed': red_amount,
             'bar_nothing': grey_amount,
-           }
+            }
 
 def progress_bar_for_talks(talks):
     transcribed = synced = checked = 0
@@ -399,7 +405,7 @@ def statistics_speakers_in_talks(request):
     my_talk_persons = Talk_Persons.objects.all().exclude(average_wpm = None).order_by("-average_spm")
     return render(request, "www/statistics_speakers_in_talks.html",
         {"talk_persons" : my_talk_persons})
-        
+
 # Test-View
 def test(request):
     
@@ -428,8 +434,8 @@ def test(request):
             pass
         else:
             event_days[any.index] = 0
-    
-    
+
+
     return render(request, "www/test.html",
         {"talk_persons" : my_talk_persons,
         "my_langs" : my_langs,
@@ -484,8 +490,8 @@ def b_test(request):
             #return HttpResponseRedirect(reverse(text))
      # If this is a GET (or any other method) create the default form.
     else:
-        my_form = BForm()#initial={"my_text":text,})        
- 
+        my_form = BForm()#initial={"my_text":text,})
+
     return render(request, "www/b_test.html",
         {
         "form" : my_form,

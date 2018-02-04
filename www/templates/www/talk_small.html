@@ -26,12 +26,18 @@ This template is used in the events pages to display single talks in event.html
                 </tr>
                 <tr>
                     <th></th>
-                    <td>Last revision: {{ subtitle.last_changed_on_amara|timesince }} ago</td>
+                    <td>Last revision:
+                        {% if subtitle.last_changed_on_amara.date != datetime_min.date %}
+                            {{ subtitle.last_changed_on_amara|timesince }} ago
+                        {% else %}
+                            unknown
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </table>
-	{% else %}
-		<p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
+    {% else %}
+        <p>No subtitles yet in the language of the presentation.<br />Start working on them!</p>
     {% endif %}
     
     <h4>

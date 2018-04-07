@@ -626,7 +626,13 @@ class Talk(BasisModell):
             # all results came with the first query
             while url != None:
                 r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
-                activities = json.loads(r.text)
+                #print(r.text)
+                # If amara doesn't reply with a valid json create one.
+                try:
+                    activities = json.loads(r.text)
+                except:
+                    self.check_amara_video_data()
+                    activities = json.loads('{"meta":{"previous":null,"next":null,"offset":0,"limit":20,"total_count":0},"objects":[]}')
                 url = activities["meta"]["next"]
                 # Get the results for any language separate
                 for any in activities["objects"]:

@@ -709,12 +709,16 @@ class Talk(BasisModell):
                             my_subtitle.is_original_lang = amara_subt_is_original
                             my_subtitle.revision = amara_subt_revision
                             my_subtitle.save()
+                            # If this is an subtitle which is the original language
+                            # and is in a state which has already statistics, also recalculate them
+                            if my_subtitle.is_original_lang and my_subtitle.state_id == (5 or 6 or 7):
+                                self.reset_related_statistics_data()
                         # If the subtitle was not complete but is complete now
                         elif not my_subtitle.complete and amara_subt_is_complete:
                             my_subtitle.complete = amara_subt_is_complete
                             my_subtitle.is_orignal_lang = amara_subt_is_original
                             my_subtitle.revision = amara_subt_revision
-                            # This sets the sync flags and the tweet-flag
+                            # This sets the sync flags and the tweet-flag and also lets the statistics to be recalculated
                             my_subtitle.set_complete(was_already_complete = False)
                             # If the talk also is in the original language, recalculate statistics
                             if my_subtitle.is_original_lang:
@@ -725,7 +729,7 @@ class Talk(BasisModell):
                             my_subtitle.complete = amara_subt_is_complete
                             my_subtitle.is_orignal_lang = amara_subt_is_original
                             my_subtitle.revision = amara_subt_revision
-                            # This sets the sync flags and the tweet-flag
+                            # This sets the sync flags and the tweet-flag and lets the statistics to be recalculated
                             my_subtitle.set_complete(was_already_complete = True)
                             # If the talk also is in the original language, recalculate statistics
                             if my_subtitle.is_original_lang:
@@ -736,10 +740,8 @@ class Talk(BasisModell):
                             my_subtitle.complete = amara_subt_is_complete
                             my_subtitle.is_orignal_lang = amara_subt_is_original
                             my_subtitle.revision = amara_subt_revision
+                            # Resets the states and also the statistics if it is the original language
                             my_subtitle.reset_from_complete()
-                            # If the talk also is in the original language, recalculate statistics
-                            if my_subtitle.is_original_lang:
-                                my_subtitle.talk.reset_related_statistics_data(hard_reset = True)
                             my_subtitle.save()
 
                     # If the revision hasn't changed but the complete flag has changed, set the subtitle complete
@@ -981,6 +983,8 @@ class Subtitle(BasisModell):
             self.time_processed_syncing = self.talk.video_duration
             self.time_quality_check_done = self.talk.video_duration
             self.state_id = 8
+            # Let the related statistics data be recalculated
+            self.talk.reset_related_statistics_data()
         else:
             self.time_processed_translating = self.talk.video_duration
             self.state_id = 12

@@ -412,9 +412,8 @@ class Talk(BasisModell):
     # use hard_reset = True if a subtitle is reset from complete to not complete any more
     @transaction.atomic
     def reset_related_statistics_data(self, hard_reset = False):
-        # Set the recalculate flags no matter if hard_reset or not
-        self.recalculate_talk_statistics = True
-        self.recalculate_speakers_statistics = True
+        # If hard reset, do reset the values but do not recalculate!
+        # Only the Speakers statistics data is not reset here because it would get recalculated anyway
         if hard_reset:
             # Reset everything of the talk and directly related to the talk
             self.average_spm = None
@@ -426,21 +425,21 @@ class Talk(BasisModell):
             self.speakers_average_wpm = None
             self.n_most_frequent_words = "{}"
             self.n_most_frequent_words_speakers = "{}"
-            Statistics_Raw_Data.objects.filter(talk = self).update(recalculate_statistics = True,
-                time_delta = None,
+            Statistics_Raw_Data.objects.filter(talk = self).update(time_delta = None,
                 words = None,
                 strokes = None)
-            Talk_Persons.objects.filter(talk = self).update(recalculate_statistics = True,
-                average_spm = None,
+            Talk_Persons.objects.filter(talk = self).update(average_spm = None,
                 average_wpm = None,
                 words = None,
                 strokes = None,
                 time_delta = None,
                 n_most_frequent_words = "{}")
-        # If no hard_reset only also set the Statistics_Raw_Data to recalculate and the Talk_Persons Data
+        # If no hard_reset only set all recalculate flags
         else:
             Statistics_Raw_Data.objects.filter(talk = self).update(recalculate_statistics = True)
             Talk_Persons.objects.filter(talk = self).update(recalculate_statistics = True)
+            self.recalculate_talk_statistics = True
+            self.recalculate_speakers_statistics = True        
         self.save()
 
     # Return the n most common words as dict

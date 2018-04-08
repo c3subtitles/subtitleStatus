@@ -23,6 +23,9 @@ class SubtitleForm(forms.ModelForm):
            self._errors['time_quality_check_done'] = self.error_class(['Time longer than the talk.'])
         if cleaned_data['time_processed_translating'] > my_obj.talk.video_duration:
            self._errors['time_processed_translating'] = self.error_class(['Time longer than the talk.'])
+        # Trigger a complete amara update
+        my_obj.talk.needs_complete_amara_update = True
+        my_obj.talk.save()
         return cleaned_data
 
 class TestForm(forms.Form):

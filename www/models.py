@@ -1001,6 +1001,8 @@ class Subtitle(BasisModell):
         self.time_processed_translating = "00:00:00"
         if self.is_original_lang:
             self.state_id = 2
+            # Hard reset for the related statistics data
+            self.talk.reset_related_statistics_data(True)
         else:
             self.state_id = 11
         self.set_all_removal_flags()

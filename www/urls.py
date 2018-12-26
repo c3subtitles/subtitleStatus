@@ -2,6 +2,7 @@
 from . import views
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
+from django.contrib import admin
 
 urlpatterns = patterns('',
         url(r'^$', views.start, name="home"),
@@ -23,8 +24,8 @@ urlpatterns = patterns('',
         url(r'^statistics/speakers_in_talks/$',views.statistics_speakers_in_talks),
         url(r'^test/$',views.test),
         url(r'^b_test/$',views.b_test),
+        url(r'^admin/',include(admin.site.urls)),
 )
 if settings.DEBUG:
     urlpatterns += patterns('django.contrib.staticfiles.views',
         url(r'^static/(?P<path>.*)$','serve'))
-        

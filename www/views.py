@@ -1,11 +1,13 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from www.models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
-from www.forms import SubtitleForm, BForm
+from www.forms import SubtitleForm, BForm, SimplePasteForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from www import transforms
 import datetime
 #from django import forms
 #from copy import deepcopy
@@ -241,7 +243,7 @@ def updateSubtitle(request, subtitle_id):
 def eventStatus(request, event):
     return render(request, 'status', {'eventname':event})
 
-    
+
 # Speaker summary website
 def speaker(request, speaker_id):
     # Check if the Speaker ID exists, if not return a 404
@@ -309,7 +311,7 @@ def speaker(request, speaker_id):
     # Get all non blacklisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
     my_talks = my_talks.filter(blacklisted = False).order_by("-date").prefetch_related("talk_persons_set")
-      
+
     # Create talk_chunks of 3 per line
     talks_per_line = 3
     my_talks_chunk = [my_talks[x:x+talks_per_line] for x in range(0, my_talks.count(), talks_per_line)]
@@ -408,7 +410,7 @@ def statistics_speakers_in_talks(request):
 
 # Test-View
 def test(request):
-    
+
     if request.method == "POST":
         form = TestForm(request.POST)
         if form.is_valid():
@@ -497,3 +499,32 @@ def b_test(request):
         "form" : my_form,
         "my_text": text}
         )
+
+
+@login_required
+def pad_from_trint(request, subtitle_id, next_ids):
+    if next_ids is None:
+        next_ids = ''
+
+    nexts = next_ids.split(',')
+    first = nexts[0]
+    rest = nexts[1:]
+
+    subtitle = get_object_or_404(Subtitle, pk=subtitle_id)
+    args = {'next_ids': next_ids,
+            'subtitle': subtitle,
+            'first': first,
+            'rest': rest,
+            'form': SimplePasteForm()
+            }
+
+    if request.method == 'POST':
+        form = SimplePasteForm(request.POST)
+        if form.is_valid():
+            args['form'] = form
+            args['result'] = transforms.pad_from_trint(form.cleaned_data['text'])
+            return render(request, 'www/pad_result.html',
+                          args)
+
+    return render(request, 'www/pad_from_trint.html',
+                  args)

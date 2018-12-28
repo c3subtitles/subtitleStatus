@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.contrib import admin
 from www.models import Talk
 from www.models import Tracks
@@ -91,6 +93,15 @@ class SubtitleAdmin(admin.ModelAdmin):
             return obj.state
 
 
+    def pad_from_trint(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        first = selected[0]
+        rest = ','.join(selected[1:])
+        return HttpResponseRedirect(
+            reverse('padFromTrint', args=[first, rest]))
+
+
+    actions = ['pad_from_trint']
     list_display = ('id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
     list_filter = (LanguageFilter, 'is_original_lang', 'state', 'complete',

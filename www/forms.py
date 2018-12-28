@@ -35,24 +35,31 @@ class TestForm(forms.Form):
     event_31c3 = forms.BooleanField(label = "31c3", required = False, initial = True)
     event_32c3 = forms.BooleanField(label = "32c3", required = False, initial = True)
     #event_33c3 = forms.BooleanField(label = "33c3", required = False, initial = True)
-    
+
     lang_none = forms.BooleanField(label = "None", required = False, initial = True)
     lang_en = forms.BooleanField(label = "En", required = False, initial = True)
     lang_de = forms.BooleanField(label = "De", required = False, initial = True)
-    
+
     day_1 = forms.BooleanField(label = "1", required = False, initial = True)
     day_2 = forms.BooleanField(label = "2", required = False, initial = True)
     day_3 = forms.BooleanField(label = "3", required = False, initial = True)
     day_4 = forms.BooleanField(label = "4", required = False, initial = True)
-    
+
     sort_spm = forms.BooleanField(label = "sort by spm", required = False, initial = True)
     sort_asc = forms.BooleanField(label = "sort asc", required = False, initial = True)
 
-    
+
 class BForm(forms.Form):
     my_text = forms.CharField(label="Zu konvertierender Text:", widget=forms.Textarea(attrs={'rows':30, 'cols':100}))
-    
+
     def clean_my_text(self):
         data = self.cleaned_data["my_text"]
         #data = data + "Ätsch"
         return data
+
+
+class SimplePasteForm(forms.Form):
+    text = forms.CharField(label='pad text',
+                           min_length=1,
+                           widget=forms.Textarea(attrs={'rows': 30,
+                                                        'cols': 100}))

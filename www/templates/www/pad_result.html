@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Convert trint transcript to pad contents{% endblock %}
+
+{% block content %}
+<h1>{{talk.title}}</h1>
+<h2>
+  {% if talk.subtitle_talk %}
+  {{ talk.subtitle_talk }}
+  {% endif %}
+</h2>
+
+<div class="alert alert-info" role="alert">
+  <a href="{{ subtitle.talk.link_to_writable_pad }}" target="_blank">Etherpad</a>
+</div>
+
+<pre>{{ result }}</pre>
+
+{% if first %}
+<p>
+  {% if rest %}
+  <a href="{% url 'padFromTrint' first rest %}">next</a>
+  {% else %}
+  <a href="{% url 'padFromTrint' first %}">next</a>
+  {% endif %}
+
+</p>
+{% endif %}
+
+{% endblock %}

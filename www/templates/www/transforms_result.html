@@ -14,14 +14,17 @@
   <a href="{{ subtitle.talk.link_to_writable_pad }}" target="_blank">Etherpad</a>
 </div>
 
-<form action="{% url 'padFromTrint' subtitle.pk next_ids %}" method="post">
-  <table>
-  {{ form }}
-  <tr><td>
-      <input type="submit" value="Submit" />
-      </td><td>{% csrf_token %}</td>
-    </td></tr>
-  </table>
-</form>
+<pre>{{ result }}</pre>
+
+{% if first %}
+<p>
+  {% if rest %}
+  <a href="{% url 'workflowTransforms' first rest %}">next: {{ next_title }}</a>
+  {% else %}
+  <a href="{% url 'workflowTransforms' first %}">next: {{ next_title }}</a>
+  {% endif %}
+
+</p>
+{% endif %}
 
 {% endblock %}

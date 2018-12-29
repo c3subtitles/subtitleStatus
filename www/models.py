@@ -273,6 +273,12 @@ class Speaker_Links(BasisModell):
 class Transcript (BasisModell):
     creator = models.CharField(max_length = 20, blank = True, null = True) # None, trint, youtube, scribie, handmade ..., default with id=0 is None
 
+    def __str__(self):
+        if self.creator is None:
+            return '(no transcript)'
+        else:
+            return self.creator
+
 
 # Talk with all its data
 class Talk(BasisModell):
@@ -806,6 +812,7 @@ class Subtitle(BasisModell):
     blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
     needs_sync_to_sync_folder = models.BooleanField(default = False)
     needs_removal_from_sync_folder = models.BooleanField(default = False)
+    autotiming_step = models.PositiveSmallIntegerField(default=0)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

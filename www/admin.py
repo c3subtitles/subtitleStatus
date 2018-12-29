@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import admin
+from django.shortcuts import get_object_or_404
+
 from www.models import Talk
 from www.models import Tracks
 from www.models import Links

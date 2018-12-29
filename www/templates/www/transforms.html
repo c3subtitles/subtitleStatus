@@ -19,7 +19,7 @@
 <form action="{% url 'workflowTransforms' subtitle.pk next_ids %}" method="post">
   <table>
     {{ form }}
-    {% if step == 2 %}
+    {% if step == 1 %}
     {{ otherform }}
     {% endif %}
   <tr><td>

@@ -530,7 +530,7 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
 
     if (subtitle.autotiming_step == 0 and
         subtitle.transcription_in_progress and
-        subtitle.transcript_by.creator == 'Trint'):
+        subtitle.talk.has_transcript_by_trint):
         args['step'] = 0
     elif (subtitle.autotiming_step == 0 and
           not subtitle.transcription_in_progress):
@@ -546,13 +546,14 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
         next_subtitle = get_object_or_404(Subtitle, pk=first)
         args['next_title'] = next_subtitle.title
 
+    result = None
     if request.method == 'POST':
         form = SimplePasteForm(request.POST)
         if form.is_valid():
             args['form'] = form
 
-            resut = None
             input = form.cleaned_data['text']
+            foo = subtitle.transcription_in_progress
 
             if args['step'] == TRINT:
                 result = transforms.pad_from_trint(input)

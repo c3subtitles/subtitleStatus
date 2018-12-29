@@ -12,7 +12,8 @@
 
 <div class="alert alert-info" role="alert">
   <h3>{{ workflow_step }}</h3>
-  <p><a href="{{ subtitle.talk.link_to_writable_pad }}" target="_blank">Etherpad</a></p>
+  <p><a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a></p>
+  <p><a href="https://www.youtube.com/watch?v={{ talk.youtube_key }}" target="_blank">Youtube</a></p>
 </div>
 
 <form action="{% url 'workflowTransforms' subtitle.pk next_ids %}" method="post">

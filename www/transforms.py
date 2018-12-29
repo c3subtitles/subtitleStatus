@@ -5,7 +5,7 @@ import textwrap
 def chunks(text):
     """Read `text`, splitting it at doubled linebreaks"""
     lines = []
-    for line in text.split('\n'):
+    for line in text.splitlines():
         lines.append(re.sub(' {2,}', ' ', line.strip()))
     return '\n'.join(lines).split('\n\n')
 
@@ -14,8 +14,8 @@ def groups(transcript):
     result = []
     current = []
 
-    for line in transcript.split('\n'):
-        if line == '':
+    for line in transcript.splitlines():
+        if line.strip() == '':
             result.append(list(current))
             current = []
         else:
@@ -41,13 +41,13 @@ def sbv_from_srt(transcript):
 
 def pad_from_trint(text):
     out = ""
-    text = sbv_from_srt(text)
+    text = sbv_from_srt(text.replace('\r\n', '\n'))
 
     for chunk in chunks(text):
-        lines = chunk.split('\n')
+        lines = chunk.splitlines()
 
         for line in lines[2:]:
-            if line == '':
+            if line.strip() == '':
                 continue
             out += ' ' + line
 
@@ -56,13 +56,14 @@ def pad_from_trint(text):
 
 def timing_from_pad(text):
     transcript = []
-    for line in text:
+    for line in text.splitlines():
         if line == '':
             continue
         elif line[0] == '*' and line[-1] == '*':
             transcript.append(line)
         else:
-            transcript.extend(textwrap.fill(line, width=42).split('\n'))
+            transcript.extend((l.strip()
+                               for l in textwrap.fill(line, width=42).splitlines()))
 
     length = len(transcript)
     odd = False
@@ -81,15 +82,15 @@ def timing_from_pad(text):
 
 
 def fix_sbv_linebreaks(transcript, sbv):
-    chunks = chunks(f)
+    transcript_chunks = chunks(transcript)
+    chunks = chunks(sbv)
     sbv_timestamps = []
     sbv_chunks = []
 
     for chunk in chunks:
-        parts = chunk.split('\n')
+        parts = chunk.splitlines()
         sbv_timestamps += [parts[0]] * (len(parts) - 1)
         sbv_chunks += parts[1:]
-
 
     lines = []
     current_chunk = 0

@@ -121,7 +121,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.autotiming_step = 0
             subtitle.save()
-    reset_to_pad.short_description = 'Reset to Pad-from-Trint'
+    reset_to_pad.short_description = 'Restart Workflow from Pad-from-Trint'
 
     def reset_to_timing(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -130,7 +130,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.autotiming_step = 1
             subtitle.save()
-    reset_to_pad.short_description = 'Reset to Timing-from-Pad'
+    reset_to_timing.short_description = 'Restart Workflow from Timing-from-Pad'
 
     def reset_to_sbv(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -139,7 +139,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.autotiming_step = 2
             subtitle.save()
-    reset_to_pad.short_description = 'Reset to Fix-SBV'
+    reset_to_sbv.short_description = 'Restart Workflow from Fix-SBV'
 
     def reset_to_transcribing(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -165,7 +165,7 @@ class SubtitleAdmin(admin.ModelAdmin):
                 subt.save()
                 # Let the related statistics be calculated
                 subt.talk.reset_related_statistics_data()
-    reset_to_qc.short_description = 'Reset subtitle to Quality Control'
+    reset_to_qc.short_description = 'Set subtitle to Quality Control'
 
 
     def transforms_dwim(self, request, queryset):

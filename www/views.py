@@ -535,11 +535,9 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
     elif (subtitle.autotiming_step == 0 and
           not subtitle.transcription_in_progress):
         args['step'] = TIMING
-    elif subtitle.autotiming_step == 1:
+    else:
         args['step'] = SBV
         args['otherform'] = SimplePasteForm(prefix='SBV')
-    else:
-        args['step'] = 2
 
     args['workflow_step'] = STEPS[args['step']]
 

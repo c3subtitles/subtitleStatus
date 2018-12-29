@@ -507,9 +507,9 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
     TIMING = 1
     SBV = 2
 
-    STEPS = {0: 'Convert trint transcript to pad',
-             1: 'Convert pad to timing input',
-             2: 'Fix SBV linebreaks',
+    STEPS = {TRINT: 'Convert trint transcript to pad',
+             TIMING: 'Convert pad to timing input',
+             SBV: 'Fix SBV linebreaks',
              }
 
     if next_ids is None:
@@ -531,13 +531,15 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
     if (subtitle.autotiming_step == 0 and
         subtitle.transcription_in_progress and
         subtitle.talk.has_transcript_by_trint):
-        args['step'] = 0
+        args['step'] = TRINT
     elif (subtitle.autotiming_step == 0 and
           not subtitle.transcription_in_progress):
-        args['step'] = 1
+        args['step'] = TIMING
     elif subtitle.autotiming_step == 1:
-        args['step'] = 2
+        args['step'] = SBV
         args['otherform'] = SimplePasteForm(prefix='SBV')
+    else:
+        args['step'] = 2
 
     args['workflow_step'] = STEPS[args['step']]
 

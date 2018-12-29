@@ -112,6 +112,33 @@ class SubtitleAdmin(admin.ModelAdmin):
         else:
             return obj.state
 
+    def reset_to_pad(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+
+        for sid in selected:
+            subtitle = get_object_or_404(Subtitle, pk=sid)
+            subtitle.autotiming_step = 0
+            subtitle.save()
+    reset_to_pad.short_description = 'Reset to Pad-from-Trint'
+
+    def reset_to_timing(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+
+        for sid in selected:
+            subtitle = get_object_or_404(Subtitle, pk=sid)
+            subtitle.autotiming_step = 1
+            subtitle.save()
+    reset_to_pad.short_description = 'Reset to Timing-from-Pad'
+
+    def reset_to_sbv(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+
+        for sid in selected:
+            subtitle = get_object_or_404(Subtitle, pk=sid)
+            subtitle.autotiming_step = 2
+            subtitle.save()
+    reset_to_pad.short_description = 'Reset to Fix-SBV'
+
     def reset_to_transcribing(self, request, queryset):
         selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
 
@@ -135,7 +162,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             reverse('workflowTransforms', args=[first, rest]))
     transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
 
-    actions = ['transforms_dwim', 'reset_to_transcribing']
+    actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv',]
     list_display = ('id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',

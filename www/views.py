@@ -539,7 +539,6 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
         args['step'] = 2
         args['otherform'] = SimplePasteForm(prefix='SBV')
 
-
     args['workflow_step'] = STEPS[args['step']]
 
     if first:

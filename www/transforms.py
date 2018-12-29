@@ -41,7 +41,7 @@ def sbv_from_srt(transcript):
 
 def pad_from_trint(text):
     out = ""
-    text = sbv_from_srt(text).split('\n')
+    text = sbv_from_srt(text)
 
     for chunk in chunks(text):
         lines = chunk.split('\n')

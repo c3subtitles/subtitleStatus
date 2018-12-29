@@ -502,7 +502,16 @@ def b_test(request):
 
 
 @login_required
-def pad_from_trint(request, subtitle_id, next_ids):
+def text_transforms_dwim(request, subtitle_id, next_ids):
+    TRINT = 0
+    TIMING = 1
+    SBV = 2
+
+    STEPS = {0: 'Convert trint transcript to pad',
+             1: 'Convert pad to timing input',
+             2: 'Fix SBV linebreaks',
+             }
+
     if next_ids is None:
         next_ids = ''
 
@@ -515,16 +524,54 @@ def pad_from_trint(request, subtitle_id, next_ids):
             'subtitle': subtitle,
             'first': first,
             'rest': rest,
-            'form': SimplePasteForm()
+            'form': SimplePasteForm(),
+            'talk': subtitle.talk,
             }
+
+    if (subtitle.autotiming_step == 0 and
+        subtitle.transcription_in_progress and
+        subtitle.transcript_by.creator == 'Trint'):
+        args['step'] = 0
+    elif (subtitle.autotiming_step == 0 and
+          not subtitle.transcription_in_progress):
+        args['step'] = 1
+    elif subtitle.autotiming_step == 1:
+        args['step'] = 2
+        args['otherform'] = SimplePasteForm(prefix='SBV')
+
+
+    args['workflow_step'] = STEPS[args['step']]
+
+    if first:
+        next_subtitle = get_object_or_404(Subtitle, pk=first)
+        args['next_title'] = next_subtitle.title
 
     if request.method == 'POST':
         form = SimplePasteForm(request.POST)
         if form.is_valid():
             args['form'] = form
-            args['result'] = transforms.pad_from_trint(form.cleaned_data['text'])
-            return render(request, 'www/pad_result.html',
+
+            resut = None
+            input = form.cleaned_data['text']
+
+            if args['step'] == TRINT:
+                result = transforms.pad_from_trint(input)
+                subtitle.autotiming_step = TIMING
+                subtitle.save()
+            elif args['step'] == TIMING:
+                result = transforms.timing_from_pad(input)
+                subtitle.autotiming_step = SBV
+                subtitle.save()
+            elif args['step'] == SBV:
+                otherform = SimplePasteForm(request.POST, prefix='SBV')
+
+                if otherform.is_valid():
+                    result = transforms.fix_sbv_linebreaks(input,
+                                                           otherform.cleaned_data['text'])
+
+            args['result'] = result
+            return render(request, 'www/transforms_result.html',
                           args)
 
-    return render(request, 'www/pad_from_trint.html',
+    return render(request, 'www/transforms.html',
                   args)

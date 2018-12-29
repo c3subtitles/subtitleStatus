@@ -40,7 +40,7 @@ class DayIndexFilter(admin.SimpleListFilter):
 class TalkAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'day', 'start',)
+                    'event', 'day', 'start', 'transcript_by',)
     list_filter = ('event', DayIndexFilter,)
     search_fields = ('title', 'event__acronym', 'frab_id_talk',)
     ordering = ('-event', 'date',)
@@ -73,6 +73,26 @@ class LanguageFilter(admin.SimpleListFilter):
             return queryset
 
 
+class WorkflowFilter(admin.SimpleListFilter):
+    title = 'Needs Interaction'
+    parameter_name = 'workflow'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Needs interaction'),
+                #('new', 'Needs a transcript'),
+                ('no', 'Does not need interaction'))
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        elif self.value() == 'yes':
+            return queryset.filter(state=4).exclude(blacklisted=True)
+        # elif self.value() == 'new':
+        #     return queryset.filter(talk__transcript_by=None).exclude(blacklisted=True)
+        else:
+            return queryset.exclude(state=4)
+
+
 @admin.register(Subtitle)
 class SubtitleAdmin(admin.ModelAdmin):
     def status(self, obj):
@@ -92,29 +112,48 @@ class SubtitleAdmin(admin.ModelAdmin):
         else:
             return obj.state
 
+    def reset_to_transcribing(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
 
-    def pad_from_trint(self, request, queryset):
+        for sid in selected:
+            subtitle = get_object_or_404(Subtitle, pk=sid)
+            subtitle.reset_from_complete()
+    reset_to_transcribing.short_description = 'Reset subtitle to transcribing'
+
+    def transforms_dwim(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
-        first = selected[0]
-        rest = ','.join(selected[1:])
+
+
+        ids = [subtitle.pk
+               for subtitle in Subtitle.objects.filter(
+                       pk__in=selected
+               ).order_by('autotiming_step')]
+
+        first = ids[0]
+        rest = ','.join(ids[1:])
         return HttpResponseRedirect(
-            reverse('padFromTrint', args=[first, rest]))
+            reverse('workflowTransforms', args=[first, rest]))
+    transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
 
-
-    actions = ['pad_from_trint']
+    actions = ['transforms_dwim', 'reset_to_transcribing']
     list_display = ('id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
-    list_filter = (LanguageFilter, 'is_original_lang', 'state', 'complete',
-                   'blacklisted', )
+    list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
+                   'state', 'complete', 'blacklisted',)
     raw_id_fields = ('talk',)
     search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk',)
+
+
+@admin.register(States)
+class StatesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'state_en',)
+    ordering = ('id',)
 
 
 admin.site.register(Tracks)
 admin.site.register(Links)
 admin.site.register(Type_of)
 admin.site.register(Speaker)
-admin.site.register(States)
 admin.site.register(Event_Days)
 admin.site.register(Rooms)
 admin.site.register(Language)

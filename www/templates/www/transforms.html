@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ workflow_step }}{% endblock %}
+
+{% block content %}
+<h1>{{talk.title}}</h1>
+<h2>
+  {% if talk.subtitle_talk %}
+  {{ talk.subtitle_talk }}
+  {% endif %}
+</h2>
+
+<div class="alert alert-info" role="alert">
+  <h3>{{ workflow_step }}</h3>
+  <p><a href="{{ subtitle.talk.link_to_writable_pad }}" target="_blank">Etherpad</a></p>
+</div>
+
+<form action="{% url 'workflowTransforms' subtitle.pk next_ids %}" method="post">
+  <table>
+    {{ form }}
+    {% if step == 2 %}
+    {{ otherform }}
+    {% endif %}
+  <tr><td>
+      <input type="submit" value="Submit" />
+      </td><td>{% csrf_token %}</td>
+    </td></tr>
+  </table>
+</form>
+
+{% endblock %}

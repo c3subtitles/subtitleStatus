@@ -113,7 +113,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             return obj.state
 
     def reset_to_pad(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -122,7 +122,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_pad.short_description = 'Reset to Pad-from-Trint'
 
     def reset_to_timing(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -131,7 +131,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_pad.short_description = 'Reset to Timing-from-Pad'
 
     def reset_to_sbv(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -140,7 +140,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_pad.short_description = 'Reset to Fix-SBV'
 
     def reset_to_transcribing(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -148,7 +148,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_transcribing.short_description = 'Reset subtitle to transcribing'
 
     def reset_to_qc(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subt = get_object_or_404(Subtitle, pk=sid)

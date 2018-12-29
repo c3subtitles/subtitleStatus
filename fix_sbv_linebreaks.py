@@ -10,18 +10,10 @@
 # You will need the Transcript File and the sbv File
 #==============================================================================
 
-
-import os
-import re
 import sys
 
 
-def chunks(file):
-    """Read `file`, splitting it at doubled linebreaks"""
-    lines = []
-    for line in file:
-        lines.append(re.sub(' {2,}', ' ', line.strip()))
-    return '\n'.join(lines).split('\n\n')
+from www.transforms import fix_sbv_linebreaks
 
 
 if __name__ == '__main__':
@@ -38,52 +30,19 @@ if __name__ == '__main__':
 
 
     # Check the Transcript File and read it in an array
+    transcript = ''
     try:
         with open(transcript_file, 'r') as f:
-            transcript_chunks = chunks(f)
+            transcript = f.read()
     except IOError as e:
         sys.exit("Transcript file is not readable or does not exist: {}".format(e))
 
     # Check the sbv file and read it into an array
+    sbv = ''
     try:
         with open(sbv_file, 'r') as f:
-            chunks = chunks(f)
-            sbv_timestamps = []
-            sbv_chunks = []
-
-            for chunk in chunks:
-                parts = chunk.split('\n')
-                sbv_timestamps += [parts[0]] * (len(parts) - 1)
-                sbv_chunks += parts[1:]
+            sbv = f.read()
     except IOError as e:
         sys.exit("SBV file is not readable or does not exist: {}".format(e))
 
-
-    lines = []
-    current_chunk = 0
-    total_sbv_chunks = len(sbv_chunks)
-
-    for chunk in transcript_chunks:
-        if current_chunk >= total_sbv_chunks:
-            sys.exit("Garbage at end of Transcript file.")
-
-        # collect all the SBV chunks that form this chunk
-        # we start at the timestamp of then first SBV chunk
-        timestamp_begin, timestamp = sbv_timestamps[current_chunk].split(',')
-        line = sbv_chunks[current_chunk]
-        current_chunk += 1
-
-        # append SBV chunks until we match the current transcript chunk
-        while chunk != line and current_chunk < total_sbv_chunks:
-            # separator may be a space or newline
-            #print(repr(chunk), repr(line), len(chunk), len(line))
-            separator = chunk[len(line)]
-            line += separator + sbv_chunks[current_chunk]
-            # collect then timestamp, in case this is then last SBV chunk
-            timestamp = sbv_timestamps[current_chunk].split(',')[1]
-            current_chunk += 1
-
-        lines.append(("{},{}\n{}".format(timestamp_begin, timestamp, line)))
-
-
-    print('\n\n'.join(lines))
+    print(fix_sbv_linebreaks(transcript, sbv))

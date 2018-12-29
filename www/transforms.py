@@ -83,11 +83,11 @@ def timing_from_pad(text):
 
 def fix_sbv_linebreaks(transcript, sbv):
     transcript_chunks = chunks(transcript)
-    chunks = chunks(sbv)
+    cs = chunks(sbv)
     sbv_timestamps = []
     sbv_chunks = []
 
-    for chunk in chunks:
+    for chunk in cs:
         parts = chunk.splitlines()
         sbv_timestamps += [parts[0]] * (len(parts) - 1)
         sbv_chunks += parts[1:]

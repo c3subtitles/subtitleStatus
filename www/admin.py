@@ -147,6 +147,25 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle.reset_from_complete()
     reset_to_transcribing.short_description = 'Reset subtitle to transcribing'
 
+    def reset_to_qc(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTON_CHECKBOX_NAME)
+
+        for sid in selected:
+            subt = get_object_or_404(Subtitle, pk=sid)
+            if subt.is_original_lang:
+                my_talk = Talk.objects.get(id = subt.talk_id)
+                subt.time_processed_transcribing = my_talk.video_duration
+                subt.time_processed_syncing = my_talk.video_duration
+                subt.needs_automatic_syncing = False
+                subt.blocked = False
+                subt.state_id = 7 # Quality control done until
+                subt.tweet_autosync_done = True
+                subt.save()
+                # Let the related statistics be calculated
+                subt.talk.reset_related_statistics_data()
+    reset_to_qc.short_description = 'Reset subtitle to Quality Control'
+
+
     def transforms_dwim(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
@@ -162,7 +181,7 @@ class SubtitleAdmin(admin.ModelAdmin):
             reverse('workflowTransforms', args=[first, rest]))
     transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
 
-    actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv',]
+    actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
     list_display = ('id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',

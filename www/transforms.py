@@ -54,6 +54,24 @@ def pad_from_trint(text):
     return out.replace('\n\n', '\n')
 
 
+def pad_from_youtube(text.replace('\r\n', '\n')):
+    out = ""
+
+    for chunk in chunks(text):
+        lines = chunk.splitlines()
+
+        for line in lines[1:]:
+            if line == '':
+                continue
+            if line[0] == '[' and line[-1] == ']':
+                 # keep this as a separate line
+                 out += '\n' + line + '\n'
+            else:
+                 out += ' ' + line
+
+    return out.replace('\n\n', '\n')
+
+
 def timing_from_pad(text):
     transcript = []
     for line in text.splitlines():

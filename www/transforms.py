@@ -46,7 +46,7 @@ def pad_from_trint(text):
     for chunk in chunks(text):
         lines = chunk.splitlines()
 
-        for line in lines[2:]:
+        for line in lines[1:]:
             if line.strip() == '':
                 continue
             out += ' ' + line

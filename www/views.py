@@ -530,7 +530,8 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
 
     if (subtitle.autotiming_step == 0 and
         subtitle.transcription_in_progress and
-        subtitle.talk.has_transcript_by_trint):
+        (subtitle.talk.has_transcript_by_trint or
+         subtitle.talk.has_transcript_by_youtube)):
         args['step'] = TRINT
     elif (subtitle.autotiming_step == 0 and
           not subtitle.transcription_in_progress):
@@ -540,6 +541,10 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
         args['otherform'] = SimplePasteForm(prefix='SBV')
 
     args['workflow_step'] = STEPS[args['step']]
+
+    if subtitle.talk.has_transcript_by_youtube:
+        args['workflow_step'] = args['workflow_step'].replace('trint',
+                                                              'youtube')
 
     if first:
         next_subtitle = get_object_or_404(Subtitle, pk=first)
@@ -552,10 +557,12 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
             args['form'] = form
 
             input = form.cleaned_data['text']
-            foo = subtitle.transcription_in_progress
 
             if args['step'] == TRINT:
-                result = transforms.pad_from_trint(input)
+                if subtitle.talk.has_transcript_by_trint:
+                    result = transforms.pad_from_trint(input)
+                elif subtitle.talk.has_transcript_by_youtube:
+                    result = transforms.pad_from_youtube(input)
                 subtitle.autotiming_step = TIMING
                 subtitle.save()
             elif args['step'] == TIMING:

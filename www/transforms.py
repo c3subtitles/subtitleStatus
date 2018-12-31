@@ -54,10 +54,10 @@ def pad_from_trint(text):
     return out.replace('\n\n', '\n')
 
 
-def pad_from_youtube(text.replace('\r\n', '\n')):
+def pad_from_youtube(text):
     out = ""
 
-    for chunk in chunks(text):
+    for chunk in chunks(text.replace('\r\n', '\n')):
         lines = chunk.splitlines()
 
         for line in lines[1:]:

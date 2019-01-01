@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import admin
 from django.shortcuts import get_object_or_404
+from django.utils.html import format_html
 
 from www.models import Talk
 from www.models import Tracks
@@ -114,9 +115,13 @@ class SubtitleAdmin(admin.ModelAdmin):
         else:
             return obj.state
 
-    def raw_talk_id(self, obj):
-        return obj.talk_id
-    raw_talk_id.short_description = 'talk id'
+    def talk_id_link(self, obj):
+        tid = obj.talk_id
+
+        return format_html('<a href={url}>{talk_id}</a>',
+                           talk_id=tid,
+                           url=reverse('talk', args=tid))
+    talk_id_link.short_description = 'talk id'
 
     def talk_frab_id(self, obj):
         return obj.talk.frab_id_talk
@@ -192,7 +197,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
 
     actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
-    list_display = ('id', 'raw_talk_id', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
+    list_display = ('id', 'talk_id_link', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
                    'state', 'complete', 'blacklisted',)

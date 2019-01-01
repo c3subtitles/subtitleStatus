@@ -192,7 +192,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
 
     actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
-    list_display = ('id', 'talk', 'raw_talk_id', 'talk_frab_id', 'language', 'is_original_lang',
+    list_display = ('id', 'raw_talk_id', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
                    'state', 'complete', 'blacklisted',)

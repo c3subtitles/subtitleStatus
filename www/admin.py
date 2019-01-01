@@ -120,7 +120,7 @@ class SubtitleAdmin(admin.ModelAdmin):
 
         return format_html('<a href={url}>{talk_id}</a>',
                            talk_id=tid,
-                           url=reverse('talk', args=tid))
+                           url=reverse('talk', args=[tid]))
     talk_id_link.short_description = 'talk id'
 
     def talk_frab_id(self, obj):

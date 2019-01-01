@@ -115,10 +115,11 @@ class SubtitleAdmin(admin.ModelAdmin):
             return obj.state
 
     def talk_id(self, obj):
-        return obj.talk.pk
+        return obj.talk_id
 
     def talk_frab_id(self, obj):
         return obj.talk.frab_id_talk
+    talk_frab_id.short_description = 'frab id'
 
     def reset_to_pad(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)

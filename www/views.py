@@ -181,8 +181,14 @@ def talk_by_frab(request, frab_id):
     return redirect(get_object_or_404(Talk, frab_id_talk=frab_id),
                     permanent=True)
 
+
 def talk_by_guid(request, guid):
     return redirect(get_object_or_404(Talk, guid=guid), permanent=True)
+
+
+def talk_by_subtitle(request, id):
+    subtitle = get_object_or_404(Subtitle, pk=id)
+    return redirect(subtitle.talk, permanent=True)
 
 
 def updateSubtitle(request, id):

@@ -8,6 +8,7 @@ from django.core.validators import URLValidator
 from django.utils.deconstruct import deconstructible
 from django import forms
 from django.db import transaction
+from django.utils.timezone import make_aware
 from .statistics_helper import *
 from .amara_api_helper import *
 from .trint_api_helper import *
@@ -430,17 +431,18 @@ class Talk(BasisModell):
     n_most_frequent_words_speakers = models.TextField(default = "{}")    # n most common words as json string
     has_priority = models.BooleanField(default = False)                 # If the talk has priority because it was requested by someone
     transcript_by = models.ForeignKey(Transcript, default = 0, on_delete=models.SET_DEFAULT)      # Where is the Transcript from? Handmade, None, Youtube, Trint, Scribie...
-    amara_activity_last_checked = models.DateTimeField(default = datetime.min, blank = True)        # Light check, only amara activity
+    amara_activity_last_checked = models.DateTimeField(default=make_aware(datetime.min), blank=True)        # Light check, only amara activity
     amara_update_interval = models.TimeField(default = "00:10", blank = True) # How often is activity checked?
-    amara_complete_update_last_checked = models.DateTimeField(default = datetime.min, blank = True) # Everything checked, activity and data of every single subtitle
+    amara_complete_update_last_checked = models.DateTimeField(default=make_aware(datetime.min), blank=True) # Everything checked, activity and data of every single subtitle
     needs_complete_amara_update = models.BooleanField(default = False)
-    next_amara_activity_check = models.DateTimeField(default = datetime.min, blank = True)
+    next_amara_activity_check = models.DateTimeField(default=make_aware(datetime.min), blank=True)
     internal_comment = models.CharField(default = "", max_length = 300, blank=True)
     kanboard_public_task_id = models.IntegerField(blank = True, null = True)
     kanboard_private_task_id = models.IntegerField(blank = True, null = True)
     primary_amara_video_link = models.URLField(default = "", blank = True, max_length = 400) # Video link which is marked as primary on amara
     additional_amara_video_links = models.TextField(default = "", blank = True) # Additional video links separated by whitespace
     trint_transcript_id = models.CharField(max_length = 30, default = "", blank = True)
+    next_amara_activity_check = models.DateTimeField(default=make_aware(datetime.min), blank=True)
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic

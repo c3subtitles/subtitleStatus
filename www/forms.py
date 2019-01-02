@@ -2,6 +2,7 @@ from django import forms
 from .models import Subtitle, Event, Event_Days, Talk_Persons, Language
 #import django_filters
 import datetime
+from django.utils.timezone import make_aware
 
 class SubtitleForm(forms.ModelForm):
     class Meta:
@@ -25,7 +26,7 @@ class SubtitleForm(forms.ModelForm):
         if cleaned_data['time_processed_translating'] > my_obj.talk.video_duration:
            self._errors['time_processed_translating'] = self.error_class(['Time longer than the talk.'])
         # Trigger a complete amara update
-        my_obj.talk.next_amara_activity_check = datetime.datetime.now()
+        my_obj.talk.next_amara_activity_check = make_aware(datetime.datetime.now())
         my_obj.talk.needs_complete_amara_update = True
         my_obj.talk.save()
         return cleaned_data

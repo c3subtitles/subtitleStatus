@@ -12,10 +12,6 @@ class OtherViewsTestCase(Fixture):
                 response = self.client.get(reverse(views.start))
         self.assertContains(response, self.event.title)
 
-    def testGetClock(self):
-        response = self.client.get(reverse(views.clock))
-        self.assertContains(response, 'Hello, world!')
-
 
 class EventViewTestCase(Fixture):
     def testGetEvent(self):

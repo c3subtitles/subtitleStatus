@@ -13,9 +13,6 @@ class UrlStabilityTestCase(TestCase):
     def testHomeUrl(self):
         self.assertUrlIsStable('/', 'home')
 
-    def testClockUrl(self):
-        self.assertUrlIsStable('/clock/', views.clock)
-
     def testEventUrl(self):
         self.assertUrlIsStable('/event/test/',
                                'event', acronym='test')

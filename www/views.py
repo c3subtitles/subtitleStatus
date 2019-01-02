@@ -39,7 +39,7 @@ def start(request):
     return render(request, "main.html", {"events" : my_events, "request": request} )
 
 # Overview over the Talks of one event
-def event(request, acronym, day='0', language=None):
+def event(request, acronym, day=0, language=None):
     my_event = get_object_or_404(Event, acronym=acronym)
     my_talks = my_event.talk_set.filter(blacklisted=False).order_by(
         "day",
@@ -54,7 +54,7 @@ def event(request, acronym, day='0', language=None):
             video_duration="00:00:00"
         ).exclude(amara_key="").exclude(filename="")
     my_langs = Language.objects.filter(pk__in=original_languages)
-    if day.isdigit() and int(day) > 0:
+    if day > 0:
         my_talks = my_talks.filter(day__index=day)
     if language:
         my_talks = my_talks.filter(orig_language__lang_amara_short=language)

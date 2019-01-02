@@ -1,7 +1,7 @@
 from django.test import TestCase
 from datetime import time
 from www import models
-from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle, States
+from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle, States, Transcript
 
 import factory
 from factory.django import DjangoModelFactory
@@ -57,14 +57,20 @@ class Fixture(TestCase):
                                                          language_en=language,
                                                          language_de=language))
 
+        cls.transcripts = []
+        for creator in ['trint', 'youtube']:
+            cls.transcripts.append(Transcript.objects.create(creator=creator))
+
         cls.talks = []
         for day in cls.days:
             if day.index == 1:
                 language = cls.languages[0]
                 length = time(0)
+                creator = cls.transcripts[0]
             else:
                 language = cls.languages[1]
                 length = time(minute=45)
+                creator = cls.transcripts[1]
             cls.talks.append(Talk.objects.create(day=day,
                                                  room=cls.room,
                                                  title=('talk %d' % day.index),
@@ -74,6 +80,7 @@ class Fixture(TestCase):
                                                  orig_language=language,
                                                  frab_id_talk=23 + day.index,
                                                  guid='talk-42_%d' % day.index,
+                                                 transcript_by=creator,
                                                  video_duration=length))
         Talk.objects.create(day=cls.days[0],
                             room=cls.room,
@@ -84,6 +91,7 @@ class Fixture(TestCase):
                             orig_language=cls.languages[0],
                             blacklisted=True,
                             frab_id_talk=22,
+                            transcript_by=creator,
                             guid='talk-22')
 
         cls.states = []

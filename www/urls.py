@@ -13,7 +13,7 @@ urlpatterns = [
     path('event/<slug:acronym>/day/<int:day>/lang/<str:language>', views.event, name='event'),
     path('talk/<int:id>/', views.talk, name='talk'),
     path('talk/frab-id/<int:frab_id>/', views.talk_by_frab),
-    path('talk/guid/<uuid:guid>/', views.talk_by_guid),
+    path('talk/guid/<str:guid>/', views.talk_by_guid),
     path('talk/subtitle/<int:id>/', views.talk_by_subtitle),
     path('subtitle/<int:id>/', views.updateSubtitle, name='subtitle'),
     path('speaker/<int:speaker_id>/', views.speaker, name="speaker"),

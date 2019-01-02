@@ -474,10 +474,10 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
                                                              otherform.cleaned_data['text'])
 
             args['result'] = result
-            return render(request, 'www/transforms_result.html',
+            return render(request, 'transforms_result.html',
                           args)
 
-    return render(request, 'www/transforms.html',
+    return render(request, 'transforms.html',
                   args)
 
 # Export for media.ccc.de

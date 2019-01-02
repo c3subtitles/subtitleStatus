@@ -1,9 +1,9 @@
-from django.conf.urls import include, url
+from django.urls import path, include
 
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('www.urls')),
-    url(r'^', include('account.urls')),
+    path('', include('www.urls')),
+    path('accounts/', include(('django.contrib.auth.urls', 'django.contrib.auth'), 'auth')),
 ]

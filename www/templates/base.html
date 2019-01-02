@@ -52,16 +52,6 @@
 			<!--ul class="nav navbar-nav">
 				<li class="active"><a href="#">Home</a></li>
 			</ul-->
-			<ul class="nav navbar-nav navbar-right">
-				{% if user.is_authenticated %}
-				<li><a href="#">Logged in as {{ user.username }}</a></li>
-				<li><a href="{% url 'auth:logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
-				{% else %}
-				<li><a href="{% url 'auth:login' %}">Login</a></li>
-				{% endif %}
-
-			</ul>
-
         </div><!--/.navbar-collapse -->
       </div>
     </nav>

@@ -33,14 +33,13 @@ TEMPLATES = [
                 ],
      },
     },
-
 ]
+
 config = configparser.RawConfigParser()
 config.read([os.path.join(os.path.dirname(__file__), 'subtitleStatus.cfg'),
              os.path.expanduser('~/.subtitleStatus.cfg'),
              os.environ.get('SUBTITLESTATUS_CONFIG', 'subtitleStatus.cfg')],
             encoding='utf-8')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -83,7 +82,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'bootstrapform',
-    'account',
     'www',
     'django_extensions',
     'subtitleStatus',
@@ -102,6 +100,11 @@ MIDDLEWARE = (
 ROOT_URLCONF = 'subtitleStatus.urls'
 
 WSGI_APPLICATION = 'subtitleStatus.wsgi.application'
+
+MEDIA_URL = 'static/'
+MEDIA_ROOT = 'static'
+
+LOGIN_REDIRECT_URL = '/'
 
 
 # Database
@@ -135,6 +138,7 @@ elif config.get('sql', 'type').lower() == 'mysql':
     }
 else:
     raise ValueError('invalid database type "%s"' % config.get('sql', 'type').lower())
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import configparser
 import string
 from django.utils.crypto import get_random_string
 
@@ -32,7 +33,14 @@ TEMPLATES = [
                 ],
      },
     },
+
 ]
+config = configparser.RawConfigParser()
+config.read([os.path.join(os.path.dirname(__file__), 'subtitleStatus.cfg'),
+             os.path.expanduser('~/.subtitleStatus.cfg'),
+             os.environ.get('SUBTITLESTATUS_CONFIG', 'subtitleStatus.cfg')],
+            encoding='utf-8')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/

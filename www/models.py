@@ -245,6 +245,9 @@ class Speaker(BasisModell):
         else:
             return True
 
+    def __str__(self):
+        return self.name
+
     """
     # Probably not needed any more..
     def average_wpm_in_one_talk(self, talk):

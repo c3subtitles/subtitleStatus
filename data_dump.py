@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -48,7 +48,7 @@ for any_talk in my_talks:
     this_persons = Talk_Persons.objects.filter(talk_id = any_talk.id)
     if this_persons.count() == 1:
         persons_string = this_persons[0].speaker.name
-        
+
     else:
         counter_max = this_persons.count()
         counter = 1

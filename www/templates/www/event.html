@@ -16,7 +16,7 @@
 {% if my_event.has_statistics %}
     {% include "www/progress_bar_original.html" with value=my_event %}
 {% endif %}
-    
+
 {% for every_statistics in my_event.statistics_event_set.all %}
     {% if every_statistics.has_statistics %}
         <div id="event_statistics" style="padding-bottom: 20px;" class="container">

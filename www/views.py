@@ -45,8 +45,8 @@ def event (request, event_acronym, *args, **kwargs):
             "date",
             "start",
             "room__room")
-        # Special case for 34c4
-        if my_event.id == 6:
+        # Special case for 35c3, only show the talks with all data complete
+        if my_event.id == 8:
             my_talks = my_talks.all().exclude(video_duration = "00:00:00").exclude(amara_key = "").exclude(filename = "")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
         if "day" in kwargs and int(kwargs.get("day")) > 0:

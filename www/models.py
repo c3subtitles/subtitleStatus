@@ -91,6 +91,25 @@ class Event(BasisModell):
             else:
                 return True
 
+    @property
+    def complete_content_duration(self):
+        """ How 'long' is all material we have of an event """
+        my_talks = Talk.objects.filter(blacklisted = False, event = self)
+        sum = 0
+        for any in my_talks:
+            # Special case for talks who have no specific video_duration yet
+            if any.video_duration == "00:00:00":
+                sum += calculate_seconds_from_time(any.duration)
+            else:
+                sum += calculate_seconds_from_time(any.video_duration)
+        all_in_seconds = sum
+        hours = int(sum //3600)
+        sum -= 3600 * hours
+        minutes = int(sum // 60)
+        sum -= 60* minutes
+        seconds = int(sum)
+        return [all_in_seconds, hours, minutes, seconds]
+
     # Save Fahrplan xml file with version in the name into ./www/static/
     def save_fahrplan_xml_file(self):
         import datetime
@@ -616,75 +635,79 @@ class Talk(BasisModell):
     # Check activity on amara
     @transaction.atomic
     def check_activity_on_amara(self, force = False):
-        # Take the timestamp for "last executed at" at the beginning of the function
-        start_timestamp = datetime.now(timezone.utc)
-        # Only proceed if forced or if the time delta for another query has passed
-        if force or (start_timestamp > self.next_amara_activity_check):
-            import requests
-            # Only check for new versions. New urls or other stuff is not interesting
-            # Check for changes after the last check
-            # If the check is forced, do not care about the last time the activity was checked
-            if force:
-                parameters = {'type': 'version-added'}
-            else:
-                parameters = {'type': 'version-added',
-                    'after': self.amara_activity_last_checked}
-            basis_url = "https://amara.org/api/videos/"
-            url = basis_url + self.amara_key + "/activity/"
-            results = {}
-            # Loop as long as not all new activity datasets have been checked
-            # The json result from amara includes a "next" field which has the url for the next query if not
-            # all results came with the first query
-            while url != None:
-                r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
-                #print(r.text)
-                # If amara doesn't reply with a valid json create one.
-                try:
-                    activities = json.loads(r.text)
-                except:
-                    self.check_amara_video_data()
-                    activities = json.loads('{"meta":{"previous":null,"next":null,"offset":0,"limit":20,"total_count":0},"objects":[]}')
-                url = activities["meta"]["next"]
-                # Get the results for any language separate
-                for any in activities["objects"]:
-                    language = any["language"]
-                    # Parse the date time string into a datetime object
-                    timestamp = datetime.strptime(any["date"], '%Y-%m-%dT%H:%M:%SZ')
-                    # Amara Timestamps are all in utc, they just don't know yet, so they need to be force told
-                    timestamp = timestamp.replace(tzinfo = timezone.utc)
-                    # Add the new key to the dictionary and only at insert set the timestamp
-                    results.setdefault(language, timestamp)
-                    # Keep the newest timestamp over all api queries
-                    if results[language] < timestamp:
-                        results[language] = timestamp
-            #print(results)
-            # check if subtitles are present and need new data..
-            for any_language in results.keys():
-                my_subtitles = Subtitle.objects.filter(talk = self, language__lang_amara_short = any_language)
-                # Set flag for big query, this means a subtitle is missing because it was recently new added
-                if my_subtitles.count() == 0:
-                    # Set the big update flag
-                    self.needs_complete_amara_update = True
-                    my_language = Language.objects.get(lang_amara_short = any_language)
-                    # Don't create a subtitle here, this will cause subtitles with revision = 0
-                    #my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language, last_changed_on_amara = results[any_language])
-                    print("Talk id: ",self.id, " will get a new created subtitle")
-                elif my_subtitles.count() == 1:
-                    # Only proceed if the last activity has changed
-                    # The copy is a dirty workaround because saving in my_subtitles[0] did not work!
-                    my_subtitle = my_subtitles[0]
-                    if my_subtitle.last_changed_on_amara < results[any_language]:
-                        my_subtitle.last_changed_on_amara = results[any_language]
+        # Only if the talk has an amara key
+        if self.amara_key != "":
+            # Take the timestamp for "last executed at" at the beginning of the function
+            start_timestamp = datetime.now(timezone.utc)
+            # Only proceed if forced or if the time delta for another query has passed
+            if force or (start_timestamp > self.next_amara_activity_check):
+                import requests
+                # Only check for new versions. New urls or other stuff is not interesting
+                # Check for changes after the last check
+                # If the check is forced, do not care about the last time the activity was checked
+                if force:
+                    parameters = {'type': 'version-added'}
+                else:
+                    parameters = {'type': 'version-added',
+                        'after': self.amara_activity_last_checked}
+                basis_url = "https://amara.org/api/videos/"
+                url = basis_url + self.amara_key + "/activity/"
+                results = {}
+                # Loop as long as not all new activity datasets have been checked
+                # Loop only if the talk has an amara_key
+                # The json result from amara includes a "next" field which has the url for the next query if not 
+                # all results came with the first query
+                while (url != None) and (url != basis_url + "/activity/"):
+                    r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
+                    #print(r.text)
+                    # If amara doesn't reply with a valid json create one.
+                    try:
+                        activities = json.loads(r.text)
+                    except:
+                        self.check_amara_video_data()
+                        activities = json.loads('{"meta":{"previous":null,"next":null,"offset":0,"limit":20,"total_count":0},"objects":[]}')
+                    print(url)
+                    url = activities["meta"]["next"]
+                    # Get the results for any language separate
+                    for any in activities["objects"]:
+                        language = any["language"]
+                        # Parse the date time string into a datetime object
+                        timestamp = datetime.strptime(any["date"], '%Y-%m-%dT%H:%M:%SZ')
+                        # Amara Timestamps are all in utc, they just don't know yet, so they need to be force told
+                        timestamp = timestamp.replace(tzinfo = timezone.utc)
+                        # Add the new key to the dictionary and only at insert set the timestamp
+                        results.setdefault(language, timestamp)
+                        # Keep the newest timestamp over all api queries
+                        if results[language] < timestamp:
+                            results[language] = timestamp
+                #print(results)
+                # check if subtitles are present and need new data..
+                for any_language in results.keys():
+                    my_subtitles = Subtitle.objects.filter(talk = self, language__lang_amara_short = any_language)
+                    # Set flag for big query, this means a subtitle is missing because it was recently new added
+                    if my_subtitles.count() == 0:
                         # Set the big update flag
                         self.needs_complete_amara_update = True
-                        my_subtitle.save()
-                        print("Talk id: ",self.id, "Subtitle id: ", my_subtitle.id, " new last changes:  ", my_subtitle.last_changed_on_amara  )
-                else:
-                    print("Something wrong with talk", self.id, self.title)
-            # Save the timestamp of the start of the function as last checked activity on amara timestamp
-            self.amara_activity_last_checked = start_timestamp
-            self.next_amara_activity_check = start_timestamp + self.calculated_time_delta_for_activities
-            self.save()
+                        my_language = Language.objects.get(lang_amara_short = any_language)
+                        # Don't create a subtitle here, this will cause subtitles with revision = 0
+                        #my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language, last_changed_on_amara = results[any_language])
+                        print("Talk id: ",self.id, " will get a new created subtitle")
+                    elif my_subtitles.count() == 1:
+                        # Only proceed if the last activity has changed
+                        # The copy is a dirty workaround because saving in my_subtitles[0] did not work!
+                        my_subtitle = my_subtitles[0]
+                        if my_subtitle.last_changed_on_amara < results[any_language]:
+                            my_subtitle.last_changed_on_amara = results[any_language]
+                            # Set the big update flag
+                            self.needs_complete_amara_update = True
+                            my_subtitle.save()
+                            print("Talk id: ",self.id, "Subtitle id: ", my_subtitle.id, " new last changes:  ", my_subtitle.last_changed_on_amara  )
+                    else:
+                        print("Something wrong with talk", self.id, self.title)
+                # Save the timestamp of the start of the function as last checked activity on amara timestamp
+                self.amara_activity_last_checked = start_timestamp
+                self.next_amara_activity_check = start_timestamp + self.calculated_time_delta_for_activities
+                self.save()
 
     # Check amara video-data
     @transaction.atomic
@@ -693,85 +716,86 @@ class Talk(BasisModell):
         # Only query amara if forced or flag is set
         if force or self.needs_complete_amara_update:
             url = "https://amara.org/api/videos/" + self.amara_key + "/languages/?format=json"
-            import requests
-            r = requests.get(url, headers = cred.AMARA_HEADER)
-            activities = json.loads(r.text)
-            for any_subtitle in activities["objects"]:
-                print("Talk_ID:", self.id, "Amara_key:", self.amara_key)
-                print("Language_code:", any_subtitle["language_code"])
-                amara_subt_lang = any_subtitle["language_code"]
-                print("is_primary_audio_language = is_original:", any_subtitle["is_primary_audio_language"])
-                amara_subt_is_original = any_subtitle["is_primary_audio_language"]
-                print("subtitles_complete:", any_subtitle["subtitles_complete"])
-                amara_subt_is_complete = any_subtitle["subtitles_complete"]
-                print("versions:", len(any_subtitle["versions"]))
-                amara_subt_revision = len(any_subtitle["versions"])
-                print("\n")
-                # Only proceed if the revision on amara is higher than zero
-                # Zero can exist if someone once clicked a language but didn't save anything
-                if amara_subt_revision > 0:
-                    # Get the right subtitle dataset or create it, only if the version is not null
-                    my_language = Language.objects.get(lang_amara_short = amara_subt_lang)
-                    my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language)
-                    # Proceed if the version on amara has changed
-                    if my_subtitle.revision != amara_subt_revision:
-                        # If the subtitle was not complete and is not complete
-                        if not my_subtitle.complete and not amara_subt_is_complete:
-                            # Just update the data
-                            my_subtitle.is_original_lang = amara_subt_is_original
-                            my_subtitle.revision = amara_subt_revision
-                            my_subtitle.save()
-                            # If this is an subtitle which is the original language
-                            # and is in a state which has already statistics, also recalculate them
-                            if my_subtitle.is_original_lang and my_subtitle.state_id == (5 or 6 or 7):
-                                self.reset_related_statistics_data()
-                        # If the subtitle was not complete but is complete now
-                        elif not my_subtitle.complete and amara_subt_is_complete:
-                            my_subtitle.complete = amara_subt_is_complete
-                            my_subtitle.is_orignal_lang = amara_subt_is_original
-                            my_subtitle.revision = amara_subt_revision
-                            # This sets the sync flags and the tweet-flag and also lets the statistics to be recalculated
-                            my_subtitle.set_complete(was_already_complete = False)
-                            # If the talk also is in the original language, recalculate statistics
-                            if my_subtitle.is_original_lang:
-                                my_subtitle.talk.reset_related_statistics_data()
-                            my_subtitle.save()
-                        # If the subtitle was complete and is still complete
-                        elif my_subtitle.complete and amara_subt_is_complete:
-                            my_subtitle.complete = amara_subt_is_complete
-                            my_subtitle.is_orignal_lang = amara_subt_is_original
-                            my_subtitle.revision = amara_subt_revision
-                            # This sets the sync flags and the tweet-flag and lets the statistics to be recalculated
-                            my_subtitle.set_complete(was_already_complete = True)
-                            # If the talk also is in the original language, recalculate statistics
-                            if my_subtitle.is_original_lang:
-                                my_subtitle.talk.reset_related_statistics_data()
-                            my_subtitle.save()
-                        # If the subtitle was complete but isn't any more
-                        elif my_subtitle.complete and not amara_subt_is_complete:
-                            my_subtitle.complete = amara_subt_is_complete
-                            my_subtitle.is_orignal_lang = amara_subt_is_original
-                            my_subtitle.revision = amara_subt_revision
-                            # Resets the states and also the statistics if it is the original language
-                            my_subtitle.reset_from_complete()
-                            my_subtitle.save()
+            if self.amara_key != "":
+                import requests
+                r = requests.get(url, headers = cred.AMARA_HEADER)
+                activities = json.loads(r.text)
+                for any_subtitle in activities["objects"]:
+                    print("Talk_ID:", self.id, "Amara_key:", self.amara_key)
+                    print("Language_code:", any_subtitle["language_code"])
+                    amara_subt_lang = any_subtitle["language_code"]
+                    print("is_primary_audio_language = is_original:", any_subtitle["is_primary_audio_language"])
+                    amara_subt_is_original = any_subtitle["is_primary_audio_language"]
+                    print("subtitles_complete:", any_subtitle["subtitles_complete"])
+                    amara_subt_is_complete = any_subtitle["subtitles_complete"]
+                    print("versions:", len(any_subtitle["versions"]))
+                    amara_subt_revision = len(any_subtitle["versions"])
+                    print("\n")
+                    # Only proceed if the revision on amara is higher than zero
+                    # Zero can exist if someone once clicked a language but didn't save anything
+                    if amara_subt_revision > 0:
+                        # Get the right subtitle dataset or create it, only if the version is not null
+                        my_language = Language.objects.get(lang_amara_short = amara_subt_lang)     
+                        my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language)
+                        # Proceed if the version on amara has changed
+                        if my_subtitle.revision != amara_subt_revision:
+                            # If the subtitle was not complete and is not complete
+                            if not my_subtitle.complete and not amara_subt_is_complete:
+                                # Just update the data
+                                my_subtitle.is_original_lang = amara_subt_is_original
+                                my_subtitle.revision = amara_subt_revision
+                                my_subtitle.save()
+                                # If this is an subtitle which is the original language
+                                # and is in a state which has already statistics, also recalculate them
+                                if my_subtitle.is_original_lang and my_subtitle.state_id == (5 or 6 or 7):
+                                    self.reset_related_statistics_data()
+                            # If the subtitle was not complete but is complete now
+                            elif not my_subtitle.complete and amara_subt_is_complete:
+                                my_subtitle.complete = amara_subt_is_complete
+                                my_subtitle.is_orignal_lang = amara_subt_is_original
+                                my_subtitle.revision = amara_subt_revision
+                                # This sets the sync flags and the tweet-flag and also lets the statistics to be recalculated
+                                my_subtitle.set_complete(was_already_complete = False)
+                                # If the talk also is in the original language, recalculate statistics
+                                if my_subtitle.is_original_lang:
+                                    my_subtitle.talk.reset_related_statistics_data()
+                                my_subtitle.save()
+                            # If the subtitle was complete and is still complete
+                            elif my_subtitle.complete and amara_subt_is_complete:
+                                my_subtitle.complete = amara_subt_is_complete
+                                my_subtitle.is_orignal_lang = amara_subt_is_original
+                                my_subtitle.revision = amara_subt_revision
+                                # This sets the sync flags and the tweet-flag and lets the statistics to be recalculated
+                                my_subtitle.set_complete(was_already_complete = True)
+                                # If the talk also is in the original language, recalculate statistics
+                                if my_subtitle.is_original_lang:
+                                    my_subtitle.talk.reset_related_statistics_data()
+                                my_subtitle.save()
+                            # If the subtitle was complete but isn't any more
+                            elif my_subtitle.complete and not amara_subt_is_complete:
+                                my_subtitle.complete = amara_subt_is_complete
+                                my_subtitle.is_orignal_lang = amara_subt_is_original
+                                my_subtitle.revision = amara_subt_revision
+                                # Resets the states and also the statistics if it is the original language
+                                my_subtitle.reset_from_complete()
+                                my_subtitle.save()
 
-                    # If the revision hasn't changed but the complete flag has changed, set the subtitle complete
-                    elif my_subtitle.complete and not amara_subt_is_complete:
-                        my_subtitle.set_complete()
-                        if my_subtitle.is_original_lang:
-                            my_subtitle.talk.reset_related_statistics_data()
-                    # Set the right state if the default is still active on "1"
-                    if my_subtitle.state_id == 1 and my_subtitle.is_original_lang:
-                        my_subtitle.state_id = 2
-                        my_subtitle.save()
-                    elif my_subtitle.state_id == 1 and not my_subtitle.is_original_lang:
-                        my_subtitle.state_id = 11
-                        my_subtitle.save()
-            # Save the timestamp when this function was last used and reset the flag
-            self.amara_complete_update_last_checked = start_timestamp
-            self.needs_complete_amara_update = False
-            self.save()
+                        # If the revision hasn't changed but the complete flag has changed, set the subtitle complete
+                        elif my_subtitle.complete and not amara_subt_is_complete:
+                            my_subtitle.set_complete()
+                            if my_subtitle.is_original_lang:
+                                my_subtitle.talk.reset_related_statistics_data()
+                        # Set the right state if the default is still active on "1"
+                        if my_subtitle.state_id == 1 and my_subtitle.is_original_lang:
+                            my_subtitle.state_id = 2
+                            my_subtitle.save()
+                        elif my_subtitle.state_id == 1 and not my_subtitle.is_original_lang:
+                            my_subtitle.state_id = 11
+                            my_subtitle.save() 
+                # Save the timestamp when this function was last used and reset the flag
+                self.amara_complete_update_last_checked = start_timestamp
+                self.needs_complete_amara_update = False
+                self.save()
 
 
     def __str__(self):

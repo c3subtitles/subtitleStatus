@@ -6,9 +6,10 @@ import sys
 from www.transforms import pad_from_trint
 
 
+
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        sys.exit("usage: ./{} transcript.sbv".format(sys.argv[0]))
+        sys.exit("usage: ./{} transcript.srt".format(sys.argv[0]))
 
     transcript = []
     try:

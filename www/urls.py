@@ -6,7 +6,7 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
         url(r'^$', views.start, name="home"),
-        url(r'^hello/$',views.clock),
+        url(r'^hello/$', views.clock),
         url(r'^event/(?P<event_acronym>\w+)/$', views.event),
         url(r'^event/(?P<event_acronym>\w+)/day/(?P<day>\d+)$', views.event),
         url(r'^event/(?P<event_acronym>\w+)/day/(?P<day>\d+)/lang/(?P<lang>\w+)$', views.event),

@@ -9,6 +9,7 @@ import os
 import sys
 from lxml import etree
 #from urllib import request
+from time import strftime
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
@@ -43,7 +44,7 @@ for any_talk in my_talks:
             persons_string = persons_string + ", " + this_persons[counter].speaker.name
             counter += 1
     #print(persons_string)
-    print("%s;%s;%s;%s;%s;%s;%s;%s;%s" % (any_talk.event.acronym, any_talk.frab_id_talk, any_talk.id, any_talk.day.index, any_talk.start, any_talk.duration, any_talk.orig_language.language_de[0:2], any_talk.title, persons_string))
+    print("%s;%s;%s;%s;" + str(strftime("%H:%M", any_talk.start)) + ";" + str(strftime("%H:%M", any_talk.duration)) + ";%s;%s;%s" % (any_talk.event.acronym, any_talk.frab_id_talk, any_talk.id, any_talk.day.index, any_talk.orig_language.language_de[0:2], any_talk.title, persons_string))
 
 """
 # Für Translations!

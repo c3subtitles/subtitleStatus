@@ -36,7 +36,7 @@
     {% if not event.blacklisted %}
     <h2>
         <a href="/event/{{event.acronym}}">{{ event.title }}</a>
-        <a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+        <a data-toggle="collapse" href="#{{ event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><div class="pull-right">{{event.complete_content_duration.1}}h {{event.complete_content_duration.2|stringformat:"02d"}}m {{event.complete_content_duration.3|stringformat:"02d"}}s</div></a>
     </h2>
     <div class="collapse" id="{{ event.pk }}_id">
         <h2>{{ event.start }} - {{ event.end }}</h2>

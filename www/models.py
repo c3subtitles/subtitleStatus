@@ -48,6 +48,7 @@ class Event(BasisModell):
     blacklisted = models.BooleanField(default = False, blank = True)
     cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
     subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end
+    frab_id_prefix = models.CharField(max_length = 100, default = "", blank = True) # This allows other frab-id offsets of other events to be unique too in the database
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -221,7 +222,7 @@ class Type_of(BasisModell):
 
 # Speaker or Speakers of the Talk
 class Speaker(BasisModell):
-    frab_id = models.PositiveSmallIntegerField(default = -1)
+    frab_id = models.CharField(max_length = 12, default = "-1", blank = True)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
     abstract = models.TextField(default = "", blank = True, null = True)
@@ -304,7 +305,7 @@ class Transcript (BasisModell):
 
 # Talk with all its data
 class Talk(BasisModell):
-    frab_id_talk = models.CharField(max_length = 10, default = "-1", blank = True)
+    frab_id_talk = models.CharField(max_length = 12, default = "-1", blank = True)
     blacklisted = models.BooleanField(default=False, blank = True)
     day = models.ForeignKey(Event_Days, default = 1, blank = True)
     room = models.ForeignKey(Rooms, default = 15)

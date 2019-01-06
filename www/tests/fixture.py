@@ -1,25 +1,9 @@
 from django.test import TestCase
 from datetime import time
-from www import models
+
+
 from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle, States, Transcript
-
-import factory
-from factory.django import DjangoModelFactory
-
-
-class EventFactory(DjangoModelFactory):
-    class Meta:
-        model = models.Event
-
-    acronym = factory.sequence('3{0}C3'.format)
-    title = factory.sequence('3{}th Chaos Communication Congress'.format)
-    days = 4
-    city = 'Hamburg'
-    building = 'CCH'
-
-    @factory.LazyAttribute
-    def hashtag(self):
-        return '#{}'.format(self.acronym)
+from .factories import EventFactory, TrackFactory, TypeOfFactory, StateFactory, RoomFactory
 
 
 class Fixture(TestCase):
@@ -39,17 +23,14 @@ class Fixture(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.event = Event.objects.create(acronym='foo',
-                                         title='bar event name',
-                                         days=3)
-        cls.type_of = Type_of.objects.create(type='quux')
-        cls.track = Tracks.objects.create(track='test track')
-        cls.room = Rooms.objects.create()
+        cls.states = [StateFactory(__sequence=state)
+                      for state in range(1, 13)]
 
-        cls.days = []
-        for day in range(cls.event.days):
-            cls.days.append(Event_Days.objects.create(event=cls.event,
-                                                      index=day + 1))
+        cls.event = EventFactory()
+        cls.type_of = TypeOfFactory()
+        cls.track = TrackFactory()
+        cls.room = RoomFactory()
+        cls.days = Event_Days.objects.filter(event=cls.event)
 
         cls.languages = []
         for language in ['en', 'de']:
@@ -93,10 +74,6 @@ class Fixture(TestCase):
                             frab_id_talk=22,
                             transcript_by=creator,
                             guid='talk-22')
-
-        cls.states = []
-        for state in [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12]:
-            cls.states.append(States.objects.create(id=state))
 
         cls.subtitles = []
         for day in cls.days[1:]:

@@ -13,6 +13,7 @@ from www.models import Event_Days
 from www.models import Rooms
 from www.models import Language
 from www.models import Statistics_Raw_Data
+from www.models import Talk_Persons
 
 
 # Register your models here.
@@ -148,6 +149,16 @@ class SubtitleAdmin(admin.ModelAdmin):
 class StatesAdmin(admin.ModelAdmin):
     list_display = ('id', 'state_en',)
     ordering = ('id',)
+
+
+@admin.register(Talk_Persons)
+class TalkPersonsAdmin(admin.ModelAdmin):
+    #date_hierarchy = 'id'
+    list_display = ('id', 'speaker', 'talk', 'created', 'touched', 'average_spm',
+                    'average_wpm', 'recalculate_statistics', 'strokes', 'time_delta', 'n_most_frequent_words',)
+    #list_filter = ()
+    search_fields = ('talk', 'speaker',)
+    ordering = ('-id', )
 
 
 admin.site.register(Tracks)

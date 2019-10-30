@@ -81,6 +81,7 @@ subtitles.png
 
 #PyCharm
 .idea/
+.vscode/
 
 # Data Dumps
 django_data_dumps/

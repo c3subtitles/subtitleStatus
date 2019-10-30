@@ -305,6 +305,7 @@ class Talk(BasisModell):
     link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
     youtube_key = models.CharField(max_length = 20, blank = True)
+    c3subtitles_youtube_key = models.CharField(max_length = 20, blank = True)
     video_duration = models.TimeField(default = "00:00", blank = True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)
     youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")

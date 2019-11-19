@@ -49,19 +49,28 @@ This template is used in the events pages to display single talks in event.html
     
     {% if talk.has_transcript_by_trint %}
         <button type="button" class="btn btn-info btn">
-            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Trint Transcript
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Trint Transcript
         </button>
     {% endif %}
     
     {% if talk.has_transcript_by_scribie %}
         <button type="button" class="btn btn-info btn">
-            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Scribie Transcript
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Scribie Transcript
         </button>
     {% endif %}
     
     {% if talk.has_transcript_by_youtube %}
     <button type="button" class="btn btn-default btn">
-        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Youtube Transcript
+        <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Youtube Transcript
+    </button>
+    {% endif %}
+    {% if talk.has_speakers_statistics %}
+    <button type="button" class="btn btn-success btn">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Speaker Statistics
+    </button>
+    {% elif talk.has_statistics %}
+    <button type="button" class="btn btn-warning btn">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Talk Statistics
     </button>
     {% endif %}
     </h4>

@@ -41,7 +41,7 @@ class Event(BasisModell):
     building = models.CharField(max_length = 30, default = "", blank = True)
     ftp_startfolder = models.CharField(max_length = 100, default = "", blank = True)
     ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
-    hashtag = models.CharField(max_length = 10, default = "", blank = True)
+    hashtag = models.CharField(max_length = 20, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
@@ -214,7 +214,7 @@ class Tracks(BasisModell):
 
 # How the talk is presented, like a workshop or a talk
 class Type_of(BasisModell):
-    type = models.CharField(max_length = 20, default = "")
+    type = models.CharField(max_length = 50, default = "")
 
     def __str__(self):
         return self.type
@@ -222,7 +222,7 @@ class Type_of(BasisModell):
 
 # Speaker or Speakers of the Talk
 class Speaker(BasisModell):
-    frab_id = models.CharField(max_length = 12, default = "-1", blank = True)
+    frab_id = models.CharField(max_length = 20, default = "-1", blank = True)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
     abstract = models.TextField(default = "", blank = True, null = True)
@@ -305,7 +305,7 @@ class Transcript (BasisModell):
 
 # Talk with all its data
 class Talk(BasisModell):
-    frab_id_talk = models.CharField(max_length = 12, default = "-1", blank = True)
+    frab_id_talk = models.CharField(max_length = 20, default = "-1", blank = True)
     blacklisted = models.BooleanField(default=False, blank = True)
     day = models.ForeignKey(Event_Days, default = 1, blank = True)
     room = models.ForeignKey(Rooms, default = 15)

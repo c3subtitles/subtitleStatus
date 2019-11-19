@@ -4,7 +4,7 @@
 #==============================================================================
 # This script checks the speaker.json file in every event for new versions
 # and imports the data
-# 
+#
 # In the database you can mark urls to ignore with a "#" at the beginning
 #
 # This script can be run as cronjob via an event but it is not necessary
@@ -79,6 +79,6 @@ for event in my_events:
             my_speaker_link, created = Speaker_Links.objects.get_or_create(speaker = my_speaker, title = any_link["title"], url = any_link["url"])
             if created:
                 my_speaker_link.save()
-                
+
     event.speaker_json_version = result["schedule_speakers"]["version"]
     event.save()

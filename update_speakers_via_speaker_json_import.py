@@ -47,6 +47,7 @@ for event in my_events:
     if event.speaker_json_version == result["schedule_speakers"]["version"]:
         print("Not doing anything here, there is no new version available!\n")
         continue
+    prefix = event.frab_id_prefix
     # Iterate over any speaker
     for any_speaker in result["schedule_speakers"]["speakers"]:
         #print(any_speaker["id"])
@@ -57,7 +58,7 @@ for event in my_events:
             #print(any_link["title"])
             #print(any_link["url"])
         # Get or create a speaker with the same frab id
-        my_speaker, created = Speaker.objects.get_or_create(frab_id = any_speaker["id"])
+        my_speaker, created = Speaker.objects.get_or_create(frab_id = prefix + any_speaker["id"])
         # Only alter the entry if the name has changed
         if len(any_speaker["full_public_name"]) <= 50 and my_speaker.name != any_speaker["full_public_name"]:
             my_speaker.name = any_speaker["full_public_name"]

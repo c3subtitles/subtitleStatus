@@ -48,7 +48,9 @@ characters_to_replace = [
     [", ", " "],    # To avoid the substitution in numbers
     ["\. ", " "],    # To avoid the substitution in numbers
     [": ", " "],
-    [" - ", " "]
+    [" - ", " "],
+    ["<i>", " "],
+    ["</i>", " "]
 ]
 
 #  The most n common words should appear in the word_frequencies

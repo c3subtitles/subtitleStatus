@@ -54,7 +54,7 @@ def error(message=""):
 # Reset everything =============================================================
 def set_vars_empty(url = ""):
     global schedule_url, schedule_version, acronym, event_title, event_start
-    global event_end, event_days, timeslot_duration, day_index, day_date
+    global event_end, event_days, timeslot_duration, day_index, day_date#, event_frab_prefix
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
     global talk_description, talk_persons, talk_links, talk_guid
@@ -66,6 +66,7 @@ def set_vars_empty(url = ""):
     event_start = ""
     event_end = ""
     event_days = ""
+    event_frab_prefix = ""
     timeslot_duration = ""
     day_index = ""
     day_date = ""
@@ -107,6 +108,7 @@ event_title = ""
 event_start = ""
 event_end = ""
 event_days = ""
+#event_frab_prefix = ""
 timeslot_duration = ""
 day_index = ""
 day_date = ""
@@ -146,10 +148,10 @@ my_language = ""
 #===============================================================================
 
 # Main reading/writing function
-def read_xml_and_save_to_database():
+def read_xml_and_save_to_database(event_frab_prefix):
     global url_to_this_fahrplan
     set_vars_empty(url_to_this_fahrplan)
-    global schedule_url, schedule_version, acronym, event_title, event_start
+    global schedule_url, schedule_version, acronym, event_title, event_start#, event_frab_prefix
     global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
@@ -204,7 +206,7 @@ def read_xml_and_save_to_database():
         error("Problem with timeslot_duration")
 
     # Write event data to database
-    save_event_data()    
+    save_event_data()
         
     # Loop around the day tags
     while (counter_day < len_day):
@@ -239,7 +241,7 @@ def read_xml_and_save_to_database():
             len_event = len(fahrplan[counter_day][counter_room])
             counter_event = 0
         
-            # Loop around the event tags (talks)
+            # Loop around the event tags (talks!)
             while (counter_event < len_event):
                 # check how much subelements are available for this event (talk)
                 len_of_tags = len(fahrplan[counter_day][counter_room][counter_event])
@@ -247,7 +249,7 @@ def read_xml_and_save_to_database():
                 # Read event/talk data
                 # talk_frab_id
                 if fahrplan[counter_day][counter_room][counter_event].tag == "event":
-                    talk_frab_id = int(fahrplan[counter_day][counter_room][counter_event].get("id"))
+                    talk_frab_id = fahrplan[counter_day][counter_room][counter_event].get("id")
                 else:
                     error("Problem with talk_frab_id")
                 
@@ -376,7 +378,7 @@ def read_xml_and_save_to_database():
                     error("Problem with persons id")
                 
                 # Write persons data to database
-                save_persons_data()
+                save_persons_data(event_frab_prefix)
 
                 # links (on different positions depending on schedule version)
                 talk_links = []
@@ -395,7 +397,7 @@ def read_xml_and_save_to_database():
                     error("Problem with links")
                 
                 # Write event/talk data to database
-                save_talk_data()
+                save_talk_data(event_frab_prefix)
                 
                 counter_event += 1
             counter_room +=1
@@ -455,12 +457,12 @@ def save_room_data():
     #my_room = Rooms.objects.get(room = talk_room)
 
 # Save the data of the speakers into the database
-def save_persons_data ():
-    global talk_persons, my_persons
+def save_persons_data (event_frab_prefix):
+    global talk_persons, my_persons#, event_frab_prefix
     my_persons = []
     my_person = []
     for someone in talk_persons:
-        my_person = Speaker.objects.get_or_create(frab_id = someone[0])[0]
+        my_person = Speaker.objects.get_or_create(frab_id = event_frab_prefix + str(someone[0]))[0]
         if my_person.name != someone[1]:
             my_person.name = someone[1]
             if len(my_person.name) > 50:
@@ -485,8 +487,8 @@ def save_languages_data():
     pass
 
 # Save the data of the event talk into the database
-def save_talk_data ():
-    global schedule_url, schedule_version, acronym, event_title, event_start
+def save_talk_data (event_frab_prefix):
+    global schedule_url, schedule_version, acronym, event_title, event_start#, event_frab_prefix
     global event_end, event_days, timeslot_duration, day_index, day_date
     global day_start, day_end, talk_room, talk, talk_frab_id, talk_date, talk_start, talk_duration
     global talk_slug, talk_optout, talk_title, talk_subtitle, talk_track, talk_type, talk_language, talk_abstract
@@ -496,7 +498,7 @@ def save_talk_data ():
     my_language = Language.objects.get(lang_amara_short = talk_language)
     my_talk = []
     
-    my_talk = Talk.objects.get_or_create(frab_id_talk = talk_frab_id)[0]
+    my_talk = Talk.objects.get_or_create(frab_id_talk = event_frab_prefix + str(talk_frab_id))[0]
     if my_talk.room != my_room:
         my_talk.room = my_room
         my_talk.save()
@@ -580,7 +582,7 @@ for e in my_events:
 
 # For every fahrplan file
 for url_to_this_fahrplan in url_array:
-    response = request.urlopen(url_to_this_fahrplan) 
+    response = request.urlopen(url_to_this_fahrplan)
     tree = etree.parse(response)
     fahrplan = tree.getroot()
     
@@ -595,7 +597,7 @@ for url_to_this_fahrplan in url_array:
     #print("Debug: Version in DB: ", this_event.schedule_version,"\n\n")
     
     #Funktion für Fahrplan in Datenbank schubsen
-    read_xml_and_save_to_database()
+    read_xml_and_save_to_database(event_frab_prefix = this_event.frab_id_prefix)
 
 print ("Durch gelaufen, Error Code: ", error_code)
 print ("Fehler: ",error_string)

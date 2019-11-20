@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mkdir -p www/static/fahrplan_files/
 python manage.py migrate
 python manage.py set_default_site --name localhost --domain localhost:8000
 python manage.py createsuperuser --username admin --email root@localhost

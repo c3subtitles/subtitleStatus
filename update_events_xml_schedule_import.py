@@ -28,6 +28,7 @@ from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days,
 from datetime import datetime
 import dateutil.parser
 
+
 # Var for all urls in the database in the Event-model
 url_array = []
 
@@ -161,52 +162,95 @@ def read_xml_and_save_to_database(event_frab_prefix):
     global my_event, my_room, my_day, my_track, my_events, my_link, my_links, my_person, my_persons, my_type
 
     len_day = len(fahrplan)
-    counter_day = 2
+    # Where in the XML start the "day" tags
+    counter_day = 0
+
+    i = 0
+    while i < len(fahrplan):
+        if fahrplan[i].tag == "day":
+            counter_day = i
+            break
+        else:
+            i += 1
 
     # Event title
-    if fahrplan[1][1].tag == "title":
-        event_title = fahrplan[1][1].text
-    else:
-        error("Problem with title")
-    
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "title":
+                event_title = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
+
     # Event schedule version
-    if fahrplan[0].tag == "version":
-        schedule_version = fahrplan[0].text
-    else:
-        error("Problem with schedule_version")
+    i = 0
+    while i < len(fahrplan):
+        if fahrplan[i].tag == "version":
+            schedule_version = fahrplan[i].text
+            break
+        else:
+            i+=1
 
     # Event acronym
-    if fahrplan[1][0].tag == "acronym":
-        acronym = fahrplan[1][0].text
-    else:
-        error("Problem with acronym")
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "acronym":
+                acronym = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
 
     # Event start
-    if fahrplan[1][2].tag == "start":
-        event_start = fahrplan[1][2].text
-    else:
-        error("Problem with event start")
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "start":
+                event_start = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
 
     # Event end
-    if fahrplan[1][3].tag == "end":
-        event_end = fahrplan[1][3].text
-    else:
-        error("Problem with event end")
-        
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "end":
+                event_end = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
+
     # Event days
-    if fahrplan[1][4].tag == "days":
-        event_days = int(fahrplan[1][4].text)
-    else:
-        error("Problem with event days")
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "days":
+                event_days = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
 
     # Event timeslot_duration
-    if fahrplan[1][5].tag == "timeslot_duration":
-        timeslot_duration = fahrplan[1][5].text
-    else:
-        error("Problem with timeslot_duration")
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "timeslot_duration":
+                timeslot_duration = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
 
     # Write event data to database
     save_event_data()
+    print("Event data saved")
         
     # Loop around the day tags
     while (counter_day < len_day):
@@ -438,8 +482,9 @@ def save_event_data():
 def save_day_data():
     global my_event, my_day
     global day_index, day_date, day_start, day_end
-
-    my_day = Event_Days.objects.get_or_create(event = my_event, index = day_index, date = day_date)[0]
+    my_day = Event_Days.objects.get_or_create(event = my_event,\
+        index = day_index,\
+        date = day_date)[0]
     if my_day.day_start != dateutil.parser.parse(day_start):
         my_day.day_start = day_start
         my_day.save()
@@ -468,7 +513,7 @@ def save_persons_data (event_frab_prefix):
             if len(my_person.name) > 50:
                 my_person.name = my_person.name[0:50]
             my_person.save()
-    
+
         # Array to acces all linked speakers for the saving of the talk
         my_persons.append(my_person)
               
@@ -558,13 +603,15 @@ def save_talk_data (event_frab_prefix):
     my_link = []
     # Saving the links
     for some_link in talk_links:
-        my_link = Links.objects.get_or_create(url = some_link[0], title = some_link[1], talk = my_talk)
-    
+        my_link = Links.objects.get_or_create(url = some_link[0],\
+            title = some_link[1],\
+            talk = my_talk)
+
     for any_person in my_persons:
         this_talk_persons, created = Talk_Persons.objects.get_or_create(talk = my_talk, speaker = any_person)
         #this_talk_persons.save()
-    
-    
+
+
 #===============================================================================
 # Main
 #===============================================================================
@@ -588,11 +635,28 @@ for url_to_this_fahrplan in url_array:
     
     # Compare Fahrplanversion in the database and online, break if the same:
     this_event = Event.objects.get(schedule_xml_link = url_to_this_fahrplan)
-    if fahrplan[0].text == this_event.schedule_version:
-        print("In ",fahrplan[1][1].text," nichts geändert! Version ist: ",fahrplan[0].text)
+    i = 0
+    while i < len(fahrplan):
+        if fahrplan[i].tag == "version":
+            fahrplan_version = fahrplan[i].text
+            break
+        else:
+            i+=1
+        print(i)
+    i = 0
+    while i < len(fahrplan):
+        j = 0
+        while j < len(fahrplan[i]):
+            if fahrplan[i][j].tag == "title":
+                fahrplan_title = fahrplan[i][j].text
+                break
+            j += 1
+        i += 1
+    if fahrplan_version == this_event.schedule_version:
+        print("In ",fahrplan_title," nichts geändert! Version ist: ",fahrplan_version)
         continue
     else:
-        print("In ",fahrplan[1][1].text," etwas geändert!\nVon Version: \"",this_event.schedule_version,"\" to \"",fahrplan[0].text,"\"")
+        print("In ",fahrplan_title," etwas geändert!\nVon Version: \"",this_event.schedule_version,"\" to \"",fahrplan_version,"\"")
     #print("Debug Event:",fahrplan[1][0].text)
     #print("Debug: Version in DB: ", this_event.schedule_version,"\n\n")
     

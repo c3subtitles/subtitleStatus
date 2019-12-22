@@ -125,7 +125,13 @@ class Event(BasisModell):
         # Get the version from the xml
         tree = etree.parse(request.urlopen(self.schedule_xml_link))
         fahrplan = tree.getroot()
-        fahrplan_version = fahrplan[0].text
+        i = 0
+        while i < len(fahrplan):
+            if fahrplan[i].tag == "version":
+                fahrplan_version = fahrplan[i].text
+                break
+            else:
+                i+=1
         # Create the filename and save
         folder = "./www/static/fahrplan_files/"
         filename = self.acronym + " fahrplan version "  + fahrplan_version + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())

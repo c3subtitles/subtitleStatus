@@ -58,7 +58,7 @@ for event in my_events:
             #print(any_link["title"])
             #print(any_link["url"])
         # Get or create a speaker with the same frab id
-        my_speaker, created = Speaker.objects.get_or_create(frab_id = prefix + any_speaker["id"])
+        my_speaker, created = Speaker.objects.get_or_create(frab_id = prefix + str(any_speaker["id"]))
         # Only alter the entry if the name has changed
         if len(any_speaker["full_public_name"]) <= 50 and my_speaker.name != any_speaker["full_public_name"]:
             my_speaker.name = any_speaker["full_public_name"]

@@ -294,7 +294,7 @@ class Speaker(BasisModell):
 # Links from the Fahrplan
 class Speaker_Links(BasisModell):
     speaker = models.ForeignKey(Speaker, blank = True)
-    title = models.CharField(max_length = 200, default = "", blank = True)
+    title = models.CharField(max_length = 300, default = "", blank = True)
     url = models.URLField(blank = True)
 
 
@@ -1091,7 +1091,7 @@ class Subtitle(BasisModell):
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True)
-    url = models.URLField(blank = True)
+    url = models.URLField(blank = True, max_length = 300)
     title = models.CharField(max_length = 200, default = "Link title", blank = True)
 
 

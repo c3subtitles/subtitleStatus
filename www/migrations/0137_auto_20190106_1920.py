@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-#        migrations.AddField(
-#            model_name='subtitle',
-#            name='autotiming_step',
-#            field=models.PositiveSmallIntegerField(default=0),
-#        ),
         migrations.AlterField(
             model_name='speaker',
             name='frab_id',

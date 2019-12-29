@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('www', '0139_subtitle_autotiming_step'),
+        ('www', '0138_auto_20190106_1929'),
     ]
 
     operations = [

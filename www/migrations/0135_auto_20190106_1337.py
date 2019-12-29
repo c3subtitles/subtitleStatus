@@ -27,6 +27,10 @@ class Migration(migrations.Migration):
             name='frab_id',
             field=models.CharField(blank=True, default='-1', max_length=12),
         ),
+        migrations.RunSQL(
+            [],
+            ['ALTER TABLE "www_speaker" ALTER COLUMN "frab_id" TYPE smallint USING "frab_id"::smallint'],
+        ),
         migrations.AlterField(
             model_name='subtitle',
             name='is_original_lang',
@@ -36,5 +40,9 @@ class Migration(migrations.Migration):
             model_name='talk',
             name='frab_id_talk',
             field=models.CharField(blank=True, default='-1', max_length=12),
+        ),
+        migrations.RunSQL(
+            [],
+            ['ALTER TABLE "www_talk" ALTER COLUMN "frab_id_talk" TYPE varchar(10) USING "frab_id_talk"::varchar(10)'],
         ),
     ]

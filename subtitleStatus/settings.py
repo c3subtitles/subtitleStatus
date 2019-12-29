@@ -48,7 +48,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de']
+ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'localhost']
 
 
 # Application definition

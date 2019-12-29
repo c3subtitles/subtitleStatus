@@ -49,7 +49,6 @@ coverage.xml
 *.log
 *.pot
 /static/*
-www/migrations/
 www/static/
 subtitleStatus/settings.py
 

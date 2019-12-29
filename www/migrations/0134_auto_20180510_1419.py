@@ -16,4 +16,8 @@ class Migration(migrations.Migration):
             name='frab_id_talk',
             field=models.CharField(default='-1', max_length=10, blank=True),
         ),
+        migrations.RunSQL(
+            [],
+            ['ALTER TABLE "www_talk" ALTER COLUMN "frab_id_talk" TYPE smallint USING "frab_id_talk"::smallint'],
+        ),
     ]

@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('www', '0106_auto_20161009_1359'),
+        ('www', '0105_statistics_event_statistics_speaker'),
     ]
 
     operations = [

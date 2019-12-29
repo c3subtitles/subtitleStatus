@@ -98,8 +98,8 @@ elif config.get('sql', 'type').lower() == 'postgresql':
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config.get('sql', 'database'),
-        'USER': config.get('sql', 'user'),
-        'PASSWORD': config.get('sql', 'password'),
+        'USER': config.get('sql', 'user', fallback=''),
+        'PASSWORD': config.get('sql', 'password', fallback=''),
         'HOST': config.get('sql', 'host', fallback=''),
         'PORT': config.get('sql', 'port', fallback='')
     }

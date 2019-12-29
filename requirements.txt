@@ -1,0 +1,17 @@
+django==1.8.5
+django-bootstrap-form
+django-extensions
+git+https://github.com/mmarx/django-urlauth.git@fix-django-1.8#egg=django-urlauth
+git+https://github.com/mmarx/django-account.git@fix-url-namespace#egg=django-account
+psycopg2
+simplejson
+lxml
+twitter
+factory_boy
+pysftp
+urllib3
+xmltodict
+requests
+google-api-python-client
+oauth2client
+isodate

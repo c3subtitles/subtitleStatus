@@ -12,6 +12,7 @@
 
 .amara-embed {
 	display: block;
+	margin-bottom: 10px;
 }
 
 .progress-bar-grey {
@@ -37,41 +38,10 @@ body {
   margin-bottom: 80px !important;
 }
 
-#Statistics .Table {
-		    	display: table;
-		    	width: 100%;
-		    	margin-top: 0;
-				margin-bottom: 20px;
-}
-#Statistics .TableRow {
-    	display: table-row;
-}
-#Statistics .TableCell{
-    	display: table-cell;
-    	padding: 3px 10px;
-/*    	border: 1px solid #999999;*/
-}
-#Statistics .TableBody {
-    	display: table-row-group;
+a.thumbnail:hover{
+	text-decoration: none !important;
 }
 
-#TableLabel {
-    text-align: right;
-    white-space: nowrap;
-    font-weight: 700;
-    line-height: 1.42857143;
-    width: 170px;
-
+.thumbnail:hover > h3{
+	text-decoration: underline;
 }
-
-.tab-content div {
-    padding-top: 10px;
-}
-
-
-.column_has-backgound-color .col-md-4{
-        padding: 4px 0;
-    }   
-.column_has-backgound-color .col-md-4:nth-child(even){
-        background-color: rgb(240,240,240);
-    }

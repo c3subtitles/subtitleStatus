@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('www', '0028_subtitle_language'),
+        ('www', '0020_convert_subtitle_language_to_language_id'),
     ]
 
     operations = [

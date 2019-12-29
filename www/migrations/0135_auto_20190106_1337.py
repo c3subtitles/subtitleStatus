@@ -16,12 +16,11 @@ class Migration(migrations.Migration):
             name='frab_id_prefix',
             field=models.CharField(blank=True, default='', max_length=100),
         ),
-# already done by hand
-#        migrations.AddField(
-#            model_name='subtitle',
-#            name='autotiming_step',
-#            field=models.PositiveSmallIntegerField(default=0),
-#        ),
+        migrations.AddField(
+            model_name='subtitle',
+            name='autotiming_step',
+            field=models.PositiveSmallIntegerField(default=0),
+        ),
         migrations.AlterField(
             model_name='speaker',
             name='frab_id',

@@ -63,8 +63,6 @@ INSTALLED_APPS = (
     'bootstrapform',
     'account',
     'www',
-    'frab',
-    'unisubs',
     'django_extensions',
     'subtitleStatus',
 )

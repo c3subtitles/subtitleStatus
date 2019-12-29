@@ -48,8 +48,10 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
-/static/*
-www/static/
+/static/*.pdf
+www/static/*.txt
+www/static/fahrplan_files/
+www/static/word_frequencies/
 subtitleStatus/settings.py
 
 # Sphinx documentation

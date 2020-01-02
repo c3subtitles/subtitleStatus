@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -53,13 +53,13 @@ for any in my_subtitles:
     #url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=txt"
     slug = any.talk.slug
     url = "https://amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=srt"
-    
+
     # Building the email
     msg = MIMEMultipart()
-    
+
     # Fix für keinen Video-Link in der DB
     video_link = any.talk.link_to_video_file
-    
+
     # Build text for email with important Links
     text = MIMEText("Talk: "+any.talk.title+" \n"+
         "Talk-ID: "+str(any.talk.id)+"\n"+
@@ -123,8 +123,8 @@ for any in my_subtitles:
         i = 4
     elif text_content[5] == "":
         i = 5
-    
-    
+
+
     # Check rest of whole file
     while i < len(text_content):
         # If line is empty jump two down
@@ -135,11 +135,11 @@ for any in my_subtitles:
         else:
             transcript.append(text_content[i]+"\n")
             i += 1
-            
+
     filename = slug+"."+str(language)+".transcript"
     folder = "./downloads/"
     print(filename)
-    
+
     # Save File in ./downloads
     file = open(folder+filename,mode = "w",encoding = "utf-8")
     for line in transcript:
@@ -148,11 +148,11 @@ for any in my_subtitles:
         line = re.sub("&amp;", "&", line)
         line = re.sub("&gt;", ">", line)
         file.write(line)
-    file.close()   
+    file.close()
 
     filename = folder+filename
     print(filename)
-    
+
     # Build attachment File for email an attach
     attachment = MIMEBase('application', 'octet-stream')
     attachment.set_payload(open(filename, 'rb').read())
@@ -168,15 +168,15 @@ for any in my_subtitles:
     except:
         print("Mail Exception")
         sys.exit(1)
-    
-    
+
+
     # old
     #s = smtplib.SMTP('localhost')
     #s.send_message(msg)
     #s.quit()
-    
+
     # Reset Flag
     any.needs_automatic_syncing = False
     any.save()
-    
+
 sys.exit(0)

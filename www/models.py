@@ -317,7 +317,7 @@ class Talk(BasisModell):
     blacklisted = models.BooleanField(default=False, blank = True)
     day = models.ForeignKey(Event_Days, default = 1, blank = True)
     room = models.ForeignKey(Rooms, default = 15)
-    link_to_logo = models.URLField(default = "", blank = True)
+    #link_to_logo = models.URLField(default = "", blank = True)
     date = models.DateTimeField(default = "1970-01-01 00:00:00+01:00", blank = True)
     start = models.TimeField(default = "11:00" ,blank = True)
     duration = models.TimeField(default = "00:45", blank = True)

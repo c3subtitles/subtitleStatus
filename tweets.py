@@ -24,6 +24,8 @@ import credentials as cred
 
 max_tweet_length = 280
 
+"""
+# DEPRECATED subtitles are not released to media any more
 # A subtitle on media has been released or updated
 def create_tweet_for_media(subtitle_id):
     # Check if there really is a subtitle available with this Id:
@@ -58,6 +60,7 @@ def create_tweet_for_media(subtitle_id):
     my_tweet = string + '"' + name_of_talk + '" on: ' + link + " " + hashtag
     #print (my_tweet)
     return my_tweet
+"""
 
 
 # A subtitle on the selfnet mirror has been released or updated

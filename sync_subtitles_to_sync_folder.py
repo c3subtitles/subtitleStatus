@@ -38,7 +38,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
-from www.models import Talk, Language, Subtitle, Event, Folders_Extensions
+from www.models import Talk, Language, Subtitle, Event
 import credentials as cred
 
 # Stuff for the e-mail

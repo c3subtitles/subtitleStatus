@@ -330,9 +330,9 @@ class Talk(BasisModell):
     abstract = models.TextField(default = "", blank = True)
     description = models.TextField(default = "", blank = True)
     persons = models.ManyToManyField(Speaker, through = "Talk_Persons", default = None, blank = True) #through="Talk_Persons"
-    pad_id = models.CharField(max_length = 30, default = "", blank = True)
+    #pad_id = models.CharField(max_length = 30, default = "", blank = True)
     link_to_writable_pad = models.URLField(default = "", blank = True)
-    link_to_readable_pad = models.URLField(default = "", blank = True)
+    #link_to_readable_pad = models.URLField(default = "", blank = True)
     link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
     youtube_key = models.CharField(max_length = 20, blank = True)

@@ -43,9 +43,22 @@ for any_talk in my_talks:
         while counter < counter_max:
             persons_string = persons_string + ", " + this_persons[counter].speaker.name
             counter += 1
-    #print(persons_string)
-    print("%s;%s;%s;%s;" + str(strftime("%H:%M", any_talk.start)) + ";" + str(strftime("%H:%M", any_talk.duration)) + ";%s;%s;%s" % (any_talk.event.acronym, any_talk.frab_id_talk, any_talk.id, any_talk.day.index, any_talk.orig_language.language_de[0:2], any_talk.title, persons_string))
+   # print(persons_string, type(persons_string))
 
+    print(any_talk.event.acronym + ";" + any_talk.frab_id_talk + ";" + str(any_talk.id) + ";" + str(any_talk.day.index) + ";" + str(any_talk.start.strftime("%H:%M")) + ";" + str(any_talk.duration.strftime("%H:%M")) + ";" + any_talk.orig_language.language_de[0:2] + ";" + any_talk.title + ";" + persons_string )
+
+"""
+    print("%s;%s;%s;%s;" + \
+        str(any_talk.start.strftime("%H:%M")) + \
+        ";" + str(any_talk.duration.strftime("%H:%M")) +\
+        ";%s;%s;%s" % (any_talk.event.acronym,\
+        any_talk.frab_id_talk, \
+        str(any_talk.id), \
+        str(any_talk.day.index), \
+        any_talk.orig_language.language_de[0:2], \
+        any_talk.title, \
+        persons_string))
+"""
 """
 # Für Translations!
 my_talks = Talk.objects.filter(event = 5, blacklisted = False).order_by("day__index","date","start","room__room")

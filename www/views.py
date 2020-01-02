@@ -45,8 +45,8 @@ def event (request, event_acronym, *args, **kwargs):
             "date",
             "start",
             "room__room")
-        # Special case for 35c3, only show the talks with all data complete
-        if my_event.id == 8:
+        # Special case for 36c3, only show the talks with all data complete
+        if my_event.id == 11 or my_event.id == 12 or my_event.id == 13:
             my_talks = my_talks.all().exclude(video_duration = "00:00:00").exclude(amara_key = "").exclude(filename = "")
         my_langs = Language.objects.filter(pk__in=[a['orig_language'] for a in my_talks.values('orig_language')])
         if "day" in kwargs and int(kwargs.get("day")) > 0:
@@ -352,6 +352,8 @@ def seconds(sometime):
 
 # Functions for the progress bars
 def _progress_bar(total, green=0.0, orange=0.0, red=0.0, precision=1):
+    if total == 0:
+        total = 1
     scale = 100.0 / total
     green_amount = round(green * scale, precision)
     orange_amount = round(min(orange * scale, 100.0 - green_amount), precision)
@@ -563,7 +565,7 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
                     result = transforms.pad_from_trint(input)
                 elif subtitle.talk.has_transcript_by_youtube:
                     result = transforms.pad_from_youtube(input)
-                subtitle.autotiming_step = TIMING
+                #subtitle.autotiming_step = TIMING
                 subtitle.save()
             elif args['step'] == TIMING:
                 result = transforms.timing_from_pad(input)

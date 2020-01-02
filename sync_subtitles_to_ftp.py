@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
+#
+# DEPRECATED
+# This was used for the sync to the cdn, this is not used any more!
+# Related database fields are removed!
+#
 # This scripts checks for the flag "needs_sync_to_ftp" and 
 # "needs_removal_from_ftp"
 # It downloads the corresponding files from amara, removes the <i> and </i>

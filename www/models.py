@@ -362,6 +362,7 @@ class Talk(BasisModell):
     amara_complete_update_last_checked = models.DateTimeField(default = datetime.min, blank = True) # Everything checked, activity and data of every single subtitle
     needs_complete_amara_update = models.BooleanField(default = False)
     next_amara_activity_check = models.DateTimeField(default = datetime.min, blank = True)
+    internal_comment = models.CharField(default = "", max_length = 300)
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic

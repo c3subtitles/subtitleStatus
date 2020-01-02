@@ -46,7 +46,7 @@ class Event(BasisModell):
     speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     blacklisted = models.BooleanField(default = False, blank = True)
-    cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
+    #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
     subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end
     frab_id_prefix = models.CharField(max_length = 100, default = "", blank = True) # This allows other frab-id offsets of other events to be unique too in the database
 

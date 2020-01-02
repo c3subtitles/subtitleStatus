@@ -19,12 +19,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States
 
 #36c3
-event_id = 11
+#event_id = 11
+#36c3-chaoswest
+event_id=12
+#36c3-wikipaka
+#event_id=13
 event = Event.objects.get(id=event_id)
-overwrite = False
+overwrite = True
 
-short_id = event.acronym
-#short_id = "36c3-chaoswest"
+#short_id = event.acronym
+short_id = "36c3-chaoswest"
 #short_id = "36c3-wikipaka"
 
 my_talks = Talk.objects.filter(event = event)
@@ -34,9 +38,9 @@ for any in my_talks:
     if overwrite:
         any.link_to_writable_pad = "https://subtitles.pads.ccc.de/" + short_id + "-talk-" + any.frab_id_talk.split("-")[-1]
         print(any.link_to_writable_pad)
-        #any.save()
+        any.save()
     else:
         if any.link_to_writable_pad == "":
             any.link_to_writable_pad = "https://subtitles.pads.ccc.de/" + short_id + "-talk-" + any.frab_id_talk.split("-")[-1]
-            #any.save()
+            any.save()
             print(any.link_to_writable_pad)

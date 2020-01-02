@@ -61,7 +61,17 @@ for any_talk in my_talks:
     print(any_talk.event.acronym + ";" + any_talk.frab_id_talk + ";" + str(any_talk.id) + ";" + str(any_talk.day.index) + ";" + str(any_talk.start.strftime("%H:%M")) + ";" + str(any_talk.duration.strftime("%H:%M")) + ";" + any_talk.orig_language.language_de[0:2] + ";" + any_talk.title + ";" + persons_string )
 
 """
-
+    print("%s;%s;%s;%s;" + \
+        str(any_talk.start.strftime("%H:%M")) + \
+        ";" + str(any_talk.duration.strftime("%H:%M")) +\
+        ";%s;%s;%s" % (any_talk.event.acronym,\
+        any_talk.frab_id_talk, \
+        str(any_talk.id), \
+        str(any_talk.day.index), \
+        any_talk.orig_language.language_de[0:2], \
+        any_talk.title, \
+        persons_string))
+"""
 """
     print("%s;%s;%s;%s;" + \
         str(any_talk.start.strftime("%H:%M")) + \

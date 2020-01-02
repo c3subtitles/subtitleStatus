@@ -71,9 +71,7 @@ for any in my_subtitles:
         "Video-Adresse: "+video_link+"\n"+
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
-        "Pad-ID: " + any.talk.pad_id + "\n" +
         "Pad writable link: " + any.talk.link_to_writable_pad + "\n" +
-        "Pad only readable link: " + any.talk.link_to_readable_pad + "\n" +
         "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
         "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
         "1. File aus dem Anhang dieser E-Mail runter laden\n" +

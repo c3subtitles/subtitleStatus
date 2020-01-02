@@ -339,8 +339,8 @@ class Talk(BasisModell):
     c3subtitles_youtube_key = models.CharField(max_length = 20, blank = True)
     video_duration = models.TimeField(default = "00:00", blank = True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)
-    youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
-    youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
+    #youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
+    #youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
     filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
     time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds

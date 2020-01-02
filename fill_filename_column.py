@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
+#
+# DEPRECATED
+# The filename column is not filled from the SFTP connection any more!
+# The SFTP connection to the media cdn is not used any more.
+#
 # This scripts fills the filename-column in the talk table via regex from the
 # sftp folders
 #

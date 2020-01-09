@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from www import transforms
 import datetime
+from django.utils import timezone
 #from django import forms
 #from copy import deepcopy
 #import django_filters
@@ -584,3 +585,38 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
 
     return render(request, 'www/transforms.html',
                   args)
+
+# Export for media.ccc.de
+def media_export(request, timestamp, *argh, **kwargs):
+    #my_search_date = dateutil.parser.parse(timestamp)
+    data = None
+    try:
+        data = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    except:
+        data = None
+    if data == None:
+        try:
+            data = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
+        except:
+            data = None
+
+    # Get all subtitles datasets if no date was given
+    if data == None:
+        my_subtitles = Subtitle.objects.all().exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
+    elif data != None:
+        # Make data timezone aware, else the filter will fail
+        data = data.replace(tzinfo=timezone.utc)
+        my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
+
+    counter = my_subtitles.count()
+
+    activity_data = {}
+
+    csv_output = ""
+    csv_output += ("GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url\n")
+    for any in my_subtitles:
+        csv_output += any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+"/"+any.talk.filename+"."+any.language.lang_short_srt+".srt"+"\n"
+
+    #return render(request, 'www/b_test.html', {"data":data})
+    #return render(request, "www/raw_csv.html", {"data":csv_output})
+    return HttpResponse(csv_output, content_type='text/plain')

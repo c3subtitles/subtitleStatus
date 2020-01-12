@@ -245,12 +245,15 @@ class StatisticsRawDataAdmin(admin.ModelAdmin):
     list_display = ('id', 'speakerid', 'speaker', 'talkid', 'talk', 'recalculate_statistics', 'start_formated', 'end_formated', 'time_delta', 'words', 'strokes',)
     search_fields = ('talk','speaker',)
     ordering = ('-id',)
+    raw_id_fields = ('speaker', 'talk',)
+
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
     list_display = ('id', 'language_en', 'language_de', 'lang_amara_short', 'lang_short_srt', 'amara_order', 'lang_code_media', 'lang_code_iso_639_1',)
     search_fields = ('language_en', 'language_de', 'lang_amara_short', 'lang_short_srt', 'amara_order', 'lang_code_media', 'lang_code_iso_639_1',)
     ordering = ('-id',)
+
 
 @admin.register(Links)
 class LinksAdmin(admin.ModelAdmin):

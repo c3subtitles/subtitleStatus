@@ -239,7 +239,7 @@ class StatisticsRawDataAdmin(admin.ModelAdmin):
     start_formated.short_description = "Start"
 
     def end_formated(self, obj):
-        return obj.start.strftime("%H:%M%S.%f")
+        return obj.end.strftime("%H:%M:%S.%f")
     end_formated.short_description = "End"
     
     list_display = ('id', 'speakerid', 'speaker', 'talkid', 'talk', 'recalculate_statistics', 'start_formated', 'end_formated', 'time_delta', 'words', 'strokes',)

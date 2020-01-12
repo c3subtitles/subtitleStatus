@@ -16,8 +16,10 @@ from www.models import Event_Days
 from www.models import Rooms
 from www.models import Language
 from www.models import Statistics_Raw_Data
+from www.models import Statistics_Speaker
+from www.models import Statistics_Event
 from www.models import Talk_Persons
-
+from www.models import Transcript
 
 # Register your models here.
 
@@ -222,11 +224,58 @@ class TalkPersonsAdmin(admin.ModelAdmin):
     ordering = ('-id', )
 
 
+@admin.register(Statistics_Raw_Data)
+class StatisticsRawDataAdmin(admin.ModelAdmin):
+    def speakerid(self, obj):
+        return str(obj.speaker_id)
+    speakerid.short_description = "Sp ID"
+
+    def talkid(self, obj):
+        return str(obj.talk_id)
+    talkid.short_description = "Tk ID"
+
+    def start_formated(self, obj):
+        return obj.start.strftime("%H:%M:%S.%f")
+    start_formated.short_description = "Start"
+
+    def end_formated(self, obj):
+        return obj.start.strftime("%H:%M%S.%f")
+    end_formated.short_description = "End"
+    
+    list_display = ('id', 'speakerid', 'speaker', 'talkid', 'talk', 'recalculate_statistics', 'start_formated', 'end_formated', 'time_delta', 'words', 'strokes',)
+    search_fields = ('talk','speaker',)
+    ordering = ('-id',)
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'language_en', 'language_de', 'lang_amara_short', 'lang_short_srt', 'amara_order', 'lang_code_media', 'lang_code_iso_639_1',)
+    search_fields = ('language_en', 'language_de', 'lang_amara_short', 'lang_short_srt', 'amara_order', 'lang_code_media', 'lang_code_iso_639_1',)
+    ordering = ('-id',)
+
+@admin.register(Links)
+class LinksAdmin(admin.ModelAdmin):
+    def talkid(self, obj):
+        return str(obj.talk_id)
+    talkid.short_description = "Tk ID"
+    list_display = ('id', 'url', 'title', 'talkid', 'talk')
+    ordering = ('-id',)
+
+
+@admin.register(Speaker)
+class SpeakerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'frab_id', 'name', 'abstract', 'description', 'doppelgaenger_of',)
+
+
+
 admin.site.register(Tracks)
-admin.site.register(Links)
+#admin.site.register(Links)
 admin.site.register(Type_of)
-admin.site.register(Speaker)
+#admin.site.register(Speaker)
 admin.site.register(Event_Days)
 admin.site.register(Rooms)
-admin.site.register(Language)
-admin.site.register(Statistics_Raw_Data)
+#admin.site.register(Language)
+#admin.site.register(Statistics_Raw_Data)
+admin.site.register(Statistics_Speaker)
+admin.site.register(Statistics_Event)
+admin.site.register(Transcript)
+#admin.site.register(Talk_Persons)

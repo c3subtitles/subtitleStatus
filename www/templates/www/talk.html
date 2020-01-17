@@ -7,6 +7,10 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+<p>Hello, you are logged in!</p>
+{% endif %}
+
 <a href="/event/{{talk.event.acronym}}" class="btn btn-default">back</a>
 <h1>{{talk.title}}</h1>
 <h2>
@@ -235,7 +239,9 @@
                     <span style="margin-left: 1em;">Last revision: 
                     {% if sub.last_changed_on_amara.date != datetime_min.date %}
                         {{ sub.last_changed_on_amara|timesince }} ago
-                    {% else %}
+                    {% elif sub.state_id == 2 or sub.state_id == 4 %}
+                        {{ sub.touched|timesince}} ago
+		    {% else %}
                         unknown
                     {% endif %}
                     </span>

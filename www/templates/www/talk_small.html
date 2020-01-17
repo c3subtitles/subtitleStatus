@@ -29,6 +29,8 @@ This template is used in the events pages to display single talks in event.html
                     <td>Last revision:
                         {% if subtitle.last_changed_on_amara.date != datetime_min.date %}
                             {{ subtitle.last_changed_on_amara|timesince }} ago
+			{% elif subtitle.state_id == 2 or subtitle.state_id == 4 %}
+			    {{ subtitle.touched|timesince}} ago
                         {% else %}
                             unknown
                         {% endif %}

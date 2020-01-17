@@ -11,7 +11,7 @@
 <p>Hello, you are logged in! Some Shortcuts: </p>
 <a href="/admin/www/talk/{{talk.id}}">Talk in Admin</a> | <a href="/admin/www/talk/?q={{talk.frab_id_talk}}">Talk in Admin in der Übersicht</a>
 {% for sub in subtitles %}
- | 
+ |
 <a href="/admin/www/subtitle/{{sub.id}}">{{sub.language.display_name}} Subtitle in Admin</a>
 {% endfor %}
 <p></p>
@@ -81,7 +81,7 @@
                                 {% endif %}
                             </dl>
                         </div> <!-- End Tab panel Video Data -->
-                        
+
                         <!-- Tab panel Description -->
                         <div role="tabpanel" class="tab-pane" id="Description">
                             {% if talk.description != "None" %}
@@ -90,7 +90,7 @@
                                 <p>No description available.</p>
                             {% endif%}
                         </div> <!-- End Tab panel Description -->
-                        
+
                         <!-- Tab panel Misc -->
                         <div role="tabpanel" class="tab-pane" id="Misc">
                             <dl class="dl-horizontal">
@@ -116,7 +116,7 @@
                                 {% endfor %}
                             </dl>
                         </div> <!-- End Tab panel Misc -->
-                        
+
                         <!-- Tab panel Statistics -->
                         {% if talk.has_statistics %}
                             <div role="tabpanel" class="tab-pane" id="Statistics">
@@ -152,7 +152,7 @@
                                 </div> <!-- End table -->
                             </div> <!-- End Tab panel Statistics -->
                         {% endif %}
-                        
+
                         <!-- Tab panel Links -->
                         {% if talk.has_links %}
                         <div role="tabpanel" class="tab-pane" id="Links">
@@ -164,10 +164,10 @@
                             </dl>
                         </div><!-- End Tab panel Links -->
                         {% endif %}
-                    </div> <!-- End Tab panes -->                     
+                    </div> <!-- End Tab panes -->
                 </div> <!-- End tab panel -->
             </div> <!-- End additional div -->
-        
+
 
             {% for sub in subtitles %}
             <div class="container" >
@@ -232,7 +232,7 @@
     <div>
     {% if subtitles.count == 0 %}
     <div class="alert alert-info" role="alert"><strong>Missing form or progress bar?</strong> It may take up to ten minutes until the form appears, after you saved your progress on amara. Please give it a little patience and reload the page.</div>
-    
+
 
     {% endif %}
     {% for sub in subtitles %}
@@ -248,7 +248,7 @@
             {{ sub.form|bootstrap }}
             {% csrf_token %}
             <input class="btn btn-success"  type="submit" value="Save">
-                    <span style="margin-left: 1em;">Last revision: 
+                    <span style="margin-left: 1em;">Last revision:
                     {% if sub.last_changed_on_amara.date != datetime_min.date %}
                         {{ sub.last_changed_on_amara|timesince }} ago
                     {% elif sub.state_id == 2 or sub.state_id == 4 %}

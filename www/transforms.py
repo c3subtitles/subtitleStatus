@@ -51,7 +51,7 @@ def pad_from_trint(text):
                 continue
             out += ' ' + line
 
-    return out.replace('\n\n', '\n')
+    return out
 
 
 def pad_from_youtube(text):
@@ -69,7 +69,7 @@ def pad_from_youtube(text):
             else:
                  out += ' ' + line
 
-    return out.replace('\n\n', '\n')
+    return out
 
 
 def timing_from_pad(text):

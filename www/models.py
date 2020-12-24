@@ -51,6 +51,8 @@ class Event(BasisModell):
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
     subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end
     frab_id_prefix = models.CharField(max_length = 100, default = "", blank = True) # This allows other frab-id offsets of other events to be unique too in the database
+    kanboard_public_project_id = models.IntegerField(blank = True, null = True)
+    kanboard_private_project_id = models.IntegerField(blank = True, null = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -851,6 +853,8 @@ class Subtitle(BasisModell):
     needs_sync_to_sync_folder = models.BooleanField(default = False)
     needs_removal_from_sync_folder = models.BooleanField(default = False)
     autotiming_step = models.PositiveSmallIntegerField(default=0)
+    kanboard_public_task_id = models.IntegerField(blank = True, null = True)
+    kanboard_private_task_id = models.IntegerField(blank = True, null = True)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

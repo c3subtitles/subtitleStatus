@@ -66,12 +66,48 @@ class MaybeURLField(models.URLField):
             })
 
 
-def get_amara_header(cred):
-    """Return a header suitable for authenticating against the amara API."""
-    return {'Content-Type': 'application/json',
-            'X-api-username': cred.AMARA_USER,
-            'X-api-key': cred.AMARA_API_KEY,
-    }
+
+@deconstructible
+class MaybeURLValidator(URLValidator):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __call__(self, value):
+        if value == '#':
+            return
+
+        if value.startswith('#'):
+            value = value[1:]
+
+        super().__call__(value)
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+
+class MaybeURLFormField(forms.fields.URLField):
+    default_validators = [MaybeURLValidator()]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def to_python(self, value):
+        if value.startswith('#'):
+            return value
+        return super().to_python(value)
+
+
+class MaybeURLField(models.URLField):
+    default_validators = [MaybeURLValidator()]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def formfield(self, **kwargs):
+        return super().formfield(**{
+            'form_class': MaybeURLFormField,
+            **kwargs,
+            })
 
 
 # Basic model which provides a field for the creation and the last change timestamp

@@ -198,7 +198,7 @@ class SubtitleAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(
             reverse('workflowTransforms', args=[first, rest]))
     transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
-    
+
     actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
     list_display = ('id', 'talk_id_link', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'blacklisted', 'touched',)
@@ -241,7 +241,7 @@ class StatisticsRawDataAdmin(admin.ModelAdmin):
     def end_formated(self, obj):
         return obj.end.strftime("%H:%M:%S.%f")
     end_formated.short_description = "End"
-    
+
     list_display = ('id', 'speakerid', 'speaker', 'talkid', 'talk', 'recalculate_statistics', 'start_formated', 'end_formated', 'time_delta', 'words', 'strokes',)
     search_fields = ('talk','speaker',)
     ordering = ('-id',)

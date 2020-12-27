@@ -4,10 +4,57 @@ from datetime import datetime, timezone, timedelta
 from django.db import models
 from django.db.models import Sum, Q
 from django.core.urlresolvers import reverse
+from django.core.validators import URLValidator
 from django.db import transaction
+from django.utils.deconstruct import deconstructible
+from django import forms
 from .statistics_helper import *
 import json
 import credentials as cred
+
+
+@deconstructible
+class MaybeURLValidator(URLValidator):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __call__(self, value):
+        if value == '#':
+            return
+
+        if value.startswith('#'):
+            value = value[1:]
+
+        super().__call__(value)
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+
+class MaybeURLFormField(forms.fields.URLField):
+    default_validators = [MaybeURLValidator()]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def to_python(self, value):
+        if value.startswith('#'):
+            return value
+        return super().to_python(value)
+
+
+class MaybeURLField(models.URLField):
+    default_validators = [MaybeURLValidator()]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def formfield(self, **kwargs):
+        return super().formfield(**{
+            'form_class': MaybeURLFormField,
+            **kwargs,
+            })
+
 
 # Basic model which provides a field for the creation and the last change timestamp
 class BasisModell(models.Model):
@@ -38,14 +85,14 @@ class Event(BasisModell):
     end = models.DateField(default = "1970-01-01", blank = True)
     timeslot_duration = models.TimeField(default = "00:15", blank = True)
     days = models.PositiveSmallIntegerField(default = 1, blank = True)
-    schedule_xml_link = models.URLField()
+    schedule_xml_link = MaybeURLField()
     city = models.CharField(max_length = 30, default = "", blank = True)
     building = models.CharField(max_length = 30, default = "", blank = True)
     #ftp_startfolder = models.CharField(max_length = 100, default = "", blank = True)
     #ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
     hashtag = models.CharField(max_length = 20, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
-    speaker_json_link = models.URLField(blank = True, default = "")
+    speaker_json_link = MaybeURLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     blacklisted = models.BooleanField(default = False, blank = True)
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
@@ -331,7 +378,7 @@ class Talk(BasisModell):
     description = models.TextField(default = "", blank = True)
     persons = models.ManyToManyField(Speaker, through = "Talk_Persons", default = None, blank = True) #through="Talk_Persons"
     #pad_id = models.CharField(max_length = 30, default = "", blank = True)
-    link_to_writable_pad = models.URLField(default = "", blank = True)
+    link_to_writable_pad = MaybeURLField(default = "", blank = True)
     #link_to_readable_pad = models.URLField(default = "", blank = True)
     link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
@@ -669,7 +716,7 @@ class Talk(BasisModell):
                 results = {}
                 # Loop as long as not all new activity datasets have been checked
                 # Loop only if the talk has an amara_key
-                # The json result from amara includes a "next" field which has the url for the next query if not 
+                # The json result from amara includes a "next" field which has the url for the next query if not
                 # all results came with the first query
                 while (url != None) and (url != basis_url + "/activity/"):
                     r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
@@ -749,7 +796,7 @@ class Talk(BasisModell):
                     # Zero can exist if someone once clicked a language but didn't save anything
                     if amara_subt_revision > 0:
                         # Get the right subtitle dataset or create it, only if the version is not null
-                        my_language = Language.objects.get(lang_amara_short = amara_subt_lang)     
+                        my_language = Language.objects.get(lang_amara_short = amara_subt_lang)
                         my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language)
                         # Proceed if the version on amara has changed
                         if my_subtitle.revision != amara_subt_revision:
@@ -805,7 +852,7 @@ class Talk(BasisModell):
                             my_subtitle.save()
                         elif my_subtitle.state_id == 1 and not my_subtitle.is_original_lang:
                             my_subtitle.state_id = 11
-                            my_subtitle.save() 
+                            my_subtitle.save()
                 # Save the timestamp when this function was last used and reset the flag
                 self.amara_complete_update_last_checked = start_timestamp
                 self.needs_complete_amara_update = False

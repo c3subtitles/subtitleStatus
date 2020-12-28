@@ -137,3 +137,107 @@ def fix_sbv_linebreaks(transcript, sbv):
 
 
     return '\n\n'.join(lines)
+
+
+FILLER = re.compile(r'^\[(Füller, bitte in amara entfernen|Filler, please remove in amara)\]$', flags=re.IGNORECASE)
+TIMESTAMP = re.compile(r'^\d+:\d{2}:\d{2}.\d{3},\d+:\d{2}:\d{2}.\d{3}$', flags=re.MULTILINE)
+COMPONENTS = re.compile(r'^(?P<start_hours>\d+):(?P<start_minutes>\d{2}):(?P<start_seconds>\d{2}).(?P<start_milliseconds>\d{3}),(?P<end_hours>\d+):(?P<end_minutes>\d{2}):(?P<end_seconds>\d{2}).(?P<end_milliseconds>\d{3})$')
+
+
+def align_transcript_sbv(transcript, sbv):
+    transcript.replace("\r\n", "\n")
+    sbv.replace("\r\n", "\n")
+
+    transcript_blocks = transcript.split("\n\n")
+    sbv_blocks = [{'timestamp': timestamp,
+                   'block': block,
+                   'lines': [line
+                              for line in block.split("\n")
+                              if not line.isspace() and line != ''],
+                   } for (timestamp, block) in zip(TIMESTAMP.findall(sbv),
+                                                   TIMESTAMP.split(sbv)[1:])
+                  ]
+
+    alignment = []
+    for block in transcript_blocks:
+        words = block.split()
+
+        start = None
+        sbv_block = None
+        sbv_words = []
+        dropped = 0
+
+        while len(words) > 0:
+            if len(sbv_words) == 0:
+                sbv_block = sbv_blocks.pop(0)
+                sbv_words = sbv_block['block'].split()
+                dropped = 0
+
+            if start is None:
+                start = sbv_block['timestamp']
+
+            assert words.pop(0) == sbv_words.pop(0)
+            dropped += 1
+
+        end = sbv_block['timestamp']
+        this = start
+        other = end
+
+        if sbv_words:
+            lines = sbv_block['lines']
+            chars = 0.0
+            total = sum([len(line) for line in lines])
+            while dropped > 0:
+                dropped -= len(lines[0].split())
+                assert dropped >= 0
+                chars += len(lines[0].split())
+                lines.pop(0)
+
+            this, other = interpolate(start, end, chars / total)
+
+            sbv_block = "\n".join(lines)
+            sbv_blocks.insert(0, {'timestamp': other,
+                                  'lines': lines,
+                                  'block': sbv_block,
+                                  })
+            sbv_block = None
+
+        block = "\n".join([line for line in block.split("\n") if not FILLER.match(line)])
+        alignment.append("{}\n{}".format(this, block))
+
+    return "\n\n".join(alignment)
+
+
+def interpolate(start, end, percentage):
+    def ms(components, prefix='start'):
+        return (int(components['{}_milliseconds'.format(prefix)])
+                + 1000 * (int(components['{}_seconds'.format(prefix)])
+                          + 60 * (int(components['{}_minutes'.format(prefix)])
+                                  + 60 * (int(components['{}_hours'.format(prefix)])))))
+
+    def ts(ms):
+        milliseconds = ms % 1000
+        ms = ms // 1000
+        seconds = ms % 60
+        ms = ms // 60
+        minutes = ms % 60
+        ms = ms // 60
+        hours = ms
+
+        return "{:0d}:{:02d}:{:02d}.{:03d}".format(hours, minutes, seconds, milliseconds)
+
+    start_match = COMPONENTS.match(start)
+    end_match = COMPONENTS.match(end)
+
+    start_ms = ms(start_match.groupdict())
+    start_duration = ms(start_match.groupdict(), prefix='end') - start_ms
+    end_ms = ms(end_match.groupdict(), prefix='end')
+    end_duration = end_ms - ms(end_match.groupdict())
+
+    midpoint = start_ms + start_duration + int(percentage * end_duration)
+    assert start_ms <= midpoint <= end_ms
+
+    this = "{},{}".format(ts(start_ms), ts(midpoint))
+    other = "{},{}".format(ts(midpoint), ts(end_ms))
+
+    return this, other

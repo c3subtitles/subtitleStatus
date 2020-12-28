@@ -576,8 +576,10 @@ def text_transforms_dwim(request, subtitle_id, next_ids):
                 otherform = SimplePasteForm(request.POST, prefix='SBV')
 
                 if otherform.is_valid():
-                    result = transforms.fix_sbv_linebreaks(input,
-                                                           otherform.cleaned_data['text'])
+                    # result = transforms.fix_sbv_linebreaks(input,
+                    #                                        otherform.cleaned_data['text'])
+                    result = transforms.align_transcript_sbv(input,
+                                                             otherform.cleaned_data['text'])
 
             args['result'] = result
             return render(request, 'www/transforms_result.html',

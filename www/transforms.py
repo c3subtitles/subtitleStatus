@@ -201,6 +201,8 @@ def align_transcript_sbv(transcript, sbv):
                                   'block': sbv_block,
                                   })
             sbv_block = None
+        elif start != end:
+            this = "{},{}".format(start.split(",")[0], end.split(",")[1])
 
         block = "\n".join([line for line in block.split("\n") if not FILLER.match(line)])
         alignment.append("{}\n{}".format(this, block))

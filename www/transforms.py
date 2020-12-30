@@ -190,9 +190,10 @@ def align_transcript_sbv(transcript, sbv):
             while dropped > 0:
                 dropped -= len(lines[0].split())
                 assert dropped >= 0
-                chars += len(lines[0].split())
+                chars += len(lines[0])
                 lines.pop(0)
 
+            assert chars <= total
             this, other = interpolate(start, end, chars / total)
 
             sbv_block = "\n".join(lines)

@@ -52,15 +52,23 @@ email_text_removed_subtitles = "Removed subtitle files:\n"
 # Get all subtitles with flag "needs_sync_to_sync_folder"
 my_subtitles = Subtitle.objects.filter(needs_sync_to_sync_folder = True)
 
+#DEBUG
+print("Nach DB Abfrage für sync")
+
 # Copy the file to the sync folder
 for s in my_subtitles:
+    print(s.id)
     s.sync_subtitle_to_sync_folder()
-    
+    print(s.id)
     # Add text to email body
     email_text_added_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt() + "\n"
+#DEBUG
+print("Nach Sync")
 
 # Get all subtitles with flag "needs_removal_from_sync_folder"
 my_subtitles = Subtitle.objects.filter(needs_removal_from_sync_folder = True).select_related("talk")
+#DEBUG
+print("Nach DB Abfrage für removal")
 
 # Copy the file to the sync folder
 for s in my_subtitles:

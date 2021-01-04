@@ -3,7 +3,7 @@
 
 import sys
 
-from wwww.transforms import timing_from_pad
+from www.transforms import timing_from_pad
 
 
 if __name__ == '__main__':

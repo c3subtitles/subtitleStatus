@@ -92,3 +92,8 @@ subtitles_sync_folder
 subtitles_sync_folder/*
 subtitleStatus/subtitleStauts.cfg
 .secret
+
+# Google Auth Stuff
+ytc-oauth2.json
+client_secrets.json
+

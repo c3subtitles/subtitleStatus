@@ -739,7 +739,18 @@ class Talk(BasisModell):
             if self.amara_key != "":
                 import requests
                 r = requests.get(url, headers = cred.AMARA_HEADER)
-                activities = json.loads(r.text)
+                counter = 0
+                while True:
+                    counter += 5
+                    print(r.text)
+                    if "Error 429 Too Many Requests" in r.text:
+                        time.sleep(counter)
+                        r = requests.get(url, headers = cred.AMARA_HEADER)
+                    else:
+                        activities = json.loads(r.text)
+                        break
+                    if counter == 120:
+                        break
                 for any_subtitle in activities["objects"]:
                     print("Talk_ID:", self.id, "Amara_key:", self.amara_key)
                     print("Language_code:", any_subtitle["language_code"])

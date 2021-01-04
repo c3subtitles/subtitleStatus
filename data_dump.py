@@ -21,6 +21,19 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Links, Tracks, Type_of, Speaker, Event, Event_Days, Rooms, Language, Subtitle, States, Talk_Persons
 
+
+
+# Für andi für media
+
+my_complete_subtitles = Subtitle.objects.filter(complete=True).order_by("last_changed_on_amara")
+
+for any in my_complete_subtitles:
+    print(any.talk.guid+";"+ any.language.lang_code_media+";"+any.language.lang_short_srt+";"+str(any.last_changed_on_amara)+";"+"https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder + "/" + any.talk.filename)
+
+
+
+"""
+
 # Für die Laufzettel
 my_complete_subtitles = Subtitle.objects.filter(complete = True, is_original_lang = True)
 id_list = []
@@ -48,6 +61,8 @@ for any_talk in my_talks:
     print(any_talk.event.acronym + ";" + any_talk.frab_id_talk + ";" + str(any_talk.id) + ";" + str(any_talk.day.index) + ";" + str(any_talk.start.strftime("%H:%M")) + ";" + str(any_talk.duration.strftime("%H:%M")) + ";" + any_talk.orig_language.language_de[0:2] + ";" + any_talk.title + ";" + persons_string )
 
 """
+
+"""
     print("%s;%s;%s;%s;" + \
         str(any_talk.start.strftime("%H:%M")) + \
         ";" + str(any_talk.duration.strftime("%H:%M")) +\
@@ -60,6 +75,7 @@ for any_talk in my_talks:
         persons_string))
 """
 """
+
 # Für Translations!
 my_talks = Talk.objects.filter(event = 5, blacklisted = False).order_by("day__index","date","start","room__room")
 my_talks = my_talks.order_by("day_id__index", "date", "start", "room")

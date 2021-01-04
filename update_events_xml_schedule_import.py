@@ -380,14 +380,20 @@ def read_xml_and_save_to_database(event_frab_prefix):
                 save_type_of_data()
                 
                 # language
-                if fahrplan[counter_day][counter_room][counter_event][10].tag == "language":
+                if fahrplan[counter_day][counter_room][counter_event][7].tag == "language":
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][7].text)
+                elif fahrplan[counter_day][counter_room][counter_event][8].tag == "language":
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][8].text)
+                elif fahrplan[counter_day][counter_room][counter_event][9].tag == "language":
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][9].text)
+                elif fahrplan[counter_day][counter_room][counter_event][10].tag == "language":
                     talk_language = str(fahrplan[counter_day][counter_room][counter_event][10].text)
                 elif fahrplan[counter_day][counter_room][counter_event][11].tag == "language":
-                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][11].text)                    
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][11].text)
                 else:
                     error("Problem with language")
                 my_language = Language.objects.get(lang_amara_short = talk_language)
-
+                     
                 # abstract
                 if fahrplan[counter_day][counter_room][counter_event][11].tag == "abstract":
                     talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][11].text)
@@ -415,7 +421,8 @@ def read_xml_and_save_to_database(event_frab_prefix):
                     # check if there is any subelement in persons
                     if len(fahrplan[counter_day][counter_room][counter_event][counter]):
                         for person in fahrplan[counter_day][counter_room][counter_event][counter]:
-                            talk_persons.append([int(person.get("id")), person.text])
+                            #talk_persons.append([int(person.get("id")), person.text])
+                            talk_persons.append([person.get("id"), person.text])
                     else:
                         talk_persons = []
                 else:

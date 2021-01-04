@@ -324,7 +324,7 @@ class Talk(BasisModell):
     date = models.DateTimeField(default = "1970-01-01 00:00:00+01:00", blank = True)
     start = models.TimeField(default = "11:00" ,blank = True)
     duration = models.TimeField(default = "00:45", blank = True)
-    title = models.CharField(max_length = 150, default = "ohne Titel", blank = True)
+    title = models.CharField(max_length = 200, default = "ohne Titel", blank = True)
     subtitle_talk = models.CharField(max_length = 300, default = " ", blank = True) # nicht UT sondern Ergänzung zum Titel
     track = models.ForeignKey(Tracks, default = 40, blank = True)
     event = models.ForeignKey(Event, default = 3, blank = True)

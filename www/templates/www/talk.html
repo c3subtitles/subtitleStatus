@@ -247,7 +247,7 @@
                         {{ sub.last_changed_on_amara|timesince }} ago
                     {% elif sub.state_id == 2 or sub.state_id == 4 %}
                         {{ sub.touched|timesince}} ago
-		    {% else %}
+                    {% else %}
                         unknown
                     {% endif %}
                     </span>

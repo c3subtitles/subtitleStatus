@@ -46,8 +46,8 @@ class DayIndexFilter(admin.SimpleListFilter):
 class TalkAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'day', 'start', 'transcript_by',)
-    list_filter = ('event', DayIndexFilter,)
+                    'event', 'day', 'start', 'transcript_by', 'recalculate_talk_statistics',)
+    list_filter = ('event', DayIndexFilter, 'recalculate_talk_statistics', 'blacklisted',)
     search_fields = ('title', 'event__acronym', 'frab_id_talk',)
     ordering = ('-event', 'date',)
 
@@ -144,7 +144,8 @@ class SubtitleAdmin(admin.ModelAdmin):
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
-            subtitle.autotiming_step = 1
+            subtitle.autotiming_step = 0
+            subtitle.set_to_autotiming_in_progress()
             subtitle.save()
     reset_to_timing.short_description = 'Restart Workflow from Timing-from-Pad'
 

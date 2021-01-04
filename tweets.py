@@ -174,13 +174,18 @@ def create_tweet_for_needs_quality_control(id):
 
 
 # Pure tweeting
-def do_tweet(tweet_content = "Something!"):
+def do_tweet(tweet_content = "Something!", use_progress_twitter_account=False):
     if tweet_content == None:
         return False
     my_twitter = tw.Twitter( auth = tw.OAuth(cred.TW_C3R_ACCESS_TOKEN,
         cred.TW_C3R_ACCESS_TOKEN_SECRET,
         cred.TW_C3R_API_KEY,
         cred.TW_C3R_API_SECRET))
+    if use_progress_twitter_account:
+        my_twitter = tw.Twitter(auth = tw.OAuth(cred.TW_C3P_ACCESS_TOKEN,
+            cred.TW_C3P_ACCESS_TOKEN_SECRET,
+            cred.TW_C3P_API_KEY,
+            cred.TW_C3P_API_SECRET))
     try:
         my_twitter.statuses.update(status = tweet_content)
         return True
@@ -196,7 +201,7 @@ def tweet_subtitles_update_YT(id):
     return do_tweet(create_tweet_for_YT(id))
 
 def tweet_subtitle_needs_quality_control(id):
-    return do_tweet(create_tweet_for_needs_quality_control(id))
+    return do_tweet(create_tweet_for_needs_quality_control(id), use_progress_twitter_account=True)
  
 # Tweet for YT and media updates/releases
 def tweet_subtitles_update(id):

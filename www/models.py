@@ -979,7 +979,7 @@ class Subtitle(BasisModell):
             filename = self.talk.slug+"." + self.language.lang_amara_short + ".srt"
             folder = "./downloads/subtitle_srt_files/"
             # Save File in ./downloads
-            file = open(folder+filename,mode = "w",encoding = "utf-8")
+            file = open(folder+filename, mode = "w", encoding = "utf-8")
             file.write(srt_file)
             file.close()
         return srt_file

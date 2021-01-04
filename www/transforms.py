@@ -127,6 +127,7 @@ def fix_sbv_linebreaks(transcript, sbv):
         # append SBV chunks until we match the current transcript chunk
         while chunk != line and current_chunk < total_sbv_chunks:
             # separator may be a space or newline
+            #print(repr(chunk), repr(line), len(line), ':', current_chunk, total_sbv_chunks, len(chunk))
             separator = chunk[len(line)]
             line += separator + sbv_chunks[current_chunk]
             # collect the timestamp, in case this is then last SBV chunk

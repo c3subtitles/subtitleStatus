@@ -11,7 +11,7 @@ from django import forms
 from .statistics_helper import *
 import json
 import credentials as cred
-
+import time
 
 @deconstructible
 class MaybeURLValidator(URLValidator):
@@ -45,7 +45,7 @@ class MaybeURLFormField(forms.fields.URLField):
 
 class MaybeURLField(models.URLField):
     default_validators = [MaybeURLValidator()]
-
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -382,7 +382,6 @@ class Talk(BasisModell):
     persons = models.ManyToManyField(Speaker, through = "Talk_Persons", default = None, blank = True) #through="Talk_Persons"
     #pad_id = models.CharField(max_length = 30, default = "", blank = True)
     link_to_writable_pad = MaybeURLField(default = "", blank = True)
-    #link_to_readable_pad = models.URLField(default = "", blank = True)
     link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
     youtube_key = models.CharField(max_length = 20, blank = True)

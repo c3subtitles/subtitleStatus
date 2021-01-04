@@ -21,6 +21,7 @@ from www.models import Statistics_Event
 from www.models import Talk_Persons
 from www.models import Transcript
 
+
 # Register your models here.
 
 class DayIndexFilter(admin.SimpleListFilter):
@@ -40,6 +41,7 @@ class DayIndexFilter(admin.SimpleListFilter):
             return queryset.filter(day__index=index)
         else:
             return queryset
+
 
 
 @admin.register(Talk)

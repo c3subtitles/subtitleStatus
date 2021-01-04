@@ -44,11 +44,13 @@ else:
             f.write(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True
 DEBUG = False
 
 TEMPLATE_DEBUG = False
+#TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'localhost']
+ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'c3subtitles.ext.selfnet.de']
 
 
 # Application definition
@@ -137,3 +139,21 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'loggers': {
+        'django': {
+            'handlers' : ['console'],
+            'level' : 'WARNING'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'filters': None,
+            'level': 'WARNING',
+        }
+    }
+}

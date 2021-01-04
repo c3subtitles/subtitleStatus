@@ -857,8 +857,6 @@ class Subtitle(BasisModell):
     needs_sync_to_sync_folder = models.BooleanField(default = False)
     needs_removal_from_sync_folder = models.BooleanField(default = False)
     autotiming_step = models.PositiveSmallIntegerField(default=0)
-    kanboard_public_task_id = models.IntegerField(blank = True, null = True)
-    kanboard_private_task_id = models.IntegerField(blank = True, null = True)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

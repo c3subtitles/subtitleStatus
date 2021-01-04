@@ -233,7 +233,7 @@ class Type_of(BasisModell):
 
 # Speaker or Speakers of the Talk
 class Speaker(BasisModell):
-    frab_id = models.CharField(max_length = 20, default = "-1", blank = True)
+    frab_id = models.CharField(max_length = 50, default = "-1", blank = True)
     name = models.CharField(max_length = 50, default = "")
     doppelgaenger_of = models.ForeignKey('self', on_delete = models.SET_NULL, blank = True, null = True)
     abstract = models.TextField(default = "", blank = True, null = True)

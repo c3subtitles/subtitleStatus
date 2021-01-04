@@ -216,7 +216,13 @@
             <strong>This talk has a pad for the transcript, please use this instead of the amara editor:</strong> <a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a>
         </div>
     {% endif %}
-
+    {% comment %}
+    {% if talk.kanboard_public_task_id != None %}
+        <div class="alert alert-info" role="alert">
+                <strong>Direct link to the task in the Kanboard:</strong> <a href="https://tasks.c3subtitles.de/?controller=TaskViewController&action=show&task_id={{ talk.kanboard_public_task_id }}&project_id=2" target="_blank">Task</a>
+        </div>
+    {% endif %}
+    {% endcomment %}
     <div>
     {% if subtitles.count == 0 %}
     <div class="alert alert-info" role="alert"><strong>Missing form or progress bar?</strong> It may take up to ten minutes until the form appears, after you saved your progress on amara. Please give it a little patience and reload the page.</div>

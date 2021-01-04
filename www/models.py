@@ -225,7 +225,7 @@ class Tracks(BasisModell):
 
 # How the talk is presented, like a workshop or a talk
 class Type_of(BasisModell):
-    type = models.CharField(max_length = 50, default = "")
+    type = models.CharField(max_length = 80, default = "")
 
     def __str__(self):
         return self.type

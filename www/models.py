@@ -1005,6 +1005,7 @@ class Subtitle(BasisModell):
             # Copy the subtitle to the right folder
             file_from = "/opt/subtitleStatus/downloads/subtitle_srt_files/" + self.talk.slug + "." + self.language.lang_amara_short + ".srt"
             file_to = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
+            self.sync_subtitle_to_sync_folder()
             try:
                 shutil.copy2(file_from, file_to)
             except:

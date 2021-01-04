@@ -32,10 +32,7 @@ print("Start: ", start)
 my_talks = Talk.objects.filter(next_amara_activity_check__lte = start, blacklisted = False)
 print("Talks which need an activity update: ", my_talks.count())
 for any in my_talks:
-#    try:
     any.check_activity_on_amara()
-#    except:
-#        pass
 
 # Check the "big" amara query for talks which had a new activity
 my_talks = Talk.objects.filter(needs_complete_amara_update = True, blacklisted = False)

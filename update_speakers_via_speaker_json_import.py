@@ -82,5 +82,3 @@ for event in my_events:
                 
     event.speaker_json_version = result["schedule_speakers"]["version"]
     event.save()
-    
-        

@@ -146,8 +146,8 @@ COMPONENTS = re.compile(r'^(?P<start_hours>\d+):(?P<start_minutes>\d{2}):(?P<sta
 
 
 def align_transcript_sbv(transcript, sbv):
-    transcript.replace("\r\n", "\n")
-    sbv.replace("\r\n", "\n")
+    transcript = transcript.replace('\ufeff', '').replace("\r\n", "\n")
+    sbv = sbv.replace('\ufeff', '').sbv.replace("\r\n", "\n")
 
     transcript_blocks = transcript.split("\n\n")
     sbv_blocks = [{'timestamp': timestamp,
@@ -206,7 +206,7 @@ def align_transcript_sbv(transcript, sbv):
         elif start != end:
             this = "{},{}".format(start.split(",")[0], end.split(",")[1])
 
-        block = "\n".join([line for line in block.split("\n") if not FILLER.match(line)])
+        block = "<br/>".join([line for line in block.split("\n") if not FILLER.match(line)])
         alignment.append("{}\n{}".format(this, block))
 
     return "\n\n".join(alignment)

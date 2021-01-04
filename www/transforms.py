@@ -133,7 +133,7 @@ def fix_sbv_linebreaks(transcript, sbv):
             timestamp = sbv_timestamps[current_chunk].split(',')[1]
             current_chunk += 1
 
-        lines.append(("{},{}\n{}".format(timestamp_begin, timestamp, line)))
+        lines.append(("{},{}\n{}".format(timestamp_begin, timestamp, line.replace('\n', '<br/>'))))
 
 
     return '\n\n'.join(lines)

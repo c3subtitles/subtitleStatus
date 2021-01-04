@@ -368,6 +368,9 @@ class Talk(BasisModell):
     needs_complete_amara_update = models.BooleanField(default = False)
     next_amara_activity_check = models.DateTimeField(default = datetime.min, blank = True)
     internal_comment = models.CharField(default = "", max_length = 300, blank=True)
+    kanboard_public_task_id = models.IntegerField(blank = True, null = True)
+    kanboard_private_task_id = models.IntegerField(blank = True, null = True)
+
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic

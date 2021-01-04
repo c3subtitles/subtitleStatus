@@ -53,6 +53,7 @@ class Event(BasisModell):
     frab_id_prefix = models.CharField(max_length = 100, default = "", blank = True) # This allows other frab-id offsets of other events to be unique too in the database
     kanboard_public_project_id = models.IntegerField(blank = True, null = True)
     kanboard_private_project_id = models.IntegerField(blank = True, null = True)
+    comment = models.TextField(default = "", blank = True, null = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:

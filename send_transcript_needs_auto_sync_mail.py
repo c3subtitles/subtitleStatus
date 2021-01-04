@@ -7,7 +7,7 @@
 # autotiming of the transcript on Youtube
 # Afterwards it resets the flag in the database
 # When the timed *.sbv from youtube is back in amara the script:
-# "reset_subtitle_form_blcoked_to_quality_control.py" should be run
+# "reset_subtitle_form_blocked_to_quality_control.py" should be run
 #==============================================================================
 
 import os
@@ -47,7 +47,7 @@ TEXT = []
 TEXT.append("These Subtitle-Files need your attention: ")
 
 for any in my_subtitles:
-    #print(any.id)
+    print(any.id)
     language = any.language.lang_amara_short
     amara_key = any.talk.amara_key
     #url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+str(language)+"/subtitles/?format=txt"
@@ -69,8 +69,11 @@ for any in my_subtitles:
         "Subtitle-Sprache: " + language + "\n\n" +
         "Adminer-Adresse: http://adminer.c3subtitles.de/?pgsql=&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n\n"+
         "Video-Adresse: "+video_link+"\n"+
+        "YouTube-Adresse im C3Subtitles YT-Account: https://www.youtube.com/watch?v=" + any.talk.c3subtitles_youtube_key + "\n" +
         "Amara-Adresse: "+"www.amara.org/videos/"+any.talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
+        "Admin-Subtitle-Adresse: https://c3subtitles.de/admin/www/subtitle/" + str(any.id) + "\n" +
+        "Admin-Talk-Adresse: https://c3subtitles.de/admin/www/talk/" + str(any.talk.id) + "\n" +
         "Pad writable link: " + any.talk.link_to_writable_pad + "\n" +
         "Konvertierungsseite (falls nötig :( ): http://www.3playmedia.com/services-features/free-tools/captions-format-converter/ \n\n" +
         "Screencast vom ganzen Prozess: https://www.youtube.com/watch?v=bydO0-fQyqQ \n\n" +
@@ -97,8 +100,9 @@ for any in my_subtitles:
     msg["Subject"] = "Transcript needs your attention: "+str(any.talk.frab_id_talk)+' "'+any.talk.title+'"'
     msg["From"] = FROM
     msg["To"] = TO
-    
-    # Creating the attachment
+
+    """
+    # Creating the attachment - not necessary anymore
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     file_content = response.read()
@@ -157,10 +161,12 @@ for any in my_subtitles:
     encoders.encode_base64(attachment)
     attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
     msg.attach(attachment)
+    """
 
     try:
         p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
         p.communicate(msg.as_string())
+        print("Mail send")
     except:
         print("Mail Exception")
         sys.exit(1)

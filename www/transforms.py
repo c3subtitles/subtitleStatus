@@ -2,6 +2,23 @@ import re
 import textwrap
 
 
+BOMS = ['\ufeff',
+        '\uffef',
+        '\xef\xbb\xbf',
+        ]
+
+
+def strip_bom(text):
+    for bom in BOMS:
+        if text.startswith(bom):
+            return text[len(bom):]
+    return text
+
+
+def normalise(text):
+    return strip_bom(text).replace('\r\n', '\n')
+
+
 def chunks(text):
     """Read `text`, splitting it at doubled linebreaks"""
     lines = []
@@ -41,7 +58,7 @@ def sbv_from_srt(transcript):
 
 def pad_from_trint(text):
     out = ""
-    text = sbv_from_srt(text.replace('\r\n', '\n'))
+    text = sbv_from_srt(normalise(text))
 
     for chunk in chunks(text):
         lines = chunk.splitlines()
@@ -57,7 +74,7 @@ def pad_from_trint(text):
 def pad_from_youtube(text):
     out = ""
 
-    for chunk in chunks(text.replace('\r\n', '\n')):
+    for chunk in chunks(normalise(text)):
         lines = chunk.splitlines()
 
         for line in lines[1:]:
@@ -146,8 +163,8 @@ COMPONENTS = re.compile(r'^(?P<start_hours>\d+):(?P<start_minutes>\d{2}):(?P<sta
 
 
 def align_transcript_sbv(transcript, sbv):
-    transcript = transcript.replace('\ufeff', '').replace("\r\n", "\n")
-    sbv = sbv.replace('\ufeff', '').sbv.replace("\r\n", "\n")
+    transcript = normalise(transcript)
+    sbv = normalise(sbv)
 
     transcript_blocks = transcript.split("\n\n")
     sbv_blocks = [{'timestamp': timestamp,

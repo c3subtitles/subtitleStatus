@@ -617,9 +617,9 @@ def media_export(request, timestamp, *argh, **kwargs):
     activity_data = {}
 
     csv_output = ""
-    csv_output += ("GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;touched;amara_key;amara_language\n")
+    csv_output += ("GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;touched;amara_key;amara_language;state;amara_subtitle_url\n")
     for any in my_subtitles:
-        csv_output += any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+"/"+any.talk.filename+"."+any.language.lang_short_srt+".srt"+";"+any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.amara_key+";"+any.language.lang_amara_short+"\n"
+        csv_output += any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+"/"+any.talk.filename+"."+any.language.lang_short_srt+".srt"+";"+any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+"https://amara.org/api/videos/"+any.talk.amara_key+"/languages/"+any.language.lang_amara_short +"/subtitles/"+"\n"
 
     #return render(request, 'www/b_test.html', {"data":data})
     #return render(request, "www/raw_csv.html", {"data":csv_output})

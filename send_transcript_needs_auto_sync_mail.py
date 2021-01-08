@@ -59,8 +59,6 @@ for any in my_subtitles:
     
     # Fix für keinen Video-Link in der DB
     video_link = any.talk.link_to_video_file
-    if video_link == "":
-        video_link = "https://www.youtube.com/watch?v=" + any.talk.youtube_key
     
     # Build text for email with important Links
     text = MIMEText("Talk: "+any.talk.title+" \n"+

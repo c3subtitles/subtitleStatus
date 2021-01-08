@@ -420,7 +420,8 @@ class Talk(BasisModell):
     internal_comment = models.CharField(default = "", max_length = 300, blank=True)
     kanboard_public_task_id = models.IntegerField(blank = True, null = True)
     kanboard_private_task_id = models.IntegerField(blank = True, null = True)
-
+    primary_amara_video_link = models.TextField(default = "", blank = True) # Video link which is marked ad primary on amara
+    additional_amara_video_links = models.TextField(default = "", blank = True) # Additional video links separated by whitespace
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic

@@ -963,6 +963,17 @@ class Subtitle(BasisModell):
         else:
             return None
 
+    # Get the filename for the fileservers
+    def get_filename(self, draft = False, format = "srt"):
+        if self.talk.filename != "":
+            if draft:
+                filename = self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT." + format
+            else:
+                filename = self.talk.filename + "." + self.language.lang_short_srt + "." + format
+            return filename
+        else:
+            return None
+
     # Return the transcript file with amara fails fixed
     def as_transcript(self, save = False):
         import re

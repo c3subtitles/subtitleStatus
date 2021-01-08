@@ -18,6 +18,11 @@ import urllib.request
 import re
 from datetime import datetime
 import copy
+from .lock import *
+import time
+
+# How long should the script wait when it calls the amara api
+amara_api_call_sleep = 0.1
 
 # Characters to replace, some masked due to regex problems
 characters_to_replace = [
@@ -92,7 +97,9 @@ def calculate_subtitle(talk, start = None, end = None):
     print(url)
     
     # Download sbv-File
-    request = urllib.request.Request(url)
+    with advisory_lock(amara_api_lock) as acquired:
+        request = urllib.request.Request(url)
+        time.sleep(amara_api_call_sleep)
     response = urllib.request.urlopen(request)
     file_content = response.read()
     # Convert from bytes object to string object

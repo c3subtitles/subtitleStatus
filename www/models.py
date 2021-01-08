@@ -12,6 +12,11 @@ from .statistics_helper import *
 import json
 import credentials as cred
 import time
+from .lock import *
+
+# How long should the script wait when it calls the amara api
+amara_api_call_sleep = 0.1 # seconds
+
 
 @deconstructible
 class MaybeURLValidator(URLValidator):
@@ -721,10 +726,12 @@ class Talk(BasisModell):
                 results = {}
                 # Loop as long as not all new activity datasets have been checked
                 # Loop only if the talk has an amara_key
-                # The json result from amara includes a "next" field which has the url for the next query if not
+                # The json result from amara includes a "next" field which has the url for the next query if not 
                 # all results came with the first query
                 while (url != None) and (url != basis_url + "/activity/"):
-                    r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
+                    with advisory_lock(amara_api_lock) as acquired:
+                        r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
+                        time.sleep(amara_api_call_sleep)
                     #print(r.text)
                     # If amara doesn't reply with a valid json create one.
                     try:
@@ -784,14 +791,18 @@ class Talk(BasisModell):
             url = "https://amara.org/api/videos/" + self.amara_key + "/languages/?format=json"
             if self.amara_key != "":
                 import requests
-                r = requests.get(url, headers = cred.AMARA_HEADER)
+                with advisory_lock(amara_api_lock) as acquired:
+                    r = requests.get(url, headers = cred.AMARA_HEADER)
+                    time.sleep(amara_api_call_sleep)
                 counter = 0
                 while True:
                     counter += 5
                     print(r.text)
                     if "Error 429 Too Many Requests" in r.text:
                         time.sleep(counter)
-                        r = requests.get(url, headers = cred.AMARA_HEADER)
+                        with advisory_lock(amara_api_lock) as acquired:
+                            r = requests.get(url, headers = cred.AMARA_HEADER)
+                            time.sleep(amara_api_call_sleep)
                     else:
                         activities = json.loads(r.text)
                         break
@@ -962,7 +973,9 @@ class Subtitle(BasisModell):
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification
-            r = requests.get(url)
+            with advisory_lock(amara_api_lock) as acquired:
+                r = requests.get(url)
+                time.sleep(amara_api_call_sleep)
         except:
             return None
         srt_file =  r.text
@@ -1001,7 +1014,9 @@ class Subtitle(BasisModell):
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification
-            r = requests.get(url)
+            with advisory_lock(amara_api_lock) as acquired:
+                r = requests.get(url)
+                time.sleep(amara_api_call_sleep)
         except:
             return None
         sbv_file =  r.text
@@ -1024,7 +1039,9 @@ class Subtitle(BasisModell):
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification
-            r = requests.get(url)
+            with advisory_lock(amara_api_lock) as acquired:
+                r = requests.get(url)
+                time.sleep(amara_api_call_sleep)
         except:
             return None
         srt_file =  r.text

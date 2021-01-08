@@ -387,9 +387,8 @@ class Talk(BasisModell):
     persons = models.ManyToManyField(Speaker, through = "Talk_Persons", default = None, blank = True) #through="Talk_Persons"
     #pad_id = models.CharField(max_length = 30, default = "", blank = True)
     link_to_writable_pad = MaybeURLField(default = "", blank = True)
-    link_to_video_file = models.URLField(max_length = 200, default = "", blank = True)
+    link_to_video_file = models.URLField(max_length = 200, default = "", blank = True) # use for trint and upload to c3subtitels YT
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
-    youtube_key = models.CharField(max_length = 20, blank = True)
     c3subtitles_youtube_key = models.CharField(max_length = 20, blank = True)
     video_duration = models.TimeField(default = "00:00", blank = True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)

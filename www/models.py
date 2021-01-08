@@ -779,7 +779,7 @@ class Talk(BasisModell):
                 results = {}
                 # Loop as long as not all new activity datasets have been checked
                 # Loop only if the talk has an amara_key
-                # The json result from amara includes a "next" field which has the url for the next query if not
+                # The json result from amara includes a "next" field which has the url for the next query if not 
                 # all results came with the first query
                 while (url != None) and (url != basis_url + "/activity/"):
                     with advisory_lock(amara_api_lock) as acquired:

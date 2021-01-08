@@ -925,6 +925,8 @@ class Subtitle(BasisModell):
     needs_sync_to_sync_folder = models.BooleanField(default = False)
     needs_removal_from_sync_folder = models.BooleanField(default = False)
     autotiming_step = models.PositiveSmallIntegerField(default=0)
+    draft_needs_sync_to_sync_folder = models.BooleanField(default = False)
+    draft_needs_removal_from_sync_folder = models.BooleanField(default = False)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

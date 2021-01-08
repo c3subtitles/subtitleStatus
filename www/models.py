@@ -779,7 +779,7 @@ class Talk(BasisModell):
                 results = {}
                 # Loop as long as not all new activity datasets have been checked
                 # Loop only if the talk has an amara_key
-                # The json result from amara includes a "next" field which has the url for the next query if not 
+                # The json result from amara includes a "next" field which has the url for the next query if not
                 # all results came with the first query
                 while (url != None) and (url != basis_url + "/activity/"):
                     with advisory_lock(amara_api_lock) as acquired:
@@ -876,7 +876,7 @@ class Talk(BasisModell):
                     # Zero can exist if someone once clicked a language but didn't save anything
                     if amara_subt_revision > 0:
                         # Get the right subtitle dataset or create it, only if the version is not null
-                        my_language = Language.objects.get(lang_amara_short = amara_subt_lang)     
+                        my_language = Language.objects.get(lang_amara_short = amara_subt_lang)
                         my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language)
                         # Proceed if the version on amara has changed
                         if my_subtitle.revision != amara_subt_revision:

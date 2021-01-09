@@ -46,6 +46,42 @@ class DayIndexFilter(admin.SimpleListFilter):
 
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
+    """
+    # TUT NOCH NICHT RICHTIG
+    def create_amara_key_and_update_amara_video_links(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.update_video_links_in_amara()
+    create_amara_key_and_update_amara_video_links.short_description = 'Create amara_key, update video_links in amara from db'
+    """
+
+    def import_video_links_from_amara(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.get_video_links_from_amara(do_save = True)
+    import_video_links_from_amara.short_description = 'Import video links from amara into the db'
+
+    def set_talk_original_language_as_primary_audio_language_on_amara(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.make_talk_language_primary_on_amara(force_amara_update=True)
+    set_talk_original_language_as_primary_audio_language_on_amara.short_description = 'Make the talk language the primary audio language on amara'
+
+    def upload_first_subtitle_orig_lang_with_disclaimer(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.upload_first_subtitle_to_amara_with_disclaimer(set_first_language=True)
+    upload_first_subtitle_orig_lang_with_disclaimer.short_description = 'Upload a subtitle text in the talk original language with the disclaimers to not start in amara'
+
+    actions = ['import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'day', 'start', 'transcript_by', 'recalculate_talk_statistics',)
@@ -273,6 +309,7 @@ class SpeakerAdmin(admin.ModelAdmin):
 
 
 
+
 admin.site.register(Tracks)
 #admin.site.register(Links)
 admin.site.register(Type_of)
@@ -285,3 +322,4 @@ admin.site.register(Statistics_Speaker)
 admin.site.register(Statistics_Event)
 admin.site.register(Transcript)
 #admin.site.register(Talk_Persons)
+#admin.site.register(Event_Days)

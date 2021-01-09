@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='orig_language',
-            field=models.ForeignKey(default=1, to='www.Language'),
+            field=models.ForeignKey(default=1, to='www.Language', on_delete=models.SET_DEFAULT),
             preserve_default=False,
         ),
     ]

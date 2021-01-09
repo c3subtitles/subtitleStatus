@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
                 ('time_delta', models.FloatField(blank=True, null=True)),
                 ('words', models.IntegerField(blank=True, null=True)),
                 ('strokes', models.IntegerField(blank=True, null=True)),
-                ('speaker', models.ForeignKey(to='www.Speaker')),
-                ('talk', models.ForeignKey(to='www.Talk')),
+                ('speaker', models.ForeignKey(to='www.Speaker', on_delete=models.PROTECT)),
+                ('talk', models.ForeignKey(to='www.Talk', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,

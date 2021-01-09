@@ -29,6 +29,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='orig_language',
-            field=models.ForeignKey(to='www.Language'),
+            field=models.ForeignKey(to='www.Language', on_delete=models.PROTECT),
         ),
     ]

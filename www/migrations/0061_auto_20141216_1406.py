@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='track',
-            field=models.ForeignKey(to='www.Tracks', blank=True, default=40),
+            field=models.ForeignKey(to='www.Tracks', blank=True, default=40, on_delete=models.SET_DEFAULT),
         ),
         migrations.AlterField(
             model_name='talk',
             name='type_of',
-            field=models.ForeignKey(to='www.Type_of', blank=True, default=6),
+            field=models.ForeignKey(to='www.Type_of', blank=True, default=6, on_delete=models.SET_DEFAULT),
         ),
     ]

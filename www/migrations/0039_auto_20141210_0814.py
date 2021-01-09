@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subtitle',
             name='state',
-            field=models.ForeignKey(blank=True, to='www.States'),
+            field=models.ForeignKey(blank=True, to='www.States', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='subtitle',

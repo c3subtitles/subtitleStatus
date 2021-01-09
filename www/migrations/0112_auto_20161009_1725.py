@@ -23,8 +23,8 @@ class Migration(migrations.Migration):
                 ('words', models.IntegerField(null=True, blank=True)),
                 ('strokes', models.IntegerField(null=True, blank=True)),
                 ('recalculate_statistics', models.BooleanField(default=False)),
-                ('speaker', models.ForeignKey(to='www.Speaker')),
-                ('talk', models.ForeignKey(to='www.Talk')),
+                ('speaker', models.ForeignKey(to='www.Speaker', on_delete=models.PROTECT)),
+                ('talk', models.ForeignKey(to='www.Talk', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -38,8 +38,8 @@ class Migration(migrations.Migration):
                     name='Talk_Persons',
                     fields=[
                         ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                        ('speaker', models.ForeignKey(to='www.Speaker')),
-                        ('talk', models.ForeignKey(to='www.Talk')),
+                        ('speaker', models.ForeignKey(to='www.Speaker', on_delete=models.PROTECT)),
+                        ('talk', models.ForeignKey(to='www.Talk', on_delete=models.PROTECT)),
                     ],
                     options={
                         'abstract': False,

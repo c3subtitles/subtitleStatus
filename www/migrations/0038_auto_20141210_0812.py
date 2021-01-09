@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='day',
-            field=models.ForeignKey(blank=True, to='www.Event_Days'),
+            field=models.ForeignKey(blank=True, to='www.Event_Days', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='event',
-            field=models.ForeignKey(blank=True, to='www.Event'),
+            field=models.ForeignKey(blank=True, to='www.Event', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='orig_language',
-            field=models.ForeignKey(blank=True, to='www.Language'),
+            field=models.ForeignKey(blank=True, to='www.Language', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',
@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='room',
-            field=models.ForeignKey(blank=True, to='www.Rooms'),
+            field=models.ForeignKey(blank=True, to='www.Rooms', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',
@@ -109,12 +109,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='track',
-            field=models.ForeignKey(blank=True, to='www.Tracks'),
+            field=models.ForeignKey(blank=True, to='www.Tracks', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',
             name='type_of',
-            field=models.ForeignKey(blank=True, to='www.Type_of'),
+            field=models.ForeignKey(blank=True, to='www.Type_of', on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='talk',

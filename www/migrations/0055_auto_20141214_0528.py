@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subtitle',
             name='state',
-            field=models.ForeignKey(blank=True, to='www.States', default=1),
+            field=models.ForeignKey(blank=True, to='www.States', default=1, on_delete=models.SET_DEFAULT),
         ),
     ]

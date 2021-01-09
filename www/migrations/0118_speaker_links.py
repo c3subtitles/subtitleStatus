@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('touched', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=200, blank=True, default='')),
                 ('url', models.URLField(blank=True)),
-                ('speaker', models.ForeignKey(to='www.Speaker', blank=True)),
+                ('speaker', models.ForeignKey(to='www.Speaker', blank=True, on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,

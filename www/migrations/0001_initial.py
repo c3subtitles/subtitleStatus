@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateField()),
                 ('day_start', models.DateTimeField()),
                 ('day_end', models.DateTimeField()),
-                ('event', models.ForeignKey(to='www.Event')),
+                ('event', models.ForeignKey(to='www.Event', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -134,8 +134,8 @@ class Migration(migrations.Migration):
                 ('time_processed_transcribing', models.TimeField(default='00:00')),
                 ('time_processed_syncing', models.TimeField(default='00:00')),
                 ('time_processed_translating', models.TimeField(default='00:00')),
-                ('language', models.ForeignKey(to='www.Language', to_field='lang_amara_short')),
-                ('state', models.ForeignKey(to='www.States')),
+                ('language', models.ForeignKey(to='www.Language', to_field='lang_amara_short', on_delete=models.PROTECT)),
+                ('state', models.ForeignKey(to='www.States', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -165,11 +165,11 @@ class Migration(migrations.Migration):
                 ('amara_key', models.CharField(max_length=20, default='')),
                 ('youtube_key', models.CharField(max_length=20, default='')),
                 ('video_duration', models.TimeField(default='00:00')),
-                ('day', models.ForeignKey(to='www.Event_Days')),
-                ('event', models.ForeignKey(to='www.Event')),
-                ('orig_language', models.ForeignKey(to='www.Language', to_field='lang_short_2')),
+                ('day', models.ForeignKey(to='www.Event_Days', on_delete=models.PROTECT)),
+                ('event', models.ForeignKey(to='www.Event', on_delete=models.PROTECT)),
+                ('orig_language', models.ForeignKey(to='www.Language', to_field='lang_short_2', on_delete=models.PROTECT)),
                 ('persons', models.ManyToManyField(default=None, to='www.Speaker')),
-                ('room', models.ForeignKey(to='www.Rooms')),
+                ('room', models.ForeignKey(to='www.Rooms', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -179,13 +179,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='subtitle',
             name='talk',
-            field=models.ForeignKey(to='www.Talk'),
+            field=models.ForeignKey(to='www.Talk', on_delete=models.PROTECT),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='links',
             name='talk',
-            field=models.ForeignKey(to='www.Talk'),
+            field=models.ForeignKey(to='www.Talk', on_delete=models.PROTECT),
             preserve_default=True,
         ),
         migrations.CreateModel(
@@ -204,7 +204,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='track',
-            field=models.ForeignKey(to='www.Tracks'),
+            field=models.ForeignKey(to='www.Tracks', on_delete=models.PROTECT),
             preserve_default=True,
         ),
         migrations.CreateModel(
@@ -223,7 +223,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='type_of',
-            field=models.ForeignKey(to='www.Type_of'),
+            field=models.ForeignKey(to='www.Type_of', on_delete=models.PROTECT),
             preserve_default=True,
         ),
     ]

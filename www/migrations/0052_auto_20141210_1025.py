@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='links',
             name='talk',
-            field=models.ForeignKey(to='www.Talk', blank=True),
+            field=models.ForeignKey(to='www.Talk', blank=True, on_delete=models.PROTECT),
         ),
         migrations.AlterField(
             model_name='links',

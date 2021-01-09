@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='subtitle',
             name='language',
-            field=models.ForeignKey(default=1, to='www.Language'),
+            field=models.ForeignKey(default=1, to='www.Language', on_delete=models.PROTECT),
             preserve_default=False,
         ),
     ]

@@ -23,8 +23,8 @@ class Migration(migrations.Migration):
                 ('average_wpm', models.FloatField(null=True, blank=True)),
                 ('average_spm', models.FloatField(null=True, blank=True)),
                 ('recalculate_statistics', models.BooleanField(default=False)),
-                ('event', models.ForeignKey(to='www.Event')),
-                ('language', models.ForeignKey(to='www.Language')),
+                ('event', models.ForeignKey(to='www.Event', on_delete=models.PROTECT)),
+                ('language', models.ForeignKey(to='www.Language', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,
@@ -43,8 +43,8 @@ class Migration(migrations.Migration):
                 ('average_wpm', models.FloatField(null=True, blank=True)),
                 ('average_spm', models.FloatField(null=True, blank=True)),
                 ('recalculate_statistics', models.BooleanField(default=False)),
-                ('language', models.ForeignKey(to='www.Language')),
-                ('speaker', models.ForeignKey(to='www.Speaker')),
+                ('language', models.ForeignKey(to='www.Language', on_delete=models.PROTECT)),
+                ('speaker', models.ForeignKey(to='www.Speaker', on_delete=models.PROTECT)),
             ],
             options={
                 'abstract': False,

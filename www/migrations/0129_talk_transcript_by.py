@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='transcript_by',
-            field=models.ForeignKey(to='www.Transcript', default=0),
+            field=models.ForeignKey(to='www.Transcript', default=0, on_delete=models.SET_DEFAULT),
         ),
     ]

@@ -20,11 +20,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='event',
-            field=models.ForeignKey(blank=True, to='www.Event', default=3),
+            field=models.ForeignKey(blank=True, to='www.Event', default=3, on_delete=models.SET_DEFAULT),
         ),
         migrations.AlterField(
             model_name='talk',
             name='type_of',
-            field=models.ForeignKey(blank=True, to='www.Type_of', default=9),
+            field=models.ForeignKey(blank=True, to='www.Type_of', default=9, on_delete=models.SET_DEFAULT),
         ),
     ]

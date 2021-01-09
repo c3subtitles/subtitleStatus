@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='room',
-            field=models.ForeignKey(to='www.Rooms', default=15),
+            field=models.ForeignKey(to='www.Rooms', default=15, on_delete=models.SET_DEFAULT),
         ),
     ]

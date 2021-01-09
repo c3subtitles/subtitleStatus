@@ -5,18 +5,23 @@ from django.db import models
 from django.db.models import Sum, Q
 from django.core.urlresolvers import reverse
 from django.core.validators import URLValidator
-from django.db import transaction
 from django.utils.deconstruct import deconstructible
 from django import forms
+from django.db import transaction
 from .statistics_helper import *
+from .amara_api_helper import *
+from .trint_api_helper import *#get_trint_transcript_via_api
+
 import json
+import requests
 import credentials as cred
 import time
 from .lock import *
 
+
 # How long should the script wait when it calls the amara api
 amara_api_call_sleep = 0.1 # seconds
-
+amara_api_call_sleep_fast_functions = 0.8
 
 @deconstructible
 class MaybeURLValidator(URLValidator):
@@ -90,6 +95,7 @@ class Event(BasisModell):
     end = models.DateField(default = "1970-01-01", blank = True)
     timeslot_duration = models.TimeField(default = "00:15", blank = True)
     days = models.PositiveSmallIntegerField(default = 1, blank = True)
+#    schedule_xml_link = models.URLField()
     schedule_xml_link = MaybeURLField()
     city = models.CharField(max_length = 30, default = "", blank = True)
     building = models.CharField(max_length = 30, default = "", blank = True)
@@ -98,6 +104,7 @@ class Event(BasisModell):
     hashtag = models.CharField(max_length = 20, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = MaybeURLField(blank = True, default = "")
+#    speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     blacklisted = models.BooleanField(default = False, blank = True)
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
@@ -106,6 +113,7 @@ class Event(BasisModell):
     kanboard_public_project_id = models.IntegerField(blank = True, null = True)
     kanboard_private_project_id = models.IntegerField(blank = True, null = True)
     comment = models.TextField(default = "", blank = True, null = True)
+    trint_folder_id = models.CharField(max_length = 30, default = "", blank = True)
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:
@@ -231,7 +239,7 @@ class Event_Days(BasisModell):
     day_end = models.DateTimeField(default = "1970-01-01 00:00", blank = True)
 
     def __str__(self):
-        return 'Day {}'.format(self.index)
+        return 'Day {}'.format(self.index) + " - " + self.event.acronym
 
 
 # "Rooms" in which an event takes place, might also be outside
@@ -422,6 +430,7 @@ class Talk(BasisModell):
     kanboard_private_task_id = models.IntegerField(blank = True, null = True)
     primary_amara_video_link = models.URLField(default = "", blank = True, max_length = 400) # Video link which is marked as primary on amara
     additional_amara_video_links = models.TextField(default = "", blank = True) # Additional video links separated by whitespace
+    trint_transcript_id = models.CharField(max_length = 30, default = "", blank = True)
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic
@@ -885,6 +894,83 @@ class Talk(BasisModell):
                 self.needs_complete_amara_update = False
                 self.save()
 
+    # Makes the language stored in the "Talk" the primary language on amara
+    # Can use for initial configuration and for later changes, both works
+    def make_talk_language_primary_on_amara(self, force_amara_update = True):
+        # This only works if a amara key is already available
+        if self.amara_key == "":
+            return None
+        # Amara API URL
+        url = "https://amara.org/api/videos/" + self.amara_key + "/languages/" # + self.orig_language.lang_amara_short + "/"
+
+        data_1 = {"is_primary_audio_language": True, "language_code": self.orig_language.lang_amara_short}
+        data_2 = {"is_primary_audio_language": True}
+
+        with advisory_lock(amara_api_lock) as acquired:
+            time.sleep(amara_api_call_sleep_fast_functions)
+            r_1 = requests.post(url, headers = cred.SHORT_AMARA_HEADER, data = data_1)
+            time.sleep(amara_api_call_sleep_fast_functions)
+            url = url + self.orig_language.lang_amara_short + "/"
+            r_2 = requests.put(url, headers = cred.SHORT_AMARA_HEADER, data = data_2)
+            #print(r_2, r_2.content)
+
+        if force_amara_update:
+            self.needs_complete_amara_update = True
+            self.save()
+
+        return [r_1, r_2]
+
+    # Upload the disclaimer text to amara into the first subtitle in the original language
+    # This overwrites already existing subtitles!
+    def upload_first_subtitle_to_amara_with_disclaimer(self, set_first_language = True, force_amara_update = True):
+        # First, make sure the original language is acutally already set in amara!
+        if set_first_language:
+            self.make_talk_language_primary_on_amara(force_amara_update=False)
+
+        subtitles_text = "Please use the Etherpad for the transcript.\nIf there is no transcript in the etherpad available yet, please tell us.\n\nTranskript here won't be further processed!\nIn the Etherpad you can find a auto generated Transcript as start.\n\n" + "https://c3subtitles.de/talk/" + str(self.id) + "\n"
+        if self.link_to_writable_pad[0:1] == "#":
+            subtitles_text += self.link_to_writable_pad[1:] + "\n"
+        else:
+            subtitles_text += self.link_to_writable_pad + "\n"
+        parameters = {"subtitles": subtitles_text,
+            "sub_format": "txt",
+            "action": "save-draft"}
+        url = "https://amara.org/api/videos/" + self.amara_key + "/languages/" + self.orig_language.lang_amara_short + "/subtitles/"
+        print("URL: ", url)
+        print("Parameters: ", parameters)
+        print("Subtitles_Text: ", subtitles_text)
+        with advisory_lock(amara_api_lock) as acquired:
+            time.sleep(amara_api_call_sleep)
+            r = requests.post(url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
+
+        if force_amara_update:
+            self.needs_complete_amara_update = True
+            self.save()
+
+        return r
+
+
+    # Get the video links which are on amara from there and store them in the c3subtitles database
+    # This is expecially used for an initial import
+    def get_video_links_from_amara(self, do_save = True):
+        return read_links_from_amara(talk=self, do_save=do_save)
+
+
+    # Update the video links in amara according to the ones in the c3subtitles database
+    # This is also used to create an initial amara_key
+    def update_video_links_in_amara(self):
+        return update_amara_urls(talk=self)
+
+    # This function takes the talk.link_to_video_file downloads the file,
+    # pushes it to trint via api and waits for the srt transcript
+    # After receiving the srt file it also creates a transcript without timing information
+    # It sends an email with both files to the logs list
+    # If there is no video link it does nothing
+    # If there is already a trint_transcript_id it will not upload the file again
+    # but it will download it again and send it via email
+    def get_trint_transcript_and_send_via_email(self):
+        return get_trint_transcript_via_api(talk=self)
+
 
     def __str__(self):
         return self.title
@@ -1081,7 +1167,6 @@ class Subtitle(BasisModell):
             # Copy the subtitle to the right folder
             file_from = "/opt/subtitleStatus/downloads/subtitle_srt_files/" + self.talk.slug + "." + self.language.lang_amara_short + ".srt"
             file_to = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
-            self.sync_subtitle_to_sync_folder()
             try:
                 shutil.copy2(file_from, file_to)
             except:

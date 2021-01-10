@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 
 class Migration(migrations.Migration):
@@ -19,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='end',
-            field=models.DateField(blank=True, default='1970-01-01'),
+            field=models.DateField(blank=True, default=make_aware(datetime.min)),
         ),
         migrations.AlterField(
             model_name='event',
@@ -29,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='start',
-            field=models.DateField(blank=True, default='1970-01-01'),
+            field=models.DateField(blank=True, default=make_aware(datetime.min)),
         ),
         migrations.AlterField(
             model_name='event',

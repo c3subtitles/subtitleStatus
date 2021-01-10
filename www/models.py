@@ -102,9 +102,9 @@ class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     acronym = models.CharField(max_length = 20, default = "", blank = True)
     title = models.CharField(max_length = 100, default = "No title yet", blank = True)
-    start = models.DateField(default = "1970-01-01", blank = True)
-    end = models.DateField(default = "1970-01-01", blank = True)
-    timeslot_duration = models.TimeField(default = "00:15", blank = True)
+    start = models.DateField(default=make_aware(datetime.min), blank=True)
+    end = models.DateField(default=make_aware(datetime.min), blank=True)
+    timeslot_duration = models.TimeField(default=time(minute=15), blank=True)
     days = models.PositiveSmallIntegerField(default = 1, blank = True)
 #    schedule_xml_link = models.URLField()
     schedule_xml_link = MaybeURLField()
@@ -248,9 +248,9 @@ class Event(BasisModell):
 class Event_Days(BasisModell):
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     index = models.PositiveSmallIntegerField(default = 0)
-    date = models.DateField(default = "1970-01-01", blank = True)
-    day_start = models.DateTimeField(default = "1970-01-01 00:00+01:00", blank = True)
-    day_end = models.DateTimeField(default = "1970-01-01 00:00+01:00", blank = True)
+    date = models.DateField(default=make_aware(datetime.min), blank=True)
+    day_start = models.DateTimeField(default=make_aware(datetime.min), blank=True)
+    day_end = models.DateTimeField(default=make_aware(datetime.min), blank=True)
 
     def __str__(self):
         return 'Day {}'.format(self.index) + " - " + self.event.acronym
@@ -394,8 +394,8 @@ class Talk(BasisModell):
     day = models.ForeignKey(Event_Days, default = 1, blank = True, on_delete=models.SET_DEFAULT)
     room = models.ForeignKey(Rooms, default = 15, on_delete=models.PROTECT)
     #link_to_logo = models.URLField(default = "", blank = True)
-    date = models.DateTimeField(default = "1970-01-01 00:00:00+01:00", blank = True)
-    start = models.TimeField(default = "11:00" ,blank = True)
+    date = models.DateTimeField(default=make_aware(datetime.min), blank=True)
+    start = models.TimeField(default=time(hour=11), blank=True)
     duration = models.TimeField(default=time(minute=45), blank=True)
     title = models.CharField(max_length = 200, default = "ohne Titel", blank = True)
     subtitle_talk = models.CharField(max_length = 300, default = " ", blank = True) # nicht UT sondern Ergänzung zum Titel
@@ -444,7 +444,6 @@ class Talk(BasisModell):
     primary_amara_video_link = models.URLField(default = "", blank = True, max_length = 400) # Video link which is marked as primary on amara
     additional_amara_video_links = models.TextField(default = "", blank = True) # Additional video links separated by whitespace
     trint_transcript_id = models.CharField(max_length = 30, default = "", blank = True)
-    next_amara_activity_check = models.DateTimeField(default=make_aware(datetime.min), blank=True)
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic
@@ -1023,9 +1022,7 @@ class Subtitle(BasisModell):
     #needs_removal_from_YT = models.BooleanField(default = False)
     tweet_autosync_done = models.BooleanField(default = False)
     #comment = models.TextField(default = "")
-    last_changed_on_amara = models.DateTimeField(
-        default=datetime.min.replace(tzinfo=timezone.utc),
-        blank=True)
+    last_changed_on_amara = models.DateTimeField(default=make_aware(datetime.min), blank=True)
     #yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
     blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
     needs_sync_to_sync_folder = models.BooleanField(default = False)

@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import datetime
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 
 class Migration(migrations.Migration):
@@ -15,12 +16,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='amara_activity_last_checked',
-            field=models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0), blank=True),
+            field=models.DateTimeField(default=make_aware(datetime.min), blank=True),
         ),
         migrations.AddField(
             model_name='talk',
             name='amara_complete_update_last_checked',
-            field=models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0), blank=True),
+            field=models.DateTimeField(default=make_aware(datetime.min), blank=True),
         ),
         migrations.AddField(
             model_name='talk',
@@ -35,6 +36,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='talk',
             name='next_amara_activity_check',
-            field=models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0), blank=True),
+            field=models.DateTimeField(default=make_aware(datetime.min), blank=True),
         ),
     ]

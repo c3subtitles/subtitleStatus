@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 
 class Migration(migrations.Migration):
@@ -14,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='talk',
             name='date',
-            field=models.DateTimeField(default='1970-01-01 00:00:00+01:00', blank=True),
+            field=models.DateTimeField(default=make_aware(datetime.min), blank=True),
         ),
     ]

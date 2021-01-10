@@ -38,7 +38,7 @@ class TrackFactory(DjangoModelFactory):
     class Meta:
         model = models.Tracks
 
-    track = factory.Faker('catch_phrase')
+    track = factory.Faker('word')
 
 
 class TypeOfFactory(DjangoModelFactory):

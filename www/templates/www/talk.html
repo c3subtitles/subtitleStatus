@@ -9,7 +9,7 @@
 
 {% if user.is_authenticated %}
 <p>Hello, you are logged in! Some Shortcuts: </p>
-<a href="/admin/www/talk/{{talk.id}}">Talk in Admin</a></ br>
+<a href="/admin/www/talk/{{talk.id}}">Talk in Admin</a> | <a href="/admin/www/talk/?q={{talk.frab_id_talk}}">Talk in Admin in der Übersicht</a>
 {% for sub in subtitles %}
  | 
 <a href="/admin/www/subtitle/{{sub.id}}">{{sub.language.display_name}} Subtitle in Admin</a>

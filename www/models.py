@@ -961,6 +961,10 @@ class Talk(BasisModell):
     def update_video_links_in_amara(self):
         return update_amara_urls(talk=self)
 
+    # Create amara_key with the primary video link
+    def create_amara_key(self):
+        return create_and_store_amara_key(talk=self)
+
     # This function takes the talk.link_to_video_file downloads the file,
     # pushes it to trint via api and waits for the srt transcript
     # After receiving the srt file it also creates a transcript without timing information
@@ -969,7 +973,7 @@ class Talk(BasisModell):
     # If there is already a trint_transcript_id it will not upload the file again
     # but it will download it again and send it via email
     def get_trint_transcript_and_send_via_email(self):
-        return get_trint_transcript_via_api(talk=self)
+        return get_trint_transcript_via_api(self)
 
 
     def __str__(self):

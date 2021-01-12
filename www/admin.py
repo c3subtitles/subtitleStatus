@@ -46,16 +46,22 @@ class DayIndexFilter(admin.SimpleListFilter):
 
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
-    """
-    # TUT NOCH NICHT RICHTIG
-    def create_amara_key_and_update_amara_video_links(self, request, queryset):
+
+    def get_trint_transcript_via_email(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.get_trint_transcript_and_send_via_email()
+    get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (blocks browser tab)'
+
+
+    def create_amara_key(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
-            talk.update_video_links_in_amara()
-    create_amara_key_and_update_amara_video_links.short_description = 'Create amara_key, update video_links in amara from db'
-    """
+            talk.get_amara_key(do_save = True)
+    create_amara_key.short_description = 'Amara: Create amara key and store it in the db, use the primary_video_link'
 
     def import_video_links_from_amara(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -63,7 +69,7 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.get_video_links_from_amara(do_save = True)
-    import_video_links_from_amara.short_description = 'Import video links from amara into the db'
+    import_video_links_from_amara.short_description = 'Amara: Import video links from amara into the c3subtitles db'
 
     def set_talk_original_language_as_primary_audio_language_on_amara(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -71,7 +77,15 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.make_talk_language_primary_on_amara(force_amara_update=True)
-    set_talk_original_language_as_primary_audio_language_on_amara.short_description = 'Make the talk language the primary audio language on amara'
+    set_talk_original_language_as_primary_audio_language_on_amara.short_description = 'Amara: Make the talk language the primary audio language on amara'
+    
+    def complete_amara_link_update(self, request, queryset):
+        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.update_video_links_in_amara()
+    complete_amara_link_update.short_description = 'Amara: Complete Link Update from db to amara'
 
     def upload_first_subtitle_orig_lang_with_disclaimer(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -79,9 +93,9 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.upload_first_subtitle_to_amara_with_disclaimer(set_first_language=True)
-    upload_first_subtitle_orig_lang_with_disclaimer.short_description = 'Upload a subtitle text in the talk original language with the disclaimers to not start in amara'
+    upload_first_subtitle_orig_lang_with_disclaimer.short_description = 'Amara: Upload a subtitle text in the talk original language with the disclaimers to not start in amara'
 
-    actions = ['import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer',]
+    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'day', 'start', 'transcript_by', 'recalculate_talk_statistics',)

@@ -19,54 +19,9 @@ amara_api_call_sleep_long = 0.8
 
 basis_url =  "https://amara.org/api/videos/"
 
-# Add a new URL to a talk on amara, decide if it is the primary or not
-def add_url_to_amara(url, talk, primary = False):
-    basis_url = "https://amara.org/api/videos/"
-    # If the talk does not have an amara key yet, the first url is the primary one
-    if talk.amara_key == "":
-        parameters = {"video_url": url,
-            "primary_audio_language_code": talk.orig_language.lang_amara_short}
-        with advisory_lock(amara_api_lock) as acquired:
-            time.sleep(amara_api_call_sleep_long)
-            r = requests.post(basis_url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
-        print(r)
-        print(type(r))
-        #print(r.error)
-        print(r.status_code)
-        print(r.ok)
-        print(r.json())
-        response = r.json()
-        print(response)
-        print(type(response))
-        if r.status_code == 400 and r.ok == False:
-            if "Video already added" in response[0]:
-                #FALSCH
-                amara_key = response[0][-11:]
-                talk.amara_key = amara_key
-                talk.save()
-                print("in tiefem if")
-        else:
-            return_content = json.loads(r.content)
-            print("return_content: ", return_content)
-            talk.amara_key = return_content["objects"][0]["id"]
-            talk.save()
-            print(r.content)#, r.content["id"])
-            print("Amara Key: ", return_content["objects"][0]["id"])
-    else:
-        api_url = basis_url + talk.amara_key + "/urls/"
-        # You can't make an url primary if it is already uploaded
-        if check_if_url_on_amara(url, talk):
-            r = make_uploaded_url_primary(url, talk)
-        else:
-            parameters = {"url": url,
-                "primary": primary}
-            with advisory_lock(amara_api_lock) as acquired:
-                time.sleep(amara_api_call_sleep_long)
-                r = requests.post(api_url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
-    return r
-
 # Get all URLs currently stored in amara for a specific video
-# Additional info like the id and if the url is a primary one is also read
+# Additional info like the id and if the url is a primary or was the original
+# is also read and returned
 def get_uploaded_urls(talk):
     api_url = basis_url + talk.amara_key + "/urls/"
     if talk.amara_key == "":
@@ -75,14 +30,16 @@ def get_uploaded_urls(talk):
     with advisory_lock(amara_api_lock) as acquired:
         time.sleep(amara_api_call_sleep_long)
         result = requests.get(api_url, headers = cred.AMARA_HEADER)
-    results_dict = json.loads(result)
+    results_json = json.loads(result.content)
     links_on_amara = {}
-    for any in results_dict["objects"]:
+    for any in results_json["objects"]:
         this_url = any['url']
         links_on_amara[this_url] = {}
         links_on_amara[this_url]['id'] = any['id']
         links_on_amara[this_url]['primary'] = any['primary']
+        links_on_amara[this_url]['original'] = any['original']
     return links_on_amara
+
 
 # If a URL is already uploaded you can't upload the url a second time with primary = True
 # You have to get the id of the URL and mark it as primary
@@ -92,41 +49,80 @@ def make_uploaded_url_primary(url, talk):
         return None
     # Get the id of the url and make it primary afterwards
     links_on_amara = get_uploaded_urls(talk=talk)
+    if url in links_on_amara:
+        pass
+    else:
+        return None
     api_url = api_url + str(links_on_amara[url]['id']) + "/"
     with advisory_lock(amara_api_lock) as acquired:
         time.sleep(amara_api_call_sleep_long)
         result = requests.put(api_url, headers = cred.AMARA_HEADER, data=json.dumps({'primary':True}))
-    return result
+    if str(result) == "<Response [200]>":
+        return True
+    else:
+        return False
+
 
 # Remove an URL from amara
 # To do this, you need the ID of the URL
+# Return None if the url is not connected with that amara link
+# Return False if it is a primary url which can not be removed
 def remove_url_from_amara(url, talk):
     # Get all urls on amara and their ID and put it in a dictionary
     # Check if the url which is supposed to get removed is in the dictionary
-    # Remove the url
     links_on_amara = get_uploaded_urls(talk=talk)
+
+    # If the url is not connected with the talk stop trying to remove it
+    # and return None
+    if url in links_on_amara:
+        pass
+    else: 
+        return None
+
     # Removing of a primary link is not possible
     if links_on_amara[url]['primary'] == True:
         return False
     api_url = basis_url + talk.amara_key + "/urls/" + str(links_on_amara[url]['id']) + "/"
     with advisory_lock(amara_api_lock) as acquired:
-        time.sleep(amara_api_call_sleep)
+        time.sleep(amara_api_call_sleep_long)
         result = requests.delete(api_url, headers = cred.AMARA_HEADER)
-    return result
+    if str(result) == "<Response [204]>" :
+        return True
+    else:
+        return False
+
+
+# Check if a url is already on amara
+# If the url is on amara return the amara_key
+def check_if_url_on_amara(url):
+    api_url = basis_url + "?video_url=" + url
+    with advisory_lock(amara_api_lock) as acquired:
+        time.sleep(amara_api_call_sleep_long)
+        result = requests.get(api_url, headers = cred.AMARA_HEADER)
+    result_json = json.loads(result.content)
+    # If the url is not on amara, no data returned
+    if len(result_json["objects"]) == 0:
+        return False
+    else:
+        amara_key = result_json["objects"][0]["id"]
+        return amara_key
+
 
 # Check if a specific url is already on amara
 # As additional check, check if the url is up and primary
-def check_if_url_on_amara(url, talk, also_check_if_primary = False):
+def check_if_url_is_on_amara_with_a_known_talk(url, talk, also_check_if_primary = False):
     # Return None if the talk does not yet have an amara key
     if talk.amara_key == "":
         return None
-        
+    # Return False if the url is not on amara in general
+    if check_if_url_on_amara(url) == False:
+        return False
+
     # Get all urls from amara, compare to the ones you have and if it is primary
     api_url = basis_url + talk.amara_key + "/urls/"
     with advisory_lock(amara_api_lock) as acquired:
         time.sleep(amara_api_call_sleep_long)
         result = requests.get(api_url, headers = cred.AMARA_HEADER)
-    print(result)
     results_dict = result.json()
     links_on_amara = {}
     for any in results_dict["objects"]:
@@ -142,38 +138,6 @@ def check_if_url_on_amara(url, talk, also_check_if_primary = False):
     else:
         return False
 
-# Compare which links are in the database and which links are in amara
-# Mirror the status in c3subtitles to amara, not the opposite
-def update_amara_urls(talk):
-    # If no amara key first do the add_url_to_amara with the first url in the database
-    if talk.amara_key == "":
-        add_url_to_amara(talk.primary_amara_video_link, talk, primary = True)
-    # Get all already uploaded video links
-    already_uploaded_video_links = get_uploaded_urls(talk)
-    # Get all video links in the database, second priority, not the primary one
-    secondary_links_in_db = talk.additional_amara_video_links.split(" ")
-    # Check if the primary video link is already up if not do upload it and make it primary
-    # If it is up but not as primary make it primary
-    if talk.primary_amara_video_link not in already_uploaded_video_links:
-        add_url_to_amara(talk.primary_amara_video_link, talk, primary = True)
-    else:
-        if already_uploaded_video_links[talk.primary_amara_video_link]['primary'] == False:
-            make_uploaded_url_primary(talk.primary_amara_video_link, talk)
-
-    # Check all secondary links if the are up, if not add them
-    for any_link in secondary_links_in_db:
-        if any_link not in already_uploaded_video_links:
-            add_url_to_amara(any_link, talk, primary = False)
-    
-    # Check if online are some links which should be removed
-    already_uploaded_video_links = get_uploaded_urls(talk)
-    video_links_in_the_database = {}
-    video_links_in_the_database[talk.primary_amara_video_link] = ""
-    for any_link in talk.additional_amara_video_links.split(" "):
-        video_links_in_the_database[any_link] = ""
-    for any_link in already_uploaded_video_links:
-        if any_link not in video_links_in_the_database:
-            remove_url_from_amara(any_link, talk)
 
 # Read which links are stored in amara for a specific video
 # Download these urls and store them in c3subtitles
@@ -181,13 +145,83 @@ def read_links_from_amara(talk, do_save = True):
     if talk.amara_key == "":
         return None
     links_on_amara = get_uploaded_urls(talk)
-    talk.additional_amara_video_link = ""
+    talk.primary_amara_video_link = ""
+    talk.additional_amara_video_links = ""
     for any_link in links_on_amara.keys():
         if links_on_amara[any_link]['primary']:
             talk.primary_amara_video_link = any_link
         else:
-            talk.additional_amara_video_links += " " + any_link
+            talk.additional_amara_video_links = talk.additional_amara_video_links + " " + any_link
     talk.additional_amara_video_links = talk.additional_amara_video_links[1:]
     if do_save:
         talk.save()
     return [talk.primary_amara_video_link, talk.additional_amara_video_links]
+
+
+# Create the amara_key with the primary url and store it in the db
+def create_and_store_amara_key(talk):
+    # Stop if there is no primary video link
+    if talk.primary_amara_video_link == "":
+        return None
+    url = talk.primary_amara_video_link
+    result = check_if_url_on_amara(url)
+    if result != False:
+        talk.amara_key = result
+        talk.save()
+        return talk.amara_key
+    basis_url = "https://amara.org/api/videos/"
+    # If the talk does not have an amara key yet, create one and store it
+    if talk.amara_key == "":
+        parameters = {"video_url": url,
+            "primary_audio_language_code": talk.orig_language.lang_amara_short}
+        with advisory_lock(amara_api_lock) as acquired:
+            time.sleep(amara_api_call_sleep_long)
+            r = requests.post(basis_url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
+        return_content = json.loads(r.content)
+        talk.amara_key = return_content["id"]
+        talk.save()
+        return talk.amara_key
+
+
+# Add the additional links to an amara key of a talk
+def add_additional_links_to_amara(talk):
+    api_url = basis_url + talk.amara_key + "/urls/"
+    sec_urls = talk.additional_amara_video_links.split(" ")
+    for any_url in sec_urls:
+        parameters = {"url": any_url,
+            "primary": False}
+        with advisory_lock(amara_api_lock) as acquired:
+            time.sleep(amara_api_call_sleep_long)
+            r = requests.post(api_url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
+    return True
+
+
+# Compare which links are in the database and which links are in amara
+# Mirror the status in c3subtitles to amara, not the opposite
+def update_amara_urls(talk):
+    # First make sure all links which should be on amara are up
+    # and a amara key actually exists
+    result = create_and_store_amara_key(talk)
+    # If there is no primary video link, stop here
+    if result == None:
+        return None
+    # Make sure the primary links is actually the primary link
+    make_uploaded_url_primary(talk.primary_amara_video_link, talk)
+
+    # Make sure all additional links are uploaded
+    add_additional_links_to_amara(talk)
+
+    # Remove links which are on amara but are not in the database any more
+    # Get the links which are uploaded
+    # Compare to links 
+    uploaded_links = get_uploaded_urls(talk)
+    links_in_db = {}
+    # Create the links in the database dictionary
+    for any_link in talk.additional_amara_video_links.split(" "):
+        links_in_db[any_link] = 0
+    # Check if a link from amara is in the db, else remove it
+    for u_link in uploaded_links:
+        if u_link in links_in_db:
+            pass
+        else:
+            remove_url_from_amara(u_link, talk)

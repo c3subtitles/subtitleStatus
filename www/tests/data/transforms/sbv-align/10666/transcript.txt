@@ -1,0 +1,1121 @@
+﻿*36c3 Vorspannmusik*
+[Füller, bitte in Amara entfernen]
+
+Herald: Als nächstes habe ich für euch
+eine Politikwissenschaftlerin aus Berlin.
+
+Sie arbeitet dort am IMU mit dem
+Schwerpunkt Branchenanalyse und Arbeit in
+
+der Zukunft.
+Für euch jetzt mit "Wandel im
+
+Braunkohlerevier: Lithium-Ionen-
+Batterierecycling" - Katrin Nicke. Bitte!
+
+*Applaus*
+[Füller, bitte in Amara entfernen]
+
+Katrin Nicke: Dankeschön! Ja, es gibt ein
+altes sorbisches Sprichwort, das besagt
+
+"Wie die Quelle, so das Wasser", und das
+freut mich sehr, dass wir heute
+
+Gelegenheit dazu haben uns darüber
+auszutauschen, welche Quellen wir nutzen
+
+möchten und welche wir versiegen lassen
+sollten, um die Zukunft lebenswert zu
+
+gestalten. Als Input dazu soll uns die
+Studie dienen, die wir als IMU Institut
+
+gemeinsam mit Ludwig-Bölkow-Systemtechnik
+verfasst haben. Batterierecycling als
+
+Beschäftigungsperspektive für die Lausitz.
+Wichtig war uns dabei, eine
+
+transdisziplinäre Perspektive zu wählen,
+mit der Ludwig-Bölkow-Systemtechnik und
+
+uns hatten wir dann, ich glaube, fünf oder
+sechs Disziplinen mit an Bord: Physik,
+
+Geografie, Verkehrswissenschaft,
+Verwaltungswissenschaft. Und haben der
+
+Fragestellung: Wie kann man eine
+Energieregion wie die Lausitz, wo seit 200
+
+Jahren auf fossile Energieträger gesetzt
+wird, in eine Energieregion der Zukunft
+
+wandeln? Wie kann man dort, wo im Hinblick
+auf die letzten Landtags-, aber auch
+
+Europawahlen und Kommunalwahlen deutlich
+wird, dass die Kohäsion der Gesellschaft
+
+nachlässt, wie kann man einer solchen
+Region Perspektiven aufzeigen? Zu Grunde
+
+gelegt haben wir drei Annahmen. Die erste
+scheint banal, aber man kann es nicht oft
+
+genug sagen: Der Klimawandel findet statt,
+und wir müssen über alle wirtschaftlichen
+
+Prozesse hinweg Klimaneutralität
+herstellen, um die Erderwärmung auf
+
+maximal 1,5 Grad zu begrenzen. Und dazu
+brauchen wir umgehend eine Energie und
+
+Verkehrswende. Zweite Annahme oder
+Prämisse: Die Verkehrsabteilung der
+
+Elektromobilität steigen signifikant. Hier
+in Europa ab 2020 voraussichtlich auch
+
+deutlich, weil die Grenzwerteregelungen
+der EU greifen werden, sodass den
+
+Automobilherstellern empfindliche
+Geldstrafen drohen, wenn Pkw-
+
+Neuzulassungen zuviel CO2 ausstoßen. Und
+wir gehen davon aus, dass der
+
+Technologiefahrt der Elektromobilität
+eingeschlagen ist. Und damit, mit
+
+zeitlichem Versatz - auf die Batterie
+Lebensdauer der Elektromobile komme ich
+
+noch zu sprechen - in naher Zukunft ein
+hohes Altbatterieaufkommen auftritt, mit
+
+dem wir umgehen müssen. Dritte
+Grundannahme: Die Transformation. Der
+
+Strukturwandel ist sozialgerecht und
+ökologisch nachhaltig zu gestalten. Meine
+
+Präsentation gliedert sich jetzt in drei
+kleine Kapitel. Zunächst werfen wir einen
+
+Blick in die Lausitz. Warum ist, oder
+gilt, die Lausitz so stark betroffen von
+
+dieser Energie- und Verkehrswende? Das
+zweite Unterkapitel widmet sich dann den
+
+Antriebstechnologien beziehungsweise den
+Lithium-Ionen-Batterien, und den Weg, den
+
+wir vorschlagen, für eine nachhaltige
+Kreislaufwirtschaft. Und im dritten Teil
+
+versuchen wir noch einmal beide Enden. Wo
+steht die Lausitz jetzt? Wo will sie in
+
+Zukunft hin? Und wie wird sich der
+Markthochlauf der Elektromobilität und das
+
+Altbatterieaufkommen entwickeln? Warum
+wird Lithium-Ionen-Batterie-Recycling
+
+notwendig? Wie können wir das
+zusammenführen? Ist eine "Just Transition"
+
+eine Voraussetzung für die Energieregion
+der Zukunft? "Just Transition" ist ein
+
+Konzept, was sich in der US-amerikanischen
+Gewerkschaftsbewegung herausgebildet hat,
+
+vor einigen Jahren. Und es besagt im
+Grunde, dass soziale nicht gegen
+
+ökologische Interessen ausgespielt werden
+sollen. Damit zu Punkt Eins - dem
+
+Strukturwandel in der Lausitz: Das
+Spannende an der Lausitz ist, es handelt
+
+sich hier um einen grenzüberschreitenden
+Wirtschafts- und Kulturraum, in dem die
+
+Braunkohlewirtschaft tatsächlich nicht nur
+landschaftprägend, sondern auch
+
+identitätsstiftend ist. Die Lausitz
+umspannt Nieder- und Oberlausitz und somit
+
+Teile Brandenburgs, Teile Sachsens, reicht
+im Norden bis an den Speckgürtel Berlins
+
+ran und im Südwesten an Dresden, umfasst
+12.000 Quadratkilometer. Und die Regionen:
+
+es gibt sechs Landkreise und eine
+kreisfreie Stadt - das ist Cottbus -
+
+werden häufig als peripher und mit hohen
+Zukunftsrisiken versehen klassifiziert.
+
+Die Region hat unter massivem
+Bevölkerungsrückgang gelitten. Also die
+
+Abwanderung innerhalb von nur 20 Jahren
+von 95 bis 2015 betrug 20 Prozent. Das
+
+heißt jeder fünfte, jede fünfte
+Lausitzerin hat der Region den Rücken
+
+gekehrt, was natürlich auch Folgen hatte
+im Hinblick auf die Altersstruktur, die
+
+sich erheblich verschoben hat und eine
+Abnahme des Erwerbspersonenpotentials
+
+bedingt. Unter anderem deshalb ist die
+Arbeitslosenquote heute so niedrig wie
+
+seit 30 Jahren nicht mehr. Mit unter sechs
+Prozent liegt sie knapp über dem
+
+Bundesniveau. Die Wirtschaft in der Region
+ist sehr kleinteilig, das heißt, es gibt
+
+viele kleine und mittlere Unternehmen.
+Darüber hinaus bestehen dann aber hohe
+
+externe Abhängigkeiten, weil in der
+Lausitz häufig Zweigniederlassungen,
+
+Tochtergesellschaften großer Konzerne,
+ansässig sind. Die Entscheidung über das
+
+Wohl und Wehe und auch die
+Forschungsabteilungen, zumeist aber an den
+
+Firmensitz, der sich beispielsweise in
+Baden-Württemberg oder ... ja,
+
+Niedersachsen befindet, getroffen werden.
+Weshalb die, also in der Lausitz selbst,
+
+auch wenig Entwicklung stattfindet, und
+hier noch viel Luft nach oben ist für
+
+Innovationspotenziale aus der Region
+heraus. Was machen die Lausitzer? Ich habe
+
+hier mal ein Chart vorbereitet auf dem
+seht ihr Beschäftigung nach Sektoren, wir
+
+haben einmal den Dienstleistungssektor mit
+66 Prozent der Beschäftigten, etwas
+
+weniger als in Metropolräumen üblich ist.
+Was erstaunen mag, wenn wir sagen, wir
+
+sprechen über eine Braunkohleregion, ist,
+dass lediglich vier Prozent der 400.000
+
+sozialversicherungspflichtig Beschäftigten
+im Bereich Bergbau, Energie und Wasser
+
+tätig sind, wobei das
+Grundwassermanagement natürlich eine
+
+große, massive, und auch langfristige
+Aufgabe darstellen wird. Und wiederum
+
+überraschen, dass der Industrieanteil hier
+sehr hoch ist. Mit fast 20 Prozent liegt
+
+er knapp auf Bundesniveau, und innerhalb
+der Industrie ist die Metall- und
+
+Elektrobranche am stärksten. Das heißt
+jeder zehnte Lausitzer, jede zehnte
+
+Lausitzerin, geht einer Tätigkeit in der
+Metall und Elektrobranche nach. Wir haben
+
+hier einen überdurchschnittlich hohen
+Fachkräfteanteil insgesamt. Und über diese
+
+40.000 hinaus sind qualifiziert - und das
+ist für meine späteren Ausführungen zum
+
+Recycling von Bedeutung - 65.000 Lausitzer
+... fachlich qualifiziert, in Metall- und
+
+Elektroberufen. Die Einkommen, also das
+den Haushalten zu Konsumzwecken und Sparen
+
+verfügbare Einkommen, und
+Arbeitnehmerentgelte, sind hingegen
+
+unterdurchschnittlich. Dort ist keine
+Angleichung an das Bundesniveau innerhalb
+
+der letzten 30 Jahre gelungen. Und es gibt
+Infrastrukturdefizite. Also es ist kaum
+
+möglich einen ICE zu nehmen aus der
+Lausitz heraus, und auch schnelles
+
+Internet ist noch nicht sehr weit
+verbreitet. Wir identifizieren deshalb als
+
+Herausforderung, die grundgesetzlich
+verbriefte Gleichwertigkeit der
+
+Lebensverhältnisse herzustellen und die
+Daseinsvorsorge zu erhalten oder zu
+
+stärken. Ich möchte kurz nochmal eingehend
+auf die Bedeutung der Braunkohlewirtschaft
+
+für die Region, die Bergbau- und
+Rohstoffindustrie ist hier historisch
+
+gewachsen und seit dem Niedergang der
+Glas- und Textilindustrieproduktion
+
+zentral für den für den Standort, also
+insbesondere zentral noch seit 89/90.
+
+Kurzen Blick auf die Zahlen: Wir hatten
+vor 30 Jahren 80.000 Bergleute oder
+
+Beschäftigte in den Tagebauen und
+Kraftwerken. Ihr Beitrag zur
+
+Stromerzeugung in Ostdeutschland betrug,
+oder der Beitrag der
+
+Braunkohleverstromung, betrug 90 Prozent.
+Braunkohle war die einzige heimische
+
+Energiequelle der DDR. 2016 waren noch
+8.000 Menschen in der Kohleindustrie der
+
+Lausitz beschäftigt. Und insgesamt liegt
+der Braunkohlebeitrag zur Stromerzeugung
+
+bei 23 Prozent. Das sind Zahlen von 2016.
+Also der Strommix hat sich noch ein
+
+bisschen verschoben. Wer dazu Genaueres
+weiß, kann uns das gerne noch im Nachgang
+
+mitteilen. Dennoch, also, trotz lediglich
+8.000 Beschäftigter ist die Lärkt(?), die
+
+die Tagebaue und Kraftwerke 2016 auch von
+Vattenfall übernahm, größter Arbeitgeber
+
+der Region. Und die zahlen auch
+überdurchschnittlich hohe Gehälter; die
+
+liegen bei 55.000 gegenüber 28 bis 35.000
+im brandenburgischen und sächsischen
+
+Landesschnitt. Das heißt, die Einkommen
+dieser Angestellten stärken die regionale
+
+Kaufkraft spürbar und induzieren damit
+natürlich auch Beschäftigung, wenn Sie zum
+
+Bäcker gehen oder den Friseur besuchen. Im
+Zuge der Empfehlung der Kommission für
+
+Strukturwandel, Wachstum und
+Beschäftigung, kurz Kohle-Kommission, hat
+
+man sich auch Gedanken darüber gemacht,
+wie die Beschäftigungswirkung ab 2033 sein
+
+wird, wie Beschäftigung gesichert sein
+kann. Man geht insgesamt von 10.000 bis
+
+16.000 direkt und indirekt Beschäftigten
+aus, und im unteren Kasten sieht man die
+
+Handschrift der gewerkschaftlichen
+Positionen in der Kohle-Kommission.
+
+Demnach ist vorgesehen, dass der
+Ausschluss, betriebsbedingter Kündigungen
+
+oder betriebsbedingte Kündigungen
+ausgeschlossen werden, dass es möglich
+
+ist, vorzeitig in Ruhestand zu gehen, bei
+vollem Lohnausgleich oder in eine andere
+
+Tätigkeit aufzunehmen - bei vollem
+Lohnausgleich. Und es wird hochgerechnet,
+
+dass bis 2030 rund zwei Drittel der direkt
+Beschäftigten, also dieser 8.000 Menschen,
+
+verrentet sein könnten. Wie schaffen wir
+jetzt Perspektiven, oder wo liegen die
+
+Perspektiven für die verbleibenden
+indirekt oder induziert Beschäftigten?
+
+Womöglich in einer Energie Region der
+Zukunft, womöglich abgeleitet aus dem
+
+Markthochlauf der Elektromobilität. Werfen
+wir einen kurzen Blick auf die
+
+Technologien und den prognostizierten
+Markthochlauf der Mobilitätswende. Der
+
+Verkehrssektor ist einer der
+Hauptemittenten von CO2 Ausstößen, liegt
+
+bei 18 Prozent davon entfallen auf PKW
+ganze 61. Ich hatte Eingangs schon
+
+erwähnt, dass die EU-Grenzwerteregeln ab
+2020 greifen und nun auch die europäischen
+
+Automobilhersteller mit der
+Elektrifizierung des Antriebsstrangs neue
+
+Fahrzeugmodelle entwickeln, die einen sehr
+geringen oder keinen CO2-Ausstoß haben
+
+sollen. Man unterscheidet diese Modelle
+grob nach Elektrifizierunggrad und
+
+Reichweite. Es gibt die Hybride, die rein
+elektrisch betriebenen Modelle mit ca. 300
+
+km Reichweite, außerhalb von
+Laborbedingungen. Und es gibt die
+
+Brennstoffzellen Fahrzeuge hier, also alle
+benötigen Batterien. Das Bemerkenswerte
+
+ist bei den rein elektrisch betriebenen
+PKW, die haben eine sehr große Batterie.
+
+Bei Hybrid ist die um die 35 Kilo schwer,
+dem rein elektrischen wiegt die auch Mal
+
+250 Kilogramm. Das ist natürlich auch
+relevant, wenn wir gleich auf die
+
+prognostizierte Batterie-Aufkommen
+blicken. Was Wasserstoff- und
+
+Brennstoffzellen-Fahrzeugtechnologien
+betrifft, würde ich mich dem Kollegen, der
+
+hier am Freitag schon zu
+Batterietechnologien sprach, anschließen
+
+und sagen, dass es morgen und übermorgen
+lediglich erstmal im Schwerlaster Bereich
+
+relevant. Wir können aber, also
+Zukunftsforschung ist ja auch ein bisschen
+
+wie in die Glaskugel gucken, natürlich
+nicht ausschließen, dass da noch
+
+Entwicklungen stattfinden und haben
+deshalb hier mal drei Szenarien
+
+entwickelt, wie der Markthochlauf sich
+prognostizieren ließe, aus unserer Sicht,
+
+mit den Daten die wir haben, den
+regulatorischen Rahmen, die Hersteller
+
+Strategien, die die Batterietechnologie an
+ihrem jeweiligen Entwicklungsstand. Und
+
+wir fokussieren auf das Szenario 1 ganz
+links, Fokus Batterie elektrisch
+
+betriebene Fahrzeuge. Und da sehen wir,
+dass da 2025 werden rund drei Millionen
+
+erwartet, 2030 dann schon 10 und 2050
+knapp über 30 Millionen Fahrzeuge. Daraus
+
+haben wir abgeleitet, wie groß das
+Altbatterien Aufkommen sein kann, unten
+
+links wieder die ersten beiden Spalten.
+2030 könnten wie ein Altbatterien
+
+Aufkommen haben bis zu 44 Tonnen, 2050
+dann schon eines von 712. Industriell
+
+relevant wäre das Recycling Aufkommen ab
+2030 plus damit. Werden wir nochmal einen
+
+kurzen, vertiefenden Blick auf die
+Batterietechnologie. Die Lithium-Ionen
+
+Technologie dominiert bislang den Markt
+und wird unseren Analysen nach auch in den
+
+kommenden Jahren dominieren. Es ist
+möglich, dass es sich um eine
+
+Brückentechnologie handelt, aber eine
+Brückentechnologie, mit der wir es in den
+
+nächsten Jahrzehnten dann zu tun haben.
+Und warum Lithium-Ionen
+
+Batterietechnologie? Da hat sich einfach
+herausgestellt, dass sie über diese
+
+Technologie, über eine optimale Energie-
+und Leistungs-Dichte für den PKW Betrieb
+
+verfügt. Das ist auch dem Lithium
+geschuldet, dem kleinsten und leichtesten
+
+metallischen Element, was natürlich
+irgendwo herkommen muss. Die Verfügbarkeit
+
+der Rohstoffe, unter anderem das Lithium,
+weiterhin Kobalt, Nickel und Graphit,
+
+verbaut in den Batteriezellen, ist aus
+unserer Sicht gegeben, also auch in
+
+ausreichenden Mengen für den erstmal
+prognostizierten Markthochlauf. Aber es
+
+kann zu Verknappung kommen, oder es ist
+sehr wahrscheinlich, weil zum einen die
+
+Fördermöglichkeiten nicht gegeben sind und
+zum anderen die Lizenzen für den Abbau
+
+fehlen. Das sicher auch aus guten Gründen.
+Es ist so, dass die strategisch wichtigen
+
+Rohstoffe hier häufig nur in wenigen
+Ländern vorkommen und dass häufig Länder
+
+sind, die monopolartige
+Versorgungsstrukturen haben und politisch
+
+instabil sind. Das heißt, es ist ein sehr
+volatiler Markt. In der Öffentlichkeit
+
+Aufsehen erregt hat die Debatte um den
+Kobalt Abbau im Kongo in diesem
+
+Frühjahr/Sommer, wo deutlich wurde, dass
+diese Rohstoffe- oder Ressourcen-Gewinnung
+
+unter Arbeitsbedingungen stattfindet, die
+auch menschenunwürdig sind. Wo Kinder als
+
+Arbeitskräfte eingesetzt werden, wo
+internationale Mindeststandards für
+
+Arbeits- und Gesundheitsschutz nicht
+eingehalten werden, es zu schweren
+
+Unfällen kam und darüber hinaus neben
+diesen sozialen Aspekten natürlich auch
+
+die ökologischen ins Gewicht fallen. Jeder
+Eingriff in Ökosysteme, gerade im Bereich
+
+Tagebau Minen, hinterlässt natürlich
+gravierende Spuren und ist sehr
+
+langfristig. Aufgrund dessen und aufgrund
+der Mengen, die wir uns gerade
+
+verdeutlicht haben, sagen wir es ist
+essenziell, dass wir eine
+
+Kreislaufwirtschaft etablieren, um die
+Ressourcen, die Material Effizienz zu
+
+erhöhen und somit auch dazu beizutragen,
+dass weniger Umweltzerstörung stattfindet
+
+und weniger Ausbeutung. Natürlich ist das
+auch eine Frage des Bedarfs. In dem Maße,
+
+wie wir recyclen und den Abbau Bedarf
+absenken, können wir Zerstörung und
+
+Ausbeutung verhindern. Eine weitere Idee,
+die Material Effizienz zu erhöhen, sind
+
+die Second-Life Schleifen. Das heißt, man
+kann heute Batteriezellen, also man kann
+
+Batteriemodule nicht auf Zellebene
+reparieren oder recyceln. Das ist bislang
+
+noch nicht wirtschaftlich. Aber man kann
+die Module nehmen und einer weiteren
+
+Nutzung zuführen, beispielsweise eine
+Spitzenlast Pufferung oder
+
+Notstromversorgung oder ein Flur-
+Förderfahrzeug hier damit ausstatten und
+
+das funktioniert dann noch eine Weile,
+denn die Lebensdauer der Lithium-Ionen-
+
+Batterien in den Elektro PKW liegen
+momentan bei so rund zehn Jahren. Das
+
+heißt, die Batterie muss ausgetauscht
+werden oder gilt als Altbatterie, bevor
+
+die Fahrzeug Lebensdauer eigentlich
+erreicht ist, die wird momentan so mit 15
+
+Jahren angegeben. Und zugleich haben wir
+gegenwärtig aber noch keine, keinerlei
+
+oder kaum Regulierung dahingehend, wie
+diese Altbatterien gesammelt werden
+
+können, wie der Rücklauf organisiert wird,
+wie hoch die Recyclingquoten sein sollten
+
+und ob es beispielsweise ein Hersteller
+Rücknahme Verpflichtung geben muss. Was es
+
+dahingegen schon gibt, sind Recycling
+Verfahren. Da wurden im Zeitraum zwischen
+
+2009 bis 2016 drei Forschungsprojekte
+durchgeführt, übrigens im Auftrag vom
+
+Bundesumweltministerium, wo, wie ihr sehen
+könnt, die Rückgewinnungsquoten schon sehr
+
+hoch sind. Cobalt haben wir hier 94, 96
+beziehungsweise 100 Prozent, Lithium 86
+
+Prozent oder Nickel bei 97 Prozent.
+Natürlich besteht hier noch viel weiterer
+
+Forschungsbedarf. Aber was wir schon sagen
+können und das ist auch ganz spannend im
+
+Hinblick darauf wie verträglich wäre denn
+eigentlich Kreislaufwirtschaftssystem, als
+
+ein Recycling von Lithium-Ionen-Batterien.
+Weil Recyclingprozesse natürlich auch
+
+immer sehr energieaufwendig sind und da
+konnte dargestellt werden, dass die
+
+Ökobilanz positiv ist gegenüber dem
+Ressourcen Abbau. Hier haben wir euch mal
+
+eine Wertschöpfungskette industriellen
+Batterierecyclings dargestellt, so wie der
+
+aktuelle Forschungsstand ist. Das wird
+sich in den nächsten 10, 20 Jahren sicher
+
+auch noch ändern und es gibt auch hohe
+Bedarfe, dass Prozesse und Verfahren hier
+
+weiterentwickelt werden, dass auch
+standardisiert wird, also das Module
+
+standardisiert wird, dass die Demontage
+automatisiert werden kann. Aber, was ganz
+
+spannend ist, die Beschäftigungs-Profile,
+die hier heraus hervorgehen, passen zu den
+
+Qualifikationen der Menschen, die
+Qualifikationen in der Metall- und
+
+Elektro-Branche in der Lausitz haben.
+Direkte Beschäftigung entsteht im
+
+Recycling Werk, beispielsweise bei der
+Demontage durch die Entladung der Zellen
+
+bei der Pyro-, Hydro- und Metallurgischen-
+Weiterverarbeitung und die indirekte
+
+Beschäftigung entsteht natürlich auch,
+weil wir das Recycling Werk mit Energie
+
+versorgen müssen, möglichst aus
+regenerativen Quellen. Weil wir die
+
+Altbatterien sammeln müssen und logistisch
+verteilen und weil wir sie weiter
+
+verwerten und wieder verwenden wollen. Im
+besten Fall mit einer
+
+Batteriezellfertigung, die man in ein
+regionales Wertschöpfungssystem
+
+integriert. Mit diesem Wissen haben wir
+jetzt nochmal einen zweiten Blick auf die
+
+Lausitz geworfen und das Ziel, im
+gemeinsamen Engagement von Bund, Ländern,
+
+Kommunen und Landkreisen, Sozialpartnern
+sowie zivilgesellschaftlichen Akteuren
+
+eine attraktive und zukunftsgerichtete
+Wirtschaftsregion mit neuen
+
+Wertschöpfungsketten aufzubauen. So wie es
+von der Kohle Kommission empfohlen wird,
+
+stellt sich, aus unserer Sicht auch ein
+Konsens der aktuellen Diskurse dar. Allein
+
+der Weg zum Ziel ist noch umstritten, und
+da möchten wir betonen, dass
+
+Strukturwandel eben im Zuge einer
+?Transistion? stattfinden sollte. Wir
+
+müssen neben wirtschaftlichen Aspekten die
+Sozialen und Ökologischen berücksichtigen
+
+und diese Dimensionen auch eingehend
+analysieren, bevor wir
+
+Standortentscheidung treffen. Welche
+endogenen Potenziale hat die Lausitz? Das
+
+ist ganz spannend, denn hier findet, und
+dass ist immer weniger bekannt, als dass
+
+es sich um ein Braunkohletagebau Revier
+handelt, seit Jahren schon ein ganz
+
+interessanter Wandel im Bereich
+regenerativer Energien statt. Es gibt eine
+
+Unternehmenslandschaft, die sich da
+etabliert hat. Es gibt dort die größten
+
+Windparks Deutschlands. Ich kann leider
+nicht sagen wie viel Windräder gerade in
+
+Betrieb sind und es gibt Forschung im
+Bereich auch Wasserstoff Energieerzeugung.
+
+Es gibt Pläne für große Speicherkraftwerke
+und warum?, also die Netzinfrastruktur vor
+
+Ort ist einfach zugeschnitten auf den
+Energie Sektor, und die Kraftwerke und
+
+Tagebaue weisen zudem sehr hohe Nach-
+Nutzungs Potenziale auf. Es gibt
+
+Forschungseinrichtungen, auch vor Ort,
+unter anderem an der BTU Cottbus
+
+Senftenberg, ein Lehrstuhl für Batterien
+und Batterie Forschung, Batterie
+
+Recycling. Es gibt diese kleinteilige
+Wirtschaftsstruktur, die wir auch als
+
+Vorteil interpretieren können. Kleinere
+Institutionen sind natürlich schneller
+
+flexibel, können vielleicht ihren
+Wertschöpfungskern neu definieren, wenn
+
+sie dabei unterstützt werden. Und es gibt
+eben die Fachkräfte vor Ort, die über
+
+wertvolles Prozess- und Erfahrungs-Wissen
+verfügen, auf dass wir im Zuge der
+
+Transformation zurückgreifen sollten.
+Schließlich sehen wir das Potenzial mit
+
+der Etablierung einer Kreislaufwirtschaft
+für das Batterie Recycling, eine derart
+
+hohe regionale Wertschöpfungstiefe zu
+erzielen, dass sich schließlich im Grunde
+
+die gesamte automobile Wertschöpfungskette
+in der Region abbilden lassen kann, hieße,
+
+wir hätten regionalen
+Wirtschaftskreislauf. Unsere Studie ist
+
+erschienen, kurz bevor Tesla bekannt
+gegeben hat nördlich von Berlin.
+
+Elektromobilität - E-Autos herstellen zu
+möchte und es gibt in Zwickau, dass ist
+
+südlich von Dresden, auch nicht weit von
+der Lausitz ein VW-Werk wo seit Monaten
+
+auf Hochtouren daran gearbeitet wird, auf
+Elektromobilität umzustellen, das
+
+komplette Werk eines von Zweien in
+Deutschland neben Emden. Hier sollen ab
+
+2021 300.000 Elektromobile vom Band laufen
+und mit dieser Perspektive wirkt die
+
+Lausitz dann vielleicht auch schon gar
+nicht mehr so peripher. Wenn wir
+
+rauszoomen, liegt sie zwischen Berlin,
+Dresden und Wroclaw in Polen oder noch
+
+weiter zurückgezoomt in einem
+Dreiländereck Deutschland, Tschechien,
+
+Polen, im Herzen Europas und wir denken,
+es könnten ganz gute Voraussetzungen dafür
+
+sein, die Energie Region der Zukunft dort
+zu schaffen, wie die Akteure, die
+
+regionalen und überregionalen Akteure sich
+das wünschen. Der Planungshorizont 2030
+
+bis 2015 korreliert dabei, der
+Planungshorizont für das kleine
+
+Reyclingwerk mit dem Ausstieg aus der
+fossilen Energiewirtschaft. Für den Weg in
+
+eine Energieregion der Zukunft, wo das
+Batterie Recycling vielleicht nur ein
+
+Puzzle-Stück ist, haben wir Ansätze,
+Ideen, Handlungsempfehlung (ganzen
+
+Katalog) entworfen, aus dem sich ein
+integriertes Regional Entwicklungskonzept
+
+ableiten lassen kann, was sowohl
+Wirtschafts- und Beschäftigungsseitige
+
+Dimensionen als auch wie schon mehrfach
+wiederholt jetzt die soziale und
+
+ökologische Dimension reflektiert. Damit
+komme ich dann auch zum Schluss, ich würde
+
+euch gern hier noch 6 Pünktchen
+vorstellen, die wir jetzt herausgegriffen
+
+haben aus unseren Handlungsempfehlung.
+Zunächst einmal sollten wir uns dafür
+
+einsetzen, dass es bei der Novellierung
+der EU-Batterierichtlinie, die für 2020
+
+vorgesehen ist, auch Regelungen geschaffen
+werden zu Hersteller Rücknahme
+
+Verpflichtung, zu der Art und Weise, wie
+wir eine Sammlung von Altbatterien
+
+organisieren können, brauchen wir da ein
+dezentrales System?, zentrale Systeme?.
+
+Welche Recyclingquoten brauchen wir?
+Welche Recyclingquoten brauchen wir für
+
+welche Rohstoffe? Also Bislang kennt diese
+Richtlinie und kennt auch das deutsche
+
+Batterie Gesetz aus dem Jahr 2006, die
+Lithium-Ionen-Batterie beispielsweise noch
+
+nicht. Dann brauchen wir, und dass gilt
+auch nicht nur für die Lausitz, sondern
+
+dass gilt wahrscheinlich insgesamt für den
+Prozess, der im Zuge einer Energie und
+
+Verkehrswende eingeleitet werden muss,
+brauchen wir eine Koordination der
+
+Vorhaben, weil Akteure auf
+unterschiedlichen politischen Ebenen
+
+beteiligt sind, auch auf unterschiedlichen
+geografischen Ebenen, also vom
+
+Bürgermeister in Senftenberg bis hoch in
+die EU, haben da Leute Ideen, Interessen,
+
+und die müssen vermittelt werden, die
+müssten koordiniert und abgestimmt werden,
+
+damit sie nicht ins Leere laufen und damit
+die 17 Milliarden Strukturhilfen, die für
+
+die Lausitz ausgeschüttet werden sollen,
+sinnvoll verwendet werden. Auch
+
+Wissenstransfers sollten geleistet werden
+und Unterstützung erhalten dafür, dass sie
+
+stattfinden, also Wissenstransfers
+zwischen Forschungseinrichtungen im Kreis
+
+um die Lausitz, um die BTU Cottbus,
+Wissenstransfers nach Berlin, nach
+
+Dresden, an andere relevante
+Forschungsstandorte. Ind vor allen Dingen
+
+auch, dass ist uns selbst während der
+Ausarbeitung immer wieder bewusst
+
+geworden, zwischen den Disziplinen. Wir
+müssen als Sozialwissenschaftler, als
+
+Geisteswissenschaftler mit
+Naturwissenschaftlern ins Gespräch kommen,
+
+um diese Strukturwandel Prozesse, die uns
+vor gesamtgesellschaftliche Fragen stellt,
+
+so reflektieren zu können, dass wir da
+nicht zu singulären Ergebnissen kommen,
+
+die die Gesellschaft insgesamt nicht im
+Blick haben. Was wir auch brauchen ist
+
+Transparenz, eine Transparenz dieses
+Prozesses und mehr Bottom-Up Beteiligung.
+
+Dass heißt, die Bürgerinnen und Bürger
+sollten auch, ebenso wie die
+
+Beschäftigten, Räume zur Verfügung
+gestellt bekommen, wo sie miteinander ins
+
+Gespräch kommen können, wo sie auch mit
+Entscheidungsträgern und
+
+Entscheidungsträgerinnen in Dialog treten
+können und nicht nur ihre Meinung
+
+vortragen dürfen, sondern auch Raum dafür
+vorgesehen ist, dass sie mitgestalten. Das
+
+ist aus unserer Perspektive auch deshalb
+wichtig, weil wir nur so die
+
+Informationbasis ausweiten können und das
+findet derzeit ein Leitbild Prozess in der
+
+Lausitz statt, der ist mehrstufig über
+mehrere Jahre angelegt und wird
+
+durchgeführt von der Wirtschaftsregion
+Lausitz, also einem Interessenverband.
+
+Nach Kritik an deren Intransparenz wurde
+das Verfahren auch geöffnet, also man lädt
+
+jetzt auch zu Bürgerdialogen ein. Aber ich
+denke man darf bei eintägigen Input-
+
+Veranstaltungen dann nicht stehenbleiben,
+also man muss die Bürgerinnen,
+
+Beschäftigten, Einwohnerinnen mitnehmen
+und ein Leitbild wird unseres Erachtens
+
+eben dann nur tragen, wenn es geteilt wird
+von denen, die betroffen sind, von dem was
+
+in der Region passiert. Wir denken, es ist
+ganz wichtig, da endlich wieder mehr
+
+Investitionen in die Bildung und
+Qualifizierung zu stecken. Der Anspruch
+
+vom lebenslangen Lernen sollte sich auch
+in Möglichkeiten für Beschäftigte, für
+
+Bürgerinnen und Bürger niederschlagen,
+sich weiterzubilden oder den Umgang mit
+
+neuen Technologien zu erlernen. Ganz -
+recht einfacher Schritt wäre
+
+beispielsweise, dass im Freistaat Sachsen
+auch die Weiterbildungs Richtlinie
+
+implementiert wird, die Arbeitnehmerinnen
+in anderen Bundesländer ermöglicht,
+
+beispielsweise hier, teilzunehmen und zwar
+im Rahmen von weiter Bildungsurlaub. Da
+
+hat jeder Angestellte dann in zwei Jahren
+10 Tage Weiterbildungs Anspruch und kann
+
+die darauf verwenden, sich mit dem
+vertraut zu machen, was die Arbeit der
+
+Zukunft von ihm fordert oder welche
+Herausforderungen er dann da sieht, oder
+
+sie. Der vorletzte Punkt, dass
+funktioniert aus unserer Sicht, dieser
+
+Umbau, diese Transformation, nicht ohne
+dass gute Arbeit geschaffen wird. Dass
+
+heißt, neben den
+Weiterbildungsmöglichkeiten sollte es eine
+
+Vereinbarkeit von Privatem und Beruf
+geben, sollte vermieden werden dass hier
+
+prekäre Beschäftigungsverhältnisse
+geschaffen werden, Leiharbeit oder
+
+Werkverträge ausgeweitet werden und es
+sollte für die Beschäftigten möglich sein
+
+mehr mitzubestimmen, also wir gehen von
+einem ganz positiven Menschenbild aus, wie
+
+vielen Beschäftigten möchten nicht, oder
+nicht nur, den ganzen Tag Knöpfe drücken,
+
+sondern möchten vielleicht auch eine
+Eingabe machen, weil sie einfach die sind,
+
+die am nächsten am Prozess und Verfahren
+dran sind. Gibts dann Betriebliches
+
+Vorschlagswesen? Könnte man so die
+Innovativkraft, die jeder Mensch weil er
+
+grundsätzlich neugierig ist, mitbringt?
+Also davon habe ich mich hier auf jeden
+
+Fall überzeugt. Könnte man das nutzen? Zum
+letzten Punkt nochmals zu betonen die
+
+Herstellung gleichwertiger
+Lebensverhältnisse. Das ist uns wichtig,
+
+Regionen sollen nicht abgehangen werden,
+die Menschen bestimmter Regionen sollen
+
+nicht zu Verlierern des Wandels werden und
+dieses grundgesetzlich verbriefte Diktum
+
+sollten vielleicht nicht nur bundesweit
+stärker verfolgen, sondern zumindest auch
+
+EU weit und wenn nicht Global denken. In
+diesem Sinne, Vielen Dank für eure
+
+Aufmerksamkeit.
+[Füller, bitte in Amara entfernen]
+
+*Applaus*
+[Füller, bitte in Amara entfernen]
+
+Herald: Vielen Dank für den Vortrag! Wir
+haben leider nicht viel Zeit, deswegen
+
+eine Frage aus dem Internet schnell.
+Signal Angel: Du hast viele Möglichkeiten
+
+aufgezeigt, was es für Potentiale gibt und
+der IRC-Channel hatte eine sehr lebhafte
+
+Diskussion, die sich vor allem auf die
+Umsetzbarkeit bezog. Die Frage war dann:
+
+Gibt es schon bereits tatsächlich
+durchgeführte Maßnahmen wie Subventionen
+
+und so weiter, an denen ein tatsächliches
+Interesse des Bundes am Erhalt der Lausitz
+
+als Industriestandort erkennbar ist? Oder
+ist das immer noch im Raum, dass das
+
+sozusagen alles sich selber überlassen
+wird?
+
+Katrin: Also es gibt die Empfehlung der
+Kommission für Wachstum, Strukturwandel,
+
+Beschäftigung, Kohle Kommission. Und es
+gibt diese 17 Milliarden Euro
+
+Strukturhilfen, die für die Lausitz
+beschlossen wurde, sowie eigentlich eine
+
+Einigkeit der beteiligten Akteure in der
+Kohle Kommission auch in Bund, Ländern und
+
+der Region, dass man hier eine Energie
+Region der Zukunft bauen möchte. Aber ja,
+
+der Weg dahin der ist noch offen und an
+dem sollten sich möglichst viele
+
+beteiligen aus unserer Sicht.
+Herald: Ja, für weitere Fragen haben wir
+
+leider keine Zeit, wenn ihr wollt, dann
+trefft euch einfach mit ihr neben der
+
+Bühne danach. Ich würde noch einmal bitten
+für herzlichen Applaus für Katrin.
+
+*Applaus*
+[Füller, bitte in Amara entfernen]
+
+*36c3 Abspannmusik*
+[Füller, bitte in Amara entfernen]
+
+Untertitel erstellt von c3subtitles.de
+im Jahr 2020. Mach mit und hilf uns!

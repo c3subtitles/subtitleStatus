@@ -1,0 +1,2273 @@
+﻿*36C3 Intro musik*
+[Filler, please remove in amara]
+
+Herald: The next talk will be titled 'How
+to Design Highly Reliable Digital
+
+Electronics', and it will be delivered to
+you by Szymon and Stefan. Warm Applause
+
+for them.
+[Filler, please remove in amara]
+
+*applause*
+[Filler, please remove in amara]
+
+Stefan: All right. Good morning, Congress.
+So perhaps every one of you in the room
+
+here has at one point or another in their
+lives witnessed their computer behaving
+
+weirdly and doing things that it was not
+supposed to do or what you didn't
+
+anticipate it to do. And well, typically
+that would have probably been the result
+
+of a software bug of some sort somewhere
+inside the huge software stack your PC is
+
+running on. Have you ever considered what
+the probability of this weird behavior
+
+being caused by a bit flipped somewhere in
+your memory of your computer might have
+
+been? So what you can see in this video on
+the screen now is a physics experiment
+
+called a cloud chamber. It's a very simple
+experiment that is actually able to
+
+visualize and make apparent all the
+constant stream of background radiation we
+
+all are constantly exposed to. So what's
+happening here is that highly energetic
+
+particles, for example, from space they
+trace through gaseous alcohol and they
+
+collide with alcohol molecules and they
+form in this process a trail of
+
+condensation while they do that. And if
+you think about your computer, a typical
+
+cell of RAM, of which you might have, I
+don't know, 4, 8, 10 gigabytes in your
+
+machine is as big as only 80 nanometers
+wide. So it's very, very tiny. And you
+
+probably are able to appreciate the small
+amount of energy that is needed or that is
+
+used to store the information inside each
+of those bits. And the sheer amount of of
+
+those bits you have in your RAM and your
+computer. So a couple of years ago, there
+
+was a study that concluded that in a
+computer with about four gigabytes of RAM,
+
+a bit flip, um, caused by such an event by
+cosmic background radiation can occur
+
+about once every thirtythree hours. So a
+bit less than than one per day. In an
+
+incident in 2008, a Quantas Airlines
+flight actually nearly crashed, and the
+
+reason for this crash was traced back to
+be very likely caused by a bit flipped
+
+somewhere in one of the CPUs of the
+avionics system and nearly caused the
+
+death of a lot of passengers on this
+plane. In 2003, in Belgium, a small
+
+municipal vote actually had a weird hiccup
+in which one of the candidates in this
+
+election actually got four thousand ninety
+six more votes added in a single instance.
+
+And that was traced back to be very likely
+caused by cosmic background radiation,
+
+flipping a memory cell somewhere that
+stored the vote count. And it was only
+
+discovered that this happened because this
+number of votes for this particular
+
+candidate was considered unreasonable, but
+otherwise would have gotten away probably
+
+without being detected. So a few words
+about us: Szymon and I, we both work at
+
+CERN in the microelectronics section and
+we both develop electronics that need to
+
+be tolerant to these sorts of effects. So
+we develop radiation tolerant electronics
+
+for the experiments at CERN, at the LHC.
+Among a lot of other applications, you can
+
+meet the two of us at the Lötlabor Jena
+assembly if you are interested in what we
+
+are talking about today. And we will also
+give a small talk or a small workshop
+
+about radiation detection tomorrow, in one
+of the seminar rooms. So feel free to pass
+
+by there, it will be a quick introduction.
+To give you a small idea of what kind of
+
+environment we are working for: So if you
+would use one of your default intel i7
+
+CPUs from your notebook and would put it
+anywhere where we operate our electronics,
+
+it would very shortly die in a matter of
+probably one or two minutes and it would
+
+die for more than just one reason, which
+is rather interesting and compelling. So
+
+the idea for today's talk is to give you
+all an insight into all the things that
+
+need to be taken into account when you
+design electronics for radiation
+
+environments. What kinds of different
+challenges come when you try to do that.
+
+We classify and explain the different
+types of radiation effects that exist. And
+
+then we also present what you can do to
+mitigate these effects and also validate
+
+that what you did to care for them or
+protect your circuits actually worked. And
+
+of course, as we do that, we'll try to
+give our view on how we develop radiation
+
+tolerant electronics at CERN and how our
+workflow looks like to make sure this
+
+works. So let's first maybe take a step
+back and have a look at what we mean when
+
+we say radiation environments. The first
+one that you probably have in mind right
+
+now when you think about radiation is
+space. So, this interstellar space is
+
+basically filled with, very high speed,
+highly energetic electrons and protons and
+
+all sorts of high energy particles. And
+while they, for example, traverse close to
+
+planets as our Earth - these planets
+sometimes do have a magnetic field and the
+
+highly energetic particles are actually
+deflected by these magnetic fields and
+
+they can protect the planets as our
+planet, for example, from this highly
+
+energetic radiation. But in the process,
+there around these planets sometimes they
+
+form these radiation belts - known as the
+Van Allen belts after the guy who
+
+discovered this effect a long time ago.
+And a satellite in space as it orbits
+
+around the Earth might, depending on what
+orbit is chosen, sometimes go through
+
+these belts of highly intense radiation.
+That, of course, then needs to be taken
+
+into account when designing electronics
+for such a satellite. And if Earth itself
+
+is not able to give you enough radiation,
+you may think of the very famous Juno
+
+Jupiter mission that has become famous
+about a year ago. They actually in the
+
+environment of Jupiter they anticipated so
+much radiation that they actually decided
+
+to put all the electronics of the
+satellite inside a one centimeter thick
+
+cube of titanium, which is famously known
+as the Juno Radiation Vault. But not only
+
+space offers radiation environments.
+Another form of radiation you probably all
+
+recognize this when I show you this
+picture, which is an X-ray image of a
+
+hand. And X-ray is also considered a form
+of radiation. And while, of course, the
+
+doses or amounts of radiation any patient
+is exposed to while doing diagnosis or
+
+treatment of some disease, that might not
+be the full story when it comes to medical
+
+applications. So this is a medical
+particle accelerator which is used for
+
+cancer treatment. And in these sorts of
+accelerators, typically carbon ions or
+
+protons are accelerated and then focused
+and used to treat and selectively destroy
+
+cancer cells in the body. And this comes
+already relatively close to the
+
+environment we are working in and working
+for. So Szymon and I are working, for
+
+example, on electronics, for the CMS
+detector inside the LHC or which we build
+
+dedicated, radiation tolerant, integrated
+circuits which have to withstand very,
+
+very large amounts and doses of short
+lived radiation in order to function
+
+correctly. And if we didn't specifically
+design electronics for that, basically the
+
+whole system would never be able to work.
+To illustrate a bit how you can imagine
+
+the scale of this environment: This is a
+single plot of a collision event that was
+
+recorded in the ATLAS experiment. And each
+of those tiny little traces you can make
+
+out in this diagram is actually either one
+or multiple secondary particles that were
+
+created in the initial collision of two
+proton bunches inside the experiment. And
+
+in each of those, of course, races around
+the detector electronics, which make these
+
+traces visible itself, then decaying into
+multiple other secondary particles which
+
+all go through our electronics. And if
+that doesn't sound, let's say, bad enough
+
+for digital electronics, these collisions
+happen about 40 million times a second. Of
+
+course, multiplying the number of events
+or problems they can cause in our
+
+circuits. So we now want to introduce all
+the things that can happen, the different
+
+radiation effects. But first, probably we
+take a step back and look at what we mean
+
+when we say digital electronics or digital
+logic, which we want to focus on today. So
+
+from your university lectures or your
+reading, you probably know the first class
+
+of digital logic, which is the
+combinatorial logic. So this is typically
+
+logic that just does a simple linear
+relation of the inputs of a circuit and
+
+produces an output as exemplified with
+these AND and OR, NAND, XOR gates that you
+
+see here. But if you want to build - I
+mean even though we use those everywhere
+
+in our circuits - you probably also want
+to store state in a more complex circuit,
+
+for example, in the registers of your CPU
+they store some sort of internal
+
+information. And for that we use the other
+class of logic, which is called the
+
+sequential logic. So this is typically
+clocked with some system clock frequency
+
+and it changes its output with relation to
+the inputs whenever this clock signal
+
+changes. And now if we look at how all
+these different logic functionalities are
+
+implemented. So typically nowadays for
+that you may know that we use CMOS
+
+technologies and basically represent all
+this logic functionality as digital gates
+
+using small P-MOS and N-MOS MOSFET
+transistors in CMOS technologies. And if
+
+we kind of try to build a model for more
+complex digital circuits, we typically use
+
+something we call the finite state machine
+model, in which we use a model that
+
+consists of a combinatorial and a
+sequential part. And you can see that the
+
+output of the circuit depends both on the
+internal state inside the register as well
+
+as also the input to the combinatorial
+logic. And accordingly, also the state
+
+that is internal is always changed by the
+inputs as well as the current state. So
+
+this is kind of the simple model for more
+complex systems that can be used to model
+
+different effects. Um, now let's try to
+actually look at what the radiation can do
+
+to transistors. And for that we are going
+to have a quick recap at what the
+
+transistor actually is and how it looks
+like. As you may perhaps know is that in
+
+CMOS technologies, transistors are built
+on wafers of high purity silicon. So this
+
+is a crystalline, very regularly organized
+lattice of silicon atoms. And what we do
+
+to form a transistor on such a wafer is
+that we add dopants. So in order to form
+
+diffusion regions, which later will become
+the source and drain of our transistors.
+
+And then on top of that we grow a layer of
+insulating oxide. And on top of that we
+
+put polysilicon, which forms the gate
+terminal of the transistor. And in the end
+
+we end up with an equivalent circuit a bit
+like that. And now to put things back into
+
+perspective - you may also note that the
+dimension of these structures are very
+
+tiny. So we talk about tens of nanometers
+for some of the dimensions I've outlined
+
+here. And as the technologies shrink,
+these become smaller and smaller and
+
+therefore you'll probably also realize or
+are able to appreciate the small amount of
+
+energy that are used to store information
+inside these digital circuits, which makes
+
+them perhaps more sensitive to radiation.
+So let's take a look. What different types
+
+of radiation effects exist? We typically
+in this case, differentiate them into two
+
+main classes of events. The first one
+would be the cumulative effects, which are
+
+effects that, as the name implies,
+accumulate over time. So as the circuit is
+
+placed inside some radiation environment,
+over time it accumulates more and more
+
+dose and therefore worsens its performance
+or changes how it operates. And on the
+
+other side, we have the Single Event
+Effects, which are always events that
+
+happen at some instantaneous point in
+time, and then suddenly, without being
+
+predictable, change how the circuit
+operates or how it functions or if it
+
+works in the first place or not. So I'm
+going to first go into the class of
+
+cumulative effects and then later on,
+Szymon will go into the other class of the
+
+Single Event Effects. So in terms of these
+accumulating effects, we basically have
+
+two main subclasses: The first one being
+ionization or TID effects, for Total
+
+Ionizing Dose - and the second one being
+displacement damages. So displacement
+
+damages do exactly what they sound like.
+It is all the effects that happen when an
+
+atom in the silicon lattice is actually
+displaced or removed from its lattice
+
+position and actually changes the
+structure of the semiconductor. But
+
+luckily, these effects don't have a big
+impact in the CMOS digital circuits that
+
+we are looking at today. So we will
+disregard them for the moment and we'll be
+
+looking more at the ionization damage, or
+TID. So ionization - as a quick recap - is
+
+whenever electrons are removed or added to
+an atom, effectively transforming it into
+
+an ion. And these effects are especially
+critical for the circuits we are building
+
+because of what they do is that they
+change the behavior of the transistors.
+
+And without looking too much into the
+semiconductor details, I just want to show
+
+their typical effect that we are concerned
+about in this very simple circuit here. So
+
+this is just an inverter circuit
+consisting of two transistors here and
+
+there. And what the circuit does in normal
+operation is it just takes an input signal
+
+and inverts and basically gives the
+inverted signal at the output. And as the
+
+transistors are irradiated and accumulate
+dose, you can see that the edges of the
+
+output signal get slower. So the
+transistor takes longer to turn on and
+
+off. And what that does in turn is that it
+limits the maximum operation frequency of
+
+your circuit. And of course, that is not
+something you want to do. You want your
+
+circuit to operate at some frequency in
+your final system. And if the maximum
+
+frequency it can work at degrades over
+time, at some point it will fail as the
+
+maximum frequency is just too low. So
+let's have a look at what we can do to
+
+mitigate these effects. The first one and
+I already mentioned it when talking about
+
+the Juno mission, is shielding. So if you
+can actually put a box around your
+
+electronics and shield any radiation from
+actually hitting your transistors, it is
+
+obvious that they will last longer and
+will suffer less from the radiation damage
+
+that it would otherwise do. So this
+approach is very often used in space
+
+applications like on satellites, but it's
+not very useful if you are actually trying
+
+to measure the radiation with your
+circuits as we do, for example, in the
+
+particle accelerators we build integrated
+circuits for. So there first of all, we
+
+want to measure the radiation so we cannot
+shield our detectors from the radiation.
+
+And also, we don't want to influence the
+tracks of these secondary collision
+
+products with any shielding material that
+would be in the way. So this is not very
+
+useful in a particle accelerator
+environment, let's say. So we have to
+
+resort to different methods. So as I said,
+we do have to design our own integrated
+
+circuits in the first place. So we have
+some freedom in what we call transistor
+
+level design. So we can actually alter the
+dimensions of the transistors. We can make
+
+them larger to withstand larger doses of
+radiation and we can use special
+
+techniques in terms of layout that we can
+experimentally verifiy to be more
+
+resistant to radiation effects. And as a
+third measure, which is probably the most
+
+important one for us, is what we call
+modeling. So we actually are able to
+
+characterize all the effects that
+radiation will have on a transistor. And
+
+if we can do that, if we will know: 'If I
+put it into a radiation environment for a
+
+year, how much slower will it become?'
+Then it is of course easy to say: 'OK, I
+
+can just over-design my circuit and make
+it a bit more simple, maybe have less
+
+functionality, but be able to operate at a
+higher frequency and therefore withstand
+
+the radiation effects for a longer time
+while still working sufficiently well at
+
+the end of its expected lifetime.' So
+that's more or less what we can do about
+
+these effects. And I'll hand over to
+Szymon for the second class.
+
+Szymon: Contrary to the cumulative effects
+presented by Stefan, the other group are
+
+Single Event Effects which are caused by
+high energy deposits, which are caused by
+
+a single particle or shower of particles.
+And they can happen at any time, even
+
+seconds after irradiation is started. It
+means that if your circuit is vulnerable
+
+to this class of effects, it can fail
+immediately after radiation is present.
+
+And here we also classify these effects
+into several groups. The first are hard,
+
+or permanent, errors, which as the name
+indicates can permanently destroy your
+
+circuit. And this type of errors are
+typically critical for power devices where
+
+you have large power densities and they
+are not so much of a problem for digital
+
+circuits. In the other class of effects
+are soft errors. And here we distinguish
+
+transients, or Single Event Transient
+errors, which are spurious signals
+
+propagating in your circuit as a result of
+a gate being hit by a particle and they
+
+are especially problematic for analog
+circuits or asynchronous digital circuits,
+
+but under some circumstances they can be
+also problematic for synchronous systems.
+
+And the other class of problems are
+static, or Single Event Upset problems,
+
+which basically means that your memory
+element like a register gets flipped. And
+
+then of course, if your system is not
+designed to handle this type of errors
+
+properly, it can lead to a failure. So in
+the following part of the presentation
+
+we'll focus mostly on soft errors. So
+let's try to understand what is the origin
+
+of this type of problem. So as Stefan
+mentioned, the typical transistor is built
+
+out of diffusions, gate and channel. So
+here you can see one diffusion. Let's
+
+assume that it is a drain diffusion. And
+then when a particle goes through and
+
+deposits charge, it creates free electron-
+hole pairs, which then in the presence of
+
+electric fields, they get collected by
+means of drift, which results in a large
+
+current spike, which is very short. And
+then the rest of the charge could be
+
+collected by diffusion which is a much
+slower process and therefore also the
+
+amplitude of the event is much, much
+smaller. So let's try to understand what
+
+could happen in a typical memory cell. So
+on this schematic, you can see the
+
+simplest memory cell, which is composed of
+two back-to-back inverters. And let's
+
+assume that node A is that high and node B
+is at low potential initially. And then we
+
+have a particle hitting the drain of
+transistor M1 which creates a short
+
+circuit current between drain and ground,
+bringing the drain of transistor M1 to low
+
+potential, which also acts on the gates of
+second inverter, temporarily changing its
+
+state from low to high, which reinforces
+the wrong state in the first inverter. And
+
+at this time the error is locked in your
+memory cell and you basically lost your
+
+information. So you may be asking
+yourself: 'How much charge is needed
+
+really to flip a state of a memory cell?'.
+And you can get this number from either
+
+simulations or from measurements. So let's
+assume that what we could do, we could try
+
+to inject some current into the sensitive
+node, for example, drain of transistor M1.
+
+And here what I will show is that on the
+top plot you will have current a function
+
+of time. On the second plot you will have
+output voltage. So voltage at node B as a
+
+function of time and the lowest plot you
+will see a probability of having a bit
+
+flip. So if you inject very little
+current, of course nothing changes at the
+
+output, but once you start increasing the
+amount of current you are injecting, you
+
+see that something appears at the output
+and at some point the output will toggle,
+
+so it will switch to the other state. And
+at this point, if you really calculate
+
+what is the area under the current curve
+you can find what is the critical charge
+
+needed to flip the memory cell. And if you
+go further, if you start injecting even
+
+more current, you will not see that much
+difference in the output voltage waveform.
+
+It could become only slightly faster. And
+at this point, you also can notice that
+
+the probability now jumped to one, which
+means that any time you inject so much
+
+current there is a fault in your circuit.
+So for now, we just found what is the
+
+probability of having a bit-flip from 0 to
+1 in node B. Of course we should also
+
+calculate the same for the other
+direction, so from 1 to zero. And usually
+
+it is slightly different. And then of
+course we should inject in all the other
+
+nodes, for example node B and also should
+study all possible transitions. And then
+
+at the end, if you calculate the
+superposition of these effects and you
+
+multiply them by the active area of each
+node, you will end up with what we call
+
+the cross section, which has a dimension
+of centimeters squared, which will tell
+
+you how sensitive your circuit is to this
+type of effects. And then knowing the
+
+radiation profile of your environment, you
+can calculate the expected upset rate in
+
+the final application. So now, having
+covered the basic of the single event
+
+effects, let's try to check how we can
+mitigate them. And here also technology
+
+plays a significant role. So of course,
+newer technologies offer us much smaller
+
+devices. And together with that, what
+follows is that usually supply voltages
+
+are getting smaller and smaller as well as
+the node capacitance, which means that for
+
+our Single Event Upsets it is very bad
+because the critical charge which is
+
+required to flip our bit is getting less
+and less. But at the end, at the same
+
+time, physical dimensions of our
+transistors are getting smaller, which
+
+means that the cross section for them
+being hit is also getting smaller. So
+
+overall, the effects really depend on the
+circuit topology and the radiation
+
+environment. So another protection method
+could be introduced on the cell level. And
+
+here we could imagine increasing the
+critical charge. And that could be done in
+
+the easiest way by just increasing the
+node capacitance by, for example, putting
+
+larger transistors. But of course, this
+also increases the collection electrode,
+
+which is not nice. And another way could
+be just increase the capacitance by adding
+
+some extra metal capacitance, but it, of
+course, slows down the circuit. Another
+
+approach could be to try to store the
+information on more than two nodes. So I
+
+showed you that on a simple SRAM cell we
+store information only on two nodes, so
+
+you could try to come up with some other
+cells, for example, like that one in which
+
+the information you start on four nodes.
+So you can see that the architecture is
+
+very similar to the basic SRAM cell. But
+you should be careful always to very
+
+carefully simulate your design, because if
+we analyze this circuit, you will quickly
+
+realize that this circuit, even though the
+information is stored in four different
+
+nodes, the same type of loop exists as in
+the basic circuit. Meaning that at the end
+
+the circuit offers basically no hardening
+with respect to the previous cell. So
+
+actually we can do it better. So here you
+can see a typical dual interlocked cell.
+
+So the amount of transistors is exactly
+the same as in the previous example, but
+
+now they are interconnected slightly
+differently. And here you can see that
+
+this cell has also two stable
+configurations. But this time, the low
+
+level from a given node can propagate to
+only to the left hand side, while the high
+
+level can propagate to the right hand
+side. And each stage being inverting means
+
+that the fault can not propagate for more
+than one node. Of course, this cell has
+
+some drawbacks: It consumes more area than
+as simple SRAM cell and also write access
+
+requires accessing at least two nodes at
+the same time to really change the state
+
+of the cell. And so you may ask yourself,
+how effective is this cell? So here I will
+
+show you a cross section plot. So it is
+the probability of having an error as a
+
+function of injected energy. And as a
+reference, you can see a pink curve on the
+
+top, which is for a normal, not protected
+cell. And on the green you can see the
+
+cross section for the error in the DICE
+cell. So as you can see, it is one order
+
+of magnitude better than the normal cell.
+But still, the cross section is far from
+
+being negligible, So, the problem was
+identified: So it was identified that the
+
+problem was caused by the fact that some
+sensitive nodes were very close together
+
+on the layout and therefore they could be
+upset by the same particle. Because as we
+
+mentioned, single devices there are very
+small. We are talking about dimensions
+
+below a micron. So after realizing that,
+we designed another cell in which we
+
+separated more sensitive nodes and we
+ended up with the blue curve, and as you
+
+can see the cross section was reduced by
+two more orders of magnitude and the
+
+threshold was increased significantly. So
+if you don't want to redesign your
+
+standard cells, you could also apply some
+mitigation techniques on block level. So
+
+here we can use some encoding to encode
+our state better. And as an example, I
+
+will show you a typical Hamming code. So
+to protect four bits, we have to add three
+
+additional party bits which are calculated
+according to this formula. And then once
+
+you calculate the parity bits, you can use
+those to check the state integrity of your
+
+internal state. And if any of their party
+bits is not equal to zero, then the bits
+
+instantaneously become syndromes,
+indicating where the error happened. And
+
+you can use this information to correct
+the error. Of course, in this case, the
+
+efficiency is not really nice because we
+need three additional bits to protect only
+
+four bits of information. But as the state
+length increases the protection also is
+
+more efficient. Another approach would be
+to do even less. Meaning that instead of
+
+changing anything you need in your design,
+you can just triplicate your design or
+
+multiply it many times and just vote,
+which state is correct? So this concept is
+
+called tripple modular redudancy and it is
+based around the vaulter cell. So it is a
+
+cell which has even or odd number of
+inputs and outputs is always equal to
+
+majority of its input. And as I mentioned
+that the idea is that you have, for
+
+example, three circuits: A, B and C, and
+during normal operation, when they are
+
+identical, the output is also the same.
+However, when there is a problem, for
+
+example, in logic, part B, the the output
+is affected. So this problem is
+
+effectively masked by the Voltaire cell
+and it is not visible from outside of the
+
+circuit. But you have to be careful not to
+take this picture as a as a design type
+
+template. So let's try to analyze what
+would happen with the state machine
+
+similar to what Stephan introduced. If you
+were to just use this concept. So here you
+
+can see a three state machines and
+vaulterout the output. And as we can see,
+
+if you have an upside in, for example, the
+state register A, then the state is
+
+broken. But still the output of the
+circuit, which is indicated by letter s is
+
+correct because the B and C registers are
+still fine. But what happens if some time
+
+later we have an upset in memory element B
+or C? Then of course that that the state
+
+of ours system is broken and we can not
+recover it. So you can ask yourself what
+
+can we do better in order to avoid this
+situation? So that just to be sure. Please
+
+do not use this technique to protect your
+circuits. So the easiest mitigation could
+
+be to use as an input to your logic to use
+the output of the vaulter sell itself.
+
+What it offers us is that now whenever you
+have an upset in one of the memory
+
+elements for the next computation, for the
+next stage, we always use the voltage
+
+outward, which ensures that the signal
+will be removed one clock cycle later. So
+
+you will have another hit sometime later,
+basically, it will not affect our state.
+
+Until now we consider only upsets in our
+registers but what happens if we have
+
+charge and in our vaulter. So you see that
+if there is no state change, basically the
+
+transient in the vaulter doesn't impact
+our system. But if you are really unlucky
+
+and the transient happens when the clock
+transition happens, so when whenever we
+
+enlarge the data, we can corrupt the state
+in three registers at the same time, which
+
+is less than ideal. So to overcome this
+limitation, you can consider skewing our
+
+clocks by some time, which is larger than
+the maximum charge in time. And now,
+
+because with each register samples the
+output of the vaulter a slightly different
+
+time, we can corrupt only one flips over
+the at the time. So of course, if you are
+
+unlucky, we can have problematic
+situations in which one register is
+
+already in your state. The other register
+is still. in the old state. And then it
+
+can lead to undetermenistic result. So it
+is better, but still not ideal. So as a
+
+general theme, you have seen that we were
+adding and adding more resources so you
+
+can ask yourself what would happen if we
+tripplicate everything. So in this case,
+
+we tripplicate ower registers, we
+tripplicate our logic and our vaulter. And
+
+now you can see that whenever we have an
+upset in our register, it can only affect
+
+one register at the time and the error
+will be removed from the system one clock
+
+cycle later. Also, you will have an upset
+in the voter or in their logic. It can be
+
+larged only to one register, which means
+that in principle we create that system
+
+which is really robust. Unfortunately,
+nothing is for free. So here I compare a
+
+different tripplication environments and
+as you can see that the more protection
+
+you want to have, the more you have to pay
+in terms of resources being power in the
+
+area. And also usual, you pay small
+penalty in terms of maximum operational
+
+speed. So which flavor of protection you
+have you use depends really on
+
+application. So for most sensitive
+circuits, you probably you want to use
+
+faulty MRO and you may leave some other
+bits of logic unprotected. So another, if
+
+your system is not mission critical and
+you can tolerate some downtime, you can
+
+consider scrubbing, periodically checking
+the state of your system and refreshing it
+
+if necessary if an error is detected using
+some parity bits or copy of the data in
+
+that safe space. Or you can have a
+watchdog which will find out that
+
+something went wrong and it will just
+reinitialize the whole system. So now,
+
+having covered the basics of all the
+facts, we will have to face. We would like
+
+to show you the basic flow which we follow
+during designing our radiation hardened
+
+circuits. So of course we always start
+with specifications. So we try to
+
+understand our radiation environment in
+which the circuit is meant to operate. So
+
+we come up with some specifications for
+total dose which could be accumulated and
+
+for the rate of single event upsets. And
+at this moment, it is also not very rare
+
+that we have to decide to move some
+functionality out of our detector volume,
+
+outside, where we can use of the sort of
+commercial equipment to do number
+
+crunching. But let's assume that we would
+go with our ASIC. So having that the
+
+specifications, of course we proceed with
+functional implementation. This we
+
+typically do with hardware describtion
+languages, so verilog or VHDL which we may
+
+know from typical FPGA flow. And of course
+we write a lot of simulations too to
+
+understand whether we are meeting our
+functional goals or whether our circuit
+
+behaves as expected. And then we
+selectively select some parts of the
+
+circuits which we want to protect from
+radiation effects. So, for example, we can
+
+decide to use triplication or some other
+methods. So these days we typically use
+
+triplication as the most straightforward
+and very effective method. So you can ask
+
+yourself how do we triplicate the logic?
+So does the simplest. Would we just copy
+
+and paste the code three times at some
+postfixes like A, B and C and you are
+
+done. But of course this solution has some
+drawbacks. So it is time consuming and it
+
+is very error prone. So maybe you have
+noticed that I had a typo there. So of
+
+course we don't want to do that. So we
+developed our own tool, which we called
+
+TMRG, which automatizes the process of
+triplication and eliminates the two main
+
+drawbacks, which I just described. So
+after we have our code triplicated and of
+
+course, not before rerunning all the
+simulations to make sure that everything
+
+went as expected. We then proceed to the
+synthesis process in which we convert our
+
+high level hardware description languages
+to gate level, in which all the functions
+
+are mapped to gates, which were introduced
+by Stefan, so both combinatorial and
+
+sequential. And here we also have to be
+careful because modern CAD tools have a
+
+tendency, of course, to optimise the logic
+as much as possible. And our logic in most
+
+of the cases is really redundant. So it is
+very easy; So, it should be removed. So we
+
+really have to make sure that it is not
+removed. That's why our tool also provides
+
+some constraints for the synthesizer to
+make sure that our design intent is
+
+clearly and well understood by the tool.
+And once we have the output lattice, we
+
+proceed to place and route process where
+this kind of lattice representation is
+
+mapped to a layout of what will become
+soon our digital chip where we placed all
+
+the cells and we route connections between
+them and here there are another. There is
+
+another danger we have mentioned already,
+it's that in modern technologies the cells
+
+are so small that they could be easily
+affected by a single particle at the same
+
+time. So we have to really space although
+the big cells which are responsible for
+
+keeping the information about the state to
+make sure that a single particle cannot
+
+upset A and B, for example, read research
+from the same register. And then in the
+
+last step, of course, we'll have to verify
+that everything. What we have done is
+
+correct. And at this level, we also try to
+introduce some single event effects in our
+
+simulations. So we could randomly flip
+bits in our system. We can also inject
+
+transients. And typically we used to do
+that on the lattices level, which works
+
+very fine. And it is very nice. But the
+problem with this approach is that we can
+
+perform these actions very late in the
+design cycle, which is less than ideal.
+
+And also that if we find that there is
+problem in our simulation, typical lattice
+
+at this level has probably few orders of
+magnitude more lines than our initial RTL
+
+code. So to trace back what is the
+problematic line of code is not so
+
+straightforward. At this time. So you can
+ask yourself why not to try to inject
+
+errors in the RTL design? And the answer
+was, the answer is that it is not so
+
+trivially to map the hardware description
+language's is high level constructs to
+
+what will become combinatorial or
+sequential logic. So in order to eliminate
+
+this problem, we also develop another open
+source tool, which is, which allows us to
+
+do so. So we decided to use Yosys open
+source synthesis tool from clifford, which
+
+was presented in the Congress several
+years ago. So we use this tool to make a
+
+first pass through our RTL code to
+understand which elements will be mapped
+
+to sequential and combinatorial. And then
+having this information, we will use
+
+cocotb, another python verification
+framework, which allows us programmatic
+
+access to these nodes and we can
+effectively inject the errors in our
+
+simulations. And I forgot to mention that
+the TMRG tool is also open source. So if
+
+you are interested in one of the tools,
+please feel free to contact us. And of
+
+course, after our simulation is done, then
+the next step would really tape out. And
+
+so we submit our chip to manufacturing and
+hopefully a few months later we receive
+
+our chip back.
+Stefan: All right. So after patiently
+
+waiting then for a couple of months while
+your chip is in manufacturing and you're
+
+spending time on preparing a test set up
+and preparing yourself to actually test if
+
+your chip works as you expect it to. Now,
+it's probably also a good time to think
+
+about how to actually validate or test if
+all the measures that you've taken to
+
+protect your circuit from radiation
+effects actually are effective or if they
+
+are not. And so again, we will split this
+in two parts. So you will probably want to
+
+start with testing for the total ionizing
+dose effects. So for the cumulative effect
+
+and for that, you typically use x ray
+radiation relatively similar to the one
+
+used in medical treatment. So this
+radiation is relatively low, energetic,
+
+which has the upside of not producing any
+single event effects, but you can really
+
+only accumulate radiation dose and focus
+on the accumulating effects. And typically
+
+you would use a machine that looks
+somewhat like this, a relatively compact
+
+thing. You can have in your laboratory and
+you can use that to really accumulate
+
+large amounts of radiation dose on your
+circuit. And then you need some sort of
+
+mechanism to verify or to quantify how
+much your circuit slows down due to this
+
+radiation dose. And if you do that, you
+typically end up with a graphic such as
+
+this one, where in the x axis you have the
+radiation dose your circuit was exposed
+
+to. And on the y axis, you see that the
+frequency has gone down over time and you
+
+can use this information to see, to say,
+OK, my final application, I expect this
+
+level of radiation dose. I mean, I can
+still see that my circuit will work fine
+
+under some given environmental condition
+or some operation condition. So this is
+
+the test for the first class of effects.
+And the test for the second class of
+
+effects for the single event effect is a
+bit more involved. So there what you would
+
+typically start to do is go for a heavy
+ion test campaign. So you would go to a
+
+specialized, relatively rare facility. We
+have a couple of those in Europe and would
+
+look perhaps somewhat like this. So it's a
+small particle accelerator somewhere that
+
+typically have they typically have
+different types of heavy ions at their
+
+disposal that they can accelerate and then
+shoot at your chip that you can place in a
+
+vacuum chamber and these ions can deposit
+very well known amounts of energy in your
+
+circuit and you can use that information
+to characterize your circuit. The downside
+
+is a bit that these facilities tend to be
+relatively expensive to access and also a
+
+bit hard to access. So typically you need
+to book them a lot of time in advance and
+
+that's sometimes not very easy. But what
+it offers you, you can use different types
+
+of ions with different energies. You can
+really make a very well-defined
+
+sensitivity curve similar to the one that
+Szymon has described. You can get from
+
+simulations and really characterize your
+circuit for how often, any single event
+
+effects will appear in the final
+application if there is any remaining
+
+effects left. If you have left something
+unprotected. The problem here is that
+
+these particle accelerators typically just
+bombard your circuit with like thousands
+
+of particles per second and they hit
+basically the whole area in a random
+
+fashion. So you don't really have a way of
+steering those or measuring the position
+
+of these particles. So typically you are a
+bit in the dark and really have to really
+
+carefully know the behavior of your
+circuit and all the quirks it has. Even
+
+without the radiation to instantly notice
+when something has gone wrong. Um, and
+
+this is this is typically not very easy
+and you can kind of compare it with having
+
+some weird crash somewhere in your
+software stack and then having to have
+
+first take a look and see what actually
+has happened. And then to be. Typically
+
+you find something that has not been
+properly protected and you see some weird
+
+effect on your circuit and then you try to
+get a better idea of where that problem
+
+actually is located. And the answer for
+these types of problems involving position
+
+is, of course, always lasers. So we have
+two types of laser experiments available
+
+that can be used to more selectively probe
+your circuit for these problems. The first
+
+one being the single photon absorption
+laser. And it sounds this relatively
+
+simple in terms of setup. You just use a
+single laser beam that shoots straight up
+
+at your circuit from the back. And while
+it does that, it deposits energy all along
+
+the silicon and also in the diffusions of
+your transistors and is therefore also
+
+able to inject energy there, potentially
+upsetting a bit of memory or exposing
+
+whatever other single event effects you
+have. And of course, you can steer this
+
+beam across the surface of your chip or
+whatever circuit you are testing and then
+
+find the sensitive location. The problem
+here is that the amount of energy that is
+
+deposited is really large due to the fact
+that it has to go through the whole
+
+silicon until it reaches the transistor.
+And therefore it's mostly used to find
+
+these destructive effects that really
+break something in your circuit. The more
+
+clever and some beautiful experiment is
+the two photon absorption laser experiment
+
+in which you use two laser beams of a
+different wavelength. And these actually
+
+do not have enough energy to cause any
+effect in your silicon. If only one of the
+
+laser beams is present, but only in the
+small location where the two beams
+
+intersect, the energy is actually large
+enough to produce the effect. And this
+
+allows you to very selectively and only on
+a very small volume produce charge and the
+
+cause an effect in your circuit. And when
+you do that now, you can systematically
+
+scan both the X and Y directions across
+your chip and also the Z direction and can
+
+really measure the volume of sensitive
+area. And this is what you would typically
+
+get of such an experiment. So in black and
+white in the back, you'll see an infrared
+
+image of your chip where you can really
+make out the individual, say structural
+
+components. And then overlaid in blue, you
+can basically highlight all the sensitive
+
+points that made you measure something you
+didn't expect some weird bit flip in a
+
+register or something. And you can really
+then go to your layout software and find
+
+what is the the register or the gate in
+your net list that is responsible for
+
+this. And then it's more like operating a
+debugger in a software environment.
+
+Tracing back from there what the line of
+code are responsible for this bug is. And
+
+to close out, it is always best to learn
+from mistakes. And we offer our mistakes
+
+as a guideline for if you ever feel
+yourself the need to design radiation
+
+tolerant circuits. So we want to present
+two or three small issues we had and in
+
+circuits where we were convinced it should
+have been working fine. So the first one
+
+this you will probably recognize is this
+full triple modular redundancy scheme that
+
+Szymon has presented. So we made sure to
+triplicate everything and we're relatively
+
+sure that everything should be fine. The
+only modification we did is that to all
+
+those registers in our design, we've added
+a reset, because we wanted to initialize
+
+the system to some known state when we
+started up, which is a very obvious thing
+
+to do. Every CPU has a reset. But of
+course, what we didn't think about here
+
+was that at some point there's a buffer
+driving this reset line somewhere. And if
+
+there's only a single buffer. What happens
+if this buffer experiences a small
+
+transient event? Of course, the obvious
+thing that happened is that as soon as
+
+that happened, all the registers were
+upset at the same time and were basically
+
+cleared and all our fancy protection was
+invalidated. So next time we decided,
+
+let's be smarter this time. And of course,
+we triplicate all the logic and all the
+
+voters and all the registers. So let's
+also triplicate the reset lines. And while
+
+the designer of that block probably had
+very good intentions, um, it turned out
+
+that later than when we manufactured the
+chip, it still sometimes showed a complete
+
+reset without any good explanation for
+that. And what was left out of the the
+
+scope of thinking here was that this reset
+actually was connected to the system reset
+
+of the chip that we had. And typically
+pins are on the chip or something that is
+
+not available in huge quantities. So you
+typically don't want to spend three pins
+
+of your chip just for a stupid reset that
+you don't use ninety nine percent of the
+
+time. So what we did at some point we just
+connected again the, uh, reset lines to a
+
+single input buffer. That was then
+connected to a pin of the chip. And of
+
+course, this also represented a small
+sensitive area in the chip. And again, uh,
+
+a single upset here was able to destroy
+all three of our flip flops. All right.
+
+And the last lesson I'm bringing or the
+last thing that goes back to the
+
+implementation details that Szymon has
+mentioned. So this time, really simple
+
+circuit. We were absolutely convinced it
+must work because it was basically the
+
+textbook example that Szymon was
+presenting. And we were the code was so
+
+small we were able to inspect everything
+and were very much sure that nothing
+
+should have happened. And what we saw when
+we went for this laser testing experiment,
+
+uh, in simplified form is basically that
+only this first voter. And when this was
+
+hit, I always all our register was was,
+uh, was upset while the other ones were
+
+never manifested to show anything strange.
+And it took us quite a while to actually
+
+look at the layout later on and figure out
+that what was in the chip was rather this.
+
+So two of the voters were actually not
+there. And Szymon mentioned the reason for
+
+that. So synthesis tool these days are
+really clever at identifying redundant
+
+logic and because we forgot to tell it to
+not optimize these redundant pieces of
+
+logic, which the voters really are. It
+just merged them into one. And that
+
+explains why we only saw this one. voter
+being the sensitive one. And of course, if
+
+you have a transient event there, then you
+suddenly upset all your registers and that
+
+without even knowing it and with being
+sure, having looked at every single line
+
+of verilog code and being very sure,
+everything should have been fine. But that
+
+seems to be how this business goes. So we
+hope we had been we had the chance and you
+
+were able to get some insight in in what
+we do to make sure the experiments at the
+
+LHC work fine. What what you can do to
+make sure the satellite you are working on
+
+might be working OK. Even before launching
+it into space, if you're interested into
+
+some more information on this topic, feel
+free to pass by at the assembly I
+
+mentioned at the beginning or just meet us
+after the talk and otherwise. Thank you
+
+very much.
+[Filler, please remove in amara]
+
+Herald: Thank you very much indeed.
+There's about 10 minutes left for Q and A,
+
+so if you have any questions go to a
+microphone. And as a cautious reminder,
+
+questions are short sentences with. That
+starts with a question. Well, ends with a
+
+question mark and the first question goes
+to the Internet.
+
+Internet: Well, hello. Um, do you also
+incorporate radiation as the source for
+
+randomness when that's needed?
+Stefan: So we personally don't. So in our
+
+designs we don't. But it is done indeed
+for a random number generator. This is
+
+sometimes done that they use radioactive
+decay as a source for randomness. So this
+
+is done, but we don't do it in our
+experiments.
+
+We rather want deterministic data out of
+the things we built.
+
+Herald: Okay. Next question goes to
+microphone number four.
+
+Mic 4: Do you do your tripplication before
+or after elaboration?
+
+Szymon: So currently we do it before
+elaboration. So we decided that our tool
+
+works on verilog input and it produces
+verilog output because it offers much more
+
+flexibility in the way how you can
+incorporate different tripplication
+
+schemes. If you were to apply to only
+after elaboration, then of course doing a
+
+full tripplication might be easy. But then
+you - to having a really precise control
+
+or on types of tripplication on different
+levels is much more difficult.
+
+Herald: Next question from microphone
+number two.
+
+Mic 4: Is it possible to use DCDC
+converters or switch mode power supplies
+
+within the radiation environment to power
+your logic? Or you use only linear power?
+
+Szymon: Yes, alternatively we also have a
+dedicated program which develops radiation
+
+hardened the DCDC converters who operate
+in our environments. So they are available
+
+also for space applications, as far as I'm
+aware. And they are hardened against total
+
+ionizing ??? as well as single event
+upsets.
+
+Herald: Okay next question goes to
+microphone number one.
+
+Mic 1: Thank you very much for the great
+talk. I'm just wondering, would it be
+
+possible to hook up every logic gate in
+every water in a way of mesh network? And
+
+what are the pitfalls and limitations for
+that?
+
+Stefan: So that is not something I'm aware
+of, of being done. So typically: No. I
+
+wouldn't say that that's something we
+would do.
+
+Szymon: I'm not really sure if I
+understood the question.
+
+Stefan: So maybe you can rephrase what
+your idea is?
+
+Mic 1: On the last slide, there were a
+lesson learned.
+
+Stefan: Yes. One of those?
+Mic 1: In here. Yeah. Would you be able to
+
+connect everything interchangeably in a
+mesh network?
+
+Szymon: So what you are probably asking
+about is whether we can build our own
+
+FPGA, like programable logic device.
+Mic 1: Probably.
+
+Szymon: Yeah. And so this we typically
+don't do, because in our experiments, our
+
+power budget is also very limited, so we
+cannot really afford this level of
+
+complexity. So of course you can make your
+FPGA design radiation hard, but this is
+
+not what we will typically do in our
+experiments.
+
+Herald: Next question goes to microphone
+number two.
+
+Mic 2: Hi, I would like to ask if the
+orientation of your transistors and your
+
+chip is part of your design. So mostly you
+have something like a bounding box around
+
+your design and with an attack surface in
+different sizes. So do you use this
+
+orientation to minimize the attack surface
+off the radiation on chips, if you know
+
+the source of the radiation?
+Szymon: No. So I don't think we'd do that.
+
+So, of course, we control our orientation
+of transistors during the design phase.
+
+But usually in our experiment, the
+radiation is really perpendicular to the
+
+chip area, which means that if you rotate
+it by 90 degrees, you don't really gain
+
+that much. And moreover, our chips,
+usually they are mounted done in a bigger
+
+system where we don't control how they are
+oriented.
+
+Herald: Again, microphone number two.
+Mic 2: Do you take meta stability into
+
+account when designing voters?
+Szymon: The voter itself is combinatorial.
+
+So ... -
+Mic 2: Yeah, but if the state of the rest
+
+can change in any time that then the
+voters can have like glitches, yeah?
+
+Szymon: Correct. So that's why - so to
+avoid this, we don't take it into account
+
+during the design phase. But if we use
+that scheme which is just displayed here,
+
+we avoid this problem altogether, right?
+Because even if you have meta stability in
+
+one of the blocks like A, B or C, then it
+will be fixed in the next clock cycle.
+
+Because usually our systems operate our
+drugs with low frequencies, hundreds of
+
+megahertz, which means that any meta
+stability should be resolved by the next
+
+clock cycle.
+Mic 2: Thank you.
+
+Herald: Next question microphone number
+one.
+
+Mic 1: How do you handle the register
+duplication that can be performed by a
+
+synthesis and pleasent route? So the tools
+will try to optimize timing sometimes by
+
+adding registers. And these registers are
+not trivial.
+
+Stefan: Yes. So what we do is that I mean,
+in a typical, let's say, standard ASIC
+
+design flaw, this is not what happens. So
+you have to actually instruct a tool to do
+
+that, to do re timing and add additional
+registers. But for what we are doing, we
+
+have to - let's say not do this
+optimization and instruct a tool to keep
+
+all the registers we described in our RTL
+code to keep them until the very end. And
+
+we realy also constrain them to always
+keep their associated logic tripplicated.
+
+Herald: The next question is from the
+internet.
+
+Internet: Do you have some simple tips for
+improving radiation tolerance?
+
+Stefan: Simple tips? Ahhhm...
+Szymon: For your electronics inside the
+
+box?
+Internet: Yes.
+
+*some laughter*
+Stefan: What there there's there's just no
+
+single one size fits all textbook recipe
+for this as it really always comes down to
+
+analyzing our environment, really getting
+an awareness first of what rate and what
+
+number of events you are looking at, what
+type of particles cause them, and then
+
+take the appropriate measures to mitigate
+them. So there is no one size fits all
+
+thing I say.
+Herald: Next question goes from mycrophone
+
+number two.
+Mic 2: Hi. Thanks for the talk. How much
+
+of your software used to design is
+actually open source? I only know a super
+
+expensive chip design software.
+Stefan: You write the core of all the
+
+implementation tools like the synthesis
+and place and route search for the ASICS,
+
+that we design is actually a commercial
+closed source tools. Um. And, uh. And if
+
+you're asking for diffraction, that's a
+bit hard to answer. I cannot give a
+
+statement about the size of the commercial
+closed tools. But we tried to do
+
+everything we develop, tried to make it
+available to the widest possible audience
+
+and therefore decided to make the
+extensions to this design flaw a valuable
+
+and public forum. And that's why these
+tools that we develop and share among the
+
+community of ASIC designers and this
+environment is our open source.
+
+Herald: Microphone number four.
+Mic 4: Have you ever tried using steered
+
+iron beams for more localized, radiation
+ingress testing?
+
+Stefan: Yes, indeed! And the picture I
+showed actually, uh, didn't disclaimer
+
+that, but the facility you saw here is
+actually a facility in Darmstadt in
+
+Germany and is actually a micro beem
+facility. So it's a facility that allows
+
+steering a heavy iron beam really on a
+single position with less than a
+
+micrometer accuracy. So it provides
+probably exactly what you were asking for.
+
+But that's not the typical case. That is
+really a special thing. And it's probably
+
+also the only facility in Europe that can
+do that.
+
+Herald: Microphone number one.
+Mic 1: Was very good very good talk. Thank
+
+you very much. My question is, did you
+compare what you did to what is done for
+
+securing secret chips? You know, when you
+have credit card chips, you can make fault
+
+attacks into them so you can make them
+malfunction on extract to cryptographic
+
+key for example from the banking card.
+There are techniques here to observe these
+
+chips against fault attacks. So which are
+like voluntary faults while you have hold
+
+em less faults due to like involatility
+attacks. You know what? Can you explain if
+
+you compared in a way what you did to
+this?
+
+Stefan: Um, so no, we didn't explicitly
+compared it, but it is right that the
+
+techniques we present can also be used in
+a variety of different contexts. So one
+
+thing that's not exactly what what you are
+referring to, but relatively on a similar
+
+scale is that currently in very small
+technologies you get two problems with the
+
+reliability and yield of the manufacturing
+process itself, meaning that sometimes
+
+just the metal interconnection between two
+gates and your circuit might be broken
+
+after manufacturing and then adding the
+sort of redundancy with the same kinds of
+
+techniques can be used to make Mike to
+produce more working chips out of a
+
+manufacturing run. So in this sort of
+context, these sorts of techniques are
+
+used very often these days. But, um, I'm
+and I'm pretty sure they can be applied to
+
+these sorts of, uh, security fault attack
+scenarios as well.
+
+Herald: Next question from microphone
+number two.
+
+Mic 2: Hi, you briefly also mentioned the
+mitigation techniques on the cell level
+
+and yesterday there was a very nice talk
+from the liberal silicon people and they
+
+are trying to build a standard cell
+library. Uh, open source standard cell
+
+libraries. So are you in contact with them
+or maybe you could help them to improve
+
+their design and then the radiation
+hardness?
+
+Stefan: No. We also saw the talk
+yesterday, but we are not getting in
+
+contact with them. No.
+Herald: Does the Internet have questions?
+
+Internet: Yes, I do. Um, two in fact.
+First one would be would TTL or other BJT
+
+based logic be more resistant?
+Szymon: Uh, yeah. So depending on which
+
+type of virus we are considering. So BJT
+transistors ttransistors they have ...
+
+Stefan in his part mentioned that
+displacement damage is not a problem for
+
+seamless devices, but it is not the case
+for BJT devices. So when they are exposed
+
+to to high energy hadrons or protons, that
+they degrade a lot. So that's why we don't
+
+use them in really our environment. They
+could be probably much more robust to
+
+single even try, uh, effects because their
+resistance everywhere is much lower. But
+
+they would have another problems. And also
+another problem which just worth
+
+mentioning is that for those devices that
+consume much, much, much more power, which
+
+we cannot afford in our applications.
+Internet: And the last one would be how do
+
+I use the output of the full TMR setup? Is
+it still three signals? How do I know
+
+which one to use and address?
+Stefan: Um, yes. So with this, um,
+
+architecture, what you could either do is
+really do the the full triplication scheme
+
+to your whole logic tree basically and
+really triplicate everything or, and
+
+that's going in the direction of one of
+the lessons learned I had at some point,
+
+of course you have an interface to your
+chip, so you have pins left and right that
+
+our inputs and outputs. And then you have
+to decide either you want to spend the
+
+effort and also have three dedicated input
+pins for each of the signals, or you at
+
+some point have the voter and say, okay.
+At this point, all these signals are
+
+combined. But I was able to reduce the
+amount of sensitive area in my chip
+
+significantly and can live with the very
+small remaining sensitive area that just
+
+the input and output pins provide.
+Szymon: So maybe I will add one more thing
+
+is that typically in our systems, of
+course we triplicate our logic internally,
+
+but when we interface with external
+worlds, we can apply another protection
+
+mechanism. So for example, for our high
+serialisers, we will use different types
+
+of encoding to add protection, to lock, to
+add the like forward error correction
+
+codes which would allow us to recover this
+type of faults in the backend later on.
+
+Herald: Okay. If ...if we keep this very,
+very short. Last question goes to
+
+microphone number two.
+Mic 2: I don't know much about physics. So
+
+just the question, how important is the
+physical testing after the chip is
+
+manufactured? Isn't the simulation, the
+computer simulation enough if you just
+
+shoot particles at it?
+Stefan: Yes and no. So in principle, of
+
+course, you are right that you should be
+able to simulate all the effects we look
+
+at. The problem is that as the designs
+grow big and they do grow bigger as the
+
+technologies shrink and they get have so
+this final net list that you end up with
+
+can have millions or billions of nodes and
+it just is not feasible anymore to
+
+simulate it exhaustively because you have
+to have so many dimensions. You have to
+
+change when you inject. For example, bit
+flips or transients in your design in any
+
+of those nodes for varying time offsets.
+And it's just the state space the circuit
+
+can be in is just too huge to capture in a
+in a full simulation. So it's not possible
+
+to exhaustively test it in simulation. And
+so typically you end up with having missed
+
+something that you discover only in the
+physical testing afterwards, which you
+
+always want to do before you put your, uh,
+your chip into final experiment or on your
+
+satellite and then realise it's it's not
+working as intended. So it has a big
+
+importance as well.
+Herald: Okay. Thank you. Time is up. All
+
+right. Thank you all very much.
+[Filler, please remove in amara]
+
+*applause*
+[Filler, please remove in amara]
+
+*36c3 postroll music*
+[Filler, please remove in amara]
+
+Subtitles created by c3subtitles.de
+in the year 2020. Join, and help us!

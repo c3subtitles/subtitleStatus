@@ -1,0 +1,2180 @@
+0:00:05.279,0:00:17.240
+*35c3 preroll music*
+
+0:00:17.240,0:00:24.210
+Herald: So our first talk is going to be<br/>presented by two speakers: Michael Sperber
+
+0:00:24.210,0:00:29.830
+and Nicole Rauch. Michael is the CEO of<br/>Active Group. He has been developing
+
+0:00:29.830,0:00:34.520
+software and teaching programming for over<br/>30 years, and Nicole is an independent
+
+0:00:34.520,0:00:39.839
+software developer, focusing on domain<br/>driven design and events streaming and
+
+0:00:39.839,0:00:44.410
+she's been organizing Software<br/>Craftsmanship conferences. So please give
+
+0:00:44.410,0:00:50.289
+them a big round of applause for this<br/>talk.
+
+0:00:50.289,0:00:55.239
+Michael: Good morning everyone. Ah, this<br/>thing is on.
+
+0:00:55.239,0:01:01.809
+Nicole: Hey, it works. Excellent. Cool.<br/>So… soul-crushing code: I think before we
+
+0:01:01.809,0:01:06.250
+say farewell, we should think about what<br/>it actually is. And so I thought… *looks
+
+0:01:06.250,0:01:13.280
+at projection surface* I'd maybe get a<br/>presentation first. *projection of slides
+
+0:01:13.280,0:01:19.880
+starts* Excellent. So. OK. So first maybe<br/>we should talk a little bit about what's
+
+0:01:19.880,0:01:27.450
+soul-crushing code is and so I brought<br/>something for you for your entertainment.
+
+0:01:27.450,0:01:34.010
+And here we go. This is some code I found<br/>in an eclipse tutorial. If you know a
+
+0:01:34.010,0:01:39.880
+little bit about eclipse you can see this<br/>by looking at this "I…" thing here. Yeah.
+
+0:01:39.880,0:01:44.969
+And this actually… I mean I have no idea<br/>what that this does. You know, you have
+
+0:01:44.969,0:01:51.030
+this AdapterFactory which is really like…<br/>okay… and then we get an adapter and
+
+0:01:51.030,0:01:58.619
+there's lots of stuff going on. But what<br/>actually is this doing… so there is
+
+0:01:58.619,0:02:05.439
+"Todo". OK. This gives a hunch that this<br/>might be this famous Todo example, but
+
+0:02:05.439,0:02:09.820
+then I have no idea what's happening here<br/>M: but maybe that's just Eclipse, right,
+
+0:02:09.820,0:02:13.210
+and in Eclipse everything is an adapter<br/>for something else.
+
+0:02:13.210,0:02:19.080
+N: OK. Maybe. So, OK, I had expected you<br/>to say something like this so I thought
+
+0:02:19.080,0:02:25.860
+I'd bring another example. And this<br/>actually is from an open source project.
+
+0:02:25.860,0:02:30.950
+And this actually is a<br/>NativeQueryInterpreterInitiator. I also
+
+0:02:30.950,0:02:36.269
+want an interpreter initiator – who<br/>doesn't? And also it's a
+
+0:02:36.269,0:02:40.959
+SessionFactoryServiceInitiator. Wow, I'm<br/>getting impressed. So. And then it also
+
+0:02:40.959,0:02:45.520
+does lots of stuff and then. OK. We have<br/>initiateService() and then we have another
+
+0:02:45.520,0:02:53.770
+initiateService(). And then at the end…<br/>wow… we have this: getServiceInitiated.
+
+0:02:53.770,0:02:57.989
+Well OK so fine.<br/>M: But I mean that's just a bunch of kids
+
+0:02:57.989,0:03:01.200
+doing open source software.<br/>N: Right. Yeah, this is open source
+
+0:03:01.200,0:03:04.200
+software.<br/>M: So these are all hobbyists. So I mean
+
+0:03:04.200,0:03:05.440
+what would you expect from something like<br/>that, right?
+
+0:03:05.440,0:03:08.410
+N: OK fair enough.<br/>M: So, I brought a professional example.
+
+0:03:08.410,0:03:10.410
+N: Oh I see.<br/>*laughter in the audience*
+
+0:03:10.410,0:03:14.040
+N: Everybody stand back.<br/>M: So here's a professional example. So
+
+0:03:14.040,0:03:17.659
+this is from a system that does queries of<br/>some sort. I think there's a mishap in
+
+0:03:17.659,0:03:21.939
+translation from German or French to<br/>English in me or somewhere. So we can see
+
+0:03:21.939,0:03:25.330
+that it does either full text search or it<br/>does non full text search or something
+
+0:03:25.330,0:03:29.830
+like that. And so obviously in the<br/>initialization of some C++ class it checks
+
+0:03:29.830,0:03:36.200
+that flag and it instantiates some object<br/>either to the full text variant or the non
+
+0:03:36.200,0:03:39.989
+full text variant. Right. And you would<br/>think that this object oriented design,
+
+0:03:39.989,0:03:42.470
+you just go and call methods.<br/>N: Yeah…
+
+0:03:42.470,0:03:44.129
+M: You get one instance variable that you<br/>have there.
+
+0:03:44.129,0:03:47.849
+N: if and else is sooo object oriented.<br/>M: Yeah, well, that's just the
+
+0:03:47.849,0:03:51.849
+constructor. Right. This is not the bad<br/>part. The bad part is that every single
+
+0:03:51.849,0:03:55.391
+method that actually does something – like<br/>this one – looks like this, right, it
+
+0:03:55.391,0:03:57.470
+checks that flag again
+
+0:03:57.470,0:03:58.660
+*laughter in the audience*
+
+0:03:58.660,0:04:04.041
+M: and it either calls "VolltextRecherche"<br/>which is… I guess it also has something to
+
+0:04:04.041,0:04:09.760
+do with full text search… you can see that<br/>there's lines commented out and nobody
+
+0:04:09.760,0:04:15.819
+remembered to leave a comment as to why<br/>it's commented out. And you can see that
+
+0:04:15.819,0:04:20.120
+this code is really fragile, right. If you<br/>want to maintain that kind of code… every
+
+0:04:20.120,0:04:23.729
+method looks like this. You always need to<br/>remember to check that flag before you do
+
+0:04:23.729,0:04:27.330
+anything to be sure that… "Oh I'm here" or<br/>"I'm there".
+
+0:04:27.330,0:04:33.720
+N: OK yeah. So I mean… OK… So the fact<br/>that somebody uses an object-oriented
+
+0:04:33.720,0:04:38.699
+programming language does not necessarily<br/>imply they actually understand what object
+
+0:04:38.699,0:04:43.350
+orientation is all about. Right. So maybe<br/>they are just crappy programmers.
+
+0:04:43.350,0:04:46.650
+M: OK.<br/>N: So they happen to use this and then
+
+0:04:46.650,0:04:51.440
+they mess it up on the way you know…<br/>M: You mean non-crappy programmers can
+
+0:04:51.440,0:04:56.360
+produce crappy code<br/>N: And now you're getting me confused…
+
+0:04:56.360,0:04:59.440
+*both laugh*<br/>N: … probably.
+
+0:04:59.440,0:05:01.910
+M: I think I have… you have another<br/>example.
+
+0:05:01.910,0:05:08.230
+N: Yes I have a much better example here.<br/>A real object-oriented example. So this is
+
+0:05:08.230,0:05:18.120
+finance, right. So here we have options,<br/>in this case just call options, and so the
+
+0:05:18.120,0:05:22.440
+the financial guys want to talk about<br/>those options. But there are so many
+
+0:05:22.440,0:05:26.310
+different kinds of options so they cannot<br/>talk about each of them individually and
+
+0:05:26.310,0:05:31.630
+so they want to group them together in<br/>something they call a basket. So up here
+
+0:05:31.630,0:05:36.780
+you can see this basket, and it contains<br/>Google and Facebook, because they are sort
+
+0:05:36.780,0:05:40.810
+of like the same, you know.<br/>So they just group them together in this
+
+0:05:40.810,0:05:45.900
+basket and then they want to talk about<br/>properties of this basket of all those
+
+0:05:45.900,0:05:51.949
+options that are contained in it. And for<br/>example here they implement this market
+
+0:05:51.949,0:05:57.250
+data. And so this is standard object-<br/>oriented business like everything is a
+
+0:05:57.250,0:06:02.280
+class., right. And there we have two<br/>methods in there because that's also
+
+0:06:02.280,0:06:07.390
+standard object oriented business: We have<br/>a class and then we have methods in there.
+
+0:06:07.390,0:06:13.280
+And one of the first methods, GetSpot(),<br/>just gives us the spot price. So all of
+
+0:06:13.280,0:06:17.210
+these options have a number in the real<br/>world. And that's why they number this
+
+0:06:17.210,0:06:24.440
+here and now for fun they call this<br/>sicovam. I have no idea why, this seems to
+
+0:06:24.440,0:06:29.300
+be a French word for… I don't know what it<br/>means, but yeah, just go with us.
+
+0:06:29.300,0:06:33.280
+M: So. So this maturity thing that's the<br/>date at which point the option expires.
+
+0:06:33.280,0:06:41.050
+N: Yeah. So that's for the volatility. So<br/>you get the volatility for an option. An
+
+0:06:41.050,0:06:48.039
+option as defined by the underlying asset.<br/>And by the date it's due and also by the
+
+0:06:48.039,0:06:53.789
+price it's supposed to have then, and<br/>that's what is encoded here. So we have
+
+0:06:53.789,0:06:58.479
+the option with this long and then we have<br/>the maturity which is a point in time, so
+
+0:06:58.479,0:07:04.270
+we can properly use a double for this, I<br/>think. And then we have the strike which
+
+0:07:04.270,0:07:10.139
+is the price and probably some of you know<br/>that it's not a very good idea to deal
+
+0:07:10.139,0:07:15.139
+with money in terms of doubles. But on the<br/>other hand it's fairly common in banking.
+
+0:07:15.139,0:07:23.960
+So let's let's do this here as well. Okay<br/>fine. So yeah that's it. Yeah. And then
+
+0:07:23.960,0:07:28.080
+what what they actually want to do so they<br/>don't only want to look at the world as it
+
+0:07:28.080,0:07:34.789
+is but you know those guys with the<br/>suspenders you know they want to analyze
+
+0:07:34.789,0:07:40.050
+and see what might happen if something<br/>would happen you know. So they want to
+
+0:07:40.050,0:07:45.160
+play what-if games and for this what-if<br/>game here they take the spot price and
+
+0:07:45.160,0:07:49.949
+they actually want to shift it. So they<br/>want to say what if the spot price were
+
+0:07:49.949,0:07:56.400
+different and what would happen then with<br/>my options. And here they are just… you
+
+0:07:56.400,0:08:02.539
+know, so if you want to modify something<br/>in object orientation you write a derived
+
+0:08:02.539,0:08:07.460
+class and this is the derived class<br/>SpotShiftedMarketData, and this derived
+
+0:08:07.460,0:08:16.819
+class overrides the GetSpot method and it<br/>takes the value of the parent class and
+
+0:08:16.819,0:08:24.190
+multiplies it with the factor. Okay.<br/>Sounds straightforward so far. And then of
+
+0:08:24.190,0:08:28.000
+course they don't only want to multiply<br/>this with a factor, but they also want to
+
+0:08:28.000,0:08:34.910
+do other modifications and they want to be<br/>able to do all these modifications without
+
+0:08:34.910,0:08:38.290
+re-compiling. So they want to play around<br/>with these and they don't want to
+
+0:08:38.290,0:08:43.510
+recompile their code every time they<br/>change something. So they want to have a
+
+0:08:43.510,0:08:48.820
+dynamically configurable code base so to<br/>speak, or dynamically configurable market
+
+0:08:48.820,0:08:54.540
+data. And if you look this up in the<br/>object-oriented literature you come up
+
+0:08:54.540,0:09:00.160
+with the decorator pattern. And so the<br/>Decorator pattern is something that allows
+
+0:09:00.160,0:09:05.650
+you to dynamically modify your code. So<br/>you have a component and then you derive a
+
+0:09:05.650,0:09:10.830
+decorator and the decorator is a delegate<br/>to something else. You want to plug-in
+
+0:09:10.830,0:09:17.710
+basically. And this is how they<br/>implemented the delegate so they wrote the
+
+0:09:17.710,0:09:23.940
+decorator as a derived class. And then<br/>they have there that they have the real
+
+0:09:23.940,0:09:31.770
+object in there and for the GetSpot method<br/>here they just ask the GetSpot method of
+
+0:09:31.770,0:09:38.880
+the underlying object. Fair enough. And<br/>now going back to the baskets, where I
+
+0:09:38.880,0:09:47.420
+started out initially. So what they did in<br/>this one derived modification here they
+
+0:09:47.420,0:09:54.750
+multiplied with a factor. And now in the<br/>basket they are they get here. Here they
+
+0:09:54.750,0:10:01.170
+get a bunch of options, say, or a bunch of<br/>assets and now they want to calculate this
+
+0:10:01.170,0:10:06.650
+for all of them and they go into this<br/>recursively and – it's very hard to see
+
+0:10:06.650,0:10:12.750
+here – but what actually happens is they<br/>go into this recursively and do this this
+
+0:10:12.750,0:10:17.590
+modified operation for all of them and<br/>because of late binding it happens that
+
+0:10:17.590,0:10:23.020
+they keep getting through this upper<br/>method again and again so adding the
+
+0:10:23.020,0:10:28.810
+factor again and again. And of course they<br/>did not figure this out by looking at the
+
+0:10:28.810,0:10:33.710
+code, because it's – like I said – really<br/>hard to to understand. And of course this
+
+0:10:33.710,0:10:40.190
+is all just small snippets of the code but<br/>this is the essence. But they found this
+
+0:10:40.190,0:10:44.970
+because the values were incorrect, right,<br/>and so what they did is they compensated
+
+0:10:44.970,0:10:53.290
+for this. And for example here is the most<br/>interesting part I think: does the first
+
+0:10:53.290,0:11:00.200
+market data derive from the second one. So<br/>they check whether they have this chain
+
+0:11:00.200,0:11:07.700
+going on and then they they do something<br/>differently. Wow. I mean this is
+
+0:11:07.700,0:11:12.860
+production code, right. And this is still<br/>in operation and probably this method by
+
+0:11:12.860,0:11:18.380
+now is like hundreds of lines long because<br/>they have so many edge cases they need to
+
+0:11:18.380,0:11:26.260
+compensate for. Well:<br/>M: yeah. So can imagine that. Yeah but I
+
+0:11:26.260,0:11:30.610
+mean it's obvious they just shouldn't have<br/>done this in C++ or using object-oriented
+
+0:11:30.610,0:11:34.280
+programming, right.<br/>N: Phew… so, do you have a better
+
+0:11:34.280,0:11:38.280
+solution?<br/>M: Oh, absolutely. Absolutely. We have
+
+0:11:38.280,0:11:40.280
+slides on this.<br/>N: You have slides!
+
+0:11:40.280,0:11:42.280
+M: People should have used functional<br/>programming, right. Which is great,
+
+0:11:42.280,0:11:44.280
+because…<br/>N: Oh, how could I forget this?
+
+0:11:44.280,0:11:46.280
+M: Yeah.<br/>N: Of course you would say that.
+
+0:11:46.280,0:11:48.280
+M: Yeah. You know, I'm the functional<br/>programming person here on stage.
+
+0:11:48.280,0:11:49.280
+N: *chuckles*<br/>M: So functional programming has all these
+
+0:11:49.280,0:11:53.670
+advantages, right. You can have immutable<br/>data. Immutable data means you have less
+
+0:11:53.670,0:11:56.890
+coupling. You don't have these complicated<br/>effects going on that you saw earlier
+
+0:11:56.890,0:12:00.700
+maybe. You can use… functional programming<br/>is very close to mathematics, so you can
+
+0:12:00.700,0:12:02.880
+apply formal verification…<br/>N: isn't that scary?
+
+0:12:02.880,0:12:06.850
+M: Yeah. You can use all these great<br/>mathematical things in there. You can have
+
+0:12:06.850,0:12:13.270
+catamorphisms, you can have bifunctors.<br/>That's my new favorite thing. Monadic
+
+0:12:13.270,0:12:17.680
+profunctors is also something that we've<br/>been using lately. That's great. Kleisli
+
+0:12:17.680,0:12:19.860
+arrows. There's all these wonderful things<br/>in functional programming and they solve
+
+0:12:19.860,0:12:23.060
+all of these problems, right?<br/>N: Yes I could…
+
+0:12:23.060,0:12:25.110
+M: (towards the audience) Why are you<br/>laughing? Who's laughing?
+
+0:12:25.110,0:12:30.630
+N: I should have imagined you saying<br/>something like this. So… but… have you
+
+0:12:30.630,0:12:37.020
+ever considered that you're tackling the<br/>problem from the wrong angle. I mean you
+
+0:12:37.020,0:12:45.800
+and your horde of IT tech nerds, you're<br/>sitting in your cave, hacking away, having
+
+0:12:45.800,0:12:50.340
+your hoodie over your head and just<br/>sitting there and hacking and hacking.
+
+0:12:50.340,0:12:53.610
+M: (takes off his hoodie)<br/>*N chuckles, audience laughs*
+
+0:12:53.610,0:13:01.510
+M: So that problem solved. Okay anyway.<br/>N: Yeah. And I mean really just throwing
+
+0:13:01.510,0:13:06.450
+tech at the problem is not a solution,<br/>it's actually part of the problem…
+
+0:13:06.450,0:13:11.820
+M: But Nicole, we're producing software,<br/>we're producing tech, right? Have you gone
+
+0:13:11.820,0:13:13.820
+through this thing here *points outside<br/>the hall*? There's tech outside everywhere
+
+0:13:13.820,0:13:18.070
+that… How do you make that?<br/>N: Probably not by sitting in the corner
+
+0:13:18.070,0:13:21.510
+and just writing… hacking away.<br/>M: OK.
+
+0:13:21.510,0:13:27.610
+N: So have you considered that there is<br/>more to it, that it's not only just tech,
+
+0:13:27.610,0:13:30.900
+that you need to talk to each other?<br/>M: Mm hmm…
+
+0:13:30.900,0:13:36.300
+N: Yesterday I saw this robot walking<br/>around in a circle and it said "I need new
+
+0:13:36.300,0:13:39.780
+code, please talk to me", right. This is<br/>something like this.
+
+0:13:39.780,0:13:43.740
+M: OK.<br/>N: So we need to talk to each other. It's
+
+0:13:43.740,0:13:46.560
+not only tech. Tech is nice and<br/>everything.
+
+0:13:46.560,0:13:49.770
+M: So where is… Do you have like a pattern<br/>manual for that?
+
+0:13:49.770,0:13:54.690
+N: A pattern manual? Yes, of course. There<br/>are talking patterns actually for people
+
+0:13:54.690,0:14:01.280
+like you. *chuckles, audience laughs*<br/>M: *clears throat* OK. So go. Go ahead.
+
+0:14:01.280,0:14:03.280
+N: So…<br/>M: Educate me.
+
+0:14:03.280,0:14:08.660
+N: OK. So I mean there were many<br/>approaches over the years, right. Some
+
+0:14:08.660,0:14:14.520
+approaches were for example… looking at<br/>agile software development you know and it
+
+0:14:14.520,0:14:21.270
+says "individuals and interactions over<br/>processes and tools". Tools… tech…
+
+0:14:21.270,0:14:25.390
+M: OK<br/>N: So let's talk together and let's figure
+
+0:14:25.390,0:14:27.910
+out things.<br/>M: OK well but it does say working
+
+0:14:27.910,0:14:33.590
+software also, right?<br/>N: One of four, you know, says "working
+
+0:14:33.590,0:14:36.640
+software" because of course we also want<br/>working software, right.
+
+0:14:36.640,0:14:39.890
+M: Yeah.<br/>N: I mean, just talking and no coding is
+
+0:14:39.890,0:14:43.050
+also not the answer. So…<br/>M: Yeah, anyway, so last year we were at
+
+0:14:43.050,0:14:46.170
+this conference, right, and you were<br/>probably talking to somebody but I
+
+0:14:46.170,0:14:52.300
+actually attended the keynote and it was<br/>by somebody who talked about what worked
+
+0:14:52.300,0:14:56.480
+and what were the ongoing problems in<br/>software engineering. And this was an
+
+0:14:56.480,0:15:00.890
+agile company, right? They do everything<br/>in an agile manner. So supposedly they
+
+0:15:00.890,0:15:05.040
+communicate all the time, but still when<br/>they look at where they spend all of their
+
+0:15:05.040,0:15:09.640
+time and all of their work and effort they<br/>say that they still spend 53 percent on
+
+0:15:09.640,0:15:14.280
+maintenance and complexity and not on new<br/>features or… I have no idea what that
+
+0:15:14.280,0:15:17.440
+professionalization thing is actually. But<br/>it takes up 18 percent…
+
+0:15:17.440,0:15:20.980
+N: nice<br/>M: So let's get back to the technical
+
+0:15:20.980,0:15:24.930
+problem, shall we. OK<br/>N: Yeah. So I mean we already saw this
+
+0:15:24.930,0:15:30.970
+right in the market data example. I think<br/>much of this maintenance and complexity
+
+0:15:30.970,0:15:39.760
+problems is caused that we're in a world<br/>consisting of objects and so everybody
+
+0:15:39.760,0:15:45.590
+jumps on this object-oriented bandwagon,<br/>right? So what they actually end up with
+
+0:15:45.590,0:15:48.640
+is something like this<br/>*laughter in the audience*
+
+0:15:48.640,0:15:55.890
+M: OK<br/>N: And this is sort of… yeah… not helpful.
+
+0:15:55.890,0:16:01.420
+M: So maybe but I would like to explain<br/>this maybe in a different way. So modern
+
+0:16:01.420,0:16:05.620
+object oriented programming – while you<br/>can all laugh at that slide before – but
+
+0:16:05.620,0:16:10.370
+we really need to understand the problem,<br/>right. The technical problem is this,
+
+0:16:10.370,0:16:15.140
+right? So at the at the heart of modern<br/>object-oriented programming something
+
+0:16:15.140,0:16:18.410
+called imperative programming where all<br/>these objects that you showed on the
+
+0:16:18.410,0:16:24.420
+previous slides they have what's called<br/>encapsulated state. Okay? There's some
+
+0:16:24.420,0:16:27.450
+state in there. And what happens is the<br/>world progresses by all these objects
+
+0:16:27.450,0:16:31.500
+sending messages to each other. And as a<br/>result of a message, some code gets
+
+0:16:31.500,0:16:37.850
+executed that modifies that encapsulated<br/>state. Now the thing was… I mean object-
+
+0:16:37.850,0:16:41.650
+oriented programming was originally<br/>developed to support simulations of the
+
+0:16:41.650,0:16:45.200
+real world. And the problem is that the<br/>real world just does not work like that.
+
+0:16:45.200,0:16:50.290
+The real world is not a bunch of objects<br/>sending messages to each other. So one
+
+0:16:50.290,0:16:53.850
+simple example that maybe can help explain<br/>that is there is an el… Speaking of
+
+0:16:53.850,0:16:55.850
+elephants, right?<br/>N: Yes
+
+0:16:55.850,0:16:58.850
+M: Great elephant slide. So. So there is<br/>an elephant and the elephant comes in from
+
+0:16:58.850,0:17:02.920
+the jungle and walks into some kind of<br/>room, right? And the object-oriented model
+
+0:17:02.920,0:17:08.430
+for this is… well… all the entities get<br/>models, get objects, so that the elephant
+
+0:17:08.430,0:17:12.010
+has an object, the jungle has an object,<br/>and the room that the elephant enters has
+
+0:17:12.010,0:17:17.500
+an object that represents them. And you<br/>have the sequence of method calls or
+
+0:17:17.500,0:17:23.520
+message sends that tries to reproduce that<br/>sequence as well that you know the jung…
+
+0:17:23.520,0:17:29.329
+that the elephant exits the jungle and the<br/>elephant enters the room, right? The
+
+0:17:29.329,0:17:32.050
+problem is that the exiting of the jungle<br/>and the entering of the room are one and
+
+0:17:32.050,0:17:36.470
+the same act. So the real world has<br/>dependencies, it is not just a bunch of
+
+0:17:36.470,0:17:42.180
+isolated entities that are sending<br/>messages to each other. Things hang
+
+0:17:42.180,0:17:46.740
+together in the real world. So if… so I<br/>think a more useful model for thinking
+
+0:17:46.740,0:17:52.610
+about programs and how programs should<br/>model the real world has to do with…
+
+0:17:52.610,0:17:56.750
+should really go through the way that we<br/>perceive things. So, if you watch a soccer
+
+0:17:56.750,0:18:03.030
+game these days there's lots of objects<br/>that you see, right. So you see 22
+
+0:18:03.030,0:18:06.320
+players, maybe you see a ball, you see the<br/>referees and you see lots of people in the
+
+0:18:06.320,0:18:12.750
+audience and they all move. Now. So, they<br/>all change their internal state if that's
+
+0:18:12.750,0:18:16.400
+the model that you use. Now, if you want<br/>to know what's going on in the football
+
+0:18:16.400,0:18:20.280
+field, you need to observe all of these<br/>changes. But, you know what the object
+
+0:18:20.280,0:18:24.720
+orient model is for observing changes?<br/>Something called the observer pattern,
+
+0:18:24.720,0:18:29.000
+which means that you register which each<br/>of these objects and tell them: Well, if
+
+0:18:29.000,0:18:32.660
+anything changes with you, send me a<br/>message. You want your ball, send me a
+
+0:18:32.660,0:18:35.310
+message if you move, you know, you do that<br/>with all the players, supposedly, you do
+
+0:18:35.310,0:18:42.180
+that with all the 20000 audience members.<br/>And of course, when you leave the stadium
+
+0:18:42.180,0:18:45.780
+you all send the messages: Oh no, I'm no<br/>longer interested in what you're doing,
+
+0:18:45.780,0:18:50.920
+right. The world doesn't work like that.<br/>It has another problem, that all these
+
+0:18:50.920,0:18:55.460
+messages will arrive in some sort of<br/>sequential order, and that also would mean
+
+0:18:55.460,0:19:00.560
+that with all of these objects moving<br/>around, we would observe inconsistencies
+
+0:19:00.560,0:19:04.810
+all the time, the same way that you<br/>observed it with the elephants going into
+
+0:19:04.810,0:19:09.760
+the room, right. If you remember, there<br/>was an inconsistent state in the middle
+
+0:19:09.760,0:19:17.100
+here. Which was that after the first step<br/>the elephant is, for a brief amount of
+
+0:19:17.100,0:19:21.650
+time, is nowhere. It has exited the<br/>jungle, but it has not entered the room
+
+0:19:21.650,0:19:26.450
+yet. And the same is true, of course, if<br/>we have many moving objects. But yet, we
+
+0:19:26.450,0:19:30.940
+never observe, like one person getting up<br/>and suddenly appearing in another place,
+
+0:19:30.940,0:19:36.230
+or two people appearing in the same place<br/>at the same time. And that's because our
+
+0:19:36.230,0:19:41.520
+perceptive apparatus creates consistent<br/>snapshots of what we observe, right? We
+
+0:19:41.520,0:19:44.570
+look at something, and it gets stored in<br/>memory and we can think about it for a
+
+0:19:44.570,0:19:50.640
+little amount of time and analyze what's<br/>going on. And so, of course, we remember
+
+0:19:50.640,0:19:53.440
+things that were in the past, which is<br/>also something that an object oriented
+
+0:19:53.440,0:19:58.120
+model cannot do. So, I think there's<br/>fundamental problems with this object
+
+0:19:58.120,0:20:01.840
+oriented model of programming, and that's<br/>one of the fundamental things that leads
+
+0:20:01.840,0:20:04.130
+to that soul crushing code that we've been<br/>talking about.
+
+0:20:04.130,0:20:10.510
+N: Now, that actually reminds me of a very<br/>interesting thing that lots of people are
+
+0:20:10.510,0:20:15.640
+using, and that's in the UI and it's<br/>called the MVC pattern, or Model View
+
+0:20:15.640,0:20:20.950
+Controller. And if you have ever worked<br/>with us, you can see here that this all
+
+0:20:20.950,0:20:25.750
+goes in circles and you can go in any<br/>direction and then you end up here again,
+
+0:20:25.750,0:20:31.190
+or you go this way around, or anything, or<br/>follow this dashed line. And so you can go
+
+0:20:31.190,0:20:37.540
+from anywhere to everywhere. And this<br/>leads to the obvious problem that, if you
+
+0:20:37.540,0:20:43.090
+have changes in the model, and changes in<br/>view, they need to, hopefully, be
+
+0:20:43.090,0:20:50.200
+corresponding. Or, maybe not. And what do<br/>you do about this? So, what you end up
+
+0:20:50.200,0:20:56.910
+with, if you do this enough, and if you<br/>aren't very, very careful, you end up with
+
+0:20:56.910,0:21:01.230
+this.<br/>M: Night MVC fraught programs have always
+
+0:21:01.230,0:21:05.630
+looked like that, right.<br/>N: Yes. Feels really familiar doesn't it.
+
+0:21:05.630,0:21:10.340
+M: Yeah. Yeah, it does.<br/>N: And I think that's also what Alan Kay
+
+0:21:10.340,0:21:17.490
+was talking about, back in the day. So,<br/>this is a quote from 1996. But I think the
+
+0:21:17.490,0:21:26.550
+paper just appeared then. But the original<br/>quote is much older. And so he said, okay,
+
+0:21:26.550,0:21:34.540
+OOP had those motivations that we<br/>described here. But eventually, we need to
+
+0:21:34.540,0:21:39.310
+overcome this model and we need to find<br/>something better, and eliminate it
+
+0:21:39.310,0:21:42.920
+altogether. That's what he says here.<br/>M: But that never happened, right?
+
+0:21:42.920,0:21:46.460
+N: No, I don't think so.<br/>M: Never happened. So if these days, if
+
+0:21:46.460,0:21:50.080
+you look for examples of how object<br/>oriented programming works, it always is
+
+0:21:50.080,0:21:55.670
+about encapsulated state that Alan Kay<br/>wanted to get rid of. So, I think that's
+
+0:21:55.670,0:21:59.110
+the first thing when I searched for Object<br/>Oriented examples, was something with
+
+0:21:59.110,0:22:05.730
+students, and you can immediately see that<br/>a lot of attributes that you have there go
+
+0:22:05.730,0:22:09.650
+through some kind of, some method that<br/>modifies them. My favorite one is that you
+
+0:22:09.650,0:22:14.280
+have the student and you can set the grade<br/>point average of the student. So you can
+
+0:22:14.280,0:22:17.080
+just,... yeah. So, if you're not happy<br/>with the grades that your kid is getting
+
+0:22:17.080,0:22:24.110
+you just sent the object a message. Get it<br/>get a perfect GPA there. So, and let me
+
+0:22:24.110,0:22:28.530
+reiterate, Nicole, of course people should<br/>have used functional programming. Which
+
+0:22:28.530,0:22:30.700
+has all these simple languages, less<br/>complexity, higher productivity, less
+
+0:22:30.700,0:22:34.750
+bugs. You know, we have all these powerful<br/>type systems, we can do property based
+
+0:22:34.750,0:22:39.160
+testing. We can do, oh it goes on and on,<br/>and we get more predictable behavior.
+
+0:22:39.160,0:22:43.100
+Generally testing is easier, because we<br/>don't need, you know, set up and tear down
+
+0:22:43.100,0:22:47.970
+methods. You get lower couplings, you have<br/>fewer dependency cycles. So, I didn't even
+
+0:22:47.970,0:22:50.960
+say monad, right, here in this list. So<br/>you get all these concrete...
+
+0:22:50.960,0:22:52.960
+N (at the same time): Lucky me.<br/>M: You get all these concrete advantages
+
+0:22:52.960,0:22:56.340
+from doing functional programming, right?<br/>And so that's what people should do to
+
+0:22:56.340,0:22:58.340
+solve those problems.<br/>N: So do you remember
+
+0:22:58.340,0:23:03.350
+M (at the same time): You, too.<br/>N: Fred Brooks, he said there is no silver
+
+0:23:03.350,0:23:05.880
+bullet.<br/>M: OK.
+
+0:23:05.880,0:23:09.760
+N: So, what do you say about that?<br/>M: Fred Brooks is an old guy, right?
+
+0:23:09.760,0:23:11.760
+N: Yes.
+
+0:23:11.760,0:23:12.760
+*laughter*
+
+0:23:12.760,0:23:17.690
+N: And what about you?<br/>M (laughing): Yeah, I guess I am, too.
+
+0:23:17.690,0:23:24.650
+M: I'm getting there. Yeah. Well, so Fred<br/>Brooks said that, but he's an old guy. So
+
+0:23:24.650,0:23:30.060
+let me get you one example of why that<br/>maybe is not true. So in the early 90s
+
+0:23:30.060,0:23:33.500
+actually, there was a big study conducted<br/>by the U.S. Navy, on the effectiveness of
+
+0:23:33.500,0:23:38.460
+different programming languages. And they<br/>had one set problem that was about
+
+0:23:38.460,0:23:42.310
+determining the regions of influence of<br/>warships and they had different teams
+
+0:23:42.310,0:23:48.030
+write solutions for their problem in<br/>different languages. And what they ended
+
+0:23:48.030,0:23:51.910
+up doing is also, they gave that also to<br/>people who were using functional
+
+0:23:51.910,0:23:55.600
+programming, specifically in the Haskell<br/>programming language, which was still
+
+0:23:55.600,0:24:01.460
+pretty young back then. And you can see,<br/>well, the solution in Haskell is much
+
+0:24:01.460,0:24:06.360
+shorter than the solution... you know C++,<br/>definitely. You know, less than 10 times
+
+0:24:06.360,0:24:11.560
+as short than the C++ solution. I think<br/>Java wasn't as big then. But I think the
+
+0:24:11.560,0:24:17.390
+factor would also be around between 3 and<br/>10 somewhere. Also, what's maybe
+
+0:24:17.390,0:24:20.910
+interesting, is that there are two Haskell<br/>solutions. One at the top and one of the
+
+0:24:20.910,0:24:24.310
+bottom, and...<br/>N: Probably they just split the code so
+
+0:24:24.310,0:24:26.310
+the numbers look nice.
+
+0:24:26.310,0:24:27.310
+*laughter*
+
+0:24:27.310,0:24:30.310
+M: Yeah, yeah. You would need to add them<br/>up, now that would be interesting. But
+
+0:24:30.310,0:24:32.700
+what they did is, they had a Haskell<br/>expert write a solution, and then they
+
+0:24:32.700,0:24:35.850
+also gave the solution to a student, I<br/>think, who learned Haskell for two or
+
+0:24:35.850,0:24:43.020
+three weeks and who also wrote a solution.<br/>And if you look at development time, so
+
+0:24:43.020,0:24:48.600
+somebody took 10, hours and somebody took<br/>8 hours, and the 8 hours as a student.
+
+0:24:48.600,0:24:52.670
+That's because the Haskell expert Haskell<br/>expert tried to put many interesting
+
+0:24:52.670,0:24:56.840
+flourishes and super cool programming<br/>techniques into the program but the
+
+0:24:56.840,0:25:01.030
+student was actually doing pretty well.<br/>So if that is not a silver if that's
+
+0:25:01.030,0:25:03.880
+not what a silver bullet looks like I<br/>don't know what would.
+
+0:25:03.880,0:25:11.300
+N: So the Yale study. They got a fixed set<br/>of instructions and they just had to code
+
+0:25:11.300,0:25:14.690
+those instructions. Do I Remember that<br/>correctly?
+
+0:25:14.690,0:25:18.970
+M: Yeah. Yeah. Yeah.<br/>N: So do you ever experience that in the
+
+0:25:18.970,0:25:24.680
+real world? Getting a fixed set of<br/>instructions from your client and then
+
+0:25:24.680,0:25:30.930
+just implementing this and they never<br/>change their mind? They never come up with
+
+0:25:30.930,0:25:41.450
+new ideas? They never say "Oh I forgot<br/>something". I actually don't experience
+
+0:25:41.450,0:25:46.890
+this.<br/>M: Let me think about it.
+
+0:25:46.890,0:25:54.510
+N: That's what we need to consider as<br/>well. Coming back to the elephant. Talking
+
+0:25:54.510,0:25:57.050
+to each other. Everybody has different<br/>ideas ...
+
+0:25:57.050,0:26:01.080
+M: Are you gonna start with that agile<br/>stuff again?
+
+0:26:01.080,0:26:07.130
+N: Everybody has different ideas when they<br/>look at something and everybody describes
+
+0:26:07.130,0:26:13.450
+things differently and so what we need to<br/>do is to figure this out together. You
+
+0:26:13.450,0:26:17.050
+know coding a bit, talking a bit, talking<br/>a bit, coding a bit. And so this needs to
+
+0:26:17.050,0:26:22.670
+go hand-in-hand. And this is sort of<br/>agile, you know. So it doesn't mean Scrum
+
+0:26:22.670,0:26:28.220
+and you know standing in a circle every<br/>day or something. relax. okay.
+
+0:26:28.220,0:26:30.700
+M: So I personally I like to communicate<br/>with code.
+
+0:26:30.700,0:26:35.270
+N: you can do that too, yes.<br/>M: That makes me think of an example. We
+
+0:26:35.270,0:26:38.380
+were working on a project. That was in a<br/>semiconductor factory.
+
+0:26:38.380,0:26:47.260
+N: Wow. So, real stuff!<br/>M: So when we started this I thought well
+
+0:26:47.260,0:26:50.620
+semiconductor the it way gets made: there<br/>is a big machine you put in a piece of
+
+0:26:50.620,0:26:58.350
+silicone and you go like this, and chunk,<br/>and outcomes of microprocessor. And it
+
+0:26:58.350,0:27:03.090
+doesn't doesn't really work that way. One<br/>of the reasons is just that the modern
+
+0:27:03.090,0:27:07.270
+chip consists of many layers. Another one<br/>is that there's just many different
+
+0:27:07.270,0:27:11.610
+production steps that are necessary for<br/>making even a single layer. And some of
+
+0:27:11.610,0:27:13.940
+the machines that make a layer are so<br/>expensive that you can't just make an
+
+0:27:13.940,0:27:19.630
+assembly line. And also a lot of things<br/>break all the time in a semiconductor
+
+0:27:19.630,0:27:23.640
+factory. So it makes no sense to just have<br/>an assembly line and push things through
+
+0:27:23.640,0:27:27.740
+that. But things just move around among<br/>the different machines in the
+
+0:27:27.740,0:27:32.450
+semiconductor factory. Right. And so<br/>what's important is that each chip undergo
+
+0:27:32.450,0:27:36.790
+or each wafer undergoes a sequence of<br/>steps in the factory and that needs to be
+
+0:27:36.790,0:27:40.880
+managed. And those steps it's typically<br/>for for big microprocessors that might be
+
+0:27:40.880,0:27:45.550
+like a thousand steps. So you need to<br/>manage something that's that's called a
+
+0:27:45.550,0:27:49.810
+route which is just a sequence of<br/>operations. And now here's a bunch of
+
+0:27:49.810,0:27:53.690
+Haskell code. Haskell is great because the<br/>programs are so short that they fit on
+
+0:27:53.690,0:27:58.750
+slides but if there's something unclear<br/>about that code then I invite you to
+
+0:27:58.750,0:28:03.660
+interrupt me and ask. So first of all you<br/>can read that declaration at the beginning
+
+0:28:03.660,0:28:10.940
+says "data Operation" and that's just a<br/>simplified data type that describes what
+
+0:28:10.940,0:28:15.740
+an operation would be. You can read that<br/>vertical bar as "OR". So it says an
+
+0:28:15.740,0:28:21.300
+operation is either TrackIn or Process or<br/>TrackOut. TrackIn it just means putting a
+
+0:28:21.300,0:28:26.650
+wafer into a machine and Process is you do<br/>something inside the machine and TrackOut
+
+0:28:26.650,0:28:32.370
+is you take it out of the machine. And<br/>then the next thing is that the route is
+
+0:28:32.370,0:28:36.880
+just a sequence of operations and these<br/>brackets that you see there they mean list
+
+0:28:36.880,0:28:43.310
+of. So what it says is a route is a list<br/>of operations. And down here you have an
+
+0:28:43.310,0:28:49.160
+example for a very simple route that says<br/>well route number one might be a list of
+
+0:28:49.160,0:28:52.920
+the following operations. You put a wafer<br/>into a machine, you process it, you
+
+0:28:52.920,0:28:59.820
+process it some more, and then you take it<br/>out again. Clear so far? Everybody nod!
+
+0:28:59.820,0:29:03.530
+Everybody who's still awake nod!<br/>N: *laughter*
+
+0:29:03.530,0:29:10.270
+M: Don't be afraid to ask. So one thing<br/>that you do is is when you have data
+
+0:29:10.270,0:29:14.580
+types, as you just saw, is you define<br/>functions on them that describe some
+
+0:29:14.580,0:29:19.940
+aspect of what happens in a fab and a<br/>semiconductor factory. So in fact what
+
+0:29:19.940,0:29:24.570
+happens of course is you need to execute<br/>the next step, the next operation. That
+
+0:29:24.570,0:29:27.900
+happens as part of making a semiconductor<br/>and for that we're making a function
+
+0:29:27.900,0:29:32.760
+called routeHead - the head of the route.<br/>And what you do is you write a type
+
+0:29:32.760,0:29:37.790
+signatures and type signatures are very<br/>good for communication actually. So you
+
+0:29:37.790,0:29:42.770
+put in a route and you get out a single<br/>operation and then you write equations
+
+0:29:42.770,0:29:47.890
+that describe what that function would do<br/>on different aspects or different classes
+
+0:29:47.890,0:29:55.240
+of input. So in this case you remember a<br/>route was a list of operations. There are
+
+0:29:55.240,0:29:58.429
+two different kinds of lists. One type of<br/>list is the empty list and the other kind
+
+0:29:58.429,0:30:03.200
+of list is a list that has what's called a<br/>head or first element and a rest. And
+
+0:30:03.200,0:30:07.200
+because there's two kinds of lists you<br/>write two equations. And so that's why you
+
+0:30:07.200,0:30:13.890
+see two things where it says routeHead<br/>something equals to something else. The
+
+0:30:13.890,0:30:18.010
+first equation is for the empty list. This<br/>is why you have these two empty brackets.
+
+0:30:18.010,0:30:21.390
+And the second one that says well it's a<br/>non empty list and the first thing in that
+
+0:30:21.390,0:30:26.000
+list is some operation ops or there's<br/>something called pattern matching you
+
+0:30:26.000,0:30:31.110
+match this onto the actual list that you<br/>see and often gets bound to that first
+
+0:30:31.110,0:30:33.930
+operation. We're not we don't really care<br/>about what comes after that first
+
+0:30:33.930,0:30:37.751
+operation. And so the second equation is<br/>pretty clear if you want the head of a
+
+0:30:37.751,0:30:45.800
+route that is not empty you just take the<br/>first element of that list. OK so far? The
+
+0:30:45.800,0:30:49.940
+other equation says: what do we do with an<br/>empty list? An empty list does not have an
+
+0:30:49.940,0:30:53.140
+operation.<br/>N: So you're saying you're into the second
+
+0:30:53.140,0:30:57.920
+slide of your beautiful Haskell code and<br/>you already don't know what to write
+
+0:30:57.920,0:31:02.210
+there.<br/>M: So we're re communicating right.
+
+0:31:02.210,0:31:07.510
+N: OK. OK. So<br/>M: So you're talking to some expert and
+
+0:31:07.510,0:31:10.360
+you say: you have got an empty route.<br/>What's the first operation of an empty
+
+0:31:10.360,0:31:15.000
+route? And he says: well empty routes they<br/>don't really have a first operation. They
+
+0:31:15.000,0:31:18.760
+only maybe have an operation, and<br/>sometimes they don't. So for that we can
+
+0:31:18.760,0:31:22.551
+create a data type that says that<br/>something might be there and sometimes
+
+0:31:22.551,0:31:26.520
+it's not. And we'll just call it "Option".<br/>Are there any Haskell programmers in this
+
+0:31:26.520,0:31:33.390
+room? This built in. Of course as the<br/>"maybe" type but. But I'm just making a
+
+0:31:33.390,0:31:37.390
+separate type called the "Option" type and<br/>that says: the a says this can be
+
+0:31:37.390,0:31:42.940
+anything. Anything in option a means it<br/>can either be there or not. And for that
+
+0:31:42.940,0:31:46.929
+it has two constructors or two different<br/>classes of Maybe objects and one are
+
+0:31:46.929,0:31:51.240
+called the Some objects and the other ones<br/>are called the None objects. Maybe we'll
+
+0:31:51.240,0:31:54.860
+start with None. So Anything can be a<br/>None. It just says that anything is not
+
+0:31:54.860,0:31:59.910
+there. So anything can be of type option<br/>of a. And it means that something is not
+
+0:31:59.910,0:32:04.380
+there and that is the type of that<br/>particular constructor. The other
+
+0:32:04.380,0:32:07.480
+constructor says while that thing actually<br/>is there and so the constructor has to
+
+0:32:07.480,0:32:12.450
+accept something of type A and then give<br/>us something of type Option of a.
+
+0:32:12.450,0:32:19.750
+N: So you're saying it wraps this object?<br/>M: Yes it wraps the object. Okay. And so
+
+0:32:19.750,0:32:25.210
+if you're not a Hasekell programmer but<br/>maybe maybe an F sharp programmer or an ML
+
+0:32:25.210,0:32:28.690
+programmer then that is what it looks like<br/>there. And I believe it's even built into
+
+0:32:28.690,0:32:36.270
+Java these days something called Optional.<br/>So now that means we can change our
+
+0:32:36.270,0:32:39.990
+routeHead functional a little bit because<br/>our first attempt didn't work out and
+
+0:32:39.990,0:32:45.730
+instead of saying Route --> Operation we<br/>write Route --> Option Operation. This may
+
+0:32:45.730,0:32:48.540
+seem trivial to you but it already<br/>communicates a tiny little bit of
+
+0:32:48.540,0:32:55.100
+something. Then we can write routeHead of<br/>the empty list is None. So there's no
+
+0:32:55.100,0:33:00.810
+routeHead of the empty route. or if we<br/>have an Operation coming out we just write
+
+0:33:00.810,0:33:05.179
+Some in front. And so if we use that<br/>example the route that you saw earlier
+
+0:33:05.179,0:33:11.390
+where our route was "TrackIn, Process,<br/>Process, TrackOut" what we get is "Some
+
+0:33:11.390,0:33:19.380
+TrackIn" so that type communicates a<br/>little bit of what we do. Because always
+
+0:33:19.380,0:33:22.460
+are you calling the shots. Very good. The<br/>next thing that we might want to do is we
+
+0:33:22.460,0:33:25.800
+don't want to always know only the first<br/>operation. We also want to know what
+
+0:33:25.800,0:33:31.070
+happens after that. So we can use that<br/>Option and we already know all that. Of
+
+0:33:31.070,0:33:33.070
+course. An empty route will not have<br/>something coming after that first
+
+0:33:33.070,0:33:37.060
+operation. So we could write another<br/>function called routeAdvance and it takes
+
+0:33:37.060,0:33:42.980
+a route as input. That's to the left of<br/>the arrow. It gives us both an operation
+
+0:33:42.980,0:33:46.690
+and a route. That's why there's these two<br/>things in parentheses with a comma in
+
+0:33:46.690,0:33:51.429
+between. So that's a tuple. So it gives us<br/>an operation and a route but only
+
+0:33:51.429,0:33:55.559
+sometimes when that actually exists which<br/>is why there's an option wrapped around
+
+0:33:55.559,0:33:59.809
+that. So what we want to do is if we take<br/>our Route Number one we want to split it
+
+0:33:59.809,0:34:03.070
+into that first operation and a list of<br/>the rest so it should split out the
+
+0:34:03.070,0:34:08.190
+TrackIn and then give us a list of the<br/>remaining or a route of the remaining
+
+0:34:08.190,0:34:14.359
+operations that are in there. OK so far?<br/>It gets technical. Does anybody have a
+
+0:34:14.359,0:34:23.160
+question? OK. Don't hesitate to ask. I'm<br/>looking at the clock. So then this is
+
+0:34:23.160,0:34:27.330
+actually pretty easy to write now. Again<br/>we need to make two equations because a
+
+0:34:27.330,0:34:32.310
+Route is a list and lists always need two<br/>equations. So we can say routeAdvance of
+
+0:34:32.310,0:34:37.159
+the empty list is None. And routeAdvance<br/>of op and the rest is we just return a Sum
+
+0:34:37.159,0:34:41.530
+of the rest because the list already<br/>splits exactly along the line that we
+
+0:34:41.530,0:34:47.260
+wanted to between the first and the<br/>remaining elements. Right. So this is just
+
+0:34:47.260,0:34:50.659
+very simple code or at least it's short<br/>code that communicates what routes are.
+
+0:34:50.659,0:34:58.000
+N: right, I see. If I remember correctly.<br/>I mean you said you put the wafer into the
+
+0:34:58.000,0:35:02.690
+machine and then it processes it. If I<br/>remember correctly some of these
+
+0:35:02.690,0:35:08.780
+processing steps can be chemical<br/>reactions. And so it might be the case
+
+0:35:08.780,0:35:14.270
+that they must happen in a certain amount<br/>of time or something?
+
+0:35:14.270,0:35:17.860
+M: Yeah.<br/>N: Okay. So what we could actually do is
+
+0:35:17.860,0:35:23.930
+we could model something like this. Yeah.<br/>I sneaked at your part of the slide so I
+
+0:35:23.930,0:35:28.770
+checked this in. Oh yeah. So what we<br/>actually could do is we could model
+
+0:35:28.770,0:35:35.760
+something like those three steps here need<br/>to happen together in a set period of
+
+0:35:35.760,0:35:39.760
+time.<br/>M: Yeah. So yeah. So the chemical
+
+0:35:39.760,0:35:42.890
+reactions mean that your wafer might go<br/>bad. If you start the sequence of steps
+
+0:35:42.890,0:35:45.150
+and you don't finish on time then your<br/>wafer goes bad.
+
+0:35:45.150,0:35:50.300
+N: like etching and washing, for example<br/>if you etch too much, then...
+
+0:35:50.300,0:35:54.210
+M: That's always a problem in existing<br/>systems, to model that.
+
+0:35:54.210,0:35:59.550
+N: Okay. Right. Oh so cool. So maybe I can<br/>try and see how I can model this into your
+
+0:35:59.550,0:36:01.770
+existing code.<br/>M: Okay
+
+0:36:01.770,0:36:08.070
+N: cool. So let's have a look. So what we<br/>first need as we we have this Route
+
+0:36:08.070,0:36:14.460
+element here with this Operation right.<br/>And now we need another representation for
+
+0:36:14.460,0:36:21.870
+a Route element and let's call this<br/>RouteQTZone for queue time zone. And there
+
+0:36:21.870,0:36:26.720
+of course we have the duration. That means<br/>the amount of time this step needs to be
+
+0:36:26.720,0:36:31.800
+finished in, or this sequence of steps<br/>needs to be finished in. And then we have
+
+0:36:31.800,0:36:37.820
+this list of Operations here. We saw this<br/>before. Right. The list of the Operations.
+
+0:36:37.820,0:36:43.340
+And then what this gives us is of course<br/>again a routeElement. So we can combine
+
+0:36:43.340,0:36:48.619
+like ordinary steps like putting the wafer<br/>into the machine, doesn't matter how long
+
+0:36:48.619,0:36:54.460
+it takes, maybe it blocks the machine but<br/>other than that no. No issues come from
+
+0:36:54.460,0:36:58.820
+that. But if we do with the etching and<br/>the washing for example we would need to
+
+0:36:58.820,0:37:05.080
+have a queue time zone because we need to<br/>restrict the time that that this takes in
+
+0:37:05.080,0:37:08.080
+conjunction. Right. Is that correct so<br/>far?
+
+0:37:08.080,0:37:10.990
+M: year<br/>N: Good. And then if we look at our
+
+0:37:10.990,0:37:18.570
+example this is the previous example we<br/>had here. We could create another example
+
+0:37:18.570,0:37:28.480
+r2. Here we have a routeQTZone. So it may<br/>only take five whatever seconds say and
+
+0:37:28.480,0:37:34.290
+then we have two processes here that need<br/>to be finished within five seconds and
+
+0:37:34.290,0:37:49.370
+then we do the TrackOut again. OK. So far<br/>so clear? Good. If we look at this and we
+
+0:37:49.370,0:37:53.290
+discover that here we have this<br/>routeElement list. And here we have this
+
+0:37:53.290,0:38:01.520
+Operation list. This is actually sort of<br/>similar isn't it. So maybe we can make
+
+0:38:01.520,0:38:06.740
+something out of this and maybe we can<br/>actually turn this down here into
+
+0:38:06.740,0:38:11.040
+routeElements as well.<br/>M: Oh so that's what you were doing
+
+0:38:11.040,0:38:14.470
+before, right. Before up there it also<br/>said list of Operation.
+
+0:38:14.470,0:38:21.109
+N: Up there?<br/>M: when you started.... My code had Route
+
+0:38:21.109,0:38:24.750
+= [Operation]. Right. And now you did the<br/>same thing.
+
+0:38:24.750,0:38:34.140
+N: Oh yes. Yeah. Right. So now it's now<br/>it's the same. Again. So it's both. [
+
+0:38:34.140,0:38:40.369
+RouteElements ]. If we look at this again<br/>so maybe this actually means that this
+
+0:38:40.369,0:38:51.840
+year is not just a list of routeElements<br/>but maybe this is actually a Route down
+
+0:38:51.840,0:38:59.880
+there. So I actually derive some some<br/>information here from the code so we
+
+0:38:59.880,0:39:04.020
+discover that our routeQTZone actually<br/>contains a Route.
+
+0:39:04.020,0:39:12.619
+M: Oh all right.<br/>N: So if we look at this here. What do we
+
+0:39:12.619,0:39:21.740
+then can do. Here with this RouteElement.<br/>So here we could plug in any RouteElement
+
+0:39:21.740,0:39:30.160
+right? For example we could plug in a<br/>RouteQTZone which is also a RouteElement.
+
+0:39:30.160,0:39:36.260
+So coming from this example here where we<br/>have just a flat list that does contain
+
+0:39:36.260,0:39:45.450
+some RouteOperations and a RouteQTZone and<br/>then a RouteOperation we could also stack
+
+0:39:45.450,0:39:52.200
+them into each other. So a RouteQTZone<br/>could again contain a route that contains
+
+0:39:52.200,0:39:54.690
+a RouteQTZone.<br/>M: That's pretty cool.
+
+0:39:54.690,0:39:58.090
+N: Do you think that would happen.<br/>M: Yeah. That's pretty cool because now we
+
+0:39:58.090,0:40:00.540
+can nest RouteQTZones and that's something<br/>that occurs in reality.
+
+0:40:00.540,0:40:04.430
+N: Oh really does it? Cool.<br/>M: And so your model has suggested that
+
+0:40:04.430,0:40:08.010
+but it is something that our old IT<br/>systems based on Object Oriented
+
+0:40:08.010,0:40:11.300
+Programming couldn't model from ... That's<br/>pretty neat.
+
+0:40:11.300,0:40:16.000
+N: So now I understand why you're aiming<br/>at functional programing and saying that
+
+0:40:16.000,0:40:18.770
+you can model things better with it.<br/>M: Exactly.
+
+0:40:18.770,0:40:22.990
+N: Yeah. This is pretty cool. So we<br/>discovered this in the code and then we
+
+0:40:22.990,0:40:29.820
+were able to get back to the business<br/>people and check back with them whether
+
+0:40:29.820,0:40:35.170
+they would actually see this in practice<br/>and whether it's a valuable addition here
+
+0:40:35.170,0:40:42.820
+and we discovered that just from looking<br/>at the type information we had. Yeah and
+
+0:40:42.820,0:40:48.040
+then we can continue this and because now<br/>we have this list of RouteElements down
+
+0:40:48.040,0:40:52.950
+there. We could actually say Oh yeah list<br/>or RouteElements, we know what that is:
+
+0:40:52.950,0:41:03.119
+This is actually a route. And now we go<br/>one level up. So whenever we learn more
+
+0:41:03.119,0:41:09.330
+about Routes or whenever we change this<br/>here this Route thing it will
+
+0:41:09.330,0:41:17.800
+automatically be reflected in here because<br/>we abstracted it. Right. And that's what
+
+0:41:17.800,0:41:21.940
+functional programming is all about<br/>abstracting things and figuring out what
+
+0:41:21.940,0:41:27.510
+the common parts are. Right?<br/>M: I notice you're agreeing with me. Very
+
+0:41:27.510,0:41:32.450
+good.<br/>N: Excellent. So and now we can also of
+
+0:41:32.450,0:41:40.500
+course check how our functions will be<br/>modified because now we need to to go to
+
+0:41:40.500,0:41:47.780
+all of our functions and see whether they<br/>still work. And here we have this
+
+0:41:47.780,0:41:53.350
+routeHead and also routeElementHead. And<br/>now we need to extend this because the
+
+0:41:53.350,0:41:57.030
+routeElementHead works on the<br/>routeElement. And now we have a
+
+0:41:57.030,0:42:02.500
+routeElement which is the RouteQTZone. And<br/>of course if we want the routeElementHead
+
+0:42:02.500,0:42:09.920
+of the RouteQTZone this is of course the<br/>head of the containing route. And we have
+
+0:42:09.920,0:42:14.210
+this neat function up here already,<br/>routeHead, which gives us the head of the
+
+0:42:14.210,0:42:20.840
+route. And so we can just reuse this here.<br/>So even this has become simpler for us to
+
+0:42:20.840,0:42:26.570
+implement, because we have discovered that<br/>there is a route in there instead of just
+
+0:42:26.570,0:42:33.030
+a list. So no special handling we can just<br/>revert to the standard function we already
+
+0:42:33.030,0:42:41.030
+have. And if we look at the routeAdvance<br/>so if we want to proceed our route to the
+
+0:42:41.030,0:42:49.131
+next operation and you know proceed to the<br/>next step then of course we also need to
+
+0:42:49.131,0:42:58.160
+add this here the RouteQTZone and now the<br/>question is what happens if we advance
+
+0:42:58.160,0:43:04.970
+into a RouteQTZone process because somehow<br/>we need to keep track of when does it need
+
+0:43:04.970,0:43:14.910
+to be finished. So we initially we said OK<br/>it may only take like x time or d time and
+
+0:43:14.910,0:43:21.849
+now we need to keep track of whether this<br/>time is already taken up or not. And so in
+
+0:43:21.849,0:43:33.020
+this case what we actually do is we need<br/>to add another RouteElement and that's the
+
+0:43:33.020,0:43:40.940
+RouteQTLimit which defines when a started<br/>operation needs to be finished. So it has
+
+0:43:40.940,0:43:47.099
+an actual time which is the point in time<br/>like no duration or something just the
+
+0:43:47.099,0:43:53.250
+finishing point in time and then it's just<br/>the same as the RouteQTZone. So this
+
+0:43:53.250,0:44:01.340
+limits our process up to this end point of<br/>time. And now we can we can implement our
+
+0:44:01.340,0:44:06.370
+routeAdvance because whenever we have a<br/>QTZone that's where we didn't know what to
+
+0:44:06.370,0:44:14.180
+write before. So whenever we advance this<br/>route then we know that we need to come up
+
+0:44:14.180,0:44:23.590
+with a RouteQTLimit here and whenever we<br/>have this RouteQTLimit and we advance over
+
+0:44:23.590,0:44:30.260
+that one then we know that we just need to<br/>basically behave like before, we need to
+
+0:44:30.260,0:44:38.280
+split this up and also keep our time limit<br/>of course. And then just proceed into this
+
+0:44:38.280,0:44:45.270
+limited while while keeping the time<br/>limit. And here if we start this out then
+
+0:44:45.270,0:44:50.720
+we need to to determine the end point, so<br/>we take the current time which we now need
+
+0:44:50.720,0:44:57.330
+to pass in here at the top. So we take the<br/>current time add the duration and then we
+
+0:44:57.330,0:45:04.170
+know when we need to be finished with this<br/>process. And then in here yeah we just we
+
+0:45:04.170,0:45:09.010
+just work on on every step while keeping<br/>the time limit.
+
+0:45:09.010,0:45:13.490
+M: So your code suggested that there was a<br/>gap in your understanding of what needs to
+
+0:45:13.490,0:45:17.930
+be represented right. Yeah.<br/>N: So I didn't know what to put to the -
+
+0:45:17.930,0:45:24.180
+what to implement for the routeAdvance.<br/>Yeah. And now I know that. Yeah. I can
+
+0:45:24.180,0:45:26.180
+handle this.<br/>M: So watching this I'm thinking that
+
+0:45:26.180,0:45:30.609
+there's still a little, if I look at it<br/>with the eye of a domain person, I think
+
+0:45:30.609,0:45:34.360
+there's still a little problem in there.<br/>N: Oh. Is it?
+
+0:45:34.360,0:45:36.570
+M: Yeah. If you look at this right<br/>remember a RouteElement is something that
+
+0:45:36.570,0:45:42.210
+can occur anywhere in the middle beginning<br/>at the end of a route so it's these three
+
+0:45:42.210,0:45:45.490
+things. Obviously we can have RouteQTZones<br/>anywhere we can have operations anywhere
+
+0:45:45.490,0:45:49.370
+but the thing is we can only enter a<br/>RouteQTZone when it's at the beginning.
+
+0:45:49.370,0:45:51.370
+Right?<br/>N: Oh i see.
+
+0:45:51.370,0:45:53.880
+M: So now.<br/>N: You mean here we could have a random
+
+0:45:53.880,0:45:58.030
+list in a random order.<br/>M: Yeah. That's right.
+
+0:45:58.030,0:46:00.030
+N: That's a good point.<br/>M: So you can't.,, So this suggests that
+
+0:46:00.030,0:46:04.359
+the RouteQTZone has been entered because<br/>there is a RouteQTLimit. But there is even
+
+0:46:04.359,0:46:05.960
+- there there's still an operation there<br/>in front of it.
+
+0:46:05.960,0:46:11.960
+N: Okay. Yeah. That doesn't make sense.<br/>M: Yeah. That that makes no sense. So if
+
+0:46:11.960,0:46:15.490
+we could go back from the domain knowledge<br/>to the code now a little bit we could
+
+0:46:15.490,0:46:20.570
+refine that type further and we could pull<br/>out the RouteQTLimit from that type down
+
+0:46:20.570,0:46:24.520
+there, because these are all the things<br/>that occur in the middle of a route and
+
+0:46:24.520,0:46:28.300
+pull it up to a top level type and<br/>introduce an immediate intermediate type
+
+0:46:28.300,0:46:31.520
+that distinguishes between what's in the<br/>middle and what's at the beginning.
+
+0:46:31.520,0:46:36.960
+N: Oh I see. That's neat.<br/>M: So what have as we have this back and
+
+0:46:36.960,0:46:41.930
+forth between the code which yields<br/>insights about the domain and the domain
+
+0:46:41.930,0:46:45.060
+from the domain back to the code and we<br/>can play that game we can use the code for
+
+0:46:45.060,0:46:50.200
+communication.<br/>N: Yeah. So that's what I intended. Did
+
+0:46:50.200,0:46:53.300
+you understand this?<br/>M: Yeah so that code no longer crushes my
+
+0:46:53.300,0:46:55.300
+soul.<br/>N: Excellent.
+
+0:46:55.300,0:46:57.300
+M: So I can say Yeah right.<br/>N: Same here.
+
+0:46:57.300,0:46:59.300
+M: So.<br/>N: Cool
+
+0:46:59.300,0:47:01.520
+M: Okay.<br/>N: So that's what the point we wanted to
+
+0:47:01.520,0:47:07.980
+make. So if you take functional<br/>programming and if you add communication
+
+0:47:07.980,0:47:12.720
+and discussions and this going back and<br/>forth and learning from both sides and
+
+0:47:12.720,0:47:19.580
+enriching both sides with the information<br/>coming from the other part then you
+
+0:47:19.580,0:47:25.150
+actually end up at a silver bullet.<br/>M: Everybody's looking confused that's a
+
+0:47:25.150,0:47:31.530
+bullet train, a silver bullet train. OK<br/>we're done.
+
+0:47:31.530,0:47:37.020
+N: Yes thank you.<br/>Herald:
+
+0:47:37.020,0:47:45.130
+So thank you for a very entertaining talk<br/>we have some time for questions. Q&A so if
+
+0:47:45.130,0:47:49.589
+you have any questions please line up next<br/>to the microphones. We have four
+
+0:47:49.589,0:47:52.030
+microphones spread across the room and<br/>we'll start from a question from the
+
+0:47:52.030,0:48:01.080
+Internet.<br/>Signal Angel: There is a question from the
+
+0:48:01.080,0:48:08.660
+internet: As an FP beginner with a weak<br/>background in math would it be preferable
+
+0:48:08.660,0:48:13.090
+to learn functional programming in a pure<br/>functional language or in languages that
+
+0:48:13.090,0:48:24.349
+are multi paradigm?<br/>M: I'll take that one? OK. So I think the
+
+0:48:24.349,0:48:27.380
+point is that there is many different<br/>functional programming languages and
+
+0:48:27.380,0:48:32.160
+Haskell happens to be what's called a pure<br/>one but there are also languages that are
+
+0:48:32.160,0:48:35.980
+hybrid between object oriented and<br/>functional programming. Scala I think is a
+
+0:48:35.980,0:48:42.030
+prime example right now. And I mean Scala<br/>is a fine language. The problem is if you
+
+0:48:42.030,0:48:45.119
+want to combine these two paradigms you<br/>typically get something that's pretty
+
+0:48:45.119,0:48:51.260
+complicated. So Scala is a complicated<br/>language that takes more time to master.
+
+0:48:51.260,0:48:59.000
+Also, because you have both paradigms<br/>available to you at all times. It is
+
+0:48:59.000,0:49:02.650
+sometimes... You often get confused about<br/>what paradigm you should use in a given
+
+0:49:02.650,0:49:07.880
+situation. So I think both of us we<br/>haven't really seen the great advantages
+
+0:49:07.880,0:49:12.410
+you get from that hybrid model. Right?<br/>N : Yes. Also the problem is if you're a
+
+0:49:12.410,0:49:17.430
+learner in FP and you try to tackle this<br/>with something like Scala you will
+
+0:49:17.430,0:49:22.839
+inevitably fall back to what you know if<br/>you run into problems. And so maybe just
+
+0:49:22.839,0:49:29.000
+jump into the deep end and try to swim and<br/>see where you get and get help on the
+
+0:49:29.000,0:49:32.950
+Internet.<br/>Herald: Number two.
+
+0:49:32.950,0:49:43.360
+Mic2: It was a good presentation. Thank<br/>you. Every time I see some functional
+
+0:49:43.360,0:49:49.010
+programming it's refreshing and it's<br/>interesting but the description of your
+
+0:49:49.010,0:49:54.840
+presentation was talking about using<br/>functional programming in IOT. So there
+
+0:49:54.840,0:49:59.861
+was nothing specific to IOT in this<br/>presentation. There was no interaction
+
+0:49:59.861,0:50:06.520
+with the hardware. No interrupt handling.<br/>No nothing. How would you handle that for
+
+0:50:06.520,0:50:09.820
+example.<br/>M : Yeah good point. I think we had a
+
+0:50:09.820,0:50:17.320
+bunch of slides on that that we ended up<br/>dropping because of time. So my argument
+
+0:50:17.320,0:50:24.400
+would be that IOT is the same software as<br/>any other software. What's special about
+
+0:50:24.400,0:50:32.630
+IOT is the risk that emanates from IOT<br/>obviously. So if you want to do things
+
+0:50:32.630,0:50:38.000
+like interrupt handling I think my<br/>response to that would be to convert it
+
+0:50:38.000,0:50:41.870
+into functional data structures and this<br/>gives you a deterministic model for
+
+0:50:41.870,0:50:47.080
+handling that kind of stuff. So we talked<br/>about that. I think we talked a little bit
+
+0:50:47.080,0:50:49.880
+about the observer pattern which is<br/>analogous to what usually happens with
+
+0:50:49.880,0:50:53.609
+interrupt handling which is what you were<br/>talking about. And the way to do that
+
+0:50:53.609,0:50:57.170
+really is to have... of course you have a<br/>tiny bit of imperative code that hooks
+
+0:50:57.170,0:51:01.570
+your functional code to the hardware or<br/>whatever it is. But to convert your
+
+0:51:01.570,0:51:05.690
+interrupts into a list and you can...<br/>Haskell actually is pretty good at that
+
+0:51:05.690,0:51:08.660
+and that then gives you all the advantages<br/>of functional programming: the test
+
+0:51:08.660,0:51:13.910
+ability, the funky abstractions. And you<br/>can use that even on the interrupts and it
+
+0:51:13.910,0:51:17.890
+turns into software just like any other<br/>functional software.
+
+0:51:17.890,0:51:24.170
+Herald: Microphone number one.<br/>Mic1: Hi. Thank you for the talk. I have
+
+0:51:24.170,0:51:30.010
+to write code for microprocessors and most<br/>of the time I only have a C compiler and
+
+0:51:30.010,0:51:37.320
+if I'm lucky I get a C++ compiler. Where<br/>can I get a silver bullet?
+
+0:51:37.320,0:51:41.170
+*laughter*<br/>N: The old Haskell compiler used to
+
+0:51:41.170,0:51:47.800
+compile to C and nowadays it doesn't do<br/>that anymore by default but probably you
+
+0:51:47.800,0:51:53.210
+can make it do that still?<br/>M: But there's a number functional
+
+0:51:53.210,0:51:58.330
+languages that compile to C so it's kind<br/>of difficult to give a one shot answer.
+
+0:51:58.330,0:52:02.430
+We've also done a project for example<br/>where we got a lot of the advantages from
+
+0:52:02.430,0:52:08.839
+functional programming by writing code in<br/>Haskell that generates the C code, right.
+
+0:52:08.839,0:52:14.089
+And so it's difficult to give you like one<br/>answer without knowing more details about
+
+0:52:14.089,0:52:18.120
+what it is that you're doing but there's<br/>certainly a spectrum of options available
+
+0:52:18.120,0:52:24.800
+in that context.<br/>Q: So functional programming is pretty
+
+0:52:24.800,0:52:32.410
+contrite and pretty compact so no one<br/>really wants to use large variable names
+
+0:52:32.410,0:52:38.720
+and I saw in your examples like a D and a<br/>TTL, RTs. And I don't think that there are
+
+0:52:38.720,0:52:43.580
+so much better than the long versions you<br/>showed earlier. Like what is yout take on
+
+0:52:43.580,0:52:48.750
+that?<br/>N: So the general - I'm also struggling a
+
+0:52:48.750,0:52:56.710
+little bit with this. One thing is that<br/>this was fairly concrete code, right? But
+
+0:52:56.710,0:53:04.740
+often you go into the abstractions and in<br/>the abstraction there it's arbitrary what
+
+0:53:04.740,0:53:10.849
+you have. So you can use short names<br/>because you're not talking about concrete
+
+0:53:10.849,0:53:18.140
+things anyway. So that's why it's easier<br/>to use - also more like abstract variable
+
+0:53:18.140,0:53:23.780
+names. But what I actually do is I also<br/>use longer names so I would not always use
+
+0:53:23.780,0:53:29.950
+D and RT and something like that to get a<br/>better grip on this. But one important
+
+0:53:29.950,0:53:35.010
+thing you must not forget is that this you<br/>have a function, right, and it's two
+
+0:53:35.010,0:53:40.640
+lines, three lines. And so if you start<br/>out and you understand D and RT, for
+
+0:53:40.640,0:53:47.250
+example, from the signature and reading<br/>three lines of code with a D and RT in it
+
+0:53:47.250,0:53:51.900
+it's not that bad right? And in object<br/>oriented or Java or whatever you sometimes
+
+0:53:51.900,0:53:56.060
+have hundreds of lines and then you have a<br/>D and RT and you read this for half an
+
+0:53:56.060,0:54:02.980
+hour and then of course you forget what it<br/>means. And so, you know, it's a bit of a
+
+0:54:02.980,0:54:08.110
+balance. So I would use longer names as<br/>well probably but sometimes also shorter
+
+0:54:08.110,0:54:14.380
+because, just the code is so so so short.<br/>M: Like if I can add one detail as I find
+
+0:54:14.380,0:54:18.310
+myself using longer names and dynamically<br/>typed languages right there dynamically
+
+0:54:18.310,0:54:21.550
+typed languages. There you don't have the<br/>type that spells out what that thing is.
+
+0:54:21.550,0:54:23.550
+N: Oh right.<br/>M: And then you need to put it in the
+
+0:54:23.550,0:54:25.560
+variable name.<br/>Herald: Microphone number 1.
+
+0:54:25.560,0:54:29.910
+M1: Yeah. In one of the slides you made<br/>the claim that a functional programming
+
+0:54:29.910,0:54:33.859
+lends itself to proving. How would you<br/>actually do this?
+
+0:54:33.859,0:54:38.490
+M: Good question. So<br/>N: That's another talk right?
+
+0:54:38.490,0:54:42.640
+M: I mean in practice, so there's various<br/>ways of doing that. So first of all as you
+
+0:54:42.640,0:54:47.760
+saw, right, a Haskell program is a bunch<br/>of equations so you can use algebra as a
+
+0:54:47.760,0:54:52.770
+mathematical technique to reason about<br/>functional programs. First of all, going
+
+0:54:52.770,0:54:57.880
+to the abstract aspect of that question<br/>which is something, well, you can sort of
+
+0:54:57.880,0:55:02.191
+do it with your Java program but it is<br/>much harder to establish an algebraic way
+
+0:55:02.191,0:55:08.339
+of talking about Java programs. There's<br/>also plenty of tooling available to write
+
+0:55:08.339,0:55:12.090
+to prove aspects of your programs in<br/>functional languages, starting with a
+
+0:55:12.090,0:55:17.220
+classic tool called ACL2. We can talk on<br/>something called Idris, so there is a
+
+0:55:17.220,0:55:21.260
+newer breed of functional languages where<br/>you can put more proofs into the types of
+
+0:55:21.260,0:55:27.240
+your languages. So it just turn, it turns<br/>out it tends to be just a magnitude of an
+
+0:55:27.240,0:55:31.060
+order of magnitude easier to prove<br/>properties of functional programming
+
+0:55:31.060,0:55:35.750
+because you can use algebra and equational<br/>reasoning as you would about Java
+
+0:55:35.750,0:55:38.109
+programs. Does that answer your question a<br/>little bit?
+
+0:55:38.109,0:55:44.980
+M1: A bit. But I think Idris uses like<br/>dependent types and doesn't - isn't it
+
+0:55:44.980,0:55:50.280
+possible to use it in imperative<br/>programming as well? Maybe? I don't know.
+
+0:55:50.280,0:55:55.760
+So is that specific to functional<br/>programming dependent types? Or could it
+
+0:55:55.760,0:55:58.730
+be used...<br/>M: It is even the way that it just talks
+
+0:55:58.730,0:56:04.119
+about imperative programming is<br/>functional. Right? Using monads, by the
+
+0:56:04.119,0:56:10.810
+way. So there is that and there's this<br/>whole spiel about reasoning about effects.
+
+0:56:10.810,0:56:13.950
+But the thing is effects side effects said<br/>you have an imperative programming right?
+
+0:56:13.950,0:56:17.150
+They don't make it impossible to reason<br/>about programs but they make it much much
+
+0:56:17.150,0:56:22.360
+harder. And so in a functional program you<br/>tend, in a proper functional program that
+
+0:56:22.360,0:56:26.500
+doesn't crush your soul, you tend to have<br/>large parts that are purely functional and
+
+0:56:26.500,0:56:30.140
+that allow functional that allow<br/>equational reasoning and you have smaller
+
+0:56:30.140,0:56:33.500
+parts that maybe make - that might be a<br/>little bit more difficult that are about
+
+0:56:33.500,0:56:36.640
+the interaction with the imperative<br/>environment.
+
+0:56:36.640,0:56:43.720
+N: Also the thing that we did with the<br/>type system you know you remember? First
+
+0:56:43.720,0:56:48.810
+we have the list and we have the the RT,<br/>the queue time limit, in the middle and
+
+0:56:48.810,0:56:54.890
+that was an illegal state. And so we<br/>changed the type system to disallow this.
+
+0:56:54.890,0:57:00.380
+And so actually already the compiler tells<br/>us: "Hey this is forbidden code." Right?
+
+0:57:00.380,0:57:05.560
+And it's not syntactically wrong but it's<br/>semantically wrong. And that's what is
+
+0:57:05.560,0:57:13.040
+also like a week kind of validation or<br/>verification in my opinion.
+
+0:57:13.040,0:57:17.970
+M: So we could talk all about all this<br/>about this all day. Sorry.
+
+0:57:17.970,0:57:20.230
+Herald: Another question from Microphone<br/>number 2.
+
+0:57:20.230,0:57:26.580
+M2: I noticed that you didn't present any<br/>mechanism to hide your implementation or
+
+0:57:26.580,0:57:33.410
+to make things private - the things that<br/>you can do in C++. And I do miss this
+
+0:57:33.410,0:57:38.600
+mechanism but I would like to know your<br/>take on why - I think you don't miss them.
+
+0:57:38.600,0:57:42.380
+So why you don't miss them either?<br/>M: No they exist in functional languages
+
+0:57:42.380,0:57:46.960
+as well. Right? And so the mechanisms that<br/>you're familiar with private things,
+
+0:57:46.960,0:57:51.020
+modules. Functional languages tend to not<br/>use objects and classes for
+
+0:57:51.020,0:57:55.310
+modularisation. I think that's the primary<br/>difference but functional languages tend
+
+0:57:55.310,0:57:59.410
+to always have mechanisms for doing that.<br/>They're just different between languages.
+
+0:57:59.410,0:58:02.359
+So it's difficult to talk about this in a<br/>talk. We could have told you how to do
+
+0:58:02.359,0:58:09.280
+this in Haskell and write a module on hide<br/>things. But would have put more code on
+
+0:58:09.280,0:58:11.690
+the slides.<br/>N: And the other aspect is that you don't
+
+0:58:11.690,0:58:16.310
+really have to hide things because<br/>everything is pure. So if you call this
+
+0:58:16.310,0:58:22.530
+function - I don't care, you know. You<br/>can't destroy anything. Whereas in an
+
+0:58:22.530,0:58:27.750
+object oriented programming you have this<br/>- changed my object to really bad
+
+0:58:27.750,0:58:31.640
+something you know and you don't want<br/>anybody else to call this because it will
+
+0:58:31.640,0:58:36.380
+really break things and then functional<br/>programming - chucking some variables get
+
+0:58:36.380,0:58:42.180
+something out - do this as much as you<br/>want. I don't care. That last one is the
+
+0:58:42.180,0:58:47.560
+take I love. And I endorse fully.<br/>Herald: Mic for number 3.
+
+0:58:47.560,0:58:52.670
+M3: You had some slides on the importance<br/>of communication. I have a hard time to
+
+0:58:52.670,0:58:56.930
+see myself communicating with business<br/>people using Haskell code. How do you what
+
+0:58:56.930,0:59:02.890
+do you *laughter* do about that at this<br/>point? How would you do the communication
+
+0:59:02.890,0:59:09.650
+with like normal people?<br/>M: I mean we clean it up somewhat. But
+
+0:59:09.650,0:59:17.339
+this actually happened. So it's sometimes<br/>a little bit of a process to get there and
+
+0:59:17.339,0:59:21.390
+sometimes... but what you could, I mean,<br/>what you noticed maybe in the code with
+
+0:59:21.390,0:59:28.480
+the routes was that playing with a Haskell<br/>code yielded domain insights that you
+
+0:59:28.480,0:59:32.220
+could have also explained to somebody in a<br/>meeting, right?
+
+0:59:32.220,0:59:35.680
+N: Without showing the code.<br/>M: Yeah. And so that's - so the
+
+0:59:35.680,0:59:39.480
+communication goes through the Haskell<br/>code, maybe not. It doesn't happen, you
+
+0:59:39.480,0:59:45.579
+know, by the Haskell code. But all I can<br/>tell you is that that actually happens is
+
+0:59:45.579,0:59:50.670
+we sometimes communicate with clients<br/>showing them code and talking to them
+
+0:59:50.670,0:59:55.079
+about, is this really what you're doing is<br/>this what your domain is like. That
+
+0:59:55.079,0:59:58.079
+happens.<br/>N: Happened to me as well. So it depends
+
+0:59:58.079,1:00:01.950
+on your clients you know. They need to<br/>have a bit of resilience so they can, you
+
+1:00:01.950,1:00:09.280
+know, and they can accept that they<br/>wouldn't understand everything. But if
+
+1:00:09.280,1:00:12.500
+you, like, talk them through and say look<br/>here's this and this goes in and that
+
+1:00:12.500,1:00:17.099
+comes out and what do you think about<br/>this. And then say - so you just not throw
+
+1:00:17.099,1:00:21.540
+the code at them but you have a informed<br/>communication to say.
+
+1:00:21.540,1:00:24.840
+M: This can also be contractually<br/>enforced. And I remember one instance
+
+1:00:24.840,1:00:27.610
+where we did that.<br/>Herald: That actually finished the
+
+1:00:27.610,1:00:30.991
+questions. Again got a big round of<br/>applause for this.
+
+1:00:30.991,1:00:32.991
+M: Thank you.
+
+1:00:32.991,1:00:33.991
+*applause*
+
+1:00:33.991,1:00:34.991
+*35c3 postroll music*
+
+1:00:34.991,1:00:36.491
+Subtitles created by c3subtitles.de<br/>in the year 2020. Join, and help us!

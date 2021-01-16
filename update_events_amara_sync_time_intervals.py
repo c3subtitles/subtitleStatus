@@ -73,6 +73,12 @@ update_intervals[15] = "01:00:00"
 # 16 rC3
 update_intervals[16] = "00:00:10"
 
+# 17 rC3 - hacc
+update_intervals[17] = "00:00:10"
+
+# 18 rC3 - wikipaka
+update_intervals[18] = "00:00:10"
+
 for any_event_id in update_intervals:
     my_event = Event.objects.get(id = any_event_id)
     my_talks = Talk.objects.filter(event = my_event)

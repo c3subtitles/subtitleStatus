@@ -62,4 +62,4 @@ class RoomFactory(DjangoModelFactory):
         model = models.Rooms
 
     room = factory.Faker('name')
-    building = factory.Faker('company')
+    building = factory.Faker('name')

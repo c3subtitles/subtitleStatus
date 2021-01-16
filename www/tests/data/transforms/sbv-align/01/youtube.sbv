@@ -1,0 +1,842 @@
+0:00:15.118,0:00:16.449
+﻿*wikipaka intro music*
+
+0:00:16.449,0:00:21.520
+[Filler, please remove in amara]
+ 
+Hello and welcome to this first talk.
+
+0:00:22.640,0:00:29.680
+Today I'm going to give... into cross
+ 
+platform development using Flutter. What
+
+0:00:29.680,0:00:34.400
+is Flutter? Flutter is a cross platform
+ 
+development kit.
+
+0:00:40.320,0:00:48.400
+Here. Fancy logo you can
+see over there. OK, we will talk about how
+
+0:00:48.400,0:00:55.200
+to install Flutter. We will talk about the
+special features of Flutter, hence,
+
+0:00:55.200,0:01:01.520
+widgets, which will have a look on their
+plugins. We will have a look on two
+
+0:01:01.520,0:01:08.480
+different kinds of these widgets, stateful
+and stateless widgets. And at the end, we
+
+0:01:08.480,0:01:16.320
+will talk about the main feature,
+Flutter's part of the code, so you do not
+
+0:01:16.320,0:01:25.840
+have seperate style files or seperate
+layout files. OK, how would you install
+
+0:01:25.840,0:01:31.840
+Flutter? Well, if you are used to Git,
+it's actually quite easy. You simply clone
+
+0:01:31.840,0:01:39.680
+their git repository, update the path and
+you have the flutter tool installed. That
+
+0:01:39.680,0:01:46.320
+installs two things: The library Flutter
+and the programming language Dart,the
+
+0:01:48.000,0:01:53.680
+programing language you use with Flutter.
+Of course you could use Dart without
+
+0:01:53.680,0:02:00.160
+Flutter, but Dart is usually used with
+Flutter and Flutter only works with Dart.
+
+0:02:02.720,0:02:09.920
+OK. Well, if you are not interested in
+cloning git repositories, if you are not
+
+0:02:09.920,0:02:17.760
+that used to command prompts, you could
+easily install Flutter using the plugin of
+
+0:02:18.560,0:02:24.640
+your development environment. For example,
+Visual Studio Code or Android studio or
+
+0:02:24.640,0:02:31.680
+intellij, they offer very user friendly
+plugins with a quick installation guide
+
+0:02:31.680,0:02:40.720
+for Flutter, automating all these are
+steps. OK, what is Flutter like? If we
+
+0:02:40.720,0:02:44.960
+have a look on Flutter, we talk about
+different things. We have the framework
+
+0:02:44.960,0:02:52.480
+within Dart, we have the engine and we
+have platform specific code. Flutter
+
+0:02:52.480,0:02:56.800
+consists of something called the "Flutter
+tool". That's not listed in the graphic
+
+0:02:56.800,0:03:03.120
+you can see there. That's what you use to
+create an application. For example, if you
+
+0:03:03.120,0:03:09.520
+type "flutter create mynewapplication" in
+the command prompt, that's the Flutter
+
+0:03:09.520,0:03:17.760
+tool in use. But as soon as you've done an
+application, you have this... it works the
+
+0:03:17.760,0:03:23.680
+way the graphic presents it: You have this
+framework consisting of everything you can
+
+0:03:23.680,0:03:36.320
+see and everything you can do. You have
+buttons, these are the two main themes, so
+
+0:03:36.320,0:03:44.640
+"Material" is the Android and Chrome OS
+one and "Cupertino" is the iOS-style user
+
+0:03:44.640,0:03:52.720
+interface. The framework takes also care
+of the rendering animations, interactions
+
+0:03:52.720,0:03:58.400
+with users. So gestures, if you tap a
+button or if you move around something on
+
+0:03:58.400,0:04:08.960
+the UI, that's something the framework
+takes care of. And under the framework,
+
+0:04:08.960,0:04:16.960
+there's the engine. The engine operates
+everything which is not specific to your
+
+0:04:16.960,0:04:24.160
+application, so the general stuff of
+Flutter. It takes care of the interaction
+
+0:04:24.160,0:04:29.280
+with the Dart virtual machine. It takes
+care of platform channels. For example, if
+
+0:04:29.280,0:04:37.920
+you want to access native code, takes care
+of accessibility, it interacts with the
+
+0:04:37.920,0:04:46.800
+operating system and so on. And beside of
+those two, there's still the embedder. The
+
+0:04:46.800,0:04:54.720
+embedder is, what is, yeah, typic for one
+kind of device, for example, or for one
+
+0:04:54.720,0:05:01.920
+platform, for example, for Android. The
+embedder takes care of threads of process
+
+0:05:01.920,0:05:07.920
+management, takes care of the event loop
+of the operating system, and it takes care
+
+0:05:07.920,0:05:16.000
+of interaction with native plugins. And
+most importantly, it's responsible for
+
+0:05:16.000,0:05:20.480
+packing the application. For example, if
+you have raw Dart code, no device would be
+
+0:05:20.480,0:05:27.680
+able to execute it. So the embedder is
+responsible for hacking this code into an
+
+0:05:30.560,0:05:40.640
+executable on Windows, into a JavaScript
+file on the Web or into an APK file on
+
+0:05:40.640,0:05:51.840
+Android. OK, well, now I already
+introduced these widgets, I talked about
+
+0:05:51.840,0:05:59.600
+Material and Cupertino widgets, but what
+is a widget? Yeah, a widget is pretty much
+
+0:05:59.600,0:06:08.000
+everything you can see in a flutter app. A
+widget is any user interface element,
+
+0:06:09.280,0:06:12.960
+sometimes allowing interaction, sometimes
+not. But everything you can see in an
+
+0:06:12.960,0:06:21.600
+application is called widget. You can
+imagine a widget like, for example, HTML
+
+0:06:21.600,0:06:30.640
+elements. You simply put them into each
+other and create a document tree. But
+
+0:06:30.640,0:06:40.480
+unlike if you use HTML, you do not have
+HTML for the layout, CSS for the style and
+
+0:06:40.480,0:06:45.840
+JavaScript for the interaction. If you
+have Flutter, these widgets provide all
+
+0:06:45.840,0:06:56.640
+these three parts. So the widget performs
+the layout, the widget offers style and
+
+0:06:56.640,0:07:02.960
+offers interaction with the user. And you
+do not have any separation between style
+
+0:07:02.960,0:07:10.640
+and content of the application. That's a
+very good feature for development and
+
+0:07:10.640,0:07:20.400
+makes many things such as refactoring
+code. But there are different types of
+
+0:07:20.400,0:07:26.160
+less widgets without any kind of feedback
+they can provide better. They are once
+
+0:07:26.160,0:07:32.160
+rendered and afterwards they are present.
+Or if the parenting widget decides, well,
+
+0:07:32.160,0:07:37.600
+I no longer want to show this, for
+example, text, that is just being removed
+
+0:07:37.600,0:07:44.320
+without any interaction of this widget.
+Another point are stateful widgets, they
+
+0:07:44.320,0:07:53.840
+allow interaction. So for example, if you
+have a text as a stateful widget, it can
+
+0:07:55.520,0:08:01.840
+tell - it is able to tell the application
+after a couple of seconds: OK, now I want
+
+0:08:01.840,0:08:10.080
+to change my own color or I want to change
+my font size, so it has an own event loop
+
+0:08:10.080,0:08:17.680
+and can decide based on things happening
+inside this widget. That's usually a bit,
+
+0:08:18.240,0:08:25.120
+yeah... not these low level widgets like
+text, but all these high level widgets
+
+0:08:25.120,0:08:34.880
+like list views consisting of several
+children and so on, menus, they consist of
+
+0:08:34.880,0:08:41.040
+a menu button and drop down menu and
+whatever, or even the whole page of an
+
+0:08:41.040,0:08:49.440
+application. All these are widgets,
+stateful widgets. OK, time to provide some
+
+0:08:49.440,0:08:56.320
+code samples. That was a bit of
+introduction into the architecture. Let's
+
+0:08:56.320,0:09:04.080
+have a look on code. Well,
+congratulations. That's a simple Flutter
+
+0:09:04.080,0:09:09.600
+program. If you write it and you provide a
+declaration of homepage, you should be
+
+0:09:09.600,0:09:16.320
+able to run an application on your mobile
+phone. Yeah. What does it? It executes the
+
+0:09:16.320,0:09:23.280
+main function, calling a method call,
+calling a function called runApp, which
+
+0:09:23.280,0:09:28.880
+runs a Material app. So following the
+Material design known from Android or
+
+0:09:28.880,0:09:40.160
+Chrome OS. OK, but of course, we need to
+implement homepage. Well, let's have a
+
+0:09:40.160,0:09:49.840
+look at a bit more difficult widget.
+[Filler, please remove
+
+0:10:26.000,0:10:26.203
+in amara]
+ 
+*silence*
+
+0:10:26.203,0:10:29.040
+[Filler, please remove in amara]
+ 
+...tell the widget everything it needs to
+
+0:10:29.040,0:10:38.000
+know for building, in our case, we simply
+ 
+return a list type, consisting of an icon
+
+0:10:38.000,0:10:45.840
+and an outline button. The outline button
+ 
+can do anything. It can share a text. So
+
+0:10:45.840,0:10:52.160
+you would see your share on your mobile
+ 
+phone or on the web it would download the
+
+0:10:52.160,0:11:01.760
+text. OK. But why is it stateless and not
+ 
+stateful? Simply because it cannot
+
+0:11:01.760,0:11:10.080
+interact with itself, the widget is unable
+ 
+to change one of its variables, the widget
+
+0:11:10.800,0:11:18.000
+cannot set a timer, it simply could not...
+ 
+if you would tell the widget, well, wait
+
+0:11:18.000,0:11:22.640
+five seconds and do whatever, it would not
+ 
+change the appearance of the widget,
+
+0:11:23.280,0:11:31.920
+because it is once built and afterwards,
+ 
+it has no more... it no longer has the
+
+0:11:31.920,0:11:38.320
+ability to change its appearance or
+ 
+behavior. Only the parenting widget - so,
+
+0:11:38.320,0:11:45.120
+for example, the list we put this
+ 
+scoredetail inside - it could trigger a
+
+0:11:45.120,0:11:54.000
+rebuild of this widget, but not the widget
+ 
+itself. To clarify this point, we'll have
+
+0:11:54.000,0:12:00.560
+a look at a stateful widget. It is a bit
+ 
+shorter, because the stateful widget
+
+0:12:00.560,0:12:06.480
+consists of two classes, state class,
+ 
+that's what you can see over there. And,
+
+0:12:07.360,0:12:13.440
+well, the actual declaration that it is a
+ 
+widget. But the state is much more
+
+0:12:13.440,0:12:22.960
+interesting if we look at it. OK, you
+ 
+first see there are... we first
+
+0:12:22.960,0:12:28.560
+initialized some variables. Afterwards, we
+ 
+have a method called initState. That's
+
+0:12:28.560,0:12:33.840
+something which is being triggered the
+ 
+first time the widget is built, after
+
+0:12:33.840,0:12:41.680
+which we declare another method. And at
+ 
+the end we have our build-method. Yeah,
+
+0:12:41.680,0:12:47.440
+what does or what's the difference from
+ 
+this build-method to the build-method we
+
+0:12:47.440,0:12:56.000
+had in our stateless, which... I hope you
+ 
+can see my point, yeah. We have here, we
+
+0:12:56.000,0:13:02.800
+have an if statement here, a short if
+ 
+statement. So the build method checks
+
+0:13:03.600,0:13:10.160
+whether a variable called testLoaded -
+ 
+that's being declared at the top here -
+
+0:13:10.160,0:13:19.840
+whether it is false or true. And it
+ 
+correspondingly reacts. So if it's true,
+
+0:13:20.880,0:13:26.800
+this view is being displayed and
+ 
+otherwhise a progressindicator is being
+
+0:13:26.800,0:13:35.120
+shown. OK, but well, that's something we
+ 
+could still implement in a stateless
+
+0:13:35.120,0:13:43.040
+widget, but there's another big difference
+ 
+here. We have something which changes
+
+0:13:43.040,0:13:49.840
+something as soon as something happens.
+ 
+What many some things. It's an expansion
+
+0:13:49.840,0:13:54.480
+tile, so a list tile which can be
+ 
+expanded. It's a builtin widget of
+
+0:13:54.480,0:14:03.040
+Flutter. And as soon as it is being
+ 
+opened, it's... a local method is
+
+0:14:03.040,0:14:10.400
+triggered: Here we have this large scale
+ 
+method and that is being triggered. We do
+
+0:14:10.400,0:14:16.160
+not know what it does, but I can tell you,
+ 
+it will load some data from wheresoever
+
+0:14:17.760,0:14:22.320
+and it will change this variable. So
+ 
+afterwards, after this method is being
+
+0:14:22.320,0:14:30.000
+triggered, the test data here will be
+ 
+something different. It will no longer
+
+0:14:30.000,0:14:35.840
+show the progress, but it will show inside
+ 
+a single widget without any communication,
+
+0:14:35.840,0:14:44.640
+without any external stuff, without any
+ 
+JavaScript, getElementById or something
+
+0:14:44.640,0:14:50.560
+like that. The widget simply decides on
+ 
+its own behavior. That's very comfortable,
+
+0:14:50.560,0:15:02.000
+believe me. OK, now we already talked a
+ 
+bit on JavaScript, it's somehow different.
+
+0:15:03.120,0:15:10.160
+Well, Flutter is often being compared to
+ 
+JavaScript using react native. So what's
+
+0:15:10.160,0:15:18.560
+the difference? Well, let's first look on
+ 
+JavaScript. You write an application in
+
+0:15:18.560,0:15:26.960
+JavaScript, you actually have JavaScript
+ 
+and JavaScript is a Web language. Hence,
+
+0:15:26.960,0:15:35.920
+you need a web view or something similar
+ 
+to render anything of your app. That means
+
+0:15:35.920,0:15:43.200
+it consumes an immense amount of memory
+ 
+and CPU power because, well, if you ever
+
+0:15:43.200,0:15:49.040
+used chromium or Firefox on the low-end
+ 
+device, you know that JavaScript can be,
+
+0:15:49.760,0:15:56.320
+well, quite painful. Well, there are
+ 
+highend mobile devices. But if you develop
+
+0:15:56.320,0:16:02.400
+an app, you should always keep in mind
+ 
+that there are mobile devices with much
+
+0:16:02.400,0:16:12.960
+less power and less than two gigabyte of
+ 
+RAM. OK. And if you have Flutter in
+
+0:16:12.960,0:16:19.600
+opposite, you create a native app and you
+ 
+have native code which is being executed
+
+0:16:20.160,0:16:28.240
+beside the Dart virtual machine with
+ 
+almost the same look and feel, you know,
+
+0:16:28.240,0:16:33.600
+from your platform. If you have JavaScript
+ 
+and opposite, you usually have a fancy
+
+0:16:33.600,0:16:38.080
+design you made, which is actually good
+ 
+for web development. But it's usually not
+
+0:16:38.080,0:16:44.080
+exactly the design packed from a mobile
+ 
+device. There are very strict guidelines.
+
+0:16:44.080,0:16:48.667
+If you ask Apple or if you ever published
+ 
+an app to the App Store, you know, there
+
+0:16:48.667,0:16:55.680
+are very strict guidelines at Apple. And
+ 
+at Google there are guidelines as well,
+
+0:16:55.680,0:17:01.120
+but they're not that strict. But if you
+ 
+just use Flutter, you automatically obey
+
+0:17:01.120,0:17:08.880
+these guidelines and produce apps with a
+ 
+native look and feel. And another
+
+0:17:08.880,0:17:16.320
+advantage of Flutter, it's more an
+ 
+advantage in comparison to native native
+
+0:17:16.320,0:17:22.320
+apps, you have the same data and the same
+ 
+code on the same on all your platforms.
+
+0:17:24.000,0:17:28.640
+Yeah, because if you write native
+ 
+applications, well, you have two code
+
+0:17:28.640,0:17:32.160
+bases and the applications behaves
+ 
+differently on all platforms. And if you
+
+0:17:32.160,0:17:36.800
+have Flutter, you have one code base for
+ 
+all your platforms and obviously it
+
+0:17:36.800,0:17:42.160
+behaves the same way on all platforms.
+ 
+That's much easier for your users if they
+
+0:17:42.160,0:17:50.240
+should ever change their device. Yeah, and
+ 
+the major point I already mentioned at the
+
+0:17:50.240,0:17:59.520
+first point, there is almost no loss of
+ 
+performance. Yeah. So Flutter is actually
+
+0:17:59.520,0:18:07.040
+a very good framework for creating apps
+ 
+for Android, IOS, desktops such as
+
+0:18:07.040,0:18:17.440
+Windows, Mac OS - Linux is unfortunately
+ 
+not supported - or even webpages. OK.
+
+0:18:19.040,0:18:26.880
+Yeah. And at that point, I want to thank
+ 
+you for your the attention of this talk.
+
+0:18:28.560,0:18:33.440
+Feel free to attend my next talk on
+ 
+Flutter. Tomorrow I will give an advanced
+
+0:18:33.440,0:18:39.360
+view on cross-platform development using
+ 
+Flutter. We will focus on animations and
+
+0:18:39.360,0:18:46.720
+the way Flutter works under the hood. Now
+ 
+there should be an online Q&A. Thank you
+
+0:18:46.720,0:18:56.840
+for your attention!
+ 
+Herald:
+
+0:18:59.760,0:19:04.720
+Hello, this was the lecture by the
+one with the braid about Flutter and we
+
+0:19:04.720,0:19:10.880
+are now switching to a small Q&A session
+here. There has been exactly one question
+
+0:19:10.880,0:19:19.280
+in the IRC. You can ask questions by the
+hashtag rC3Wikipaka and in the rC3Wikipaka
+
+0:19:19.280,0:19:23.840
+IRC channel on hackend. There's been one
+question, which is: What is the main
+
+0:19:23.840,0:19:29.520
+feature of Flutter, which lets me decide
+for it instead of, for example, react
+
+0:19:29.520,0:19:51.840
+native? Could you answer that question?
+*(incomprehensible)*
+
+0:20:01.440,0:20:06.480
+Herald: The one with the braid, we've got
+problems with your sound. We can't receive
+
+0:20:06.480,0:20:09.840
+you by ninja, only by our backshell.
+
+0:20:24.960,0:20:25.520
+And
+now
+
+0:20:25.520,0:20:28.954
+they're gone. Here we are again.
+ 
+The one with the braid: Can you hear me
+
+0:20:28.954,0:20:30.080
+again?
+ 
+- Yeah, we can hear you now.
+
+0:20:30.080,0:20:36.240
+- OK, perfect. Well, the question was,
+ 
+what could convince someone to use
+
+0:20:36.240,0:20:42.640
+Flutter? I would say the main advantage,
+ 
+the principal advantage of Flutter is the
+
+0:20:42.640,0:20:49.360
+performance and the native-like
+ 
+applications you get. If you use Flutter,
+
+0:20:49.360,0:20:55.360
+you get native design of the operating
+ 
+system you run on and you have no lack of
+
+0:20:55.360,0:21:02.320
+performance. That's the main difference to
+ 
+JavaScript, for example. So you act
+
+0:21:02.320,0:21:06.080
+native.
+ 
+Herald: Would you consider yourself to be
+
+0:21:06.080,0:21:09.920
+a flutter fan or aficionado?
+ 
+The one with the braid: Oh, yeah, I'm a
+
+0:21:09.920,0:21:12.040
+huge fan of Flutter.
+ 
+-
+
+0:21:12.960,0:21:17.920
+OK, we can tell that. You do have other
+talks about Flutter in the coming days,
+
+0:21:17.920,0:21:25.200
+don't you?
+- Yes, tomorrow at 12 o'clock, there is a
+
+0:21:25.200,0:21:31.440
+second talk on Flutter - advanced cross-
+platform development using Flutter. We
+
+0:21:31.440,0:21:38.320
+will focus on Animations and on the way
+the engine, so the underlying engine of
+
+0:21:38.320,0:21:43.120
+Flutter works.
+Herald: Alright, there's been another
+
+0:21:43.120,0:21:47.760
+question in the meantime here, again by
+hanswurst10. React native also gives you
+
+0:21:47.760,0:21:50.400
+native components and design, etc. Isn't
+that true?
+
+0:21:50.400,0:21:54.960
+The one with the braid: Yeah, it's true.
+But well, I would call the Flutter
+
+0:21:54.960,0:22:01.600
+components more native. They are built 100
+percent according to the style-guidelines
+
+0:22:02.160,0:22:09.280
+of the operating systems. If you use
+Material patterns, they are 100 percent
+
+0:22:10.320,0:22:17.200
+Material. So as you know them from your
+Android phone, for example. And I noticed
+
+0:22:17.200,0:22:23.360
+in react native, you sometimes have
+issues... not issues, but some components
+
+0:22:23.360,0:22:31.200
+do not properly look exactly the way they
+should look, and they often do not look
+
+0:22:31.200,0:22:38.480
+the way the users expect them to look.
+Herald: Alright, thanks for the answers to
+
+0:22:38.480,0:22:43.040
+the questions, there have been some more
+detailed questions as a follow up on the
+
+0:22:43.040,0:22:50.320
+IRC, but I've posted in the IRC a link
+where you can all join into for a little
+
+0:22:50.320,0:22:54.400
+BigBlueButton session, where you can go
+into more detail exchange. The one with
+
+0:22:54.400,0:22:58.480
+the braid, thank you so much for your
+input. This has been the first broadcast
+
+0:22:58.480,0:23:04.160
+of the day and of RC3, and we will
+continue to follow up with a little break
+
+0:23:04.160,0:23:09.440
+and continue our program at Sixteen
+Hundred Central European Time. Thank you.
+
+0:23:09.440,0:23:21.840
+- OK, see you.
+- Bye bye.
+
+0:23:21.840,0:23:24.809
+*wikipaka outro music*
+[Filler, please remove in amara]
+
+0:23:24.809,0:23:28.494
+Subtitles created by c3subtitles.de
+in the year 2021. Join, and help us!

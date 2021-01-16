@@ -1,0 +1,704 @@
+﻿*rC3 Wikipaka intro music*
+[Filler, please remove in amara]
+
+Léa: Hi, everyone, I'm Léa. Here's
+Mohammed, and we're going to introduce you
+
+to Wikidata today.
+Mohammed: Yes, hi everyone. So in the
+
+course of the talk, if you do have a
+question, just feel free to ask them in a
+
+chat. And then we are going to try and
+answer them at the end of the talk. Yes.
+
+So let's dive straight in. What is
+Wikidata? Wikidata is a free knowledge
+
+base that is based on facts and references
+that anyone can edit and reuse. It is part
+
+of the Wikimedia projects. And like all of
+us, to start open projects, Wikipedia is
+
+multilingual and has no language barriers.
+Data in Wikidata is released under CC0
+
+license. That means Wikidata's data is in
+the public domain and it has no exclusive
+
+intellectual property rights that is
+applied to it. Wikidata is not a primary
+
+source of information. It only aggregates
+or collects structured data that is
+
+already available, some of which are links
+to other databases. So it is not meant to
+
+be a place for original research. Wikidata
+is made for humans and machines, and is
+
+available for everyone to use, whether on
+other Wikimedia projects or outside of it.
+
+Next slide. So what is in the Wikidata?
+Wikidata was launched some eight years ago
+
+and was originally created to solve the
+problem of unstructuredness in the plain
+
+text format that information in Wikipedia
+is rendered in, and also to provide a
+
+central storage location where all of the
+different language Wikipedias can connect
+
+and talk to each other. Today, Wikidata
+has since outgrown its intended purpose
+
+and has become so big and successful that
+it is not only, you know, the most edited
+
+Wikimedia projects, Wikidata's data is now
+used more outside of the project than
+
+within it. There are more than 25,000
+active editors. That means people who make
+
+at least one edit every month. Wikidata
+has used across 800+ Wikimedia projects in
+
+more than 300 languages. And it's
+interesting to note that the largest
+
+proportion of Wikidata's items are in the
+category of scholarly items comprising
+
+about 30% of the whole. Next slide. So
+far, people and bots have made more than
+
+1.3 billion edits to Wikidata and created
+more than 91 million items. This map you
+
+see here is a visual impression of
+geolocated items currently existing on
+
+Wikidata. So, the bright areas are items
+that have coordinates, location property
+
+added as a statement. Next slide. So
+Wikidata has a vision, and what is this
+
+vision? Wikidata's vision is to give more
+people more access to more knowledge. So
+
+Wikidata gives access to information,
+regardless of the language that people
+
+speak, because Wikidata is multilingual,
+it expects translations of so-called Q
+
+numbers into different languages. And so
+doing Wikidata helps us support the
+
+smaller Wikimedia projects better, you
+know, by helping them to benefit from all
+
+of the work that the bigger projects are
+doing. And applications and projects
+
+outside of Wikimedia are also able to
+benefit from the linked datasets in
+
+Wikidata. So in a nutshell, Wikidata can
+be thought of as an online repository of
+
+structured data that anyone can edit and
+reuse. Next slide. OK, now, how is
+
+Wikidata connected to Wikipedia and other
+Wikimedia project? Among other things,
+
+Wikidata can assist the sister projects
+with more easily maintainable infoboxes.
+
+So the table at the right corner of this
+article on Wikipedia is called an infobox,
+
+which I'm sure you've seen before, and
+Wikidata is able to retrieve content on
+
+Wikidata into those infoboxes [distorted].
+And for smaller language Wikipedias like,
+
+you know, Catalan Wikipedia or Welsh
+Wikipedia that, that readily leverages
+
+Wikidata to see their content. And it is
+helpful because it's, it helps to reduce
+
+editing workload for volunteers. Next
+slide. So what should we expect to see on
+
+a typical Wikidata item? Wikidata
+expresses relationships in the form of
+
+triples that use items starting with "Q"
+and property starting with "P", OK, and
+
+the item will typically be made up of at
+least one statement. So in this example
+
+you see on the screen we have two
+statements about an entity called Douglas
+
+Adams. The first statement, Douglas Adams
+was educated at P69 St John's College.
+
+What this means is that this statement is
+qualified by further properties. That is
+
+the academic major, academic degree, the
+start time and then the end time and
+
+qualifiers add more meaning to statements.
+So Wikidata records not just statements,
+
+but also their sources. And as you can see
+here, this helps us to reflect the notion
+
+of verifiability on the project so that
+statements Douglas Adams was educated at
+
+St. John's College has two open references
+that points to the source of that
+
+information. And the second statement,
+Douglas Adams, Q42, was educated at P69,
+
+Brentwood School, only has the qualifiers
+start time and end time, and it has no
+
+references, so a single statement consists
+of a property that is made up of a value
+
+with or without a reference or with or
+without qualifiers. Next slide. So a
+
+typical Wikidata item looks like this, and
+you can edit by clicking on the edit
+
+button, it has this pen symbol with edit
+next to it. As you can see, each item has
+
+a unique ID that is Q followed by some
+number. In this case, the item Douglas
+
+Adams has QID of Q42. And when you look at
+the top, there's a termbox. We call it, we
+
+call it the termbox at the top, at the
+top, that contains the label in different
+
+languages. A description of the items that
+is more of a short phrase telling us what
+
+the item represents. It's says here in
+English that Douglas Adams is an English
+
+writer and humorist. Then there is the
+alias next to the description which, aside
+
+from the label, tells us what the item
+could also be known by here. Next slide.
+
+So, creating a new item is as simple as
+going to any page on Wikidata and clicking
+
+on create a new item. And once you click
+on create a new item, you get to fill in
+
+the form that is asking for a label,
+description and an alias and QIDs are
+
+assigned automatically. Next slide. Next
+slide. Next slide, please. Alright, so
+
+there are tools that allow us to edit
+Wikidata more efficiently and make bulk
+
+edits to Wikidata, such as Quick
+Statements and OpenRefine. This goes to
+
+the previous slide. OK, yeah, right, so,
+yeah, Quick Statements and OpenRefine
+
+allow us to make automated edits and
+changes to Wikidata. Other tools are
+
+available that allow us to visualize
+Wikidata's data. Some of them enhances the
+
+user interface of Wikidata, and these
+could include scripts that editors can
+
+install or they could be gadgets that may
+be enabled in your preferences settings.
+
+Next slide.
+Léa: Alright. So, um, so far, Mohammed
+
+told you about how we describe concepts in
+Wikidata, and that's what we've been doing
+
+for the first years of the project, but in
+2018, we also started storing a new type
+
+of information in Wikidata, which is
+lexicographical data, which is basically
+
+information about words and phrases in all
+kinds of languages. And so you see on the
+
+left the data model that is a bit complex
+and that's why I'm not going to get too
+
+much into details now but we can talk
+about this later. And you can see an
+
+example on the right where we basically
+describe the word "Luftballon" in German
+
+and we indicate the language, the lexical
+category and all kind of informations that
+
+are not about the object any more, but
+actually about the word and how it's
+
+composed of two words, as we like to do in
+German and things like this. So, again, if
+
+you want to know more about this, you can
+have a look at lexicographical data in
+
+Wikidata or we can talk about it together
+later in the questions, for example. So
+
+Wikidata doesn't come alone, it comes with
+a bunch of tools that have been, some of
+
+them have been developed by the
+development team of Wikidata, some of them
+
+have been developed by the community
+themselves in order to do things more
+
+efficiently. That can be, for example,
+adding data and some of the tools have
+
+already been mentioned by Mohammed, that
+can also be matching data with all the
+
+databases, querying the data, reusing the
+data. There are also a bunch of tools that
+
+are about watching the data and watching
+its quality, watching what edits have been
+
+done recently and so on. And you can find
+the page that is called Wikidata Tools on
+
+Wikidata to discover plenty of these tools
+and you can, of course, create your own.
+
+So we mentioned that the goal of Wikidata
+is to be reused by everyone, but you may
+
+wonder who is actually reusing the data.
+Well, the first reusers of Wikidata's data
+
+is actually the Wikidata community itself,
+the Wikidata editors, because all of these
+
+items are connected. So one item can be
+linked from another, the content of one
+
+item can be reused on another and so on.
+The Wikimedia project such as Wikipedia,
+
+but not only. Wikimedia Commons,
+Wikisource, almost all of the Wikimedia
+
+projects at that point reuse part of the
+data that is coming from Wikidata, and
+
+then we have companies, from the biggest
+ones to the small ones because the data is
+
+in CC0 everyone can just reuse the content
+that they need. We have, of course, public
+
+institutions such as museums, libraries
+and so on. We also have journalists and,
+
+for example, data journalists. We have
+scientists and researchers and probably
+
+much more. And the thing is that we don't
+necessarily know who's reusing the data
+
+because it's here in the open but there
+are probably many usages that we don't
+
+even imagine. So if you're using Wikidata,
+or if you would like to use Wikidata's
+
+data, let us know, because we are always
+interested to discover more. Now, the
+
+question is: How can one reuse Wikidata?
+I'm going to present very quickly one of
+
+the most popular way to query the data.
+I'm not going to get into details right
+
+now because there will actually be a
+workshop at the conference in two days on
+
+day three about the query service so I'm
+gonna let you go there and discover more
+
+about how to use it. The query service is
+basically a SPARQL endpoint, SPARQL being
+
+a query language where you can basically
+ask questions to Wikidata and get lists or
+
+visualizations as a result. For example,
+here's the map of the airports of the
+
+world named after the person and the color
+of the dot, it represent the gender of the
+
+person. Or you can make a list of country
+flags that are including a sun, because if
+
+the data is properly modeled in Wikidata,
+you're able to describe, what are the
+
+different elements that compose a country
+flag? Or you can have this bubble charts
+
+with the occupation of accused witches,
+because why not? That's the kind of data
+
+we have in Wikidata. Now, there are other
+ways, of course, to query the data, I'm
+
+not going to get into details right now,
+but if you want to talk more about this,
+
+you can, for example, join the Wikidata
+meetups that are gonna happen tomorrow. We
+
+have dumps of the data where you can
+download part of or all of the data in a
+
+file. We have a bunch of APIs to access
+the data directly from your program. And
+
+on a Wikimedia project specifically, the
+community developed a bunch of templates
+
+that are using Wikidata's data using Lua.
+And now for something a bit different,
+
+Wikibase. You may have heard of it and you
+may even have wondered, OK, what's the
+
+difference between Wikibase and Wikidata?
+Well, Wikibase is basically the software
+
+powering Wikidata and, more precisely, the
+MediaWiki extension that is turning
+
+MediaWiki into a database. And so,
+Wikibase was started to power Wikidata
+
+but it also started developing on its own.
+Wikidata is still for now the biggest
+
+existing Wikibase instance, but people can
+also install Wikibase directly on their
+
+server and basically create their own
+little personal or public Wikidata. And
+
+the development is still ongoing, there
+are all kind of super exciting features
+
+coming up soon. And, for example, the
+ability to connect better Wikidata and
+
+your own instance of Wikibase, for
+example, to be able to reuse data that is
+
+already in Wikidata and to connect it to
+the data that you have in your own
+
+Wikibase. So, if you're interested in
+Wikidata, if you want to know more, there
+
+are a bunch of pages that you can find.
+There is a help portal, the Project Chat
+
+is the main discussion page on the wiki
+where you can interact with the other
+
+editors, the community. It's super
+important to get in touch with them if you
+
+want to get started with Wikidata. We also
+have a mailing list. We have a newsletter
+
+that is called Weekly Summary that you can
+find on wiki but also if you subscribe to
+
+the mailing list, you will also receive
+it. And then we have some accounts in the
+
+social media, on Twitter, there is a
+Facebook group, there is a Telegram, um,
+
+that is linked from the Project Chat and
+there is also an IRC channel. So you can
+
+basically find people from the Wikidata
+community everywhere. So we are
+
+approaching the end of the session, but
+it's not done, we have more Wikidata
+
+related sessions at the c3 in the
+Wikipaka. So, for example, tomorrow you're
+
+going to get an introduction to Wikidata,
+specifically for journalists and
+
+especially data journalists. Then in the
+afternoon, we're gonna have two Wikidata
+
+meetups. The first one is gonna be in
+German. The second one is gonna be in
+
+English. So depending on your preferred
+language, you can attend one or the other
+
+or both, and on day three, as I mentioned
+before, we're going to have a workshop to
+
+learn how to query Wikidata's data with
+SPARQL. So feel free to have a look and
+
+check them also in the main schedule of
+Wikipaka. Thank you very much for
+
+attending this session. These are our
+contact details if you want to, to contact
+
+us. And of course, you can now ask
+questions, as we mentioned in the chat or
+
+with the hashtag. And we will be very
+happy to answer all your questions right
+
+now.
+Herald: Thank you for your input and the
+
+overview about Wikidata. There has been a
+few question or questions already answered
+
+by Joel in the IRC channel. One was about
+the big dump of scholarly data and what
+
+scholarly data is and how this came to be
+in Wikidata. But there is one more
+
+question from the chat right now Till asks
+can I add new types of data that are not
+
+yet tracked in Wikidata?
+Léa: So I'm wondering, what do you mean
+
+exactly by type of data? Maybe you can
+give a bit more details because that can
+
+mean a lot of things. Wikidata, the data
+model of Wikidata is very flexible and
+
+it's absolutely not set in stone. Every,
+every week the community comes up with
+
+some new ways to describe things.
+Sometimes we realize that there is an area
+
+of the world that we completely forgot to
+cover, and then we create new properties
+
+to describe, for example, a certain type
+of, I don't know, of concept, certain type
+
+of building or objects that we or
+philosophical concept that we didn't
+
+describe yet. So this is always in
+movement, in action. When it comes to what
+
+we actually call data types, which is, for
+example, a string of text or a date or a
+
+picture, we have all kind of data types
+like this, this is a bit more complicated
+
+and overall, it's quite rare that we add a
+new data type and it needs a strong, like,
+
+use case so we add that to the software. I
+hope that it answer your question and if I
+
+didn't, feel free to ask again.
+Herald: Yeah, we've got a feedback. The
+
+example Till meant was, there's a, there's
+an organization or a project called
+
+Parliamentwatch in Germany. There was one
+talk earlier today where they try to track
+
+and scrape and analyze the parliamentary
+protocols. And one big issue they had was
+
+with structural data about all the members
+of parliament and how they are organized
+
+and stuff like that. And, um, well, if I
+remember correctly, there actually was a
+
+project that tried to include the
+structural data of of members of
+
+parliament in Wikidata, if I'm not
+mistaken.
+
+Herald: Absolutely. It's a WikiProject
+that is called, um, something politicians,
+
+all politicians. I don't remember the
+exact name right now, but indeed. Some
+
+people are already working on members of
+parliaments and, like, political people in
+
+general. So it's very likely that there is
+already a way to structure the data. The
+
+best way is to contact the people directly
+involved on this, on this WikiProject.
+
+WikiProjects, by the way, are pages where
+basically people who have a specific topic
+
+of interest gather and can discuss about
+the specific questions about the topic.
+
+Um, so have a look at this, at this
+project about politics and, um, yeah. Try
+
+to see if, if anything is missing, but
+generally Wikidata definitely welcome
+
+information about about politicians, about
+member of parliaments, this kind of stuff.
+
+What we do not do, however, is store the
+full, like, documents, for example, in
+
+that case, the reports or the documents,
+that belongs elsewhere. Maybe on Wikimedia
+
+Commons, for example, if it's possible, if
+the license allows it. But on Wikidata,
+
+we'll be happy to store the metadata about
+them.
+
+Herald: Alright, Joel just posted the link
+to the WikiProject, Every Politician, so
+
+if anybody looks for Every Politician on
+Wikidata, they will find the project. So
+
+basically, the bottom line is pretty much
+anything is possible in Wikidata, right?
+
+Léa: Yeah, thank you Joel, and hi. Almost
+everything. So on Wikidata, just like on
+
+Wikipedia, we still have some criteria to
+define what can get in Wikidata and what
+
+not, because we are aware that this
+knowledge base, it needs to stay quite
+
+general and it cannot contain absolutely
+everything. For example, the community
+
+decided a while ago that they would not
+create one item for each human living or
+
+who used to live on Earth, that's just not
+possible, so there are some notability
+
+criteria that you can find in the help
+pages and I would say that the level of,
+
+like, how fine-grained data should be has
+to be discussed with the community and the
+
+good thing about having Wikibase also
+available as a separate instance of
+
+Wikidata is that if some people want to
+work on a topic where they have some
+
+information that is very, very specific
+and would maybe not fit the scope of
+
+Wikidata, they can create their own
+Wikibase and then they can connect the
+
+content with what is already in Wikidata.
+So altogether, in this Wikibase ecosystem,
+
+yes, pretty much everything is possible.
+Herald: Well, the future is certainly
+
+here, at least, with Wikidata. Thank you
+again, Léa and Mohammed, for your
+
+insightful introduction to Wikidata and
+we're looking forward to more people
+
+joining you in your efforts. Thanks for
+your presentation.
+
+Léa: Thank you. See you soon.
+[Filler, please remove in amara]
+
+*rC3 Wikipaka outro music*
+[Filler, please remove in amara]
+
+Subtitles created by c3subtitles.de
+in the year 2021. Join, and help us!

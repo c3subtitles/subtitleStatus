@@ -1,0 +1,1069 @@
+0:00:12.360,0:00:15.473
+﻿*rC3 Wikipaka intro music*
+[Filler, please remove in amara]
+
+0:00:15.473,0:00:20.560
+Léa: Hi, everyone, I'm Léa. Here's
+Mohammed, and we're going to introduce you
+
+0:00:20.560,0:00:23.160
+to Wikidata today.
+Mohammed:
+
+0:00:27.520,0:00:32.240
+Yes, hi everyone. So in the
+ 
+course of the talk, if you do have a
+
+0:00:32.240,0:00:37.120
+question, just feel free to ask them in a
+ 
+chat. And then we are going to try and
+
+0:00:37.120,0:00:46.960
+answer them at the end of the talk. Yes.
+ 
+So let's dive straight in. What is
+
+0:00:46.960,0:00:50.720
+Wikidata? Wikidata is a free knowledge
+ 
+base that is based on facts and references
+
+0:00:50.720,0:00:57.120
+that anyone can edit and reuse. It is part
+ 
+of the Wikimedia projects. And like all of
+
+0:00:57.120,0:01:02.080
+us, to start open projects, Wikipedia is
+ 
+multilingual and has no language barriers.
+
+0:01:03.360,0:01:08.720
+Data in Wikidata is released under CC0
+ 
+license. That means Wikidata's data is in
+
+0:01:08.720,0:01:14.160
+the public domain and it has no exclusive
+ 
+intellectual property rights that is
+
+0:01:14.160,0:01:21.440
+applied to it. Wikidata is not a primary
+ 
+source of information. It only aggregates
+
+0:01:21.440,0:01:26.000
+or collects structured data that is
+ 
+already available, some of which are links
+
+0:01:26.000,0:01:32.400
+to other databases. So it is not meant to
+ 
+be a place for original research. Wikidata
+
+0:01:32.400,0:01:37.280
+is made for humans and machines, and is
+ 
+available for everyone to use, whether on
+
+0:01:37.280,0:01:47.120
+other Wikimedia projects or outside of it.
+ 
+Next slide. So what is in the Wikidata?
+
+0:01:48.640,0:01:54.880
+Wikidata was launched some eight years ago
+ 
+and was originally created to solve the
+
+0:01:54.880,0:01:59.200
+problem of unstructuredness in the plain
+ 
+text format that information in Wikipedia
+
+0:01:59.200,0:02:04.240
+is rendered in, and also to provide a
+ 
+central storage location where all of the
+
+0:02:04.240,0:02:09.520
+different language Wikipedias can connect
+ 
+and talk to each other. Today, Wikidata
+
+0:02:09.520,0:02:14.240
+has since outgrown its intended purpose
+ 
+and has become so big and successful that
+
+0:02:15.520,0:02:21.600
+it is not only, you know, the most edited
+ 
+Wikimedia projects, Wikidata's data is now
+
+0:02:21.600,0:02:28.160
+used more outside of the project than
+ 
+within it. There are more than 25,000
+
+0:02:28.160,0:02:34.640
+active editors. That means people who make
+ 
+at least one edit every month. Wikidata
+
+0:02:34.640,0:02:40.720
+has used across 800+ Wikimedia projects in
+ 
+more than 300 languages. And it's
+
+0:02:40.720,0:02:45.600
+interesting to note that the largest
+ 
+proportion of Wikidata's items are in the
+
+0:02:45.600,0:02:51.680
+category of scholarly items comprising
+ 
+about 30% of the whole. Next slide.
+
+0:02:56.320,0:02:56.880
+So
+far,
+
+0:02:57.760,0:03:02.960
+people and bots have made more than
+ 
+1.3 billion edits to Wikidata and created
+
+0:03:03.760,0:03:08.880
+more than 91 million items. This map you
+ 
+see here is a visual impression of
+
+0:03:08.880,0:03:16.400
+geolocated items currently existing on
+ 
+Wikidata. So, the bright areas are items
+
+0:03:16.400,0:03:21.600
+that have coordinates, location property
+ 
+added as a statement. Next slide.
+
+0:03:26.480,0:03:29.920
+So
+Wikidata has a vision, and what is this
+
+0:03:29.920,0:03:37.600
+vision? Wikidata's vision is to give more
+people more access to more knowledge. So
+
+0:03:37.600,0:03:42.080
+Wikidata gives access to information,
+regardless of the language that people
+
+0:03:42.080,0:03:49.040
+speak, because Wikidata is multilingual,
+it expects translations of so-called Q
+
+0:03:49.040,0:03:54.000
+numbers into different languages. And so
+doing Wikidata helps us support the
+
+0:03:54.000,0:04:00.000
+smaller Wikimedia projects better, you
+know, by helping them to benefit from all
+
+0:04:00.000,0:04:04.240
+of the work that the bigger projects are
+doing. And applications and projects
+
+0:04:04.240,0:04:08.080
+outside of Wikimedia are also able to
+benefit from the linked datasets in
+
+0:04:08.080,0:04:15.600
+Wikidata. So in a nutshell, Wikidata can
+be thought of as an online repository of
+
+0:04:15.600,0:04:20.080
+structured data that anyone can edit and
+reuse. Next slide.
+
+0:04:22.960,0:04:28.000
+OK, now, how is
+ 
+Wikidata connected to Wikipedia and other
+
+0:04:28.000,0:04:33.040
+Wikimedia project? Among other things,
+ 
+Wikidata can assist the sister projects
+
+0:04:33.040,0:04:38.560
+with more easily maintainable infoboxes.
+ 
+So the table at the right corner of this
+
+0:04:38.560,0:04:43.280
+article on Wikipedia is called an infobox,
+ 
+which I'm sure you've seen before, and
+
+0:04:43.280,0:04:48.240
+Wikidata is able to retrieve content on
+ 
+Wikidata into those infoboxes [distorted].
+
+0:04:53.200,0:04:59.600
+And for smaller language Wikipedias like,
+ 
+you know, Catalan Wikipedia or Welsh
+
+0:04:59.600,0:05:06.080
+Wikipedia that, that readily leverages
+ 
+Wikidata to see their content. And it is
+
+0:05:06.080,0:05:11.120
+helpful because it's, it helps to reduce
+ 
+editing workload for volunteers.
+
+0:05:11.920,0:05:12.560
+Next
+slide.
+
+0:05:16.800,0:05:21.040
+So what should we expect to see on
+ 
+a typical Wikidata item?
+
+0:05:23.040,0:05:26.240
+Wikidata
+expresses relationships in the form of
+
+0:05:26.240,0:05:35.760
+triples that use items starting with "Q"
+and property starting with "P", OK, and
+
+0:05:35.760,0:05:40.720
+the item will typically be made up of at
+least one statement. So in this example
+
+0:05:40.720,0:05:44.960
+you see on the screen we have two
+statements about an entity called Douglas
+
+0:05:44.960,0:05:53.680
+Adams. The first statement, Douglas Adams
+was educated at P69 St John's College.
+
+0:05:54.720,0:05:59.440
+What this means is that this statement is
+qualified by further properties. That is
+
+0:05:59.440,0:06:06.320
+the academic major, academic degree, the
+start time and then the end time and
+
+0:06:06.320,0:06:13.040
+qualifiers add more meaning to statements.
+So Wikidata records not just statements,
+
+0:06:13.040,0:06:19.200
+but also their sources. And as you can see
+here, this helps us to reflect the notion
+
+0:06:19.200,0:06:26.320
+of verifiability on the project so that
+statements Douglas Adams was educated at
+
+0:06:26.320,0:06:31.440
+St. John's College has two open references
+that points to the source of that
+
+0:06:31.440,0:06:38.640
+information. And the second statement,
+Douglas Adams, Q42, was educated at P69,
+
+0:06:38.640,0:06:46.800
+Brentwood School, only has the qualifiers
+start time and end time, and it has no
+
+0:06:46.800,0:06:53.120
+references, so a single statement consists
+of a property that is made up of a value
+
+0:06:53.680,0:07:01.840
+with or without a reference or with or
+without qualifiers. Next slide.
+
+0:07:06.960,0:07:07.840
+So a
+ 
+typical
+
+0:07:07.840,0:07:12.000
+Wikidata item looks like this, and
+you can edit by clicking on the edit
+
+0:07:12.000,0:07:17.520
+button, it has this pen symbol with edit
+next to it. As you can see, each item has
+
+0:07:17.520,0:07:23.520
+a unique ID that is Q followed by some
+number. In this case, the item Douglas
+
+0:07:23.520,0:07:32.240
+Adams has QID of Q42. And when you look at
+the top, there's a termbox. We call it, we
+
+0:07:32.240,0:07:36.960
+call it the termbox at the top, at the
+top, that contains the label in different
+
+0:07:36.960,0:07:43.680
+languages. A description of the items that
+is more of a short phrase telling us what
+
+0:07:43.680,0:07:48.480
+the item represents. It's says here in
+English that Douglas Adams is an English
+
+0:07:48.480,0:07:53.760
+writer and humorist. Then there is the
+alias next to the description which, aside
+
+0:07:53.760,0:08:00.880
+from the label, tells us what the item
+could also be known by here. Next slide.
+
+0:08:05.040,0:08:09.760
+So, creating a new item is as simple as
+
+0:08:09.760,0:08:18.240
+going to any page on Wikidata and clicking
+ 
+on create a new item. And once you click
+
+0:08:18.240,0:08:22.640
+on create a new item, you get to fill in
+ 
+the form that is asking for a label,
+
+0:08:22.640,0:08:29.280
+description and an alias and QIDs are
+ 
+assigned automatically. Next slide.
+
+0:08:35.680,0:08:39.840
+Next
+slide.
+
+0:08:44.320,0:08:45.280
+Next slide, please.
+
+0:08:51.280,0:08:54.480
+Alright, so
+ 
+there are tools that allow us to edit
+
+0:08:54.480,0:08:58.960
+Wikidata more efficiently and make bulk
+ 
+edits to Wikidata, such as
+
+0:09:00.320,0:09:02.240
+Quick
+Statements and OpenRefine.
+
+0:09:05.600,0:09:07.840
+This goes to
+ 
+the previous slide.
+
+0:09:14.800,0:09:19.840
+OK, yeah, right, so,
+yeah, Quick Statements and OpenRefine
+
+0:09:19.840,0:09:26.000
+allow us to make automated edits and
+changes to Wikidata. Other tools are
+
+0:09:26.000,0:09:31.600
+available that allow us to visualize
+Wikidata's data. Some of them enhances the
+
+0:09:31.600,0:09:36.720
+user interface of Wikidata, and these
+could include scripts that editors can
+
+0:09:36.720,0:09:41.200
+install or they could be gadgets that may
+be enabled in your preferences settings.
+
+0:09:41.840,0:09:55.680
+Next slide.
+Léa: Alright. So, um, so far, Mohammed
+
+0:09:55.680,0:10:02.080
+told you about how we describe concepts in
+Wikidata, and that's what we've been doing
+
+0:10:02.080,0:10:09.360
+for the first years of the project, but in
+2018, we also started storing a new type
+
+0:10:09.360,0:10:14.720
+of information in Wikidata, which is
+lexicographical data, which is basically
+
+0:10:14.720,0:10:23.200
+information about words and phrases in all
+kinds of languages. And so you see on the
+
+0:10:23.200,0:10:28.240
+left the data model that is a bit complex
+and that's why I'm not going to get too
+
+0:10:28.240,0:10:32.240
+much into details now but we can talk
+about this later. And you can see an
+
+0:10:32.240,0:10:37.840
+example on the right where we basically
+describe the word "Luftballon" in German
+
+0:10:37.840,0:10:42.400
+and we indicate the language, the lexical
+category and all kind of informations that
+
+0:10:42.400,0:10:46.880
+are not about the object any more, but
+actually about the word and how it's
+
+0:10:46.880,0:10:56.160
+composed of two words, as we like to do in
+German and things like this. So, again, if
+
+0:10:56.160,0:10:59.680
+you want to know more about this, you can
+have a look at lexicographical data in
+
+0:10:59.680,0:11:08.160
+Wikidata or we can talk about it together
+later in the questions, for example. So
+
+0:11:08.160,0:11:14.080
+Wikidata doesn't come alone, it comes with
+a bunch of tools that have been, some of
+
+0:11:14.080,0:11:17.440
+them have been developed by the
+development team of Wikidata, some of them
+
+0:11:17.440,0:11:22.000
+have been developed by the community
+themselves in order to do things more
+
+0:11:22.000,0:11:26.720
+efficiently. That can be, for example,
+adding data and some of the tools have
+
+0:11:26.720,0:11:31.280
+already been mentioned by Mohammed, that
+can also be matching data with all the
+
+0:11:31.280,0:11:36.640
+databases, querying the data, reusing the
+data. There are also a bunch of tools that
+
+0:11:36.640,0:11:43.440
+are about watching the data and watching
+its quality, watching what edits have been
+
+0:11:43.440,0:11:48.320
+done recently and so on. And you can find
+the page that is called Wikidata Tools on
+
+0:11:48.320,0:11:55.840
+Wikidata to discover plenty of these tools
+and you can, of course, create your own.
+
+0:11:59.120,0:12:03.920
+So we mentioned that the goal of Wikidata
+is to be reused by everyone, but you may
+
+0:12:03.920,0:12:10.320
+wonder who is actually reusing the data.
+Well, the first reusers of Wikidata's data
+
+0:12:10.320,0:12:16.160
+is actually the Wikidata community itself,
+the Wikidata editors, because all of these
+
+0:12:16.160,0:12:22.480
+items are connected. So one item can be
+linked from another, the content of one
+
+0:12:22.480,0:12:28.400
+item can be reused on another and so on.
+The Wikimedia project such as Wikipedia,
+
+0:12:28.400,0:12:33.440
+but not only. Wikimedia Commons,
+Wikisource, almost all of the Wikimedia
+
+0:12:33.440,0:12:39.840
+projects at that point reuse part of the
+data that is coming from Wikidata, and
+
+0:12:39.840,0:12:49.040
+then we have companies, from the biggest
+ones to the small ones because the data is
+
+0:12:49.040,0:12:55.440
+in CC0 everyone can just reuse the content
+that they need. We have, of course, public
+
+0:12:55.440,0:13:01.840
+institutions such as museums, libraries
+and so on. We also have journalists and,
+
+0:13:01.840,0:13:07.600
+for example, data journalists. We have
+scientists and researchers and probably
+
+0:13:07.600,0:13:11.680
+much more. And the thing is that we don't
+necessarily know who's reusing the data
+
+0:13:11.680,0:13:16.800
+because it's here in the open but there
+are probably many usages that we don't
+
+0:13:16.800,0:13:21.200
+even imagine. So if you're using Wikidata,
+or if you would like to use Wikidata's
+
+0:13:21.200,0:13:24.720
+data, let us know, because we are always
+interested to discover more.
+
+0:13:26.880,0:13:31.600
+Now, the
+ 
+question is: How can one reuse Wikidata?
+
+0:13:31.600,0:13:36.080
+I'm going to present very quickly one of
+ 
+the most popular way to query the data.
+
+0:13:36.080,0:13:40.320
+I'm not going to get into details right
+ 
+now because there will actually be a
+
+0:13:40.320,0:13:46.880
+workshop at the conference in two days on
+ 
+day three about the query service so I'm
+
+0:13:46.880,0:13:52.880
+gonna let you go there and discover more
+ 
+about how to use it. The query service is
+
+0:13:52.880,0:13:58.800
+basically a SPARQL endpoint, SPARQL being
+ 
+a query language where you can basically
+
+0:13:58.800,0:14:06.000
+ask questions to Wikidata and get lists or
+ 
+visualizations as a result. For example,
+
+0:14:06.720,0:14:12.080
+here's the map of the airports of the
+ 
+world named after the person and the color
+
+0:14:12.080,0:14:21.200
+of the dot, it represent the gender of the
+ 
+person. Or you can make a list of country
+
+0:14:21.200,0:14:26.560
+flags that are including a sun, because if
+ 
+the data is properly modeled in Wikidata,
+
+0:14:26.560,0:14:32.080
+you're able to describe, what are the
+ 
+different elements that compose a country
+
+0:14:32.080,0:14:41.600
+flag? Or you can have this bubble charts
+ 
+with the occupation of accused witches,
+
+0:14:42.160,0:14:44.960
+because why not? That's the kind of data
+ 
+we have in Wikidata.
+
+0:14:48.240,0:14:51.520
+Now, there are other
+ways, of course, to query the data, I'm
+
+0:14:51.520,0:14:55.200
+not going to get into details right now,
+but if you want to talk more about this,
+
+0:14:55.200,0:15:00.720
+you can, for example, join the Wikidata
+meetups that are gonna happen tomorrow. We
+
+0:15:01.440,0:15:07.120
+have dumps of the data where you can
+download part of or all of the data in a
+
+0:15:07.120,0:15:12.640
+file. We have a bunch of APIs to access
+the data directly from your program. And
+
+0:15:12.640,0:15:17.920
+on a Wikimedia project specifically, the
+community developed a bunch of templates
+
+0:15:18.480,0:15:25.840
+that are using Wikidata's data using Lua.
+
+0:15:26.720,0:15:31.360
+And now for something a bit different,
+ 
+Wikibase. You may have heard of it and you
+
+0:15:31.360,0:15:36.000
+may even have wondered, OK, what's the
+ 
+difference between Wikibase and Wikidata?
+
+0:15:36.000,0:15:41.520
+Well, Wikibase is basically the software
+ 
+powering Wikidata and, more precisely, the
+
+0:15:41.520,0:15:48.720
+MediaWiki extension that is turning
+ 
+MediaWiki into a database. And so,
+
+0:15:50.400,0:15:55.280
+Wikibase was started to power Wikidata
+ 
+but it also started developing on its own.
+
+0:15:55.280,0:16:01.840
+Wikidata is still for now the biggest
+ 
+existing Wikibase instance, but people can
+
+0:16:01.840,0:16:08.400
+also install Wikibase directly on their
+ 
+server and basically create their own
+
+0:16:08.400,0:16:15.120
+little personal or public Wikidata. And
+ 
+the development is still ongoing, there
+
+0:16:15.120,0:16:18.960
+are all kind of super exciting features
+ 
+coming up soon. And, for example, the
+
+0:16:18.960,0:16:26.480
+ability to connect better Wikidata and
+ 
+your own instance of Wikibase, for
+
+0:16:26.480,0:16:31.120
+example, to be able to reuse data that is
+ 
+already in Wikidata and to connect it to
+
+0:16:31.120,0:16:35.840
+the data that you have in your own
+ 
+Wikibase.
+
+0:16:40.400,0:16:43.760
+So, if you're interested in
+Wikidata, if you want to know more, there
+
+0:16:43.760,0:16:48.400
+are a bunch of pages that you can find.
+There is a help portal, the Project Chat
+
+0:16:48.400,0:16:52.480
+is the main discussion page on the wiki
+where you can interact with the other
+
+0:16:52.480,0:16:56.080
+editors, the community. It's super
+important to get in touch with them if you
+
+0:16:56.080,0:17:01.360
+want to get started with Wikidata. We also
+have a mailing list. We have a newsletter
+
+0:17:01.360,0:17:06.000
+that is called Weekly Summary that you can
+find on wiki but also if you subscribe to
+
+0:17:06.000,0:17:09.920
+the mailing list, you will also receive
+it. And then we have some accounts in the
+
+0:17:09.920,0:17:14.160
+social media, on Twitter, there is a
+Facebook group, there is a Telegram, um,
+
+0:17:14.160,0:17:19.760
+that is linked from the Project Chat and
+there is also an IRC channel. So you can
+
+0:17:19.760,0:17:23.200
+basically find people from the Wikidata
+community everywhere.
+
+0:17:27.920,0:17:32.560
+So we are
+ 
+approaching the end of the session, but
+
+0:17:32.560,0:17:39.760
+it's not done, we have more Wikidata
+ 
+related sessions at the c3 in the
+
+0:17:39.760,0:17:44.800
+Wikipaka. So, for example, tomorrow you're
+ 
+going to get an introduction to Wikidata,
+
+0:17:44.800,0:17:49.120
+specifically for journalists and
+ 
+especially data journalists. Then in the
+
+0:17:49.120,0:17:53.280
+afternoon, we're gonna have two Wikidata
+ 
+meetups. The first one is gonna be in
+
+0:17:53.280,0:17:56.640
+German. The second one is gonna be in
+ 
+English. So depending on your preferred
+
+0:17:56.640,0:18:02.640
+language, you can attend one or the other
+ 
+or both, and on day three, as I mentioned
+
+0:18:02.640,0:18:08.960
+before, we're going to have a workshop to
+ 
+learn how to query Wikidata's data with
+
+0:18:08.960,0:18:13.840
+SPARQL. So feel free to have a look and
+ 
+check them also in the main
+
+0:18:14.560,0:18:16.240
+schedule of
+Wikipaka.
+
+0:18:20.400,0:18:24.000
+Thank you very much for
+ 
+attending this session. These are our
+
+0:18:24.000,0:18:30.240
+contact details if you want to, to contact
+ 
+us. And of course, you can now ask
+
+0:18:30.960,0:18:35.040
+questions, as we mentioned in the chat or
+ 
+with the hashtag.
+
+0:18:37.120,0:18:41.360
+And we will be very
+happy to answer all your questions right
+
+0:18:41.360,0:18:46.960
+now.
+Herald: Thank you for your input and the
+
+0:18:46.960,0:18:52.400
+overview about Wikidata. There has been a
+few question or questions already answered
+
+0:18:52.400,0:18:58.112
+by Joel in the IRC channel. One was about
+the big dump of scholarly data and what
+
+0:18:58.112,0:19:04.160
+scholarly data is and how this came to be
+in Wikidata. But there is one more
+
+0:19:04.160,0:19:09.680
+question from the chat right now Till asks
+can I add new types of data that are not
+
+0:19:09.680,0:19:18.080
+yet tracked in Wikidata?
+Léa: So I'm wondering, what do you mean
+
+0:19:18.080,0:19:22.800
+exactly by type of data? Maybe you can
+give a bit more details because that can
+
+0:19:22.800,0:19:30.080
+mean a lot of things. Wikidata, the data
+model of Wikidata is very flexible and
+
+0:19:30.080,0:19:36.240
+it's absolutely not set in stone. Every,
+every week the community comes up with
+
+0:19:36.240,0:19:40.800
+some new ways to describe things.
+Sometimes we realize that there is an area
+
+0:19:40.800,0:19:46.080
+of the world that we completely forgot to
+cover, and then we create new properties
+
+0:19:47.040,0:19:52.480
+to describe, for example, a certain type
+of, I don't know, of concept, certain type
+
+0:19:52.480,0:19:58.800
+of building or objects that we or
+philosophical concept that we didn't
+
+0:19:59.520,0:20:05.440
+describe yet. So this is always in
+movement, in action. When it comes to what
+
+0:20:05.440,0:20:11.680
+we actually call data types, which is, for
+example, a string of text or a date or a
+
+0:20:11.680,0:20:16.000
+picture, we have all kind of data types
+like this, this is a bit more complicated
+
+0:20:16.000,0:20:22.480
+and overall, it's quite rare that we add a
+new data type and it needs a strong, like,
+
+0:20:22.480,0:20:28.320
+use case so we add that to the software. I
+hope that it answer your question and if I
+
+0:20:28.320,0:20:32.480
+didn't, feel free to ask again.
+Herald: Yeah, we've got a feedback. The
+
+0:20:32.480,0:20:37.760
+example Till meant was, there's a, there's
+an organization or a project called
+
+0:20:37.760,0:20:44.960
+Parliamentwatch in Germany. There was one
+talk earlier today where they try to track
+
+0:20:44.960,0:20:50.480
+and scrape and analyze the parliamentary
+protocols. And one big issue they had was
+
+0:20:50.480,0:20:56.000
+with structural data about all the members
+of parliament and how they are organized
+
+0:20:56.000,0:21:01.680
+and stuff like that. And, um, well, if I
+remember correctly, there actually was a
+
+0:21:01.680,0:21:06.080
+project that tried to include the
+structural data of of members of
+
+0:21:06.080,0:21:08.160
+parliament in Wikidata, if I'm not
+mistaken.
+
+0:21:08.160,0:21:16.320
+Herald: Absolutely. It's a WikiProject
+that is called, um, something politicians,
+
+0:21:16.320,0:21:21.280
+all politicians. I don't remember the
+exact name right now, but indeed. Some
+
+0:21:21.280,0:21:28.400
+people are already working on members of
+parliaments and, like, political people in
+
+0:21:28.400,0:21:34.000
+general. So it's very likely that there is
+already a way to structure the data. The
+
+0:21:34.000,0:21:39.520
+best way is to contact the people directly
+involved on this, on this WikiProject.
+
+0:21:41.120,0:21:46.480
+WikiProjects, by the way, are pages where
+basically people who have a specific topic
+
+0:21:46.480,0:21:50.240
+of interest gather and can discuss about
+the specific questions about the topic.
+
+0:21:50.800,0:21:58.160
+Um, so have a look at this, at this
+project about politics and, um, yeah. Try
+
+0:21:58.160,0:22:03.280
+to see if, if anything is missing, but
+generally Wikidata definitely welcome
+
+0:22:03.280,0:22:08.640
+information about about politicians, about
+member of parliaments, this kind of stuff.
+
+0:22:08.640,0:22:13.200
+What we do not do, however, is store the
+full, like, documents, for example, in
+
+0:22:13.200,0:22:17.600
+that case, the reports or the documents,
+that belongs elsewhere. Maybe on Wikimedia
+
+0:22:17.600,0:22:21.680
+Commons, for example, if it's possible, if
+the license allows it. But on Wikidata,
+
+0:22:21.680,0:22:24.080
+we'll be happy to store the metadata about
+them.
+
+0:22:25.840,0:22:30.640
+Herald: Alright, Joel just posted the link
+to the WikiProject, Every Politician, so
+
+0:22:30.640,0:22:36.320
+if anybody looks for Every Politician on
+Wikidata, they will find the project. So
+
+0:22:36.320,0:22:40.240
+basically, the bottom line is pretty much
+anything is possible in Wikidata, right?
+
+0:22:40.240,0:22:49.360
+Léa: Yeah, thank you Joel, and hi. Almost
+everything. So on Wikidata, just like on
+
+0:22:49.360,0:22:55.120
+Wikipedia, we still have some criteria to
+define what can get in Wikidata and what
+
+0:22:55.120,0:23:00.880
+not, because we are aware that this
+knowledge base, it needs to stay quite
+
+0:23:00.880,0:23:06.320
+general and it cannot contain absolutely
+everything. For example, the community
+
+0:23:06.320,0:23:12.320
+decided a while ago that they would not
+create one item for each human living or
+
+0:23:12.320,0:23:18.000
+who used to live on Earth, that's just not
+possible, so there are some notability
+
+0:23:18.000,0:23:25.680
+criteria that you can find in the help
+pages and I would say that the level of,
+
+0:23:25.680,0:23:30.960
+like, how fine-grained data should be has
+to be discussed with the community and the
+
+0:23:30.960,0:23:35.040
+good thing about having Wikibase also
+available as a separate instance of
+
+0:23:35.040,0:23:39.920
+Wikidata is that if some people want to
+work on a topic where they have some
+
+0:23:39.920,0:23:43.520
+information that is very, very specific
+and would maybe not fit the scope of
+
+0:23:43.520,0:23:48.000
+Wikidata, they can create their own
+Wikibase and then they can connect the
+
+0:23:48.000,0:23:54.000
+content with what is already in Wikidata.
+So altogether, in this Wikibase ecosystem,
+
+0:23:54.000,0:23:58.240
+yes, pretty much everything is possible.
+Herald: Well, the future is certainly
+
+0:23:58.240,0:24:01.680
+here, at least, with Wikidata. Thank you
+again, Léa and Mohammed, for your
+
+0:24:01.680,0:24:05.520
+insightful introduction to Wikidata and
+we're looking forward to more people
+
+0:24:05.520,0:24:08.080
+joining you in your efforts. Thanks for
+your presentation.
+
+0:24:08.080,0:24:20.354
+Léa: Thank you. See you soon.
+[Filler, please remove in amara]
+
+0:24:20.354,0:24:23.451
+*rC3 Wikipaka outro music*
+[Filler, please remove in amara]
+
+0:24:23.451,0:24:26.899
+Subtitles created by c3subtitles.de
+in the year 2021. Join, and help us!

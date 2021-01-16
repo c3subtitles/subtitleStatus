@@ -1,3 +1,5 @@
+import os
+from contextlib import contextmanager
 from django.test import TestCase
 from datetime import time
 
@@ -5,6 +7,23 @@ from datetime import time
 from www.models import Event, Event_Days, Language, Rooms, Tracks, Type_of, Talk, Subtitle, States, Transcript
 from .factories import EventFactory, TrackFactory, TypeOfFactory, StateFactory, RoomFactory
 
+
+FIXTURE_DATA = os.path.join(os.path.dirname(__file__), 'data')
+
+
+@contextmanager
+def fixture_file(*args):
+    """Acquire the contents of a file for use in a test case."""
+    with open(os.path.join(FIXTURE_DATA, *args)) as file:
+        yield file.read()
+
+
+def fixture_sets(*args):
+    """Obtain a list of all fixture sets available for a given path."""
+    return [os.path.join(*args, dir)
+            for dir in os.listdir(os.path.join(FIXTURE_DATA, *args))
+            if os.path.isdir(os.path.join(FIXTURE_DATA, *args, dir))
+            ]
 
 class Fixture(TestCase):
     """basic test fixture

@@ -1,0 +1,1706 @@
+﻿*Wikipaka Intro Musik*
+[Füller, bitte in amara entfernen]
+
+Herald: Es ist 12 Uhr. Willkommen zum
+Wikipaka Television und Fernstreamen. Wir
+
+leben im Informationszeitalter. Wir leben
+im Zeitalter der Digitalisierung. Doch wo
+
+sind sie, die Informationen und wo ist das
+Digitalisierte? Oder kurz: Wo sind die
+
+Daten? Das weiß unser Korrespondent Simon
+Jockers. Der arbeitet nämlich an der
+
+Schnittstelle zwischen Softwareentwicklung
+und Journalismus, entwickelt verschiedene
+
+Tools, die allen Menschen, vor allem
+JournalistInnen, dabei helfen, mit Daten
+
+sinnvoll arbeiten zu können, z.B. mit den
+Daten der statistischen Ämter. Im Projekt
+
+Datenguide ist er besonders aktiv. Das ist
+ein Tool, als freie Software, und genau
+
+das wird er jetzt vorstellen. Bitteschön.
+Simon: Hi, ich heiße Simon Jokers und ich
+
+bin einer der Köpfe hinter Datenguide.
+Datenguide - das ist eine Open Data
+
+Initiative, mit der wir amtlichen
+Statistiken zugänglicher für alle machen
+
+wollen. Und bei Datenguide, da entwickeln
+wir Open Source Software, die dabei hilft,
+
+mit amtlichen Statistiken zu arbeiten und
+wir veranstalten Workshops und Hackdays
+
+und andere Veranstaltungen zu diesem
+Thema. Und dieser Vortrag heute, der hat
+
+zwei große Teile. Im ersten Teil gebe ich
+so einen allgemeinen Überblick über
+
+amtliche Statistik und im zweiten Teil
+erkläre ich, was genau wir mit Datenguide
+
+machen. Aber zum Einstieg Was ist
+eigentlich amtliche Statistik? Einfach
+
+gesagt sind das alle Statistiken zu
+Gesellschaft, Umwelt und Wirtschaft, die
+
+von den Statistischen Ämtern erstellt
+werden. Und bei Datenguide konzentrieren
+
+wir uns auf einen bestimmten Bereich der
+amtlichen Statistik, und zwar auf die
+
+Regionalstatistik, d.h. Statistiken zu
+Regionen wie z.B. Bundesländern,
+
+Landkreisen und Gemeinden. Und wenn man
+sich jetzt die Selbstdarstellungen der
+
+Statistischen Ämter anschaut, dann sagen
+die, dass die Statistiken, die sie
+
+produzieren, objektiv, unabhängig und
+qualitativ hochwertig sind und da gehe ich
+
+auf jeden Fall mit. Und weiter sagen sie
+dann, dass Sie das machen für Politik,
+
+Verwaltung, Wirtschaft sowie für
+Bürgerinnen und Bürger. Und bei Datenguide
+
+sind wir der Meinung, dass dieser letzte
+Teil, Bürgerinnen und Bürger, dass man den
+
+durchaus noch besser machen kann. Um ein
+bisschen plastischer zu machen, was so
+
+drinsteckt in der amtlichen Statistik, hab
+ich hier mal ein paar Beispiele gesammelt.
+
+Bei amtlicher Statistik, da denkt man
+meistens erst einmal an demografische
+
+Daten und das ist auf jeden Fall richtig.
+Also es gibt in der amtlichen Statistik
+
+Zahlen zur Bevölkerung, zur
+Altersstruktur, zu Wanderungsbewegungen,
+
+also zum Hinzug und Wegzug aus bestimmten
+Regionen. Und es gibt beispielsweise auch
+
+Daten zur Migration, also z.B. zu
+Schutzsuchenden in Deutschland oder zur
+
+Einbürgerung. Und für dieses Beispiel hier
+hab ich mir mal die Frage gestellt: Wo
+
+gibt's in Deutschland denn die meisten
+RentnerInnen? Und dann habe ich mir die
+
+Daten aus der amtlichen Statistik
+runtergeladen und habe sie mit den Daten
+
+Visualisierungen Tool auf eine Karte
+gepackt. Und hier sehen wir, dass die
+
+Rentnermetropolen Deutschlands die Städte
+Baden-Baden und Dessau-Roßlau sind. Und in
+
+beiden Städten kommen auf 100 Personen im
+typischen Erwerbsalter fast 50 Menschen,
+
+die schon im Rentenalter sind. Aber es
+gibt eben nicht nur demografische Daten,
+
+sondern ganz allgemein auch Daten zu den
+Bereichen Wirtschaft und Umwelt. Also z.B.
+
+Daten zu Industrie und Gewerbe oder Daten
+zum Tourismus oder Daten zur
+
+Abfallentsorgung oder Daten zur
+Landwirtschaft. In diesem Beispiel hier,
+
+da hab ich mir mal angeschaut, wo es in
+Deutschland die meisten Schweine gibt. Und
+
+da gibt's einen ganz klaren Cluster in
+Niedersachsen und in Teilen von Nordrhein-
+
+Westfalen. Und es gibt Zahlen zu Wahlen.
+Also z.B. gültige Stimmen, Wahlbeteiligung
+
+oder Wahlberechtigte bei Landtagswahlen,
+bei Bundestagswahlen und bei Europawahle.
+
+Und für die letzte Europawahl hab ich mir
+in dieser Grafik mal angeschaut, wo die
+
+Leute denn tendenziell eher grün wählen
+und wo die Leute eher AfD wählen. Und dann
+
+sehen wir hier erst mal, dass es da eine
+ganz klare Trennung gibt. Also die Grünen
+
+sind eher eine Partei der Westdeutschen
+und die AfD ist scheinbar eher eine Partei
+
+der Ostdeutschen. Und am einen Ende des
+Spektrums sehen wir das in Freiburg im
+
+Breisgau 39 prozent grün gewählt haben,
+während am anderen Ende des Spektrums in
+
+der Sächsischen Schweiz, Ost-Erzgebirge,
+dort haben 33 Prozent die AfD gewählt. Und
+
+das ist jetzt auch nur ein ganz einfaches
+Beispiel. Aber es gibt eben eine ganze
+
+Reihe von Daten aus dem Bereich der
+Wahlen, mit denen ihr arbeiten könnt. Und,
+
+ganz wichtiger Aspekt , ist, dass die
+Statistiken der amtlichen Statistik in der
+
+Regel Zeitreihen sind. Das heißt, die
+Beispiele, die ich gerade gezeigt habe,
+
+die haben immer den Zustand zu einem
+bestimmten Zeitpunkt gezeigt. Aber die
+
+Daten gibt's eigentlich immer über die
+Zeit, weil so eine Statistik, die wird
+
+immer wieder durchgeführt. Und dann haltet
+ihr eine Zeitreihe, mit der ihr Verläufe
+
+zeigen könnt, wie ich das hier gemacht
+habe, z.B. mit Immobilienpreisen für die
+
+Städte Hamburg, Berlin und Leipzig. Und
+auf Basis dieser vier Beispiele, die ich
+
+jetzt gerade gezeigt habe, könnt ihr euch
+wahrscheinlich ganz gut vorstellen, dass
+
+es eine Reihe von, ich sag mal,
+zivilgesellschaftlichen Anwendungen für
+
+diese Daten gibt. Das ist einmal der
+Bereich Journalismus. Also amtliche
+
+Statistiken sind ein super wertvolles
+Werkzeug, z.B. für Datenjournalismus oder
+
+für Fact Checking. Und amtliche
+Statistiken sind auch sehr wichtig, z.B.
+
+für die Sozialwissenschaften. Aber auch
+für zivilgesellschaftliche Initiativen
+
+können Daten echter Mehrwert sein, z.B.
+wenn eine Initiative Daten gestützt für
+
+die gute Sache kämpfen will. Wenn man
+jetzt anfängt, mit amtlichen Statistiken
+
+zu arbeiten, dann ist es immer ganz
+wichtig, sich einmal in den Hinterkopf zu
+
+rufen, wie diese Daten entstehen. Und dazu
+erzähle ich immer ganz gerne diese
+
+Geschichte, die habt ihr in den letzten
+Tagen vielleicht auch schon mal gehört.
+
+Und zwar war es so, dass etwa vor 2 000
+Jahren Kaiser Augustus, der Kaiser des
+
+Römischen Reiches ein Zensus angesetzt
+hat, weil er bessere Daten über die
+
+Bevölkerung seines Reichs brauchte. Und im
+Rahmen von diesem Zensus, da mussten Maria
+
+und Josef zusammen nach Bethlehem reisen,
+um sich zählen zu lassen. Und das passiert
+
+auch heute noch. Also es gibt in allen
+Industrienationen gibt es irgendeine Form
+
+von Zensus, der so ungefähr alle zehn
+Jahre durchgeführt wird? Entweder in Form
+
+von einer klassischen Volkszählung, wo
+wirklich Menschen von Tür zu Tür gehen und
+
+von der Bevölkerung Daten über jeden
+einzelnen Haushalt erfassen oder, das ist
+
+der andere Ansatz, indem man Daten aus
+Registern, die ohnehin vorliegen,
+
+zusammenfasst. Der Zensus in Deutschland,
+der zum letzten Mal 2011 stattgefunden hat
+
+und zum nächsten Mal 2022 stattfindet, der
+ist in erster Linie ein Register-Zensus.
+
+Das heißt, es werden Daten aus dem
+Bevölkerungsregistern und anderen
+
+amtlichen Registern zusammengetragen und
+dann wird eben mit statistischen Methoden
+
+berechnet, z.B. wie viele Menschen in
+einer Stadt leben. Und zusätzlich gibt es
+
+dann ein eine kleinere Anzahl von
+Menschen, die befragt wird, um das
+
+gegenzuchecken. Es gibt auch eben diese
+andere Art, ein Zensus durchzuführen, die
+
+man Mikrozensus nennt. Und das ist eben
+einfach ein Sample. Das heißt, man befragt
+
+einen bestimmten Teil der Gesellschaft und
+dann nimmt man diese Daten und rechnet die
+
+hoch auf das ganze Land. Und es gibt den
+Bereich der Sekundärstatistik, da werden
+
+z.B. Daten, die an anderer Stelle erfasst
+werden, z.B. von der Agentur für Arbeit,
+
+die werden dann hinterher weitergegeben an
+die Statistischen Ämter und die
+
+Statistischen Ämter, die bereiten dann
+eine Statistik auf und veröffentlichen
+
+die. Und bei allen Verfahren ist es ganz
+wichtig zu verstehen, dass die Daten eben
+
+nicht ein perfektes Abbild der Welt sind.
+Es sind immer Daten, die nach einer
+
+bestimmten Methodik erhoben wurden und
+weiterverarbeitet. Und die sind in der
+
+Regel nicht perfekt. Aber trotzdem ist die
+amtliche Statistik normalerweise das
+
+Beste, was wir haben. Also die amtliche
+Statistik ist in den meisten Fällen so
+
+etwas wie der Goldstandard der Daten. Ja,
+und wichtig in diesem Zusammenhang ist
+
+auch... Wir haben in Deutschland ein ganz
+strenges Statistikgeheimnis, d. h. dass
+
+die Daten, die so gesammelt werden, werden
+immer anonymisiert. Es werden nur
+
+aggregierte Zahlen veröffentlicht und
+grundsätzlich dürfen Menschen oder
+
+Unternehmen nie nachträglich
+identifizierbar sein. Und trotzdem oder
+
+auch deswegen ist in Deutschland der
+Zensus immer hochumstritten, also in den
+
+80er Jahren, da gab es sehr große Proteste
+und auch Verfassungsbeschwerden gegen den
+
+Zensus. Und das ist auch der Grund, warum
+wir heute in Deutschland überhaupt dieses
+
+Konzept eines Rechts auf informationelle
+Selbstbestimmung in dieser Form haben. Das
+
+heißt, die Proteste, die es immer wieder
+gibt gegen den Zensus, die sind sehr
+
+wichtig für den Datenschutz in
+Deutschland. Aber ich will das jetzt gar
+
+nicht so thematisieren. In diesem Vortrag
+soll es eher darum gehen, dass diese Daten
+
+jetzt da sind und dass wir euch in die
+Position versetzen wollen, mit diesen
+
+Daten auch wirklich zu arbeiten. Wenn ihr
+jetzt euch überlegt habt: Okay, ich
+
+brauche Statistiken zu einem bestimmten
+Thema und die finde ich vielleicht in der
+
+amtlichen Statistik und ihr sucht mal im
+Web, dann seid ihr höchstwahrscheinlich
+
+erst einmal ziemlich erschlagen, weil es
+wirklich sehr, sehr viele Angebote im Web
+
+gibt, die amtliche Statistiken zur
+Verfügung stellen. Und die sind leider
+
+auch von sehr unterschiedlicher Qualität.
+Der Grund dafür ist, einfach gesagt,
+
+Föderalismus. Also wir haben in
+Deutschland eben das Statistische
+
+Bundesamt und das wird auch Destatis
+genannt. Und wir haben 14 statistische
+
+Landesämter. Außerdem haben wir noch den
+Bereich der Kommunalstatistik oder
+
+städtisch statistische Ämter, wo
+eigentlich in jeder Kommune in Deutschland
+
+auch irgendwie Daten erfasst werden. Und
+all diese Daten werden dann auch in
+
+irgendeiner Form im Web veröffentlicht.
+Und da haben wir sehr, ich sag mal, coole
+
+oder moderne Angebote wie das hier. Das
+ist ganz neu - das Dashboard Deutschland
+
+vom Statistischen Bundesamt. Und hier
+könnt ihr euch so eine Sammlung von
+
+aktuellen Statistiken angucken. Die sind
+dann auch dargestellt in so ziemlich
+
+coolen Grafiken. Aber ihr habt halt keine
+Möglichkeit, jetzt nach einem bestimmten
+
+Thema zu suchen oder die Daten hinterher
+runterzuladen und in euren eigenen
+
+Analysen oder Grafiken
+weiterzuverarbeiten. Das heißt, wenn ihr
+
+damit eigene Sachen machen wollt mit
+diesen Daten, dann sind solche
+
+Veröffentlichungen relativ nutzlos. Und
+noch viel schlimmer ist dieses Beispiel:
+
+Das gibt es leider immer noch, dass Daten
+einfach in ein PDF gepackt werden in Form
+
+von einer Tabelle oder einer Grafik. Und
+hinterher ist es dann sehr schwer für
+
+euch, diese Daten wieder rauszuholen aus
+diesem PDF. Und damit ihr jetzt diese
+
+Recherche nicht selber machen müsst, hab
+ich mal für euch zusammengefasst, was die
+
+richtig guten Portale sind, wo ihr
+höchstwahrscheinlich oder hoffentlich auch
+
+die Daten findet, die ihr braucht. Der
+erste Startpunkt ist... oder sollte
+
+normalerweise GENESIS Online sein. GENESIS
+Online ist so die zentrale Datenbank oder
+
+das zentrale Datenportal des Statistischen
+Bundesamts. Hier habt ihr jetzt gleich so
+
+ein großes Suchfeld, da könnt ihr ein
+Thema eingeben und dann findet ihr
+
+hoffentlich Daten, die euch interessieren,
+könnt die dann als Tabelle anzeigen und
+
+runterladen. Aber damit es nicht zu
+einfach ist, gibt es nicht nur dieses
+
+blaue Daten-Portal, sondern es gibt das
+ganze auch nochmal in Rot. Und das hier
+
+ist die Regional-Datenbank Deutschland und
+das ist die gemeinsame Plattform der
+
+Statistischen Ämter in Deutschland. Und
+hier findet ihr eben Daten
+
+heruntergebrochen auf die verschiedenen
+Regionen. Das heißt, wenn ihr Daten sucht
+
+über eure Stadt oder euren Landkreis und
+die vielleicht sogar mit anderen Regionen
+
+vergleichen wollt, dann findet ihr diese
+Daten hier in der Regionaldatenbank
+
+Deutschland. Jetzt ist es so, dass diese
+Daten leider oft nicht sehr aktuell sind
+
+und auch oft nicht so detailliert, wie man
+sie vielleicht braucht. Und wenn ihr da...
+
+ich sage mal, noch genauere oder
+aktuellere Daten braucht, dann hilft es
+
+immer, sich auch die Portale der
+Statistischen Landesämter anzuschauen.
+
+Also jedes Statistische Landesamt hat auch
+so ein Daten-Portal und das funktioniert
+
+letzten Endes auch wie
+regionalstatistik.de oder GENESIS Online.
+
+Und der Grund, warum diese Portale alle
+sehr ähnlich aussehen, ist, dass die
+
+meisten dieser Portale auf der gleichen
+Softwarelösung basieren. Diese Software-
+
+Lösung heißt Genesis. Und das ist halt so
+eine Eigenentwicklung der Statistischen
+
+Ämter, die die dann benutzen, um ihre
+eigenen Daten-Portale aufzusetzen. Und in
+
+diesen GENESIS-Anwendungen, da könnt ihr
+einfach gesagt nach einem Thema suchen
+
+oder nach einer Statistik suchen, die ihr
+braucht. Und wenn ihr eine gefunden habt,
+
+dann klickt ihr euch durch so ein Menü und
+dann könnt ihr euch eben eine Tabelle
+
+anzeigen. Und diese Tabelle könnt ihr dann
+entweder in eine einfache Grafik
+
+verarbeiten direkt auf diesem Portal. Oder
+ihr könnt sie exportieren in einer Excel-
+
+Tabelle oder eine CSV-Datei. Jetzt ist es
+leider so, dass dieses
+
+Datenvisualisierungstool leider nur sehr
+rudimentär ist. Und ich hab's ehrlich
+
+gesagt noch nie geschafft, damit irgendwas
+sinnvoll Verwendbares zu generieren. Und
+
+dieser Daten Export für Excel und CSV, der
+ist auch nicht maschinenlesbar. Das heißt,
+
+es sind verschachtelte Daten, die können
+nur schwer mit anderen Tools
+
+weiterverarbeitet werden, ohne sie vorher
+händisch aufzurollen. Erwähnenswert ist
+
+noch, dass es einen Webservice gibt, also
+eine Daten-Schnittstelle, mit der er
+
+direkt auf Datensätze zugreifen könnt. Die
+verwendete bisher Soap, also Soap ist
+
+quasi ein Standard für Datenschnittstellen
+- der ist eher so aus dem letzten
+
+Jahrhundert und wird heute eher so im
+Enterprise Segment eingesetzt. Soap ist
+
+eher nicht so das Werkzeug, mit dem ich
+normalerweise jeden Tag arbeite, aber -
+
+und das ist ganz neu, es gibt jetzt auch
+eine REST-Schnittstelle, also eine
+
+modernere Datenschnittstelle, die euch
+JSON zurückgibt. Und es gibt die
+
+Möglichkeit, ein neues Datenformat zu
+exportieren. Das nennen die Statistischen
+
+Ämter Flat CSV und ein Flat CSV ist
+einfach ein normale CSV-Datei, die nicht
+
+verschachtelt ist und deswegen einfacher
+zu verarbeiten. Also hier sehen wir so ein
+
+Beispiel. Wenn ihr jetzt auf
+regionalstatistik.de z.B. eine Tabelle
+
+gefunden habt, dann könnt ihr euch die
+anzeigen lassen, das sieht dann so aus.
+
+Das ist so eine verschachtelte Tabellen
+Darstellung und da könnt ihr jetzt den
+
+Wert raussuchen oder die Zahl raussuchen,
+die ihr braucht. Oder ihr könnt euch das
+
+Ganze eben als Excel oder CSV-Datei
+exportieren oder ihr könnt die in so einer
+
+einfachen Grafik aufbereiten. Ganz
+wichtig: Diese Daten sind Open Data. Sie
+
+erscheinen unter der Datenlizenz
+Deutschland. Die erfordert eine
+
+Namensnennung, einen Verweis auf die
+Lizenz und einen Verweis auf den
+
+Datensatz, den ihr verwendet. Also auf den
+Ort, von dem er diesen Datensatz
+
+heruntergeladen habt. Und das ist sehr
+ähnlich wie eine CC-BY Lizenz. Das ist
+
+jetzt nicht die perfekte Lizenz für Open
+Data, also z.B. CC0 wäre irgendwie
+
+einfacher zu verwenden, aber es ist jetzt
+auch nicht das Schlechteste. Grundsätzlich
+
+könnt ihr diese Daten also weiter
+verwenden. Vor einem Jahr, da wäre jetzt
+
+an dieser Stelle des Vortrags ein großer
+Rant gekommen darüber, wie schlimm diese
+
+GENESIS-Software ist. Aber ich muss sagen,
+dass GENESIS in den letzten Monaten
+
+wirklich deutlich verbessert wurde. Das
+heißt, die Plattform ist jetzt auf jeden
+
+Fall nutzerfreundlicher. Aber trotzdem
+gibt's immer noch eine Reihe von
+
+Problemen. Das größte Problem aus meiner
+Sicht ist, dass es keine stabilen URLs
+
+gibt. Das heißt, es gibt eine
+sessionbasierte Navigation. Und wenn ihr
+
+in eine Tabelle gefunden habt, die ihr
+benutzen wollt und ihr kopiert in der
+
+Browserleiste die URL dazu, dann könnt ihr
+die nicht jemand anderem schicken, weil
+
+sie dann nicht mehr funktionieren wird.
+Deshalb werdet ihr auch die Browser vor
+
+und zurück Navigation nur eingeschränkt
+nutzen können und die Seite wird eben
+
+nicht von Suchmaschinen indiziert. Das
+heißt, wenn ihr auf DuckDuckGo oder auf
+
+Google nach einer Statistik sucht, dann
+werdet ihr kein Ergebnis von der GENESIS-
+
+Datenbank finden. Das nächste Problem ist,
+dass der Datenabruf je nach Plattform und
+
+je nachdem, wie viele Daten ihr
+herunterladen wollt, eine Anmeldung
+
+erfordert. Das heißt, ihr sucht euch eine
+Tabelle aus, die ihr benutzen wollt und
+
+dann könnt ihr die eben nicht direkt
+runterladen, sondern ihr müsst euch erst
+
+ein Login anlegen und mit diesem Login
+könnt ihr die Daten dann bestellen und
+
+danach in so einer Art digitalem Postfach
+abrufen. Hier wäre es natürlich schöner,
+
+wenn man einfach direkt auf den Datensatz
+zugreifen könnte. Wenn ihr die Daten
+
+weiterverarbeiten wollt, dann steht ihr
+vor dem Problem, dass dieser Datenexport,
+
+der ein CSV generiert, sehr speziell ist.
+Das heißt, die Daten sind verschachtelt.
+
+Sie verwenden ein deutsches Zahlenformat,
+also Komma als Dezimaltrennzeichen und sie
+
+verwenden nicht etwa Unicode oder UTF 8
+als Zeichenkodierung wie die meisten
+
+modernen Tools, sondern Windows 1252. Und
+meine Vermutung ist, dass dieses ein
+
+bisschen schräge Format gewählt wurde, um
+maximale Kompatibilität mit Microsoft
+
+Office sicherzustellen. Das heißt, die
+Tabellen sind dafür gemacht, dass man sie
+
+in Excel öffnet und dann auf DIN-A4
+ausdruckt. Nicht unbedingt dafür, sie
+
+einfach direkt in einem
+Datenvisualisierungstool weiterverarbeiten
+
+zu können. Und jetzt könnte man denken:
+Okay, aber es gibt eine
+
+Datenschnittstelle, wo ich die Daten
+herunterladen kann. Und hier ist es so,
+
+dass diese Datenschnittstellen leider eine
+sehr hohe Lernschwäche haben. Z.B. diese
+
+neue Rest-API, die kommt mit einem 200
+seitigen Handbuch und ich denke da kann
+
+man schon ganz gut sehen, dass sie nicht
+gedacht ist für, ich sage mal so, casual
+
+Datennutzer, die einfach nur schnell eine
+Tabelle herunterladen möchten. Und das ist
+
+der Punkt, wo jetzt Datenguide zum Einsatz
+kommt. Was wir bei Datenguide machen, ist:
+
+Wir nehmen uns die Daten aus
+regionalstatistik.de und laden die Daten
+
+einfach einmal alle runter. Also wir
+nehmen diese regionalen Statistiken und
+
+machen einen riesen Datenimport. Den
+machen wir jede Nacht, damit wir eine
+
+Spiegelung haben, die aktuell ist. Und die
+Daten stellen wir dann eben über unsere
+
+eigenen Datenschnittstelle in unserem
+eigenen Format zur Verfügung und
+
+entwickeln dann eine Webanwendung auf
+Basis dieser Daten, mit denen ihr die
+
+Daten durchsuchen und herunterladen könnt.
+Das sieht dann ungefähr so aus. Wir nennen
+
+es das Datenguide Datenportal und das ist
+ein experimentelles Tool, mit dem ihr eine
+
+Region oder mehrere Regionen auswählen
+könnt und dann eine Statistik für diese
+
+Region. Und dann könnt ihr noch ein paar
+Einstellungen machen und z.B. innerhalb
+
+der Statistik weiter einschränken, was ihr
+braucht. Und dann könnt ihr die Daten
+
+herunterladen. Und die sind dann
+idealerweise schon in einem Format, was
+
+ihr genau so einfach in einem
+Datenvisualisierungstool oder
+
+Datenanalyse-Tool weiterverwenden könnt,
+ohne dass ihr die Daten erstmal von Hand
+
+aufräumen musst. Und wir haben eben nicht
+nur dieses Datenportal, sondern wir
+
+verwenden die Daten auch, um auf der
+Datenguide Website die Statistiken zu
+
+erklären. Wir haben eben festgestellt,
+dass die Nutzbarmachung von statistischen
+
+Daten eben nicht nur ein rein technisches
+Problem ist, sondern auch ein Problem mit
+
+Data Literacy. Das heißt, Menschen müssen
+einfach wissen, wie sie mit diesen Daten
+
+umgehen, damit sie mit diesen Daten
+umgehen können. Und deswegen haben wir ja
+
+jetzt so verschiedene Erklärstücke
+veröffentlicht auf der Datenguide-Website.
+
+Und diese Daten, die wir zur Verfügung
+stellen, die wollen wir eben nicht nur zur
+
+Verfügung stellen für unser eigenes Tool,
+sondern wir haben ganz bewusst eine offene
+
+API, die Dritte verwenden können, um dann
+ihre eigenen Anwendungen auf Basis dieser
+
+Daten zu entwickeln. Es gibt zwei
+Datenschnittstellen, also zwei
+
+verschiedene Datenschnittstellen, die wir
+zur Verfügung stellen. Die erste ist ein
+
+einfacher Tabellendownload über http und
+der ist einfach dafür gedacht, dass ihr
+
+z.B. direkt im Browser einfach über die
+URLleiste einen Link eingibt und dann
+
+kriegt ihr eine Tabelle zurück. Und das
+ist dieser Tabellen Download, den man eben
+
+auch mit dem Datenguide Datenportal
+zusammenbauen kann. Und diese Tabellen
+
+könnt ihr dann entweder in verschiedenen
+CSV Formaten - je nachdem was ihr braucht
+
+- runterladen oder als JSON, um sie z.B.
+mit JavaScript weiter zu verarbeiten. Und
+
+wenn ihr eine komplexere Anwendungen plant
+auf Basis von statistischen Daten, dann
+
+könnt ihr diese andere Datenschnittstelle
+verwenden, die wir zur Verfügung stellen,
+
+die verwendet GraphQL. GraphQL ist, ich
+sage mal einfach gesagt, ein moderner
+
+Standard für Datenschnittstellen, um
+komplexere Anwendungen zu realisieren.
+
+Beide Datenschnittstellen sind
+experimentell in dem Sinne, dass es da
+
+durchaus noch Probleme gibt und auch
+Fehler, von denen wir zum Teil schon
+
+wissen und zum Teil wahrscheinlich noch
+nicht. Und dass die sich auch in ihrer
+
+Spezifikation noch ändern. Das heißt, es
+gibt keine finale Spezifikation für unsere
+
+Datenschnittstellen. Wenn ihr jetzt diesen
+Tabellen Download nutzen wollt, dann
+
+funktioniert das im einfachsten Fall so,
+dass ihr auf die Datenguide Website geht.
+
+Dort benutzt ihr dieses Datenportal, um
+eine Region oder eine Reihe von Regionen
+
+auszuwählen, eine Statistik auszuwählen
+und dann klickt ihr eben auf Datendownload
+
+oder ihr kopiert einfach die CSV Daten in
+die Zwischenablage und dann fügt ihr die
+
+Daten in einem Datenvisualisierungstool
+eurer Wahl ein. Ich habe das zum
+
+Beispiel... also diese Grafiken, die ich
+eingangs gezeigt habe, die habe ich mit
+
+Data Wrapper gemacht. Das ist ein
+einfaches Datenvisualisierungstool. Da
+
+könnt ihr quasi so eine CSV-Datei rein
+laden und dann könnt ihr quasi eine Karte
+
+davon erstellen oder ein Liniendiagramm.
+Und - Full Disclosure - ich arbeite auch
+
+an Data Wrapper, aber nach dem gleichen
+Prinzip könnt ihr die Daten mit einem
+
+beliebigen Datenvisualisierungstool oder
+Analysetool eurer Wahl verwenden. Das ist
+
+ein Beispiel für die Verwendung von dieser
+fortgeschrittenen GraphQL Schnittstelle.
+
+Das ist ein einfaches Quiz zu amtlichen
+Statistiken, was bei einem Hektar
+
+entstanden ist, und hier könnt ihr quasi
+euer Wissen über eure Region testen, auf
+
+Basis von amtlichen Statistiken. Und ein
+bisschen praktisches Beispiel für die
+
+Nutzung von dieser GraphQL-Schnittstelle
+ist Datenguide Python. Datenguide Python
+
+ist eine Python Bibliothek, mit der ihr
+eben direkt aus Python heraus, z.B. aus
+
+einem Jupyter Notebook, auf amtliche
+Statistiken zugreifen könnt, ohne dass ihr
+
+euch selber mit http requests oder so
+auseinandersetzen müsst. Das ist ein
+
+Projekt, das wird von einer befreundeten
+Organisation betreut und die haben eben
+
+auf Basis der Datenschnittstelle diese
+Bibliothek entwickelt, um es einfacher zu
+
+machen, mit Python auf amtliche
+Statistiken zuzugreifen. Das war
+
+eigentlich schon alles, was ich hatte.
+Datenguide ist jetzt an einem Punkt, wo
+
+wir uns überlegen: Wie geht es weiter?
+Also wir machen das jetzt seit drei Jahren
+
+und wir sind ursprünglich unter der Maxime
+gestartet, dass wir gesagt haben, wir
+
+machen Datenguide, um es irgendwann wieder
+abschalten zu können, weil idealerweise
+
+wir nur eine eine Demo oder ein Proof of
+Concept entwickeln. Und auf dieser Basis
+
+erkennen dann die Statistischen Ämter, wie
+sie ihre Arbeit besser machen können, um,
+
+ich sag mal, normale Leute zu erreichen.
+Jetzt ist es so, dass GENESIS online in
+
+den letzten Jahren oder in den letzten
+Monaten deutlich besser geworden ist. Aber
+
+trotzdem ist es noch nicht so weit, dass
+wir Datenguide jetzt irgendwie nächstes
+
+Jahr abschalten werden. Das heißt, wir
+überlegen uns weiterhin: Was können wir
+
+tun, um amtliche Statistiken besser
+aufzubereiten, damit sie für alle nutzbar
+
+und auch nützlich sind? Und in diesem
+Zusammenhang müssen wir eben auch unsere
+
+Webanwendungen und die
+Datenschnittstellen, die wir zur Verfügung
+
+stellen noch einfacher und vor allem auch
+stabiler machen. Und in dem Zusammenhang
+
+ist auch relevant, dass es jetzt eben
+diese neuen Schnittstellen gibt in GENESIS
+
+Online. Also ich hab ja vorhin von dieser
+neuen Rest Schnittstelle gesprochen und
+
+ich könnte mir gut vorstellen, dass man
+die benutzen kann, um unsere
+
+Dateninfrastruktur bei Datenguide noch
+einfacher zu machen. Das heißt, wir sind
+
+jetzt an dem Punkt, wo wir so ein bisschen
+an der Orientierung feilen, aber auch eben
+
+weiter aktiv an den Tools arbeiten, die
+wir schon haben. Und dazu auch nochmal die
+
+Ansage, dass das eben ein Open-Source-
+Projekt ist. Das heißt, wir sind im Moment
+
+eine kleine Gruppe von Leuten, die daran
+arbeitet. Und wenn ihr euch auch beruflich
+
+mit amtlichen Statistiken auseinandersetzt
+oder Interesse habt, an so einem Projekt
+
+beizutragen, dann kontaktiert uns gerne.
+Ihr findet uns oder ihr erreicht uns über
+
+community@datengui.de. Oder ihr findet uns
+auf Twitter, auf Mastodon oder eben auf
+
+GitHub. Und jetzt haben wir noch Zeit für
+ein paar Fragen. Vielen Dank.
+
+Herald: "Kontaktiert uns sehr gerne und
+findet uns." Das gilt natürlich vor allem
+
+für so eine langfristige Perspektive.
+Kurzfristig können wir hier direkt Simon
+
+Fragen stellen. Das heißt, ihr könnt alle
+Fragen stellen. Ihr könnt Fragen stellen,
+
+indem ihr z.B. im IRC - okay, ich sollte
+das vielleicht noch ein bisschen muten.
+
+Hört man das? Wahrscheinlich. Ah, Profi
+Version. Gut. Wo war ich? Genau, wie kommt
+
+ihr ins IRC? Wo könnte ihr die Fragen
+stellen? Ihr könnt einfach, wenn ihr auf
+
+media.ccc.de wahrscheinlich seid, da gibt
+es einen kleinen Button, wo Chat steht. Da
+
+könnt ihr draufklicken und dann öffnet
+sich direkt im Browser ein Chatfenster. Da
+
+könnt ihr reinkommen und könnt dort eure
+Fragen stellen. Genauso geht es aber auch
+
+auf Mastodon und auf Twitter. Das hab ich
+auch alles im Blick. Ihr müsste dazu dann
+
+den Hashtag #rC3Wikipaka ergänzen, dass
+wir das dann auch rechtzeitig sehen. So,
+
+wir haben auch schon die ersten Fragen.
+Vielleicht als allererstes: Amtliche
+
+Statistiken - wenn man darüber nachdenkt,
+dann geht es auch immer darum, dass es
+
+eben um einzelne kommunale
+Verwaltungsgebiete geht. Postleitzahlen,
+
+Kreise, was auch immer, die verändern sich
+aber über die Zeit. Das heißt, es gibt
+
+sowas wie Gebietsreformen. Und dann ist
+die Frage: Wie geht man damit um? Wo
+
+gibt's Informationen, wann sich was wie
+ändert?
+
+Simon: Ja, das ist eine sehr gute Frage,
+tatsächlich, und auch Probleme, die man in
+
+der Praxis immer wieder zu tun hat. Wir
+haben es bei Datenguide bisher ausgespart,
+
+uns mit dem Problem auseinanderzusetzen,
+einfach weil wir andere Probleme haben,
+
+auf die wir uns konzentrieren. Aber es
+gibt auf jeden Fall Verfahren, wie man das
+
+umrechnen kann, sage ich mal einfach. Also
+wenn man... normalerweise hat man einen
+
+Datensatz und die Region verschwindet oder
+es gibt... die Region geht in zwei neuen
+
+Regionen auf oder zwei Regionen werden zu
+einer zusammengefasst. Nur um so zu
+
+erklären, was das Datenproblem bei einer
+Gebietsreform ist. Und es gibt eine Liste
+
+der Gemeinden, die wird von den
+statistischen Ämtern veröffentlicht jedes
+
+Jahr und da sieht man dann halt
+Änderungen. Und es gibt das BBSR. Das ist
+
+das Bundesamt für - das muss ich jetzt mal
+nachgucken - das Bundesamt für Bauwesen
+
+und Raumordnung und die haben auch Infos
+zu dem Thema. Und ich weiß auch, dass
+
+Datenjournalistenkollegen von mir dann
+auch schon direkt beim BBSR angefragt
+
+haben, wenn es darum ging, konkret ein
+Problem aufzulösen oder quasi eine
+
+Änderung, die stattgefunden hat, irgendwie
+auf die Daten zu übertragen. Das heißt, da
+
+gibt's durchaus Verfahren, aber man muss
+sich damit ein bisschen auseinandersetzen.
+
+Und es ist nichts von dem, das wir jetzt
+einfach automatisiert durch Datenguide
+
+lösen können. Also ich glaube, das
+Stichwort wäre: Liste der Gemeinden bei
+
+Destatis und im Zweifelsfall das BBSR
+kontaktieren bzw. schauen, ob die Infos
+
+auf ihrer Website parat halten. Ich höre
+dich leider nicht, Julia.
+
+Herald: Vielen Dank dafür. Die nächste
+Frage wäre: Muss man sich denn
+
+identifizieren, um Daten zu bekommen oder
+kann man sie anonym bekommen?
+
+Simon: Also man kann die Daten anonym
+bekommen. Sowohl bei uns, als auch bei den
+
+statistischen Ämtern, wenn man einfach nur
+Daten runterladen will. Also ich hab ja im
+
+Talk erwähnt, dass man teilweise für diese
+GENESIS-Datenbanken einen Login braucht
+
+und da kann man sich meinem Verständnis
+nach einfach anmelden. Ich hab das jetzt
+
+schon eine Weile nicht mehr gemacht, aber
+man kann sich glaub ich einfach anmelden,
+
+ohne dass man Daten angeben muss. Man
+braucht, soweit ich das in Erinnerung
+
+habe, nur eine E-Mail-Adresse und dann
+bekommt man quasi einen generierten
+
+Nutzernamen. Ich glaube, anders ist es,
+wenn man Daten wirklich anfragen will von
+
+den statistischen Ämtern, also genauso,
+wie wenn man bei anderen öffentlichen
+
+Stellen irgendwie eine Anfrage macht. Da
+gibt es bestimmte Verfahren, auch bei den
+
+statistischen Ämtern. Und ich gehe mal
+davon aus, dass man sich dann in
+
+irgendeiner Form identifizieren muss und
+sei es nur aus sozialen Gründen, weil man
+
+halt mit Menschen dort zu tun hat. Aber
+grundsätzlich, wenn es darum geht, Daten
+
+abzufragen aus regionalstatistik.de oder
+über Datenguide: Das ist Open Data, das
+
+einfach im Web zur Verfügung steht.
+Einfach gesagt.
+
+Herald: Okay, dann ist natürlich die
+Frage: Du hast gesagt, dass das ultimative
+
+Ziel ist, den Service irgendwann
+abzuschalten, wenn die Statistik Ämter
+
+selbst mal auf einem gewissen Stand
+angekommen sind. Wie realistisch ist das
+
+denn?
+Simon: Ja, ich glaube, das kommt dann
+
+darauf an, wie man diesen Wissensstand
+definiert. Also ich glaube, es hat auf
+
+jeden Fall eine... das Mindset ändert sich
+bei den statistischen Ämtern und die haben
+
+festgestellt, dass der Bereich
+Datenjournalismus und auch vielleicht
+
+andere zivilgesellschaftliche Initiativen
+durchaus wichtige Multiplikatoren für ihre
+
+Veröffentlichungen sind und dass es auch
+in ihrem Interesse ist, in der
+
+Öffentlichkeit gut dazustehen. Und
+dementsprechend hat da eine Änderung des
+
+Mindsets stattgefunden. Ich glaube, die
+Software verändert sich nur sehr langsam
+
+und deswegen würde ich sagen, es ist
+unwahrscheinlich, dass wir irgendwann im
+
+nächsten oder übernächsten Jahr wirklich
+die Arbeit, die wir bei Datenguide machen,
+
+einstellen. Aber es ist nicht völlig
+unrealistisch.
+
+Herald: Dazu auch direkt die Frage: Wie
+ist das mit den Daten der Statistischen
+
+Landesämter? Weil nämlich hier jemand
+versucht hat, anzufragen, wie es zum
+
+Beispiel in Baden-Württemberg ist, wo erst
+einmal niemand wusste, was Open Data ist.
+
+Und jetzt möchte diese Person wissen, wie
+ist das eigentlich mit der föderalen
+
+Struktur und bekommt man die Daten der
+Statistischen Landesämter?
+
+Simon: Also auf regionalstatistik.de, da
+sind ja grundsätzlich mal die Daten der
+
+Statistischen Landesämter gesammelt. Also
+regionalstatistik.de ist so der kleinste
+
+gemeinsame Nenner, wo die Statistischen
+Ämter gewisse Daten zusammentragen. Und
+
+dann gibt's eben zusätzlich noch Daten,
+die halt auf regionaler Ebene, also nur
+
+auf Ebene der Bundesländer zur Verfügung
+stehen. Also spezielle Datensätze, zum
+
+Beispiel, die dann nur für Brandenburg
+oder nur für Baden-Württemberg oder so zur
+
+Verfügung stehen oder die vielleicht nicht
+vergleichbar sind zwischen verschiedenen
+
+Ländern. Und es gibt eigentlich immer
+irgendeine Form von Datenportal. Ich bin
+
+mir jetzt... tatsächlich bin ich nicht so
+firm, was Baden-Württemberg angeht, weil
+
+ich damit persönlich noch nie etwas zu tun
+hatte. Aber ich würde eigentlich erwarten,
+
+dass es auch ein Datenportal des
+Statistischen Landesamts Baden-Württemberg
+
+gibt. Es ist nicht notwendigerweise auch
+eine GENESIS-Instanz, also es gibt auch
+
+Datenplattformen, die eben nicht auf
+Genesis basieren. Aber es gibt
+
+normalerweise irgendeine Form von
+zentraler Veröffentlichung jedes einzelnen
+
+Statistischen Landesamtes.
+Herald: Ich meine, Baden-Württemberg ist
+
+ein bisschen verrückt. Ich hatte mal
+versucht, da drauf zu klicken und dann
+
+kommt man wieder auf die gleiche Seite,
+ohne irgendwie tiefer zu kommen. Also wer
+
+da mehr weiß, gerne mehr Informationen.
+Simon: Ja, also ich kann mir das gerne
+
+nochmal genauer angucken und vielleicht
+noch etwas dazu posten.
+
+Herald: Da helfen sich nämlich schon sehr
+viele Menschen auch untereinander mit den
+
+verschiedensten Links. Vielleicht nochmal
+zurück zur Weiterentwicklung: Wie geht es
+
+weiter bei euch, plant ihr denn auch
+Visualisierungstools direkt auf eurer
+
+Website zu integrieren?
+Simon: Ja, also das ist ein schwieriges
+
+Thema, tatsächlich. Also wir haben es vor.
+Wir haben... also wenn jemand schon
+
+frühere Versionen dieses Vortrags gesehen
+hat, weil es war ja so ein bisschen best-
+
+of Zusammenfassung aus den letzten drei
+Jahren. Wenn ihr eine frühere Version
+
+dieses Talks gesehen habt oder irgendwann
+in der Vergangenheit mal auf der
+
+Datenguide-Website wart, dann gab's da
+durchaus auch so einfache
+
+Visualisierungen. Wir haben festgestellt,
+dass es sehr schwierig ist, die halt so
+
+generisch zu bauen, dass sie immer
+funktionieren, weil die Daten, also die
+
+Datensätze sind sehr unterschiedlich. Es
+gibt so einen Plan, so eine "kleinste
+
+gemeinsame Nenner Visualisierung" zu haben
+für jeden Datensatz. So ähnlich wie die
+
+Statistischen Ämter das machen auf
+regionalstatistik.de oder auf GENESIS
+
+Online. Aber nur halt ein bisschen
+moderner und besser zu benutzen. Aber
+
+bisher gibt's das nicht. Wenn jemand
+Interesse hat, an sowas zu arbeiten, mit
+
+mir zusammen oder mit jemand von uns
+zusammen, dann bin ich gerne bereit, mich
+
+darüber zu unterhalten, wie man das
+konkret im Detail macht. Weil es ist halt
+
+ein Open-Source-Projekt. Es ist definitiv
+nichts, an dem jemand jetzt gerade aktuell
+
+arbeitet. Aber es steht auf unserer Liste.
+Herald: Thema Open-Source-Projekt, dazu
+
+noch ein kleiner Einwurf: Wie ist das mit
+GENESIS? Die Vermutung ist, dass es
+
+wahrscheinlich proprietär ist. Gibt's da
+irgendwelche Bestrebungen? Wenn das
+
+proprietär ist, ob man das vielleicht auch
+OpenSource stellen möchte?
+
+Simon: Ist mir nicht... also nicht, dass
+ich wüsste. Ja, ich bin mir auch nicht
+
+sicher... GENESIS ist halt ein riesen
+Monster, meinem Verständnis nach. Ich hab
+
+noch nie Code gesehen, aber es ist meinem
+Verständnis nach eine Java-Anwendung, die
+
+es dann Ende der 90er ins Web geschafft
+hat. Und das ist auch der Grund dafür,
+
+warum es eben diese ganze sessionbasierte
+Navigation gibt, weil es glaube ich
+
+ursprünglich... das ist nicht aus der
+heutigen Webanwendungen
+
+Entwicklungsperspektive gestartet worden,
+dieses Projekt. Aber ich habe keine, ich
+
+kann keine geheime Background-Infos zur
+Entwicklung von GENESIS Online geben, aber
+
+ich kann mir, ehrlich gesagt, nicht
+vorstellen, dass es in der... dass es als
+
+Open Source irgendwann in der
+Öffentlichkeit landet. Also, wen es im
+
+Detail interessiert, GENESIS online ist
+eine Eigenentwicklung und das wird von
+
+ITNRW entwickelt. ITNRW ist so eine
+Kombination aus regionalem IT-
+
+Dienstleister für das Land Nordrhein-
+Westfalen und dem Statistischen Landesamt
+
+Nordrhein-Westfalen. Das ist beides quasi
+unter diesem Dach. Und die betreiben
+
+regionalstatistik.de. Und die Software
+hinter GENESIS online wird zum Teil auch
+
+in Wiesbaden beim Statistischen Bundesamt
+entwickelt. Es gibt Leute, die im
+
+öffentlichen Dienst sind und an dieser
+Software arbeiten.
+
+Herald: Okay, sehr gut. Jetzt hab ich noch
+sehr viele Fragen von Dateninteressierten,
+
+die vielleicht ein bisschen über das, was
+ihr jetzt als Datenguide anbietet,
+
+hinausgehen, trotzdem: Hast du eine
+Empfehlung für eine Datenquelle für
+
+internationale Daten?
+Simon: Das ist eine gute Frage. Es kommt
+
+es darauf an, worum es geht. Also es gibt
+halt, genauso wie die Statistischen
+
+Landesämter in Deutschland alle
+zusammenarbeiten und dann eine gemeinsame
+
+Datenveröffentlichung machen, gibt's auf
+europäischer Ebene auch gemeinsame
+
+Datenveröffentlichungen. Also es gibt ein
+europäisches Open Data Portal, wo die EU-
+
+Mitgliedsländer Daten hin liefern. Es gibt
+auch ein zweites Open Data Portal, wo die,
+
+wo es eben alle möglichen Arten von Open
+Data von der EU gibt. Und es gibt auch
+
+eine gemeinsame Plattform von Eurostat,
+also Eurostat ist quasi sowas wie die
+
+gemeinsame Arbeitsgemeinschaft der
+statistischen Ämter in den einzelnen
+
+Mitgliedsländern der EU. Das heißt, es
+geht immer so nach oben. Auf europäischer,
+
+auf internationaler Ebene - also die
+Weltbank hat statistische Informationen,
+
+quasi über alle Länder. Da findet man
+Dinge. Und es gibt halt so verschiedene,
+
+ich sage mal unabhängige Plattformen, z.B.
+Our World in Data ist sehr gut. Muss kurz
+
+nachgucken, ob ich das richtig sage.
+Genau, das ist ourworldindata.org. Und die
+
+sammeln quasi Daten zu allen möglichen
+Themen, die halt weltweit zur Verfügung
+
+stehen. Das ist von der Oxford University
+und da findet man sehr viele Datensätze,
+
+wenn man so internationale Vergleiche
+machen müsste, oder ja, Daten zu
+
+verschiedenen Themen braucht, die wirklich
+für verschiedene Länder irgendwie
+
+vergleichbar zur Verfügung stehen, dann
+ist das auch ein guter Startpunkt.
+
+Herald: Okay, genau so eine ähnliche Frage
+wäre: Was ist eigentlich mit
+
+teilöffentlichen Daten, zum Beispiel von
+der Deutschen Bahn? Findet man die bei
+
+euch auch oder weißt du, wo man die
+vielleicht finden könnte, z.B. Wie viele
+
+Güterzüge fahren nach Hamburg?
+Simon: Da bin ich jetzt tatsächlich
+
+überfragt. Also ich weiß, dass die Bahn...
+also es gibt ja eine OpenData-Initiative
+
+innerhalb der Bahn. Ich könnte mir
+vorstellen, dass es da vielleicht
+
+Veröffentlichungen zu diesem Thema gibt.
+Aber sicher bin ich mir da nicht. Ich hab
+
+mich mit dem Thema noch nicht befasst, ich
+würde jetzt nicht völlig ausschließen,
+
+dass es von den Statistischen Bundesämtern
+so im Kontext Verkehr irgendwie Daten zu
+
+diesem Thema gibt. Aber ich hatte bisher
+nie was damit zu tun. Müsste ich jetzt
+
+auch mal auf den Seiten der Statistischen
+Ämter nachgucken. Ansonsten ... es gibt
+
+ja, heißt es opendata.bahn.de?
+Herald: Ich weiß nicht gerade aus dem Kopf
+
+genau, wie es heißt, aber die Bahn hat
+selber auch offene Daten.. Also das ist
+
+nicht bei euch jetzt direkt mit dabei?
+Simon: Nee.
+
+Herald: Okay, eine andere, sehr konkrete
+Frage zu Daten wäre: Gibt's z.B. sowas wie
+
+die Energieverbrauchsdaaten der
+Bundesländer für einzelne Gemeinden oder
+
+auf Bundesebene? Findet man sowas bei
+euch?
+
+Simon: Das ist auch eine sehr spezielle
+Frage.
+
+Herald: Genau das ist richtig. Vielleicht
+weißt du es, und sonst kannst du
+
+vielleicht erklären, wie man dran kommt?
+Simon: Also man kann quasi auf... man
+
+könnte jetzt auf regionalstatistik.de z.B.
+mal nach dem Thema Energie suchen. Oder
+
+Stromversorgung. Und dann schauen, ob es
+da Ergebnisse gibt oder eben auf
+
+Datenguide. Auch dieses Datenguide
+Datenportal. Wenn ihr auf Datenportal
+
+klickt auf der Datenguidewebsite und dann
+gibt's da so ein Interface, wo ihr ein
+
+Suchbegriff eingeben könnt unter Statistik
+und da mal mit dem Suchbegriff Strom oder
+
+Energie. Ansonsten wäre ich mir relativ
+sicher, dass es - es gibt ja Europäische
+
+Energie-Agenturen - dass es irgendwie
+Stellen gibt, die Daten dazu
+
+veröffentlichen. Müsste ich aber auch
+recherchieren.
+
+Herald: Vielen Dank für deine Antworten zu
+den sehr spezifischen Fragen. Ich habe
+
+außerdem noch eine sehr spezifische Frage,
+die uns über Twitter erreicht hat, und
+
+zwar: Es geht um die Verwendung der Daten
+der USGS, die aktuell nur noch als PDF
+
+vorliegen. Ich weiß leider selbst nicht,
+was die USGS ist. Weißt du das? Ich habe
+
+auch nochmal nachgefragt und bisher noch
+keine Antwort bekommen.
+
+Simon: Also das sind Geodaten aus den USA,
+glaub ich, aber ich kann dazu nichts
+
+sagen, leider. Ich weiß, dass es in den
+USA ja auch diese... gab es in den letzten
+
+4 Jahren ja so eine umgekehrte
+Entwicklung, wo verschiedene Daten, die
+
+quasi in der Public Domain oder als Open
+Data zur Verfügung standen, jetzt eben
+
+nicht mehr als Open Data zur Verfügung
+stehen, weil es einfach so ist, dass...
+
+die Obama-Regierung hat sehr viel geöffnet
+im Sinne von Open Data und die Trump-
+
+Regierung hat dann einfach sehr viel
+wieder zugemacht und teilweise auch
+
+Organisationen oder Organisationsformen,
+die es gab und die gemeinsam Daten
+
+veröffentlich haben, in der Form
+aufgelöst. Aber jetzt zu dieser konkreten
+
+Frage kann ich nichts sagen.
+Herald: Sind ja auch alles sehr
+
+spezifische Fragen, die auch schon
+eigentlich über euer Angebot so ein
+
+bisschen hinausgehen, wo man dann merkt:
+Okay, hier sitzen die Datennerds, die auch
+
+bis ins Letzte alles ausschöpfen wollen.
+Jetzt ist natürlich so ein bisschen die
+
+Frage: Was ist denn vielleicht, wenn ich
+noch nicht so viel Erfahrung habe, mich
+
+aber ganz gerne mal mit den Daten bei euch
+beschäftigen möchte. Wie kann ich denn
+
+mitmachen? Wie kann ich einsteigen, wie
+kann ich anfangen? Also der... wenn ich
+
+jetzt da mit dem Thema anfangen würde,
+würde mir glaube ich... also normalerweise
+
+hat man ja ein Thema, mit dem man sich
+auseinandersetzen will, also ein
+
+inhaltliches Thema, zu dem man Daten
+sucht. Dann würde ich mal gucken, was
+
+gibt's bei den statistischen Ämtern, was
+gibt's auf Datenguide zu dem Thema? Und
+
+dann würde ich mal ein bisschen anfangen,
+mit diesen Daten zu arbeiten. Mit... also
+
+mal die Daten sich genauer angucken, Daten
+runterladen und dann mit einem Tool deiner
+
+Wahl diese Daten zu visualisieren oder zu
+gucken, was man da rausziehen kann. Es
+
+kann so einfach wie Excel sein oder mit
+Python oder R oder auch mit einfachen
+
+Datenvisualisierungstools wie Data Wrapper
+oder Flourish Studio. Das sind beides
+
+Tools, die kann man umsonst im Web
+benutzen, da mal die Daten hochladen und
+
+dann gucken, was man daraus machen kann.
+Einfach, um mal so ein Gefühl dafür zu
+
+kriegen. Und wenn ihr ganz konkret an
+Datenguide mitarbeiten wollt, dann ist
+
+Datenguide natürlich in erster Linie mal
+eine Software-Projekt. Das heißt, wir
+
+haben, wir hätten Tickets, an denen man
+arbeiten könnte. Am einfachsten im Moment
+
+ist, wenn man uns direkt kontaktiert über
+die Kanäle, die ich vorhin angezeigt habe
+
+oder einfach über Datenguide auf Twitter
+z.B., mal Kontakt mit uns aufnimmt und
+
+dann können wir darüber reden. Wir haben
+sehr viele Tickets, also ein sehr langes
+
+Backlog. Es ist glaub ich nicht, es ist
+unterschiedlich schwierig, da
+
+einzusteigen. Aber zusammen würden wir,
+glaube ich, auch einfache Tickets, um
+
+einzusteigen, finden. Und die andere Sache
+ist eben, dass wir auch ein Interesse dran
+
+haben, mehr Arbeit rund um Data Literacy
+zu machen. Das heißt, auch wenn ihr nicht
+
+aus dem Bereich Softwareentwicklung kommt,
+aber euch halt für Daten interessiert,
+
+oder als Nutzer von Daten irgendwie
+Erfahrung habt, dann gäbe es auch die
+
+Möglichkeit, z.B. Workshops zu machen zum
+Thema Datenguide und amtlicher Statistik.
+
+Da haben wir auch schon so ein paar
+Materialien. Aber da könnte man eben
+
+weitere Dinge aufschreiben oder einfach
+Workshops halten. Und da ist auch, glaube
+
+ich, die einfachste Möglichkeit, mal mit
+uns Kontakt aufzunehmen. Über die
+
+genannten Kanäle.
+Herald: Okay, dann sehe ich jetzt erstmal
+
+keine weiteren Fragen mehr. Hast du noch
+irgendetwas, was du ergänzen möchtest, was
+
+dir jetzt vielleicht noch aufgefallen ist?
+Simon: Also ich würde mich gerne bedanken.
+
+Also danke an das Wikipaka-Team, dass sie
+das alles auf die Beine gestellt haben.
+
+Und ich freue mich, wenn ihr uns
+kontaktiert im Nachgang von diesem Talk.
+
+Herald: Genau, das wird jetzt auch noch
+gehen. Wir haben noch ein kleines Q&A, das
+
+wird in einem BigBlueButton Raum
+stattfinden. Den Link dafür findet ihr
+
+auch dann gleich im IRC, also wieder auf
+media.ccc.de gehen, wo ihr wahrscheinlich
+
+seid, wenn ihr diesen Stream schaut, auf
+Chat klicken und dann kommt ihr direkt in
+
+den richtigen Channel rein. Und dort
+gibt's dann den Link zum
+
+Q&A-BigBlueButton-Raum. Da wird dann Simon
+noch ein paar Fragen beantworten. Ich
+
+bedanke mich ganz herzlich für die
+Antworten auf diese ganzen Fragen, für die
+
+Vorstellung eures Projekts und nicht
+zuletzt dafür, dass ihr das überhaupt
+
+macht. Danke und großen virtuellen
+Applaus. Und damit beenden wir jetzt
+
+diesen wunderbaren Talk zu Datenguide.
+Dankeschön.
+
+Simon: Danke.
+[Füller, bitte in amara entfernen]
+
+*rC3 Wikipaka Outro Musik*
+[Füller, bitte in amara entfernen]
+
+Untertitel erstellt von c3subtitles.de
+im Jahr 2021. Mach mit und hilf uns!

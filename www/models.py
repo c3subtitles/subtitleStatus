@@ -13,7 +13,7 @@ from django.utils.timezone import make_aware
 # `import *`, which will silently overwrite, e.g., `time`, and thus
 # break everything down below.
 from .statistics_helper import calculate_seconds_from_time, calculate_time_delta, calculate_per_minute, calculate_subtitle, prepare_string_for_word_counts, save_word_dict_as_json, read_word_dict_from_json, merge_word_frequencies_dicts, n_most_common_words
-from .amara_api_helper import add_url_to_amara, get_uploaded_urls, make_uploaded_url_primary, remove_url_from_amara, check_if_url_on_amara, update_amara_urls, read_links_from_amara
+from .amara_api_helper import get_uploaded_urls, make_uploaded_url_primary, remove_url_from_amara, check_if_url_on_amara, update_amara_urls, read_links_from_amara
 from .trint_api_helper import get_trint_transcript_via_api
 
 import json

@@ -1,0 +1,2660 @@
+0:00:10.388,0:00:14.345
+﻿*Wikipaka Intro Musik*
+[Füller, bitte in amara entfernen]
+
+0:00:14.345,0:00:22.310
+Herald: Es ist 12 Uhr. Willkommen zum
+Wikipaka Television und Fernstreamen. Wir
+
+0:00:22.310,0:00:27.110
+leben im Informationszeitalter. Wir leben
+im Zeitalter der Digitalisierung. Doch wo
+
+0:00:27.110,0:00:32.120
+sind sie, die Informationen und wo ist das
+Digitalisierte? Oder kurz: Wo sind die
+
+0:00:32.120,0:00:37.010
+Daten? Das weiß unser Korrespondent Simon
+Jockers. Der arbeitet nämlich an der
+
+0:00:37.010,0:00:40.910
+Schnittstelle zwischen Softwareentwicklung
+und Journalismus, entwickelt verschiedene
+
+0:00:40.910,0:00:45.950
+Tools, die allen Menschen, vor allem
+JournalistInnen, dabei helfen, mit Daten
+
+0:00:45.950,0:00:52.310
+sinnvoll arbeiten zu können, z.B. mit den
+Daten der statistischen Ämter. Im Projekt
+
+0:00:52.310,0:00:58.760
+Datenguide ist er besonders aktiv. Das ist
+ein Tool, als freie Software, und genau
+
+0:00:58.760,0:01:06.140
+das wird er jetzt vorstellen. Bitteschön.
+Simon: Hi, ich heiße Simon Jokers und ich
+
+0:01:06.140,0:01:10.130
+bin einer der Köpfe hinter Datenguide.
+Datenguide - das ist eine Open Data
+
+0:01:10.130,0:01:13.580
+Initiative, mit der wir amtlichen
+Statistiken zugänglicher für alle machen
+
+0:01:13.580,0:01:20.540
+wollen. Und bei Datenguide, da entwickeln
+wir Open Source Software, die dabei hilft,
+
+0:01:20.540,0:01:25.700
+mit amtlichen Statistiken zu arbeiten und
+wir veranstalten Workshops und Hackdays
+
+0:01:25.700,0:01:30.140
+und andere Veranstaltungen zu diesem
+Thema. Und dieser Vortrag heute, der hat
+
+0:01:30.140,0:01:34.190
+zwei große Teile. Im ersten Teil gebe ich
+so einen allgemeinen Überblick über
+
+0:01:34.190,0:01:37.820
+amtliche Statistik und im zweiten Teil
+erkläre ich, was genau wir mit Datenguide
+
+0:01:37.820,0:01:43.520
+machen. Aber zum Einstieg Was ist
+eigentlich amtliche Statistik? Einfach
+
+0:01:43.520,0:01:47.180
+gesagt sind das alle Statistiken zu
+Gesellschaft, Umwelt und Wirtschaft, die
+
+0:01:47.180,0:01:52.400
+von den Statistischen Ämtern erstellt
+werden. Und bei Datenguide konzentrieren
+
+0:01:52.400,0:01:56.180
+wir uns auf einen bestimmten Bereich der
+amtlichen Statistik, und zwar auf die
+
+0:01:56.180,0:02:01.220
+Regionalstatistik, d.h. Statistiken zu
+Regionen wie z.B. Bundesländern,
+
+0:02:01.220,0:02:07.700
+Landkreisen und Gemeinden. Und wenn man
+sich jetzt die Selbstdarstellungen der
+
+0:02:07.700,0:02:13.790
+Statistischen Ämter anschaut, dann sagen
+die, dass die Statistiken, die sie
+
+0:02:13.790,0:02:18.410
+produzieren, objektiv, unabhängig und
+qualitativ hochwertig sind und da gehe ich
+
+0:02:18.410,0:02:23.990
+auf jeden Fall mit. Und weiter sagen sie
+dann, dass Sie das machen für Politik,
+
+0:02:23.990,0:02:28.490
+Verwaltung, Wirtschaft sowie für
+Bürgerinnen und Bürger. Und bei Datenguide
+
+0:02:28.490,0:02:31.970
+sind wir der Meinung, dass dieser letzte
+Teil, Bürgerinnen und Bürger, dass man den
+
+0:02:31.970,0:02:39.530
+durchaus noch besser machen kann. Um ein
+bisschen plastischer zu machen, was so
+
+0:02:39.530,0:02:42.200
+drinsteckt in der amtlichen Statistik, hab
+ich hier mal ein paar Beispiele gesammelt.
+
+0:02:42.200,0:02:46.880
+Bei amtlicher Statistik, da denkt man
+meistens erst einmal an demografische
+
+0:02:46.880,0:02:50.480
+Daten und das ist auf jeden Fall richtig.
+Also es gibt in der amtlichen Statistik
+
+0:02:50.480,0:02:55.490
+Zahlen zur Bevölkerung, zur
+Altersstruktur, zu Wanderungsbewegungen,
+
+0:02:55.490,0:03:02.390
+also zum Hinzug und Wegzug aus bestimmten
+Regionen. Und es gibt beispielsweise auch
+
+0:03:02.390,0:03:06.980
+Daten zur Migration, also z.B. zu
+Schutzsuchenden in Deutschland oder zur
+
+0:03:06.980,0:03:12.410
+Einbürgerung. Und für dieses Beispiel hier
+hab ich mir mal die Frage gestellt: Wo
+
+0:03:12.410,0:03:17.000
+gibt's in Deutschland denn die meisten
+RentnerInnen? Und dann habe ich mir die
+
+0:03:17.000,0:03:20.585
+Daten aus der amtlichen Statistik
+runtergeladen und habe sie mit den Daten
+
+0:03:20.585,0:03:25.340
+Visualisierungen Tool auf eine Karte
+gepackt. Und hier sehen wir, dass die
+
+0:03:25.340,0:03:32.300
+Rentnermetropolen Deutschlands die Städte
+Baden-Baden und Dessau-Roßlau sind. Und in
+
+0:03:32.300,0:03:39.200
+beiden Städten kommen auf 100 Personen im
+typischen Erwerbsalter fast 50 Menschen,
+
+0:03:39.200,0:03:46.280
+die schon im Rentenalter sind. Aber es
+gibt eben nicht nur demografische Daten,
+
+0:03:46.280,0:03:51.980
+sondern ganz allgemein auch Daten zu den
+Bereichen Wirtschaft und Umwelt. Also z.B.
+
+0:03:51.980,0:03:56.870
+Daten zu Industrie und Gewerbe oder Daten
+zum Tourismus oder Daten zur
+
+0:03:56.870,0:04:01.670
+Abfallentsorgung oder Daten zur
+Landwirtschaft. In diesem Beispiel hier,
+
+0:04:01.670,0:04:06.650
+da hab ich mir mal angeschaut, wo es in
+Deutschland die meisten Schweine gibt. Und
+
+0:04:06.650,0:04:11.390
+da gibt's einen ganz klaren Cluster in
+Niedersachsen und in Teilen von Nordrhein-
+
+0:04:11.390,0:04:20.000
+Westfalen. Und es gibt Zahlen zu Wahlen.
+Also z.B. gültige Stimmen, Wahlbeteiligung
+
+0:04:20.000,0:04:25.160
+oder Wahlberechtigte bei Landtagswahlen,
+bei Bundestagswahlen und bei Europawahle.
+
+0:04:25.160,0:04:29.870
+Und für die letzte Europawahl hab ich mir
+in dieser Grafik mal angeschaut, wo die
+
+0:04:29.870,0:04:35.420
+Leute denn tendenziell eher grün wählen
+und wo die Leute eher AfD wählen. Und dann
+
+0:04:35.420,0:04:39.440
+sehen wir hier erst mal, dass es da eine
+ganz klare Trennung gibt. Also die Grünen
+
+0:04:39.440,0:04:43.370
+sind eher eine Partei der Westdeutschen
+und die AfD ist scheinbar eher eine Partei
+
+0:04:43.370,0:04:48.950
+der Ostdeutschen. Und am einen Ende des
+Spektrums sehen wir das in Freiburg im
+
+0:04:48.950,0:04:56.480
+Breisgau 39 prozent grün gewählt haben,
+während am anderen Ende des Spektrums in
+
+0:04:56.480,0:05:03.170
+der Sächsischen Schweiz, Ost-Erzgebirge,
+dort haben 33 Prozent die AfD gewählt. Und
+
+0:05:03.170,0:05:06.860
+das ist jetzt auch nur ein ganz einfaches
+Beispiel. Aber es gibt eben eine ganze
+
+0:05:06.860,0:05:15.950
+Reihe von Daten aus dem Bereich der
+Wahlen, mit denen ihr arbeiten könnt. Und,
+
+0:05:15.950,0:05:21.440
+ganz wichtiger Aspekt , ist, dass die
+Statistiken der amtlichen Statistik in der
+
+0:05:21.440,0:05:24.710
+Regel Zeitreihen sind. Das heißt, die
+Beispiele, die ich gerade gezeigt habe,
+
+0:05:24.710,0:05:29.720
+die haben immer den Zustand zu einem
+bestimmten Zeitpunkt gezeigt. Aber die
+
+0:05:29.720,0:05:32.600
+Daten gibt's eigentlich immer über die
+Zeit, weil so eine Statistik, die wird
+
+0:05:32.600,0:05:38.270
+immer wieder durchgeführt. Und dann haltet
+ihr eine Zeitreihe, mit der ihr Verläufe
+
+0:05:38.270,0:05:42.500
+zeigen könnt, wie ich das hier gemacht
+habe, z.B. mit Immobilienpreisen für die
+
+0:05:42.500,0:05:50.435
+Städte Hamburg, Berlin und Leipzig. Und
+auf Basis dieser vier Beispiele, die ich
+
+0:05:50.435,0:05:53.330
+jetzt gerade gezeigt habe, könnt ihr euch
+wahrscheinlich ganz gut vorstellen, dass
+
+0:05:53.330,0:05:57.020
+es eine Reihe von, ich sag mal,
+zivilgesellschaftlichen Anwendungen für
+
+0:05:57.020,0:06:01.190
+diese Daten gibt. Das ist einmal der
+Bereich Journalismus. Also amtliche
+
+0:06:01.190,0:06:05.030
+Statistiken sind ein super wertvolles
+Werkzeug, z.B. für Datenjournalismus oder
+
+0:06:05.030,0:06:10.550
+für Fact Checking. Und amtliche
+Statistiken sind auch sehr wichtig, z.B.
+
+0:06:10.550,0:06:16.040
+für die Sozialwissenschaften. Aber auch
+für zivilgesellschaftliche Initiativen
+
+0:06:16.040,0:06:23.690
+können Daten echter Mehrwert sein, z.B.
+wenn eine Initiative Daten gestützt für
+
+0:06:23.690,0:06:30.410
+die gute Sache kämpfen will. Wenn man
+jetzt anfängt, mit amtlichen Statistiken
+
+0:06:30.410,0:06:35.330
+zu arbeiten, dann ist es immer ganz
+wichtig, sich einmal in den Hinterkopf zu
+
+0:06:35.330,0:06:39.290
+rufen, wie diese Daten entstehen. Und dazu
+erzähle ich immer ganz gerne diese
+
+0:06:39.290,0:06:42.350
+Geschichte, die habt ihr in den letzten
+Tagen vielleicht auch schon mal gehört.
+
+0:06:42.350,0:06:47.420
+Und zwar war es so, dass etwa vor 2 000
+Jahren Kaiser Augustus, der Kaiser des
+
+0:06:47.420,0:06:53.630
+Römischen Reiches ein Zensus angesetzt
+hat, weil er bessere Daten über die
+
+0:06:53.630,0:07:01.550
+Bevölkerung seines Reichs brauchte. Und im
+Rahmen von diesem Zensus, da mussten Maria
+
+0:07:01.550,0:07:12.230
+und Josef zusammen nach Bethlehem reisen,
+um sich zählen zu lassen. Und das passiert
+
+0:07:12.230,0:07:19.070
+auch heute noch. Also es gibt in allen
+Industrienationen gibt es irgendeine Form
+
+0:07:19.070,0:07:23.930
+von Zensus, der so ungefähr alle zehn
+Jahre durchgeführt wird? Entweder in Form
+
+0:07:23.930,0:07:28.460
+von einer klassischen Volkszählung, wo
+wirklich Menschen von Tür zu Tür gehen und
+
+0:07:28.460,0:07:33.890
+von der Bevölkerung Daten über jeden
+einzelnen Haushalt erfassen oder, das ist
+
+0:07:33.890,0:07:38.630
+der andere Ansatz, indem man Daten aus
+Registern, die ohnehin vorliegen,
+
+0:07:38.630,0:07:44.780
+zusammenfasst. Der Zensus in Deutschland,
+der zum letzten Mal 2011 stattgefunden hat
+
+0:07:44.780,0:07:49.970
+und zum nächsten Mal 2022 stattfindet, der
+ist in erster Linie ein Register-Zensus.
+
+0:07:49.970,0:07:53.870
+Das heißt, es werden Daten aus dem
+Bevölkerungsregistern und anderen
+
+0:07:53.870,0:07:57.920
+amtlichen Registern zusammengetragen und
+dann wird eben mit statistischen Methoden
+
+0:07:57.920,0:08:05.030
+berechnet, z.B. wie viele Menschen in
+einer Stadt leben. Und zusätzlich gibt es
+
+0:08:05.030,0:08:10.160
+dann ein eine kleinere Anzahl von
+Menschen, die befragt wird, um das
+
+0:08:10.160,0:08:17.840
+gegenzuchecken. Es gibt auch eben diese
+andere Art, ein Zensus durchzuführen, die
+
+0:08:17.840,0:08:22.340
+man Mikrozensus nennt. Und das ist eben
+einfach ein Sample. Das heißt, man befragt
+
+0:08:22.340,0:08:26.420
+einen bestimmten Teil der Gesellschaft und
+dann nimmt man diese Daten und rechnet die
+
+0:08:26.420,0:08:32.480
+hoch auf das ganze Land. Und es gibt den
+Bereich der Sekundärstatistik, da werden
+
+0:08:32.480,0:08:37.880
+z.B. Daten, die an anderer Stelle erfasst
+werden, z.B. von der Agentur für Arbeit,
+
+0:08:37.880,0:08:42.110
+die werden dann hinterher weitergegeben an
+die Statistischen Ämter und die
+
+0:08:42.110,0:08:46.310
+Statistischen Ämter, die bereiten dann
+eine Statistik auf und veröffentlichen
+
+0:08:46.310,0:08:52.850
+die. Und bei allen Verfahren ist es ganz
+wichtig zu verstehen, dass die Daten eben
+
+0:08:52.850,0:08:59.150
+nicht ein perfektes Abbild der Welt sind.
+Es sind immer Daten, die nach einer
+
+0:08:59.150,0:09:03.860
+bestimmten Methodik erhoben wurden und
+weiterverarbeitet. Und die sind in der
+
+0:09:03.860,0:09:09.120
+Regel nicht perfekt. Aber trotzdem ist die
+amtliche Statistik normalerweise das
+
+0:09:09.120,0:09:12.180
+Beste, was wir haben. Also die amtliche
+Statistik ist in den meisten Fällen so
+
+0:09:12.180,0:09:21.090
+etwas wie der Goldstandard der Daten. Ja,
+und wichtig in diesem Zusammenhang ist
+
+0:09:21.090,0:09:24.990
+auch... Wir haben in Deutschland ein ganz
+strenges Statistikgeheimnis, d. h. dass
+
+0:09:24.990,0:09:29.820
+die Daten, die so gesammelt werden, werden
+immer anonymisiert. Es werden nur
+
+0:09:29.820,0:09:33.750
+aggregierte Zahlen veröffentlicht und
+grundsätzlich dürfen Menschen oder
+
+0:09:33.750,0:09:40.320
+Unternehmen nie nachträglich
+identifizierbar sein. Und trotzdem oder
+
+0:09:40.320,0:09:46.920
+auch deswegen ist in Deutschland der
+Zensus immer hochumstritten, also in den
+
+0:09:46.920,0:09:54.060
+80er Jahren, da gab es sehr große Proteste
+und auch Verfassungsbeschwerden gegen den
+
+0:09:54.060,0:09:59.640
+Zensus. Und das ist auch der Grund, warum
+wir heute in Deutschland überhaupt dieses
+
+0:09:59.640,0:10:04.530
+Konzept eines Rechts auf informationelle
+Selbstbestimmung in dieser Form haben. Das
+
+0:10:04.530,0:10:09.180
+heißt, die Proteste, die es immer wieder
+gibt gegen den Zensus, die sind sehr
+
+0:10:09.180,0:10:12.900
+wichtig für den Datenschutz in
+Deutschland. Aber ich will das jetzt gar
+
+0:10:12.900,0:10:17.220
+nicht so thematisieren. In diesem Vortrag
+soll es eher darum gehen, dass diese Daten
+
+0:10:17.220,0:10:21.510
+jetzt da sind und dass wir euch in die
+Position versetzen wollen, mit diesen
+
+0:10:21.510,0:10:29.100
+Daten auch wirklich zu arbeiten. Wenn ihr
+jetzt euch überlegt habt: Okay, ich
+
+0:10:29.100,0:10:32.070
+brauche Statistiken zu einem bestimmten
+Thema und die finde ich vielleicht in der
+
+0:10:32.070,0:10:38.370
+amtlichen Statistik und ihr sucht mal im
+Web, dann seid ihr höchstwahrscheinlich
+
+0:10:38.370,0:10:42.000
+erst einmal ziemlich erschlagen, weil es
+wirklich sehr, sehr viele Angebote im Web
+
+0:10:42.000,0:10:46.950
+gibt, die amtliche Statistiken zur
+Verfügung stellen. Und die sind leider
+
+0:10:46.950,0:10:52.140
+auch von sehr unterschiedlicher Qualität.
+Der Grund dafür ist, einfach gesagt,
+
+0:10:52.140,0:10:56.130
+Föderalismus. Also wir haben in
+Deutschland eben das Statistische
+
+0:10:56.130,0:11:01.920
+Bundesamt und das wird auch Destatis
+genannt. Und wir haben 14 statistische
+
+0:11:01.920,0:11:05.850
+Landesämter. Außerdem haben wir noch den
+Bereich der Kommunalstatistik oder
+
+0:11:05.850,0:11:08.700
+städtisch statistische Ämter, wo
+eigentlich in jeder Kommune in Deutschland
+
+0:11:08.700,0:11:13.170
+auch irgendwie Daten erfasst werden. Und
+all diese Daten werden dann auch in
+
+0:11:13.170,0:11:20.400
+irgendeiner Form im Web veröffentlicht.
+Und da haben wir sehr, ich sag mal, coole
+
+0:11:20.400,0:11:24.900
+oder moderne Angebote wie das hier. Das
+ist ganz neu - das Dashboard Deutschland
+
+0:11:24.900,0:11:29.880
+vom Statistischen Bundesamt. Und hier
+könnt ihr euch so eine Sammlung von
+
+0:11:29.880,0:11:35.190
+aktuellen Statistiken angucken. Die sind
+dann auch dargestellt in so ziemlich
+
+0:11:35.190,0:11:40.260
+coolen Grafiken. Aber ihr habt halt keine
+Möglichkeit, jetzt nach einem bestimmten
+
+0:11:40.260,0:11:45.630
+Thema zu suchen oder die Daten hinterher
+runterzuladen und in euren eigenen
+
+0:11:45.630,0:11:50.670
+Analysen oder Grafiken
+weiterzuverarbeiten. Das heißt, wenn ihr
+
+0:11:50.670,0:11:54.210
+damit eigene Sachen machen wollt mit
+diesen Daten, dann sind solche
+
+0:11:54.210,0:12:01.440
+Veröffentlichungen relativ nutzlos. Und
+noch viel schlimmer ist dieses Beispiel:
+
+0:12:01.440,0:12:07.200
+Das gibt es leider immer noch, dass Daten
+einfach in ein PDF gepackt werden in Form
+
+0:12:07.200,0:12:12.480
+von einer Tabelle oder einer Grafik. Und
+hinterher ist es dann sehr schwer für
+
+0:12:12.480,0:12:20.340
+euch, diese Daten wieder rauszuholen aus
+diesem PDF. Und damit ihr jetzt diese
+
+0:12:20.340,0:12:26.310
+Recherche nicht selber machen müsst, hab
+ich mal für euch zusammengefasst, was die
+
+0:12:26.310,0:12:29.940
+richtig guten Portale sind, wo ihr
+höchstwahrscheinlich oder hoffentlich auch
+
+0:12:29.940,0:12:37.800
+die Daten findet, die ihr braucht. Der
+erste Startpunkt ist... oder sollte
+
+0:12:37.800,0:12:43.020
+normalerweise GENESIS Online sein. GENESIS
+Online ist so die zentrale Datenbank oder
+
+0:12:43.020,0:12:47.190
+das zentrale Datenportal des Statistischen
+Bundesamts. Hier habt ihr jetzt gleich so
+
+0:12:47.190,0:12:50.250
+ein großes Suchfeld, da könnt ihr ein
+Thema eingeben und dann findet ihr
+
+0:12:50.250,0:12:55.470
+hoffentlich Daten, die euch interessieren,
+könnt die dann als Tabelle anzeigen und
+
+0:12:55.470,0:13:01.050
+runterladen. Aber damit es nicht zu
+einfach ist, gibt es nicht nur dieses
+
+0:13:01.050,0:13:06.330
+blaue Daten-Portal, sondern es gibt das
+ganze auch nochmal in Rot. Und das hier
+
+0:13:06.330,0:13:10.200
+ist die Regional-Datenbank Deutschland und
+das ist die gemeinsame Plattform der
+
+0:13:10.200,0:13:14.010
+Statistischen Ämter in Deutschland. Und
+hier findet ihr eben Daten
+
+0:13:14.010,0:13:18.090
+heruntergebrochen auf die verschiedenen
+Regionen. Das heißt, wenn ihr Daten sucht
+
+0:13:18.090,0:13:22.170
+über eure Stadt oder euren Landkreis und
+die vielleicht sogar mit anderen Regionen
+
+0:13:22.170,0:13:25.980
+vergleichen wollt, dann findet ihr diese
+Daten hier in der Regionaldatenbank
+
+0:13:25.980,0:13:32.080
+Deutschland. Jetzt ist es so, dass diese
+Daten leider oft nicht sehr aktuell sind
+
+0:13:32.080,0:13:37.300
+und auch oft nicht so detailliert, wie man
+sie vielleicht braucht. Und wenn ihr da...
+
+0:13:37.300,0:13:40.510
+ich sage mal, noch genauere oder
+aktuellere Daten braucht, dann hilft es
+
+0:13:40.510,0:13:45.760
+immer, sich auch die Portale der
+Statistischen Landesämter anzuschauen.
+
+0:13:45.760,0:13:50.740
+Also jedes Statistische Landesamt hat auch
+so ein Daten-Portal und das funktioniert
+
+0:13:50.740,0:13:54.370
+letzten Endes auch wie
+regionalstatistik.de oder GENESIS Online.
+
+0:13:54.370,0:14:00.700
+Und der Grund, warum diese Portale alle
+sehr ähnlich aussehen, ist, dass die
+
+0:14:00.700,0:14:02.680
+meisten dieser Portale auf der gleichen
+Softwarelösung basieren. Diese Software-
+
+0:14:02.680,0:14:09.460
+Lösung heißt Genesis. Und das ist halt so
+eine Eigenentwicklung der Statistischen
+
+0:14:09.460,0:14:16.960
+Ämter, die die dann benutzen, um ihre
+eigenen Daten-Portale aufzusetzen. Und in
+
+0:14:16.960,0:14:24.370
+diesen GENESIS-Anwendungen, da könnt ihr
+einfach gesagt nach einem Thema suchen
+
+0:14:24.370,0:14:29.830
+oder nach einer Statistik suchen, die ihr
+braucht. Und wenn ihr eine gefunden habt,
+
+0:14:29.830,0:14:33.490
+dann klickt ihr euch durch so ein Menü und
+dann könnt ihr euch eben eine Tabelle
+
+0:14:33.490,0:14:41.410
+anzeigen. Und diese Tabelle könnt ihr dann
+entweder in eine einfache Grafik
+
+0:14:41.410,0:14:50.530
+verarbeiten direkt auf diesem Portal. Oder
+ihr könnt sie exportieren in einer Excel-
+
+0:14:50.530,0:14:54.820
+Tabelle oder eine CSV-Datei. Jetzt ist es
+leider so, dass dieses
+
+0:14:54.820,0:14:58.780
+Datenvisualisierungstool leider nur sehr
+rudimentär ist. Und ich hab's ehrlich
+
+0:14:58.780,0:15:04.450
+gesagt noch nie geschafft, damit irgendwas
+sinnvoll Verwendbares zu generieren. Und
+
+0:15:04.450,0:15:11.320
+dieser Daten Export für Excel und CSV, der
+ist auch nicht maschinenlesbar. Das heißt,
+
+0:15:11.320,0:15:15.070
+es sind verschachtelte Daten, die können
+nur schwer mit anderen Tools
+
+0:15:15.070,0:15:17.500
+weiterverarbeitet werden, ohne sie vorher
+
+0:15:17.500,0:15:23.680
+händisch aufzurollen. Erwähnenswert ist
+ 
+noch, dass es einen Webservice gibt, also
+
+0:15:23.680,0:15:27.760
+eine Daten-Schnittstelle, mit der er
+ 
+direkt auf Datensätze zugreifen könnt. Die
+
+0:15:27.760,0:15:34.000
+verwendete bisher Soap, also Soap ist
+ 
+quasi ein Standard für Datenschnittstellen
+
+0:15:34.000,0:15:39.280
+- der ist eher so aus dem letzten
+ 
+Jahrhundert und wird heute eher so im
+
+0:15:39.280,0:15:44.470
+Enterprise Segment eingesetzt. Soap ist
+ 
+eher nicht so das Werkzeug, mit dem ich
+
+0:15:44.470,0:15:49.280
+normalerweise jeden Tag arbeite, aber -
+ 
+und das ist ganz neu, es gibt jetzt auch
+
+0:15:49.280,0:15:52.850
+eine REST-Schnittstelle, also eine
+ 
+modernere Datenschnittstelle, die euch
+
+0:15:52.850,0:15:58.280
+JSON zurückgibt. Und es gibt die
+ 
+Möglichkeit, ein neues Datenformat zu
+
+0:15:58.280,0:16:03.200
+exportieren. Das nennen die Statistischen
+ 
+Ämter Flat CSV und ein Flat CSV ist
+
+0:16:03.200,0:16:06.860
+einfach ein normale CSV-Datei, die nicht
+ 
+verschachtelt ist und deswegen einfacher
+
+0:16:06.860,0:16:14.180
+zu verarbeiten. Also hier sehen wir so ein
+ 
+Beispiel. Wenn ihr jetzt auf
+
+0:16:14.180,0:16:21.590
+regionalstatistik.de z.B. eine Tabelle
+ 
+gefunden habt, dann könnt ihr euch die
+
+0:16:21.590,0:16:24.860
+anzeigen lassen, das sieht dann so aus.
+ 
+Das ist so eine verschachtelte Tabellen
+
+0:16:24.860,0:16:28.610
+Darstellung und da könnt ihr jetzt den
+ 
+Wert raussuchen oder die Zahl raussuchen,
+
+0:16:28.610,0:16:32.390
+die ihr braucht. Oder ihr könnt euch das
+ 
+Ganze eben als Excel oder CSV-Datei
+
+0:16:32.390,0:16:42.500
+exportieren oder ihr könnt die in so einer
+ 
+einfachen Grafik aufbereiten. Ganz
+
+0:16:42.500,0:16:49.700
+wichtig: Diese Daten sind Open Data. Sie
+ 
+erscheinen unter der Datenlizenz
+
+0:16:49.700,0:16:54.230
+Deutschland. Die erfordert eine
+ 
+Namensnennung, einen Verweis auf die
+
+0:16:54.230,0:16:58.760
+Lizenz und einen Verweis auf den
+ 
+Datensatz, den ihr verwendet. Also auf den
+
+0:16:58.760,0:17:04.160
+Ort, von dem er diesen Datensatz
+ 
+heruntergeladen habt. Und das ist sehr
+
+0:17:04.160,0:17:09.830
+ähnlich wie eine CC-BY Lizenz. Das ist
+ 
+jetzt nicht die perfekte Lizenz für Open
+
+0:17:09.830,0:17:15.560
+Data, also z.B. CC0 wäre irgendwie
+ 
+einfacher zu verwenden, aber es ist jetzt
+
+0:17:15.560,0:17:18.170
+auch nicht das Schlechteste. Grundsätzlich
+ 
+könnt ihr diese Daten also weiter
+
+0:17:18.170,0:17:23.990
+verwenden. Vor einem Jahr, da wäre jetzt
+ 
+an dieser Stelle des Vortrags ein großer
+
+0:17:23.990,0:17:29.870
+Rant gekommen darüber, wie schlimm diese
+ 
+GENESIS-Software ist. Aber ich muss sagen,
+
+0:17:29.870,0:17:33.650
+dass GENESIS in den letzten Monaten
+ 
+wirklich deutlich verbessert wurde. Das
+
+0:17:33.650,0:17:40.010
+heißt, die Plattform ist jetzt auf jeden
+ 
+Fall nutzerfreundlicher. Aber trotzdem
+
+0:17:40.010,0:17:43.700
+gibt's immer noch eine Reihe von
+ 
+Problemen. Das größte Problem aus meiner
+
+0:17:43.700,0:17:46.460
+Sicht ist, dass es keine stabilen URLs
+ 
+gibt. Das heißt, es gibt eine
+
+0:17:46.460,0:17:52.610
+sessionbasierte Navigation. Und wenn ihr
+ 
+in eine Tabelle gefunden habt, die ihr
+
+0:17:52.610,0:17:58.370
+benutzen wollt und ihr kopiert in der
+ 
+Browserleiste die URL dazu, dann könnt ihr
+
+0:17:58.370,0:18:01.190
+die nicht jemand anderem schicken, weil
+ 
+sie dann nicht mehr funktionieren wird.
+
+0:18:01.190,0:18:05.780
+Deshalb werdet ihr auch die Browser vor
+ 
+und zurück Navigation nur eingeschränkt
+
+0:18:05.780,0:18:10.850
+nutzen können und die Seite wird eben
+ 
+nicht von Suchmaschinen indiziert. Das
+
+0:18:10.850,0:18:15.530
+heißt, wenn ihr auf DuckDuckGo oder auf
+ 
+Google nach einer Statistik sucht, dann
+
+0:18:15.530,0:18:21.860
+werdet ihr kein Ergebnis von der GENESIS-
+ 
+Datenbank finden. Das nächste Problem ist,
+
+0:18:21.860,0:18:26.120
+dass der Datenabruf je nach Plattform und
+ 
+je nachdem, wie viele Daten ihr
+
+0:18:26.120,0:18:30.830
+herunterladen wollt, eine Anmeldung
+ 
+erfordert. Das heißt, ihr sucht euch eine
+
+0:18:30.830,0:18:34.850
+Tabelle aus, die ihr benutzen wollt und
+ 
+dann könnt ihr die eben nicht direkt
+
+0:18:34.850,0:18:38.780
+runterladen, sondern ihr müsst euch erst
+ 
+ein Login anlegen und mit diesem Login
+
+0:18:38.780,0:18:42.860
+könnt ihr die Daten dann bestellen und
+ 
+danach in so einer Art digitalem Postfach
+
+0:18:42.860,0:18:47.060
+abrufen. Hier wäre es natürlich schöner,
+ 
+wenn man einfach direkt auf den Datensatz
+
+0:18:47.060,0:18:53.870
+zugreifen könnte. Wenn ihr die Daten
+ 
+weiterverarbeiten wollt, dann steht ihr
+
+0:18:53.870,0:18:57.800
+vor dem Problem, dass dieser Datenexport,
+ 
+der ein CSV generiert, sehr speziell ist.
+
+0:18:57.800,0:19:03.740
+Das heißt, die Daten sind verschachtelt.
+ 
+Sie verwenden ein deutsches Zahlenformat,
+
+0:19:03.740,0:19:12.200
+also Komma als Dezimaltrennzeichen und sie
+ 
+verwenden nicht etwa Unicode oder UTF 8
+
+0:19:12.200,0:19:17.690
+als Zeichenkodierung wie die meisten
+ 
+modernen Tools, sondern Windows 1252. Und
+
+0:19:17.690,0:19:23.390
+meine Vermutung ist, dass dieses ein
+ 
+bisschen schräge Format gewählt wurde, um
+
+0:19:23.390,0:19:29.000
+maximale Kompatibilität mit Microsoft
+ 
+Office sicherzustellen. Das heißt, die
+
+0:19:29.000,0:19:32.840
+Tabellen sind dafür gemacht, dass man sie
+ 
+in Excel öffnet und dann auf DIN-A4
+
+0:19:32.840,0:19:36.200
+ausdruckt. Nicht unbedingt dafür, sie
+ 
+einfach direkt in einem
+
+0:19:36.200,0:19:41.270
+Datenvisualisierungstool weiterverarbeiten
+ 
+zu können. Und jetzt könnte man denken:
+
+0:19:41.270,0:19:43.490
+Okay, aber es gibt eine
+ 
+Datenschnittstelle, wo ich die Daten
+
+0:19:43.490,0:19:47.810
+herunterladen kann. Und hier ist es so,
+ 
+dass diese Datenschnittstellen leider eine
+
+0:19:47.810,0:19:54.290
+sehr hohe Lernschwäche haben. Z.B. diese
+ 
+neue Rest-API, die kommt mit einem 200
+
+0:19:54.290,0:19:58.160
+seitigen Handbuch und ich denke da kann
+ 
+man schon ganz gut sehen, dass sie nicht
+
+0:19:58.160,0:20:02.060
+gedacht ist für, ich sage mal so, casual
+ 
+Datennutzer, die einfach nur schnell eine
+
+0:20:02.060,0:20:06.920
+Tabelle herunterladen möchten. Und das ist
+ 
+der Punkt, wo jetzt Datenguide zum Einsatz
+
+0:20:06.920,0:20:13.220
+kommt. Was wir bei Datenguide machen, ist:
+ 
+Wir nehmen uns die Daten aus
+
+0:20:13.220,0:20:17.810
+regionalstatistik.de und laden die Daten
+ 
+einfach einmal alle runter. Also wir
+
+0:20:17.810,0:20:23.060
+nehmen diese regionalen Statistiken und
+ 
+machen einen riesen Datenimport. Den
+
+0:20:23.060,0:20:27.560
+machen wir jede Nacht, damit wir eine
+ 
+Spiegelung haben, die aktuell ist. Und die
+
+0:20:27.560,0:20:30.980
+Daten stellen wir dann eben über unsere
+ 
+eigenen Datenschnittstelle in unserem
+
+0:20:30.980,0:20:36.200
+eigenen Format zur Verfügung und
+ 
+entwickeln dann eine Webanwendung auf
+
+0:20:36.200,0:20:41.150
+Basis dieser Daten, mit denen ihr die
+ 
+Daten durchsuchen und herunterladen könnt.
+
+0:20:41.150,0:20:48.230
+Das sieht dann ungefähr so aus. Wir nennen
+ 
+es das Datenguide Datenportal und das ist
+
+0:20:48.230,0:20:54.800
+ein experimentelles Tool, mit dem ihr eine
+ 
+Region oder mehrere Regionen auswählen
+
+0:20:54.800,0:20:59.060
+könnt und dann eine Statistik für diese
+ 
+Region. Und dann könnt ihr noch ein paar
+
+0:20:59.060,0:21:03.860
+Einstellungen machen und z.B. innerhalb
+ 
+der Statistik weiter einschränken, was ihr
+
+0:21:03.860,0:21:07.670
+braucht. Und dann könnt ihr die Daten
+ 
+herunterladen. Und die sind dann
+
+0:21:07.670,0:21:11.090
+idealerweise schon in einem Format, was
+ 
+ihr genau so einfach in einem
+
+0:21:11.090,0:21:15.080
+Datenvisualisierungstool oder
+ 
+Datenanalyse-Tool weiterverwenden könnt,
+
+0:21:15.080,0:21:21.530
+ohne dass ihr die Daten erstmal von Hand
+ 
+aufräumen musst. Und wir haben eben nicht
+
+0:21:21.530,0:21:25.550
+nur dieses Datenportal, sondern wir
+ 
+verwenden die Daten auch, um auf der
+
+0:21:25.550,0:21:29.930
+Datenguide Website die Statistiken zu
+ 
+erklären. Wir haben eben festgestellt,
+
+0:21:29.930,0:21:36.230
+dass die Nutzbarmachung von statistischen
+ 
+Daten eben nicht nur ein rein technisches
+
+0:21:36.230,0:21:41.240
+Problem ist, sondern auch ein Problem mit
+ 
+Data Literacy. Das heißt, Menschen müssen
+
+0:21:41.240,0:21:44.240
+einfach wissen, wie sie mit diesen Daten
+ 
+umgehen, damit sie mit diesen Daten
+
+0:21:44.240,0:21:47.270
+umgehen können. Und deswegen haben wir ja
+ 
+jetzt so verschiedene Erklärstücke
+
+0:21:47.270,0:21:55.370
+veröffentlicht auf der Datenguide-Website.
+ 
+Und diese Daten, die wir zur Verfügung
+
+0:21:55.370,0:21:58.310
+stellen, die wollen wir eben nicht nur zur
+ 
+Verfügung stellen für unser eigenes Tool,
+
+0:21:58.310,0:22:03.650
+sondern wir haben ganz bewusst eine offene
+ 
+API, die Dritte verwenden können, um dann
+
+0:22:03.650,0:22:10.400
+ihre eigenen Anwendungen auf Basis dieser
+ 
+Daten zu entwickeln. Es gibt zwei
+
+0:22:10.400,0:22:13.370
+Datenschnittstellen, also zwei
+ 
+verschiedene Datenschnittstellen, die wir
+
+0:22:13.370,0:22:18.680
+zur Verfügung stellen. Die erste ist ein
+ 
+einfacher Tabellendownload über http und
+
+0:22:18.680,0:22:22.730
+der ist einfach dafür gedacht, dass ihr
+ 
+z.B. direkt im Browser einfach über die
+
+0:22:22.730,0:22:29.300
+URLleiste einen Link eingibt und dann
+ 
+kriegt ihr eine Tabelle zurück. Und das
+
+0:22:29.300,0:22:32.870
+ist dieser Tabellen Download, den man eben
+ 
+auch mit dem Datenguide Datenportal
+
+0:22:32.870,0:22:39.290
+zusammenbauen kann. Und diese Tabellen
+ 
+könnt ihr dann entweder in verschiedenen
+
+0:22:40.040,0:22:44.150
+CSV Formaten - je nachdem was ihr braucht
+ 
+- runterladen oder als JSON, um sie z.B.
+
+0:22:44.150,0:22:51.800
+mit JavaScript weiter zu verarbeiten. Und
+ 
+wenn ihr eine komplexere Anwendungen plant
+
+0:22:51.800,0:22:56.810
+auf Basis von statistischen Daten, dann
+ 
+könnt ihr diese andere Datenschnittstelle
+
+0:22:56.810,0:23:02.150
+verwenden, die wir zur Verfügung stellen,
+ 
+die verwendet GraphQL. GraphQL ist, ich
+
+0:23:02.150,0:23:07.010
+sage mal einfach gesagt, ein moderner
+ 
+Standard für Datenschnittstellen, um
+
+0:23:07.010,0:23:12.740
+komplexere Anwendungen zu realisieren.
+ 
+Beide Datenschnittstellen sind
+
+0:23:12.740,0:23:17.150
+experimentell in dem Sinne, dass es da
+ 
+durchaus noch Probleme gibt und auch
+
+0:23:17.150,0:23:20.270
+Fehler, von denen wir zum Teil schon
+ 
+wissen und zum Teil wahrscheinlich noch
+
+0:23:20.270,0:23:25.010
+nicht. Und dass die sich auch in ihrer
+ 
+Spezifikation noch ändern. Das heißt, es
+
+0:23:25.010,0:23:34.130
+gibt keine finale Spezifikation für unsere
+ 
+Datenschnittstellen. Wenn ihr jetzt diesen
+
+0:23:34.130,0:23:38.990
+Tabellen Download nutzen wollt, dann
+ 
+funktioniert das im einfachsten Fall so,
+
+0:23:38.990,0:23:42.980
+dass ihr auf die Datenguide Website geht.
+ 
+Dort benutzt ihr dieses Datenportal, um
+
+0:23:42.980,0:23:47.600
+eine Region oder eine Reihe von Regionen
+ 
+auszuwählen, eine Statistik auszuwählen
+
+0:23:47.600,0:23:53.930
+und dann klickt ihr eben auf Datendownload
+ 
+oder ihr kopiert einfach die CSV Daten in
+
+0:23:53.930,0:23:59.240
+die Zwischenablage und dann fügt ihr die
+ 
+Daten in einem Datenvisualisierungstool
+
+0:23:59.240,0:24:03.440
+eurer Wahl ein. Ich habe das zum
+ 
+Beispiel... also diese Grafiken, die ich
+
+0:24:03.440,0:24:06.650
+eingangs gezeigt habe, die habe ich mit
+ 
+Data Wrapper gemacht. Das ist ein
+
+0:24:06.650,0:24:11.480
+einfaches Datenvisualisierungstool. Da
+ 
+könnt ihr quasi so eine CSV-Datei rein
+
+0:24:11.480,0:24:15.560
+laden und dann könnt ihr quasi eine Karte
+ 
+davon erstellen oder ein Liniendiagramm.
+
+0:24:15.560,0:24:22.310
+Und - Full Disclosure - ich arbeite auch
+ 
+an Data Wrapper, aber nach dem gleichen
+
+0:24:22.310,0:24:25.940
+Prinzip könnt ihr die Daten mit einem
+ 
+beliebigen Datenvisualisierungstool oder
+
+0:24:25.940,0:24:37.440
+Analysetool eurer Wahl verwenden. Das ist
+ 
+ein Beispiel für die Verwendung von dieser
+
+0:24:37.440,0:24:45.240
+fortgeschrittenen GraphQL Schnittstelle.
+ 
+Das ist ein einfaches Quiz zu amtlichen
+
+0:24:45.240,0:24:49.860
+Statistiken, was bei einem Hektar
+ 
+entstanden ist, und hier könnt ihr quasi
+
+0:24:49.860,0:24:58.350
+euer Wissen über eure Region testen, auf
+ 
+Basis von amtlichen Statistiken. Und ein
+
+0:24:58.350,0:25:01.710
+bisschen praktisches Beispiel für die
+ 
+Nutzung von dieser GraphQL-Schnittstelle
+
+0:25:01.710,0:25:06.270
+ist Datenguide Python. Datenguide Python
+ 
+ist eine Python Bibliothek, mit der ihr
+
+0:25:06.270,0:25:13.200
+eben direkt aus Python heraus, z.B. aus
+ 
+einem Jupyter Notebook, auf amtliche
+
+0:25:13.200,0:25:17.850
+Statistiken zugreifen könnt, ohne dass ihr
+ 
+euch selber mit http requests oder so
+
+0:25:17.850,0:25:22.620
+auseinandersetzen müsst. Das ist ein
+ 
+Projekt, das wird von einer befreundeten
+
+0:25:22.620,0:25:31.050
+Organisation betreut und die haben eben
+ 
+auf Basis der Datenschnittstelle diese
+
+0:25:31.050,0:25:36.000
+Bibliothek entwickelt, um es einfacher zu
+ 
+machen, mit Python auf amtliche
+
+0:25:36.000,0:25:42.570
+Statistiken zuzugreifen. Das war
+ 
+eigentlich schon alles, was ich hatte.
+
+0:25:42.570,0:25:49.950
+Datenguide ist jetzt an einem Punkt, wo
+ 
+wir uns überlegen: Wie geht es weiter?
+
+0:25:49.950,0:25:54.600
+Also wir machen das jetzt seit drei Jahren
+ 
+und wir sind ursprünglich unter der Maxime
+
+0:25:54.600,0:25:58.860
+gestartet, dass wir gesagt haben, wir
+ 
+machen Datenguide, um es irgendwann wieder
+
+0:25:58.860,0:26:04.140
+abschalten zu können, weil idealerweise
+ 
+wir nur eine eine Demo oder ein Proof of
+
+0:26:04.140,0:26:10.380
+Concept entwickeln. Und auf dieser Basis
+ 
+erkennen dann die Statistischen Ämter, wie
+
+0:26:10.380,0:26:14.070
+sie ihre Arbeit besser machen können, um,
+ 
+ich sag mal, normale Leute zu erreichen.
+
+0:26:14.070,0:26:19.890
+Jetzt ist es so, dass GENESIS online in
+ 
+den letzten Jahren oder in den letzten
+
+0:26:19.890,0:26:25.080
+Monaten deutlich besser geworden ist. Aber
+ 
+trotzdem ist es noch nicht so weit, dass
+
+0:26:25.080,0:26:29.970
+wir Datenguide jetzt irgendwie nächstes
+ 
+Jahr abschalten werden. Das heißt, wir
+
+0:26:29.970,0:26:33.840
+überlegen uns weiterhin: Was können wir
+ 
+tun, um amtliche Statistiken besser
+
+0:26:33.840,0:26:39.930
+aufzubereiten, damit sie für alle nutzbar
+ 
+und auch nützlich sind? Und in diesem
+
+0:26:39.930,0:26:44.430
+Zusammenhang müssen wir eben auch unsere
+ 
+Webanwendungen und die
+
+0:26:44.430,0:26:48.990
+Datenschnittstellen, die wir zur Verfügung
+ 
+stellen noch einfacher und vor allem auch
+
+0:26:48.990,0:26:54.510
+stabiler machen. Und in dem Zusammenhang
+ 
+ist auch relevant, dass es jetzt eben
+
+0:26:54.510,0:26:59.850
+diese neuen Schnittstellen gibt in GENESIS
+ 
+Online. Also ich hab ja vorhin von dieser
+
+0:26:59.850,0:27:04.020
+neuen Rest Schnittstelle gesprochen und
+ 
+ich könnte mir gut vorstellen, dass man
+
+0:27:04.020,0:27:09.750
+die benutzen kann, um unsere
+ 
+Dateninfrastruktur bei Datenguide noch
+
+0:27:09.750,0:27:15.390
+einfacher zu machen. Das heißt, wir sind
+ 
+jetzt an dem Punkt, wo wir so ein bisschen
+
+0:27:15.390,0:27:22.230
+an der Orientierung feilen, aber auch eben
+ 
+weiter aktiv an den Tools arbeiten, die
+
+0:27:22.230,0:27:27.780
+wir schon haben. Und dazu auch nochmal die
+ 
+Ansage, dass das eben ein Open-Source-
+
+0:27:27.780,0:27:31.650
+Projekt ist. Das heißt, wir sind im Moment
+ 
+eine kleine Gruppe von Leuten, die daran
+
+0:27:31.650,0:27:36.450
+arbeitet. Und wenn ihr euch auch beruflich
+ 
+mit amtlichen Statistiken auseinandersetzt
+
+0:27:36.450,0:27:41.040
+oder Interesse habt, an so einem Projekt
+ 
+beizutragen, dann kontaktiert uns gerne.
+
+0:27:42.330,0:27:51.090
+Ihr findet uns oder ihr erreicht uns über
+ 
+community@datengui.de. Oder ihr findet uns
+
+0:27:51.090,0:27:57.000
+auf Twitter, auf Mastodon oder eben auf
+ 
+GitHub. Und jetzt haben wir noch Zeit für
+
+0:27:57.000,0:28:02.610
+ein paar Fragen. Vielen Dank.
+ 
+Herald: "Kontaktiert uns sehr gerne und
+
+0:28:02.610,0:28:05.730
+findet uns." Das gilt natürlich vor allem
+ 
+für so eine langfristige Perspektive.
+
+0:28:05.730,0:28:11.520
+Kurzfristig können wir hier direkt Simon
+ 
+Fragen stellen. Das heißt, ihr könnt alle
+
+0:28:11.520,0:28:18.960
+Fragen stellen. Ihr könnt Fragen stellen,
+ 
+indem ihr z.B. im IRC - okay, ich sollte
+
+0:28:18.960,0:28:23.235
+das vielleicht noch ein bisschen muten.
+ 
+Hört man das? Wahrscheinlich. Ah, Profi
+
+0:28:23.235,0:28:32.340
+Version. Gut. Wo war ich? Genau, wie kommt
+ 
+ihr ins IRC? Wo könnte ihr die Fragen
+
+0:28:32.340,0:28:38.940
+stellen? Ihr könnt einfach, wenn ihr auf
+ 
+media.ccc.de wahrscheinlich seid, da gibt
+
+0:28:38.940,0:28:42.840
+es einen kleinen Button, wo Chat steht. Da
+ 
+könnt ihr draufklicken und dann öffnet
+
+0:28:42.840,0:28:48.030
+sich direkt im Browser ein Chatfenster. Da
+ 
+könnt ihr reinkommen und könnt dort eure
+
+0:28:48.030,0:28:51.930
+Fragen stellen. Genauso geht es aber auch
+ 
+auf Mastodon und auf Twitter. Das hab ich
+
+0:28:51.930,0:28:57.690
+auch alles im Blick. Ihr müsste dazu dann
+ 
+den Hashtag #rC3Wikipaka ergänzen, dass
+
+0:28:57.690,0:29:04.110
+wir das dann auch rechtzeitig sehen. So,
+ 
+wir haben auch schon die ersten Fragen.
+
+0:29:04.110,0:29:12.600
+Vielleicht als allererstes: Amtliche
+ 
+Statistiken - wenn man darüber nachdenkt,
+
+0:29:12.600,0:29:16.620
+dann geht es auch immer darum, dass es
+ 
+eben um einzelne kommunale
+
+0:29:16.620,0:29:23.310
+Verwaltungsgebiete geht. Postleitzahlen,
+ 
+Kreise, was auch immer, die verändern sich
+
+0:29:23.310,0:29:27.420
+aber über die Zeit. Das heißt, es gibt
+ 
+sowas wie Gebietsreformen. Und dann ist
+
+0:29:27.420,0:29:32.550
+die Frage: Wie geht man damit um? Wo
+ 
+gibt's Informationen, wann sich was wie
+
+0:29:32.550,0:29:37.230
+ändert?
+ 
+Simon: Ja, das ist eine sehr gute Frage,
+
+0:29:37.230,0:29:42.360
+tatsächlich, und auch Probleme, die man in
+ 
+der Praxis immer wieder zu tun hat. Wir
+
+0:29:42.360,0:29:46.230
+haben es bei Datenguide bisher ausgespart,
+ 
+uns mit dem Problem auseinanderzusetzen,
+
+0:29:46.230,0:29:51.780
+einfach weil wir andere Probleme haben,
+ 
+auf die wir uns konzentrieren. Aber es
+
+0:29:51.780,0:29:58.290
+gibt auf jeden Fall Verfahren, wie man das
+ 
+umrechnen kann, sage ich mal einfach. Also
+
+0:29:58.290,0:30:03.150
+wenn man... normalerweise hat man einen
+ 
+Datensatz und die Region verschwindet oder
+
+0:30:03.150,0:30:06.720
+es gibt... die Region geht in zwei neuen
+ 
+Regionen auf oder zwei Regionen werden zu
+
+0:30:06.720,0:30:10.290
+einer zusammengefasst. Nur um so zu
+ 
+erklären, was das Datenproblem bei einer
+
+0:30:10.290,0:30:16.800
+Gebietsreform ist. Und es gibt eine Liste
+ 
+der Gemeinden, die wird von den
+
+0:30:16.800,0:30:19.350
+statistischen Ämtern veröffentlicht jedes
+ 
+Jahr und da sieht man dann halt
+
+0:30:19.350,0:30:29.250
+Änderungen. Und es gibt das BBSR. Das ist
+ 
+das Bundesamt für - das muss ich jetzt mal
+
+0:30:29.250,0:30:35.520
+nachgucken - das Bundesamt für Bauwesen
+ 
+und Raumordnung und die haben auch Infos
+
+0:30:35.520,0:30:42.480
+zu dem Thema. Und ich weiß auch, dass
+ 
+Datenjournalistenkollegen von mir dann
+
+0:30:42.480,0:30:48.300
+auch schon direkt beim BBSR angefragt
+ 
+haben, wenn es darum ging, konkret ein
+
+0:30:48.300,0:30:55.470
+Problem aufzulösen oder quasi eine
+ 
+Änderung, die stattgefunden hat, irgendwie
+
+0:30:55.470,0:30:58.860
+auf die Daten zu übertragen. Das heißt, da
+ 
+gibt's durchaus Verfahren, aber man muss
+
+0:30:58.860,0:31:02.280
+sich damit ein bisschen auseinandersetzen.
+ 
+Und es ist nichts von dem, das wir jetzt
+
+0:31:02.280,0:31:07.430
+einfach automatisiert durch Datenguide
+ 
+lösen können. Also ich glaube, das
+
+0:31:07.430,0:31:13.730
+Stichwort wäre: Liste der Gemeinden bei
+ 
+Destatis und im Zweifelsfall das BBSR
+
+0:31:13.730,0:31:24.200
+kontaktieren bzw. schauen, ob die Infos
+ 
+auf ihrer Website parat halten. Ich höre
+
+0:31:24.200,0:31:28.430
+dich leider nicht, Julia.
+ 
+Herald: Vielen Dank dafür. Die nächste
+
+0:31:28.430,0:31:33.710
+Frage wäre: Muss man sich denn
+ 
+identifizieren, um Daten zu bekommen oder
+
+0:31:33.710,0:31:37.190
+kann man sie anonym bekommen?
+ 
+Simon: Also man kann die Daten anonym
+
+0:31:37.190,0:31:42.110
+bekommen. Sowohl bei uns, als auch bei den
+ 
+statistischen Ämtern, wenn man einfach nur
+
+0:31:42.110,0:31:49.130
+Daten runterladen will. Also ich hab ja im
+ 
+Talk erwähnt, dass man teilweise für diese
+
+0:31:49.130,0:31:55.130
+GENESIS-Datenbanken einen Login braucht
+ 
+und da kann man sich meinem Verständnis
+
+0:31:55.130,0:32:00.440
+nach einfach anmelden. Ich hab das jetzt
+ 
+schon eine Weile nicht mehr gemacht, aber
+
+0:32:00.440,0:32:03.800
+man kann sich glaub ich einfach anmelden,
+ 
+ohne dass man Daten angeben muss. Man
+
+0:32:03.800,0:32:07.700
+braucht, soweit ich das in Erinnerung
+ 
+habe, nur eine E-Mail-Adresse und dann
+
+0:32:07.700,0:32:13.070
+bekommt man quasi einen generierten
+ 
+Nutzernamen. Ich glaube, anders ist es,
+
+0:32:13.070,0:32:17.630
+wenn man Daten wirklich anfragen will von
+ 
+den statistischen Ämtern, also genauso,
+
+0:32:17.630,0:32:21.890
+wie wenn man bei anderen öffentlichen
+ 
+Stellen irgendwie eine Anfrage macht. Da
+
+0:32:21.890,0:32:25.580
+gibt es bestimmte Verfahren, auch bei den
+ 
+statistischen Ämtern. Und ich gehe mal
+
+0:32:25.580,0:32:30.230
+davon aus, dass man sich dann in
+ 
+irgendeiner Form identifizieren muss und
+
+0:32:30.230,0:32:37.040
+sei es nur aus sozialen Gründen, weil man
+ 
+halt mit Menschen dort zu tun hat. Aber
+
+0:32:37.040,0:32:40.670
+grundsätzlich, wenn es darum geht, Daten
+ 
+abzufragen aus regionalstatistik.de oder
+
+0:32:40.670,0:32:44.180
+über Datenguide: Das ist Open Data, das
+ 
+einfach im Web zur Verfügung steht.
+
+0:32:44.180,0:32:49.700
+Einfach gesagt.
+ 
+Herald: Okay, dann ist natürlich die
+
+0:32:49.700,0:32:54.470
+Frage: Du hast gesagt, dass das ultimative
+ 
+Ziel ist, den Service irgendwann
+
+0:32:54.470,0:32:59.750
+abzuschalten, wenn die Statistik Ämter
+ 
+selbst mal auf einem gewissen Stand
+
+0:32:59.750,0:33:02.750
+angekommen sind. Wie realistisch ist das
+ 
+denn?
+
+0:33:02.750,0:33:07.460
+Simon: Ja, ich glaube, das kommt dann
+ 
+darauf an, wie man diesen Wissensstand
+
+0:33:07.460,0:33:14.450
+definiert. Also ich glaube, es hat auf
+ 
+jeden Fall eine... das Mindset ändert sich
+
+0:33:14.450,0:33:17.480
+bei den statistischen Ämtern und die haben
+ 
+festgestellt, dass der Bereich
+
+0:33:17.480,0:33:21.050
+Datenjournalismus und auch vielleicht
+ 
+andere zivilgesellschaftliche Initiativen
+
+0:33:21.050,0:33:27.200
+durchaus wichtige Multiplikatoren für ihre
+ 
+Veröffentlichungen sind und dass es auch
+
+0:33:27.200,0:33:31.220
+in ihrem Interesse ist, in der
+ 
+Öffentlichkeit gut dazustehen. Und
+
+0:33:31.220,0:33:40.070
+dementsprechend hat da eine Änderung des
+ 
+Mindsets stattgefunden. Ich glaube, die
+
+0:33:40.070,0:33:43.415
+Software verändert sich nur sehr langsam
+ 
+und deswegen würde ich sagen, es ist
+
+0:33:43.415,0:33:46.790
+unwahrscheinlich, dass wir irgendwann im
+ 
+nächsten oder übernächsten Jahr wirklich
+
+0:33:46.790,0:33:52.760
+die Arbeit, die wir bei Datenguide machen,
+ 
+einstellen. Aber es ist nicht völlig
+
+0:33:52.760,0:33:56.480
+unrealistisch.
+ 
+Herald: Dazu auch direkt die Frage: Wie
+
+0:33:56.480,0:34:01.100
+ist das mit den Daten der Statistischen
+ 
+Landesämter? Weil nämlich hier jemand
+
+0:34:01.100,0:34:04.760
+versucht hat, anzufragen, wie es zum
+ 
+Beispiel in Baden-Württemberg ist, wo erst
+
+0:34:04.760,0:34:09.020
+einmal niemand wusste, was Open Data ist.
+ 
+Und jetzt möchte diese Person wissen, wie
+
+0:34:09.020,0:34:13.250
+ist das eigentlich mit der föderalen
+ 
+Struktur und bekommt man die Daten der
+
+0:34:13.250,0:34:17.870
+Statistischen Landesämter?
+ 
+Simon: Also auf regionalstatistik.de, da
+
+0:34:17.870,0:34:21.230
+sind ja grundsätzlich mal die Daten der
+ 
+Statistischen Landesämter gesammelt. Also
+
+0:34:21.230,0:34:28.580
+regionalstatistik.de ist so der kleinste
+ 
+gemeinsame Nenner, wo die Statistischen
+
+0:34:28.580,0:34:32.750
+Ämter gewisse Daten zusammentragen. Und
+ 
+dann gibt's eben zusätzlich noch Daten,
+
+0:34:32.750,0:34:38.510
+die halt auf regionaler Ebene, also nur
+ 
+auf Ebene der Bundesländer zur Verfügung
+
+0:34:38.510,0:34:43.640
+stehen. Also spezielle Datensätze, zum
+ 
+Beispiel, die dann nur für Brandenburg
+
+0:34:43.640,0:34:46.490
+oder nur für Baden-Württemberg oder so zur
+ 
+Verfügung stehen oder die vielleicht nicht
+
+0:34:46.490,0:34:54.140
+vergleichbar sind zwischen verschiedenen
+ 
+Ländern. Und es gibt eigentlich immer
+
+0:34:54.140,0:34:58.070
+irgendeine Form von Datenportal. Ich bin
+ 
+mir jetzt... tatsächlich bin ich nicht so
+
+0:34:58.070,0:35:01.790
+firm, was Baden-Württemberg angeht, weil
+ 
+ich damit persönlich noch nie etwas zu tun
+
+0:35:01.790,0:35:06.350
+hatte. Aber ich würde eigentlich erwarten,
+ 
+dass es auch ein Datenportal des
+
+0:35:06.350,0:35:11.810
+Statistischen Landesamts Baden-Württemberg
+ 
+gibt. Es ist nicht notwendigerweise auch
+
+0:35:11.810,0:35:16.130
+eine GENESIS-Instanz, also es gibt auch
+ 
+Datenplattformen, die eben nicht auf
+
+0:35:16.130,0:35:18.590
+Genesis basieren. Aber es gibt
+ 
+normalerweise irgendeine Form von
+
+0:35:18.590,0:35:23.300
+zentraler Veröffentlichung jedes einzelnen
+ 
+Statistischen Landesamtes.
+
+0:35:23.300,0:35:26.960
+Herald: Ich meine, Baden-Württemberg ist
+ 
+ein bisschen verrückt. Ich hatte mal
+
+0:35:26.960,0:35:29.390
+versucht, da drauf zu klicken und dann
+ 
+kommt man wieder auf die gleiche Seite,
+
+0:35:29.390,0:35:31.509
+ohne irgendwie tiefer zu kommen. Also wer
+ 
+da mehr weiß, gerne mehr Informationen.
+
+0:35:31.509,0:35:35.910
+Simon: Ja, also ich kann mir das gerne
+ 
+nochmal genauer angucken und vielleicht
+
+0:35:35.910,0:35:39.120
+noch etwas dazu posten.
+ 
+Herald: Da helfen sich nämlich schon sehr
+
+0:35:39.120,0:35:44.130
+viele Menschen auch untereinander mit den
+ 
+verschiedensten Links. Vielleicht nochmal
+
+0:35:44.130,0:35:48.330
+zurück zur Weiterentwicklung: Wie geht es
+ 
+weiter bei euch, plant ihr denn auch
+
+0:35:48.330,0:35:51.660
+Visualisierungstools direkt auf eurer
+ 
+Website zu integrieren?
+
+0:35:51.660,0:35:59.100
+Simon: Ja, also das ist ein schwieriges
+ 
+Thema, tatsächlich. Also wir haben es vor.
+
+0:35:59.100,0:36:04.380
+Wir haben... also wenn jemand schon
+ 
+frühere Versionen dieses Vortrags gesehen
+
+0:36:04.380,0:36:07.440
+hat, weil es war ja so ein bisschen best-
+ 
+of Zusammenfassung aus den letzten drei
+
+0:36:07.440,0:36:11.460
+Jahren. Wenn ihr eine frühere Version
+ 
+dieses Talks gesehen habt oder irgendwann
+
+0:36:11.460,0:36:14.610
+in der Vergangenheit mal auf der
+ 
+Datenguide-Website wart, dann gab's da
+
+0:36:14.610,0:36:18.990
+durchaus auch so einfache
+ 
+Visualisierungen. Wir haben festgestellt,
+
+0:36:18.990,0:36:22.110
+dass es sehr schwierig ist, die halt so
+ 
+generisch zu bauen, dass sie immer
+
+0:36:22.110,0:36:27.090
+funktionieren, weil die Daten, also die
+ 
+Datensätze sind sehr unterschiedlich. Es
+
+0:36:27.090,0:36:32.430
+gibt so einen Plan, so eine "kleinste
+ 
+gemeinsame Nenner Visualisierung" zu haben
+
+0:36:32.430,0:36:38.490
+für jeden Datensatz. So ähnlich wie die
+ 
+Statistischen Ämter das machen auf
+
+0:36:38.490,0:36:42.690
+regionalstatistik.de oder auf GENESIS
+ 
+Online. Aber nur halt ein bisschen
+
+0:36:42.690,0:36:49.140
+moderner und besser zu benutzen. Aber
+ 
+bisher gibt's das nicht. Wenn jemand
+
+0:36:49.140,0:36:54.000
+Interesse hat, an sowas zu arbeiten, mit
+ 
+mir zusammen oder mit jemand von uns
+
+0:36:54.000,0:36:58.860
+zusammen, dann bin ich gerne bereit, mich
+ 
+darüber zu unterhalten, wie man das
+
+0:36:58.860,0:37:02.520
+konkret im Detail macht. Weil es ist halt
+ 
+ein Open-Source-Projekt. Es ist definitiv
+
+0:37:02.520,0:37:05.970
+nichts, an dem jemand jetzt gerade aktuell
+ 
+arbeitet. Aber es steht auf unserer Liste.
+
+0:37:05.970,0:37:11.640
+Herald: Thema Open-Source-Projekt, dazu
+ 
+noch ein kleiner Einwurf: Wie ist das mit
+
+0:37:11.640,0:37:16.530
+GENESIS? Die Vermutung ist, dass es
+ 
+wahrscheinlich proprietär ist. Gibt's da
+
+0:37:16.530,0:37:20.520
+irgendwelche Bestrebungen? Wenn das
+ 
+proprietär ist, ob man das vielleicht auch
+
+0:37:20.520,0:37:27.150
+OpenSource stellen möchte?
+ 
+Simon: Ist mir nicht... also nicht, dass
+
+0:37:27.150,0:37:31.320
+ich wüsste. Ja, ich bin mir auch nicht
+ 
+sicher... GENESIS ist halt ein riesen
+
+0:37:31.320,0:37:35.160
+Monster, meinem Verständnis nach. Ich hab
+ 
+noch nie Code gesehen, aber es ist meinem
+
+0:37:35.160,0:37:39.570
+Verständnis nach eine Java-Anwendung, die
+ 
+es dann Ende der 90er ins Web geschafft
+
+0:37:39.570,0:37:44.520
+hat. Und das ist auch der Grund dafür,
+ 
+warum es eben diese ganze sessionbasierte
+
+0:37:44.520,0:37:51.180
+Navigation gibt, weil es glaube ich
+ 
+ursprünglich... das ist nicht aus der
+
+0:37:51.180,0:37:55.260
+heutigen Webanwendungen
+ 
+Entwicklungsperspektive gestartet worden,
+
+0:37:55.260,0:38:02.490
+dieses Projekt. Aber ich habe keine, ich
+ 
+kann keine geheime Background-Infos zur
+
+0:38:02.490,0:38:07.230
+Entwicklung von GENESIS Online geben, aber
+ 
+ich kann mir, ehrlich gesagt, nicht
+
+0:38:07.230,0:38:13.440
+vorstellen, dass es in der... dass es als
+ 
+Open Source irgendwann in der
+
+0:38:13.440,0:38:20.520
+Öffentlichkeit landet. Also, wen es im
+ 
+Detail interessiert, GENESIS online ist
+
+0:38:20.520,0:38:27.120
+eine Eigenentwicklung und das wird von
+ 
+ITNRW entwickelt. ITNRW ist so eine
+
+0:38:27.120,0:38:34.140
+Kombination aus regionalem IT-
+ 
+Dienstleister für das Land Nordrhein-
+
+0:38:34.140,0:38:38.670
+Westfalen und dem Statistischen Landesamt
+ 
+Nordrhein-Westfalen. Das ist beides quasi
+
+0:38:38.670,0:38:48.840
+unter diesem Dach. Und die betreiben
+ 
+regionalstatistik.de. Und die Software
+
+0:38:48.840,0:38:51.960
+hinter GENESIS online wird zum Teil auch
+ 
+in Wiesbaden beim Statistischen Bundesamt
+
+0:38:51.960,0:38:57.300
+entwickelt. Es gibt Leute, die im
+ 
+öffentlichen Dienst sind und an dieser
+
+0:38:57.300,0:39:03.210
+Software arbeiten.
+ 
+Herald: Okay, sehr gut. Jetzt hab ich noch
+
+0:39:03.210,0:39:09.150
+sehr viele Fragen von Dateninteressierten,
+ 
+die vielleicht ein bisschen über das, was
+
+0:39:09.150,0:39:14.100
+ihr jetzt als Datenguide anbietet,
+ 
+hinausgehen, trotzdem: Hast du eine
+
+0:39:14.100,0:39:17.250
+Empfehlung für eine Datenquelle für
+ 
+internationale Daten?
+
+0:39:17.250,0:39:23.430
+Simon: Das ist eine gute Frage. Es kommt
+ 
+es darauf an, worum es geht. Also es gibt
+
+0:39:23.430,0:39:27.810
+halt, genauso wie die Statistischen
+ 
+Landesämter in Deutschland alle
+
+0:39:27.810,0:39:31.620
+zusammenarbeiten und dann eine gemeinsame
+ 
+Datenveröffentlichung machen, gibt's auf
+
+0:39:31.620,0:39:37.890
+europäischer Ebene auch gemeinsame
+ 
+Datenveröffentlichungen. Also es gibt ein
+
+0:39:37.890,0:39:44.640
+europäisches Open Data Portal, wo die EU-
+ 
+Mitgliedsländer Daten hin liefern. Es gibt
+
+0:39:44.640,0:39:51.840
+auch ein zweites Open Data Portal, wo die,
+ 
+wo es eben alle möglichen Arten von Open
+
+0:39:51.840,0:39:57.180
+Data von der EU gibt. Und es gibt auch
+ 
+eine gemeinsame Plattform von Eurostat,
+
+0:39:57.180,0:40:04.410
+also Eurostat ist quasi sowas wie die
+ 
+gemeinsame Arbeitsgemeinschaft der
+
+0:40:04.410,0:40:07.530
+statistischen Ämter in den einzelnen
+ 
+Mitgliedsländern der EU. Das heißt, es
+
+0:40:07.530,0:40:14.610
+geht immer so nach oben. Auf europäischer,
+ 
+auf internationaler Ebene - also die
+
+0:40:14.610,0:40:21.090
+Weltbank hat statistische Informationen,
+ 
+quasi über alle Länder. Da findet man
+
+0:40:21.090,0:40:27.990
+Dinge. Und es gibt halt so verschiedene,
+ 
+ich sage mal unabhängige Plattformen, z.B.
+
+0:40:27.990,0:40:32.730
+Our World in Data ist sehr gut. Muss kurz
+ 
+nachgucken, ob ich das richtig sage.
+
+0:40:32.730,0:40:44.850
+Genau, das ist ourworldindata.org. Und die
+ 
+sammeln quasi Daten zu allen möglichen
+
+0:40:44.850,0:40:51.330
+Themen, die halt weltweit zur Verfügung
+ 
+stehen. Das ist von der Oxford University
+
+0:40:51.330,0:40:58.410
+und da findet man sehr viele Datensätze,
+ 
+wenn man so internationale Vergleiche
+
+0:40:58.410,0:41:05.040
+machen müsste, oder ja, Daten zu
+ 
+verschiedenen Themen braucht, die wirklich
+
+0:41:05.040,0:41:07.680
+für verschiedene Länder irgendwie
+ 
+vergleichbar zur Verfügung stehen, dann
+
+0:41:07.680,0:41:15.540
+ist das auch ein guter Startpunkt.
+ 
+Herald: Okay, genau so eine ähnliche Frage
+
+0:41:15.540,0:41:19.920
+wäre: Was ist eigentlich mit
+ 
+teilöffentlichen Daten, zum Beispiel von
+
+0:41:19.920,0:41:24.150
+der Deutschen Bahn? Findet man die bei
+ 
+euch auch oder weißt du, wo man die
+
+0:41:24.150,0:41:29.820
+vielleicht finden könnte, z.B. Wie viele
+ 
+Güterzüge fahren nach Hamburg?
+
+0:41:29.820,0:41:38.730
+Simon: Da bin ich jetzt tatsächlich
+ 
+überfragt. Also ich weiß, dass die Bahn...
+
+0:41:38.730,0:41:44.370
+also es gibt ja eine OpenData-Initiative
+ 
+innerhalb der Bahn. Ich könnte mir
+
+0:41:44.370,0:41:46.890
+vorstellen, dass es da vielleicht
+ 
+Veröffentlichungen zu diesem Thema gibt.
+
+0:41:46.890,0:41:55.170
+Aber sicher bin ich mir da nicht. Ich hab
+ 
+mich mit dem Thema noch nicht befasst, ich
+
+0:41:55.170,0:41:59.250
+würde jetzt nicht völlig ausschließen,
+ 
+dass es von den Statistischen Bundesämtern
+
+0:41:59.790,0:42:06.810
+so im Kontext Verkehr irgendwie Daten zu
+ 
+diesem Thema gibt. Aber ich hatte bisher
+
+0:42:06.810,0:42:11.160
+nie was damit zu tun. Müsste ich jetzt
+ 
+auch mal auf den Seiten der Statistischen
+
+0:42:11.160,0:42:16.530
+Ämter nachgucken. Ansonsten ... es gibt
+ 
+ja, heißt es opendata.bahn.de?
+
+0:42:16.530,0:42:21.450
+Herald: Ich weiß nicht gerade aus dem Kopf
+ 
+genau, wie es heißt, aber die Bahn hat
+
+0:42:21.450,0:42:25.080
+selber auch offene Daten.. Also das ist
+ 
+nicht bei euch jetzt direkt mit dabei?
+
+0:42:25.080,0:42:30.540
+Simon: Nee.
+ 
+Herald: Okay, eine andere, sehr konkrete
+
+0:42:30.540,0:42:37.230
+Frage zu Daten wäre: Gibt's z.B. sowas wie
+ 
+die Energieverbrauchsdaaten der
+
+0:42:37.230,0:42:42.240
+Bundesländer für einzelne Gemeinden oder
+ 
+auf Bundesebene? Findet man sowas bei
+
+0:42:42.240,0:42:44.820
+euch?
+ 
+Simon: Das ist auch eine sehr spezielle
+
+0:42:44.820,0:42:47.700
+Frage.
+ 
+Herald: Genau das ist richtig. Vielleicht
+
+0:42:47.700,0:42:51.060
+weißt du es, und sonst kannst du
+ 
+vielleicht erklären, wie man dran kommt?
+
+0:42:51.060,0:42:59.370
+Simon: Also man kann quasi auf... man
+ 
+könnte jetzt auf regionalstatistik.de z.B.
+
+0:42:59.370,0:43:06.240
+mal nach dem Thema Energie suchen. Oder
+ 
+Stromversorgung. Und dann schauen, ob es
+
+0:43:06.240,0:43:13.920
+da Ergebnisse gibt oder eben auf
+ 
+Datenguide. Auch dieses Datenguide
+
+0:43:13.920,0:43:23.670
+Datenportal. Wenn ihr auf Datenportal
+ 
+klickt auf der Datenguidewebsite und dann
+
+0:43:23.670,0:43:27.870
+gibt's da so ein Interface, wo ihr ein
+ 
+Suchbegriff eingeben könnt unter Statistik
+
+0:43:27.870,0:43:34.860
+und da mal mit dem Suchbegriff Strom oder
+ 
+Energie. Ansonsten wäre ich mir relativ
+
+0:43:34.860,0:43:39.810
+sicher, dass es - es gibt ja Europäische
+ 
+Energie-Agenturen - dass es irgendwie
+
+0:43:39.810,0:43:47.130
+Stellen gibt, die Daten dazu
+ 
+veröffentlichen. Müsste ich aber auch
+
+0:43:47.130,0:43:53.250
+recherchieren.
+ 
+Herald: Vielen Dank für deine Antworten zu
+
+0:43:53.250,0:43:57.930
+den sehr spezifischen Fragen. Ich habe
+ 
+außerdem noch eine sehr spezifische Frage,
+
+0:43:57.930,0:44:03.090
+die uns über Twitter erreicht hat, und
+ 
+zwar: Es geht um die Verwendung der Daten
+
+0:44:03.090,0:44:08.160
+der USGS, die aktuell nur noch als PDF
+ 
+vorliegen. Ich weiß leider selbst nicht,
+
+0:44:08.160,0:44:12.120
+was die USGS ist. Weißt du das? Ich habe
+ 
+auch nochmal nachgefragt und bisher noch
+
+0:44:12.120,0:44:20.430
+keine Antwort bekommen.
+ 
+Simon: Also das sind Geodaten aus den USA,
+
+0:44:21.660,0:44:25.770
+glaub ich, aber ich kann dazu nichts
+ 
+sagen, leider. Ich weiß, dass es in den
+
+0:44:25.770,0:44:30.180
+USA ja auch diese... gab es in den letzten
+ 
+4 Jahren ja so eine umgekehrte
+
+0:44:30.180,0:44:35.190
+Entwicklung, wo verschiedene Daten, die
+ 
+quasi in der Public Domain oder als Open
+
+0:44:35.190,0:44:37.890
+Data zur Verfügung standen, jetzt eben
+ 
+nicht mehr als Open Data zur Verfügung
+
+0:44:37.890,0:44:44.370
+stehen, weil es einfach so ist, dass...
+ 
+die Obama-Regierung hat sehr viel geöffnet
+
+0:44:44.370,0:44:48.780
+im Sinne von Open Data und die Trump-
+ 
+Regierung hat dann einfach sehr viel
+
+0:44:48.780,0:44:57.090
+wieder zugemacht und teilweise auch
+ 
+Organisationen oder Organisationsformen,
+
+0:44:57.090,0:44:59.370
+die es gab und die gemeinsam Daten
+ 
+veröffentlich haben, in der Form
+
+0:44:59.370,0:45:03.660
+aufgelöst. Aber jetzt zu dieser konkreten
+ 
+Frage kann ich nichts sagen.
+
+0:45:03.660,0:45:07.800
+Herald: Sind ja auch alles sehr
+ 
+spezifische Fragen, die auch schon
+
+0:45:07.800,0:45:12.090
+eigentlich über euer Angebot so ein
+ 
+bisschen hinausgehen, wo man dann merkt:
+
+0:45:12.090,0:45:16.890
+Okay, hier sitzen die Datennerds, die auch
+ 
+bis ins Letzte alles ausschöpfen wollen.
+
+0:45:16.890,0:45:20.400
+Jetzt ist natürlich so ein bisschen die
+ 
+Frage: Was ist denn vielleicht, wenn ich
+
+0:45:20.400,0:45:24.240
+noch nicht so viel Erfahrung habe, mich
+ 
+aber ganz gerne mal mit den Daten bei euch
+
+0:45:24.240,0:45:27.060
+beschäftigen möchte. Wie kann ich denn
+ 
+mitmachen? Wie kann ich einsteigen, wie
+
+0:45:27.060,0:45:33.990
+kann ich anfangen? Also der... wenn ich
+ 
+jetzt da mit dem Thema anfangen würde,
+
+0:45:33.990,0:45:37.500
+würde mir glaube ich... also normalerweise
+ 
+hat man ja ein Thema, mit dem man sich
+
+0:45:37.500,0:45:41.310
+auseinandersetzen will, also ein
+ 
+inhaltliches Thema, zu dem man Daten
+
+0:45:41.310,0:45:46.620
+sucht. Dann würde ich mal gucken, was
+ 
+gibt's bei den statistischen Ämtern, was
+
+0:45:46.620,0:45:51.720
+gibt's auf Datenguide zu dem Thema? Und
+ 
+dann würde ich mal ein bisschen anfangen,
+
+0:45:51.720,0:45:57.120
+mit diesen Daten zu arbeiten. Mit... also
+ 
+mal die Daten sich genauer angucken, Daten
+
+0:45:57.120,0:46:04.380
+runterladen und dann mit einem Tool deiner
+ 
+Wahl diese Daten zu visualisieren oder zu
+
+0:46:04.380,0:46:10.080
+gucken, was man da rausziehen kann. Es
+ 
+kann so einfach wie Excel sein oder mit
+
+0:46:10.080,0:46:16.890
+Python oder R oder auch mit einfachen
+ 
+Datenvisualisierungstools wie Data Wrapper
+
+0:46:16.890,0:46:20.370
+oder Flourish Studio. Das sind beides
+ 
+Tools, die kann man umsonst im Web
+
+0:46:20.370,0:46:24.210
+benutzen, da mal die Daten hochladen und
+ 
+dann gucken, was man daraus machen kann.
+
+0:46:24.210,0:46:28.830
+Einfach, um mal so ein Gefühl dafür zu
+ 
+kriegen. Und wenn ihr ganz konkret an
+
+0:46:28.830,0:46:33.210
+Datenguide mitarbeiten wollt, dann ist
+ 
+Datenguide natürlich in erster Linie mal
+
+0:46:33.210,0:46:39.500
+eine Software-Projekt. Das heißt, wir
+ 
+haben, wir hätten Tickets, an denen man
+
+0:46:39.500,0:46:45.410
+arbeiten könnte. Am einfachsten im Moment
+ 
+ist, wenn man uns direkt kontaktiert über
+
+0:46:45.410,0:46:48.620
+die Kanäle, die ich vorhin angezeigt habe
+ 
+oder einfach über Datenguide auf Twitter
+
+0:46:48.620,0:46:54.500
+z.B., mal Kontakt mit uns aufnimmt und
+ 
+dann können wir darüber reden. Wir haben
+
+0:46:54.500,0:47:00.065
+sehr viele Tickets, also ein sehr langes
+ 
+Backlog. Es ist glaub ich nicht, es ist
+
+0:47:00.065,0:47:04.820
+unterschiedlich schwierig, da
+ 
+einzusteigen. Aber zusammen würden wir,
+
+0:47:04.820,0:47:10.010
+glaube ich, auch einfache Tickets, um
+ 
+einzusteigen, finden. Und die andere Sache
+
+0:47:10.010,0:47:18.350
+ist eben, dass wir auch ein Interesse dran
+ 
+haben, mehr Arbeit rund um Data Literacy
+
+0:47:18.350,0:47:23.270
+zu machen. Das heißt, auch wenn ihr nicht
+ 
+aus dem Bereich Softwareentwicklung kommt,
+
+0:47:23.270,0:47:28.760
+aber euch halt für Daten interessiert,
+ 
+oder als Nutzer von Daten irgendwie
+
+0:47:28.760,0:47:33.290
+Erfahrung habt, dann gäbe es auch die
+ 
+Möglichkeit, z.B. Workshops zu machen zum
+
+0:47:33.290,0:47:36.230
+Thema Datenguide und amtlicher Statistik.
+ 
+Da haben wir auch schon so ein paar
+
+0:47:36.230,0:47:42.320
+Materialien. Aber da könnte man eben
+ 
+weitere Dinge aufschreiben oder einfach
+
+0:47:42.320,0:47:46.850
+Workshops halten. Und da ist auch, glaube
+ 
+ich, die einfachste Möglichkeit, mal mit
+
+0:47:46.850,0:47:50.270
+uns Kontakt aufzunehmen. Über die
+ 
+genannten Kanäle.
+
+0:47:50.270,0:47:57.380
+Herald: Okay, dann sehe ich jetzt erstmal
+ 
+keine weiteren Fragen mehr. Hast du noch
+
+0:47:57.380,0:48:02.060
+irgendetwas, was du ergänzen möchtest, was
+ 
+dir jetzt vielleicht noch aufgefallen ist?
+
+0:48:02.060,0:48:09.140
+Simon: Also ich würde mich gerne bedanken.
+ 
+Also danke an das Wikipaka-Team, dass sie
+
+0:48:09.140,0:48:14.840
+das alles auf die Beine gestellt haben.
+ 
+Und ich freue mich, wenn ihr uns
+
+0:48:14.840,0:48:18.920
+kontaktiert im Nachgang von diesem Talk.
+ 
+Herald: Genau, das wird jetzt auch noch
+
+0:48:18.920,0:48:21.890
+gehen. Wir haben noch ein kleines Q&A, das
+
+0:48:21.890,0:48:25.280
+wird in einem BigBlueButton Raum
+stattfinden. Den Link dafür findet ihr
+
+0:48:25.280,0:48:30.470
+auch dann gleich im IRC, also wieder auf
+media.ccc.de gehen, wo ihr wahrscheinlich
+
+0:48:30.470,0:48:35.630
+seid, wenn ihr diesen Stream schaut, auf
+Chat klicken und dann kommt ihr direkt in
+
+0:48:35.630,0:48:38.660
+den richtigen Channel rein. Und dort
+gibt's dann den Link zum
+
+0:48:38.660,0:48:44.300
+Q&A-BigBlueButton-Raum. Da wird dann Simon
+noch ein paar Fragen beantworten. Ich
+
+0:48:44.300,0:48:49.190
+bedanke mich ganz herzlich für die
+Antworten auf diese ganzen Fragen, für die
+
+0:48:49.190,0:48:52.280
+Vorstellung eures Projekts und nicht
+zuletzt dafür, dass ihr das überhaupt
+
+0:48:52.280,0:48:59.180
+macht. Danke und großen virtuellen
+Applaus. Und damit beenden wir jetzt
+
+0:48:59.180,0:49:02.232
+diesen wunderbaren Talk zu Datenguide.
+Dankeschön.
+
+0:49:02.232,0:49:02.284
+Simon: Danke.
+[Füller, bitte in amara entfernen]
+
+0:49:02.284,0:49:02.349
+*rC3 Wikipaka Outro Musik*
+[Füller, bitte in amara entfernen]
+
+0:49:02.349,0:49:02.849
+Untertitel erstellt von c3subtitles.de
+im Jahr 2021. Mach mit und hilf uns!

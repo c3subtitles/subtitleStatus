@@ -1,12 +1,12 @@
 import re
+import logging
 import textwrap
 
-
+LOGGER = logging.getLogger(__name__)
 BOMS = ['\ufeff',
         '\uffef',
         '\xef\xbb\xbf',
         ]
-
 
 def strip_bom(text):
     for bom in BOMS:
@@ -193,7 +193,9 @@ def align_transcript_sbv(transcript, sbv):
             if start is None:
                 start = sbv_block['timestamp']
 
-            assert words.pop(0) == sbv_words.pop(0)
+            if words[0] != sbv_words[0]:
+                LOGGER.error("%s /= %s", repr(words[0]), repr(sbv_words[0]))
+            assert words.pop(0) == strip_bom(sbv_words.pop(0))
             dropped += 1
 
         end = sbv_block['timestamp']
@@ -206,10 +208,14 @@ def align_transcript_sbv(transcript, sbv):
             total = sum([len(line) for line in lines])
             while dropped > 0:
                 dropped -= len(lines[0].split())
+                if dropped < 0:
+                    LOGGER.error("dropped too much: %s", repr(dropped))
                 assert dropped >= 0
                 chars += len(lines[0])
                 lines.pop(0)
 
+            if chars > total:
+                LOGGER.error("dropped too many chars: %d, expected at most %d", chars, total)
             assert chars <= total
             this, other = interpolate(start, end, chars / total)
 
@@ -255,6 +261,9 @@ def interpolate(start, end, percentage):
     end_duration = end_ms - ms(end_match.groupdict())
 
     midpoint = start_ms + start_duration + int(percentage * end_duration)
+
+    if not start_ms <= midpoint <= end_ms:
+        logger.error("invalid range: %d - %d - %d", start_ms, midpoint, end_ms)
     assert start_ms <= midpoint <= end_ms
 
     this = "{},{}".format(ts(start_ms), ts(midpoint))

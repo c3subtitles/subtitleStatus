@@ -10,7 +10,7 @@ from django import forms
 from django.db import transaction
 from .statistics_helper import *
 from .amara_api_helper import *
-from .trint_api_helper import *#get_trint_transcript_via_api
+from .trint_api_helper import *
 
 import json
 import requests

@@ -29,15 +29,8 @@ class TransformsTestCase(TestCase):
         for fixture_name in fixture_sets("transforms", "sbv-align"):
             with self.subTest(fixture=fixture_name):
                 with sbv_alignment_input(fixture_name) as fixture:
-                    #try:
                     result = transforms.align_transcript_sbv(fixture.transcript, fixture.youtube)
-                    # except AssertionError as err:
-                    #     self.fail("unexpected assertion failure in align_transcript_sbv(): {}".format(err))
-
                     self.assertIsNotNone(result)
-
-                    print(repr(result))
-                    print()
 
                     if fixture.result is not None:
                         self.assertEqual(fixture.result, result)

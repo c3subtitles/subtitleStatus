@@ -6,6 +6,14 @@ from .fixture import fixture_file, fixture_sets
 from .. import transforms
 
 
+@contextmanager
+def timing_input(name):
+    Fixture = namedtuple('Fixture', ['pad', 'transcript'])
+
+    with fixture_file(name, "pad.txt") as pad:
+        with fixture_file(name, "transcript.txt") as transcript:
+            yield Fixture(pad, transcript)
+
 
 @contextmanager
 def sbv_alignment_input(name):
@@ -24,6 +32,15 @@ def sbv_alignment_input(name):
 
 class TransformsTestCase(TestCase):
     """Test to ensure correctness of transcript transforms."""
+
+    def testPadToTiming(self):
+        for fixture_name in fixture_sets("transforms", "timing"):
+            with self.subTest(fixture=fixture_name):
+                with timing_input(fixture_name) as fixture:
+                    result = transforms.timing_from_pad(fixture.pad)
+                    self.assertIsNotNone(result)
+                    self.maxDiff = None
+                    self.assertEqual(transforms.normalise(fixture.transcript), transforms.normalise(result))
 
     def testSbvAlignment(self):
         for fixture_name in fixture_sets("transforms", "sbv-align"):

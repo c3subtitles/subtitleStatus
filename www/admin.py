@@ -49,10 +49,13 @@ class TalkAdmin(admin.ModelAdmin):
 
     def get_trint_transcript_via_email(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        import threading
         for sid in selected:
-            talk = get_object_or_404(Talk, pk=sid)
+            #talk = get_object_or_404(Talk, pk=sid)
+            #thread = threading.Thread(target = talk.get_trint_transcript_and_send_via_email)
+            #thread.start()
             talk.get_trint_transcript_and_send_via_email()
-    get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (blocks browser tab)'
+    get_trint_transcript_via_email.short_description = '[Do not yet use] Trint: Get a trint transcript via email (click only ONCE)'
 
 
     def create_amara_key(self, request, queryset):

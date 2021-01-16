@@ -14,6 +14,7 @@ import configparser
 import string
 from django.utils.crypto import get_random_string
 
+
 SITE_ID = 1
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = BASE_DIR
@@ -60,11 +61,9 @@ else:
             f.write(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
 DEBUG = False
 
 TEMPLATE_DEBUG = False
-#TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'c3subtitles.ext.selfnet.de']
 
@@ -99,12 +98,6 @@ MIDDLEWARE = (
 ROOT_URLCONF = 'subtitleStatus.urls'
 
 WSGI_APPLICATION = 'subtitleStatus.wsgi.application'
-
-MEDIA_URL = 'static/'
-MEDIA_ROOT = 'static'
-
-LOGIN_REDIRECT_URL = '/'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -159,6 +152,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -186,3 +180,6 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+if DEBUG:
+    STATICFILES_FINDERS += ('subtitleStatus.urls.StaticRootFinder',)

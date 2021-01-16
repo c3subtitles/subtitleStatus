@@ -60,7 +60,7 @@ class TalkAdmin(admin.ModelAdmin):
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
-            talk.get_amara_key(do_save = True)
+            talk.create_amara_key()
     create_amara_key.short_description = 'Amara: Create amara key and store it in the db, use the primary_video_link'
 
     def import_video_links_from_amara(self, request, queryset):

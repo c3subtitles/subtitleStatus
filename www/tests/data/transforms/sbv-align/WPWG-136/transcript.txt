@@ -1,0 +1,1238 @@
+﻿*Wikipaka Intromusik*
+[Füller, bitte in amara entfernen]
+
+Herald stk: Zum Ausklang unseres heutigen
+Programms am Tag 1 geben wir nun einen
+
+Einblick in Erklärvideos, die zeigen, wie
+Open Data funktioniert, warum es das
+
+überhaupt braucht und was Linked Open Data
+ist. Wir wünschen gute Unterhaltung.
+
+*Musik*
+[Füller, bitte in amara entfernen]
+
+Sprecher 1: Mobilität in Deutschland. Wenn
+ich an jeder dritten Dorfgrenze eine neue
+
+App auf meinem Smartphone installieren
+muss und hoffe, dass das Edge im Bus
+
+reicht. Schauen wir uns Mobilität doch mal
+praktisch an. Angenommen, wir wollen
+
+verreisen und zwar von Wyk auf Föhr nach
+Attenhausen. Oh, Sie wissen gar nicht, wo
+
+Attenhausen liegt? Das ist ein Ortsteil
+von Icking südwestlich von München. Und da
+
+wollen wir jetzt hin. Die Frage ist nur:
+Wie geht das? Och, ganz einfach. Zuerst
+
+muss man mit dem Schiff von der Insel Föhr
+aufs Festland nach Dagebüll-Mole, dann mit
+
+dem Regionalzug weiter nach Niebüll, von
+dort nach Hamburg, mit dem ICE nach
+
+München und dann mit der S-Bahn nach
+Wolfratshausen. Da können wir in den Bus
+
+steigen und bis zur Haltestelle Dorfen bei
+Wolfratshausen fahren. Und dann? Wie
+
+kommen wir dann nach Attenhausen? Ganz im
+Ernst: Keine Ahnung. Vielleicht die
+
+letzten zweieinhalb Kilometer einfach zu
+Fuß den Berg hoch wandern oder so? Jetzt
+
+sagen Sie vielleicht, dafür gibt's doch
+eine App. Naja, für meine Reise von Wyk
+
+auf Föhr bräuchte ich nicht nur eine App,
+sondern gleich einen ganzen Haufen. Eine
+
+für die Fähre, eine für die Bahn, eine für
+den Bus, eine, ob ich nicht vielleicht
+
+doch eine Mitfahrgelegenheit finde oder
+einen Fernbus oder ein Stück mit dem
+
+Fahrrad fahren kann. Und bis ich die
+ganzen Apps durchstöbert und verglichen
+
+habe, ist mein Urlaub schon vorbei. Und
+ich dachte, wir sind im 21. Jahrhundert
+
+angekommen, dem Zeitalter der
+Digitalisierung. Naja, halten wir schon
+
+mal fest: Apps allein werden uns nicht
+retten. Okay, gut, man muss ja nicht
+
+gleich quer durch Deutschland gurken.
+Schauen wir uns doch mal eine
+
+Alltagsstrecke an. Sagen wir, ich sitze
+hier: An der Donau in Ulm. Wenn ich von da
+
+zum Klinikum möchte, dann dauert das mehr
+als eine Stunde. Also brauche ich
+
+irgendetwas anderes. Hm. Der öffentliche
+Nahverkehr hier hat sogar eine App.
+
+Schauen wir uns doch einmal an! Also, ich
+kann Deutsch und Englisch, das ist gut.
+
+Andere Sprachen gibt's nämlich nicht. Wenn
+ich nicht sehen kann, hab ich ein Problem.
+
+Die App zeigt blinden Menschen nämlich
+weder an, ob Bahnen verspätet sind, noch
+
+welche Buslinie die richtige ist. Und um
+neue Verbindungen abzurufen, brauche ich
+
+Internet. In einem Funkloch habe ich also
+Pech gehabt. Also, wenn ich eine deutsch
+
+sprechende, sehende Person mit Internet
+bin und dann verstehe, wie man die App
+
+bedient, dann kann ich sie benutzen. Das
+Problem hat nicht nur die Ulmer App. Fast
+
+alle Verkehrsapps sehen irgendwie gleich
+aus. Es gibt also drölfzig Apps, die aber
+
+alle nur für ein einziges Transportmittel
+ausgelegt sind. Es ist zum Beispiel gar
+
+kein Problem, mit dem öffentlichen
+Nahverkehr, also mit Bus oder Bahn von der
+
+Haltestelle Ulm Hauptbahnhof zur
+Haltestelle Ulm Kliniken
+
+Wissenschaftsstadt zu kommen. Die sind ja
+auch im offiziellen Liniennetz. Aber soll
+
+ich ihnen mal was verraten? Ich richte
+mein Leben jetzt nicht unbedingt nach dem
+
+Liniennetz der Öffis aus, sondern möchte
+gerne von einem beliebigen Punkt A zu
+
+einem beliebigen Punkt B. Und wenn ich
+jetzt eben gerade an der Donau sitze, dann
+
+ist das noch ein Stück bis zur nächsten
+Haltestelle. Wie komme ich da am besten
+
+hin? Zu Fuß, mit dem E-Scooter, Fahrrad,
+Schiff, Leihwagen? Eigentlich bräuchte ich
+
+eine App, in der das alles drin ist.
+Intermodal nennt man es dann. Weil, wenn
+
+ich erst einmal zwischen meiner Öffi-App,
+meiner E-Scooter-App, meiner
+
+Fahrradverleih-App und vielleicht nach
+OpenStreetMap vergleichen muss, welche Weg
+
+nun der sinnvollste ist, dann bin ich
+vermutlich immer schneller zu Fuß. Da
+
+kommen wir jetzt aber zum Problem. Wer
+sollte so eine App entwickeln? Die hier
+
+z.B.: Das ist die Verkehrsbehörde in
+Helsinki. Die haben nämlich 2017, also vor
+
+drei Jahren, eine App veröffentlicht, die
+alle Angebote der verschiedensten
+
+Transportmittel zusammenfasst, vergleicht
+und mir dann den besten Weg vorschlägt.
+
+Digitransit heißt die, kann man einfach im
+Browser öffnen und los geht's. Und zwar
+
+mit allen möglichen Transportmitteln. Bus,
+Bahn, Fahrrad, E-Scooter,
+
+Mitfahrgelegenheit, Schiff, Rakete? Nein,
+keine Ahnung. Halt alles, was irgendwie
+
+verfügbar ist. Jedenfalls solange wir in
+Finnland sind: Dort gibt es Digitransit
+
+nämlich mittlerweile im ganzen Land und
+das läuft quasi automagisch. Hinter
+
+Digittransit steckt die Routing-Software
+OpenTripPlanner, die alle Mobilitätsdaten
+
+einsammelt und daraus dann über alle
+Verkehrsverbünde hinweg die besten,
+
+schönsten und schnellsten Routen
+errechnet. Und theoretisch würde das sogar
+
+in Deutschland funktionieren. Die
+Verkehrsbehörde in Helsinki hat
+
+Digitransit nämlich als Open-Source-
+Software ins Internet gestellt. Das heißt,
+
+alle dürfen sie anschauen, runterladen,
+anpassen und dann weiterverbreiten. Klingt
+
+toll. Ist es tatsächlich auch. Nur einen
+Haken hat die Sache: Hier in Deutschland
+
+gibt es zwar Digitransit, aber ohne Daten
+ist es halt nutzlos. Dafür brauchen wir
+
+nämlich genauso die geplanten
+Abfahrtszeiten wie auch die Echtzeitdaten,
+
+flächendeckend. Und die Erlaubnis, diese
+auch zu benutzen. Stattdessen gibt es hier
+
+aber einen Flickenteppich aus mehr als 120
+Nahverkehrsverbünden und noch viel mehr
+
+anderen Unternehmen, so E-Scooter und so.
+Die behalten die Daten nämlich am liebsten
+
+für sich. Denn im Gegensatz zu Finnland,
+gibt es hier keine Gesetze, dass alle
+
+Mobilitätsdaten als Open Data
+bereitgestellt werden müssen, also überall
+
+vollständig und zur Nutzung durch alle und
+zu jedem Zweck. Gerade ist es also so: Die
+
+Verkehrsunternehmen bunkern ihre Daten und
+sind gerade fleißig damit beschäftigt,
+
+ihre eigenen Datenhubs zu bauen, nach
+ihren eigenen Bedingungen -
+
+"Datendrehscheiben". Da sollen dann alle
+einzelnen Daten von Fahrplänen und
+
+Echtzeitdaten der Busse und so zu einem
+einzigen, ganz großen Datensatz
+
+zusammengeführt werden. Ganz ehrlich, das
+klingt toll, funktioniert aber nicht.
+
+Digitransit ist z.B. deshalb so eine
+starke Idee, weil eben nicht alle Anbieter
+
+ihre Verkehrsdaten irgendwo reinstopfen
+müssen, sondern weil sie ganz elegant
+
+abgeholt werden. So kann dann alles
+zusammenkommen: Öffentlicher Nahverkehr,
+
+Scooter, Bike Sharing und in Zukunft
+vielleicht auch wirklich Raketen oder so.
+
+Wir wissen ja gar nicht, was noch kommt.
+Wichtig wäre nur, dass es dann auch ein
+
+Datenformat für Raketenfahrpläne gäbe, in
+denen die gleiche Haltestelle auch den
+
+gleichen Namen hat. Das schaffen die
+Busunternehmen nämlich noch nicht so gut.
+
+Aber dann könnte man auch die gut
+standardisierten Raketendatenfelder mit
+
+reinnehmen und alles ist supi. Und schon
+jetzt gibt es ja Projekte wie die
+
+Mitfahrdezentrale, die regelmäßige
+Mitfahrgelegenheiten in das
+
+Busfahrplanformat übersetzt, damit sie in
+Routenplanern erscheinen können. Also zum
+
+Beispiel, wenn man von Wolfratshausen nach
+Attenhausen kommen will. Deshalb brauchen
+
+wir politische Beschlüsse. Wir müssen alle
+Anbieter verpflichten, dass sie die Daten,
+
+die sie ja eh schon haben, als Open Data
+herausgeben, vollständig, sodass wir sie
+
+alle für alles nutzen dürfen und zwar in
+einem offenen Standard wie GTFS für Bus
+
+und Bahn oder GBFS für Bike- und
+Scootersharing. Die Pläne und die Live-
+
+Daten. Das geht. Eigentlich müssten
+nämlich jetzt schon alle Fahrpläne der
+
+Öffis veröffentlicht werden. Das hat
+nämlich die EU beschlossen. Der Trick ist:
+
+Die Daten müssen gar nicht alle durch die
+Gegend geschaufelt und zentral gespeichert
+
+werden, sondern können gerne bei den
+Anbietern liegen. Sinnvolle Links reicht
+
+schon. Also Linked Open Data. Dann können
+wir nämlich Digitransit easy auch in
+
+Deutschland benutzen. Oder vielleicht
+programmiert ja irgendwer noch etwas viel
+
+Besseres. Leute, wir konnten schon vor 50
+Jahren zum Mond fliegen. Dann sollten wir
+
+das mit den vernetzten Mobilitätsdaten
+doch auch hinbekommen. Und das müssen wir
+
+politisch beschließen. Tun Sie's, wenn Sie
+das können. Wir brauchen Linked Open Data.
+
+Aber ich mach mich jetzt erst einmal auf
+den Weg nach Attenhausen. Ich habe nämlich
+
+gehört, da gibt es eine schöne Kapelle aus
+der zweiten Hälfte des 17. Jahrhunderts.
+
+Abfahrt.
+[Füller, bitte in amara entfernen]
+
+*Musik*
+[Füller, bitte in amara entfernen]
+
+Sprecherin 2: Wie kann einem sowas wie
+verknüpfte offene Daten oder "Linked Open
+
+Data" im Alltag ganz praktisch helfen?
+Nehmen wir mal an, ich bin zu Besuch in
+
+Attenhausen. Eigentlich wollte ich wandern
+gehen, aber es regnet in Strömen. Wie kann
+
+ich jetzt rausfinden, was ich hier in der
+Umgebung stattdessen tun kann und wie ich
+
+da hinkomme? Schauen wir ins Internet.
+Dort passieren unterschiedliche Dinge. Wir
+
+verschicken E-Mails, können auf Dateien,
+auf Server zugreifen. Und es gibt das
+
+World Wide Web, oder kurz: WWW. Eine
+riesige digitale Bibliothek. Denn wenn wir
+
+eine Webseite aufrufen, heißt das
+eigentlich nichts anderes, als dass wir
+
+einen Server bitten, uns ein digitales
+Dokument rauszurücken, z.B. eine Seite mit
+
+Katzenvideos oder dem Busfahrplan. Das hat
+sich Tim Berners-Lee 1989 ausgedacht, weil
+
+er so schnell und einfach wie möglich
+Informationen mit anderen austauschen
+
+wollte. Deshalb hat er mit HTML und HTTP
+und URLs die Grundlage für das World Wide
+
+Web gebaut. Digitale, verknüpfte
+Dokumente. Großartige Idee. Aber heute
+
+brauchen wir Suchmaschinen, um die
+richtigen Webseiten, also einzelne
+
+Dokumente, zu finden, weil es so viele
+gibt. Und sinnvolle Antworten bekommen wir
+
+trotzdem nicht. z.B. auf meine Frage, wie
+ich denn jetzt möglichst schnell
+
+rausfinden soll, was ich tun kann. Denn
+die Webseiten sind Dokumente - keine
+
+Informationen, die Computer verstehen.
+Also müssen wir die Webseiten selbst
+
+mühsam nach Infos durchforsten. Deshalb
+hat sich Tim Berners-Lee schon 2006 wieder
+
+was Neues ausgedacht. Wir brauchen statt
+einem Netz der Dokumente ein Netz der
+
+Daten, mit genau drei Regeln: Erstens:
+Unter HTTP findet man nicht nur Dokumente,
+
+sondern auch eindeutige Verweise, etwa auf
+Orte, Dinge, Menschen oder Ereignisse.
+
+Zweitens: Wenn ich eine Anfrage stelle,
+dann bekomme ich nicht wie bisher ein
+
+Dokument, sondern Informationen, Daten!
+Drittens: Alle diese Daten stehen
+
+miteinander in Beziehung. Klingt auf den
+ersten Blick sehr abstrakt. Gibt's aber
+
+schon im Alltag, z.B. auf Wikipedia. In
+der Anfangszeit wurden die Infoboxen
+
+einzeln von Hand geschrieben. Mittlerweile
+kommen die Daten aus Wikidata und auf der
+
+deutschen, der englischen und z.B. der
+türkischen Seite stehen dann immer die
+
+gleichen Zahlen, weil da alle automatisch
+aus der Datenbank von Wikidata kommen. Der
+
+Trick dahinter: Statt einem Fließtext wie
+"Ulm liegt in Baden-Württemberg" steht
+
+dort sowas. Der Inhalt ist der gleiche.
+Die Informationen werden aber
+
+maschinenlesbar. Auch in unserer normalen
+Sprache besteht ein Satz aus Subjekt,
+
+Prädikat, Objekt. Also "wer macht was".
+Für Computer können wir die Infos genauso
+
+organisieren. Ulm, also das Subjekt, liegt
+in, also das Prädikat, Baden-Württemberg,
+
+also das Objekt. Statt Haufen von
+digitalen Dokumenten, die nur schwer
+
+durchsuchbar sind, haben wir dann
+plötzlich Informationen, die Computer
+
+verstehen können. Aus einem
+unübersichtlichen Aktenschrank werden also
+
+plötzlich Daten und daraus können wir
+jetzt ein Netzwerk bauen. Ulm liegt in
+
+Baden-Württemberg. Baden-Württemberg ist
+ein Bundesland. Jetzt könnte mir ein
+
+Computer die Frage beantworten: In welchem
+Bundesland liegt Ulm? Je mehr Daten so
+
+strukturiert abgespeichert werden, desto
+mehr kann der Computer wieder ausspucken.
+
+Ulm hat 126.790 Einwohner, Reutlingen hat
+115.865 Einwohner. Tübingen hat 91.506
+
+Einwohner. Alle drei liegen im
+Regierungsbezirk Tübingen. Wenn ich jetzt
+
+wissen möchte, welche Stadt die größte im
+Regierungsbezirk Tübingen ist, dann kann
+
+der Computer das berechnen. Genau dieses
+Prinzip steht hinter dem Netz der Daten,
+
+das sich Tim Berners-Lee ausgedacht hat.
+Und wie alle Regeln im World Wide Web ist
+
+auch dieses Subjekt-Prädikat-Objekt
+Konstrukt vom W3C Consortium genau
+
+festgelegt. Falls wer nachschlagen will:
+Das Ding heißt Resource Description
+
+Framework, oder kurz RDF. Abfragen kann
+man die Dokumente mit der Sprache SparQL.
+
+Und das bräuchten wir jetzt für alles. Ein
+Web mit eigener Grammatik, die auch
+
+Computer verstehen können, also ein
+semantisches Web. Buspläne und Orte und
+
+Busnummern und Straßen und Fahrzeugtypen
+und Öffnungszeiten und alles würde dann
+
+zusammenhängen und wäre für Computer
+abrufbar. Dann bekäme ich eine Antwort auf
+
+Fragen wie: Wann ist der nächste spannende
+Vortrag in der Nähe? Wo kann ich Cocktails
+
+trinken und welche Öffnungszeiten hat die
+Sauna und wie komme ich dahin? Durch
+
+solche Wissensgraphen werden plötzlich
+Zusammenhänge sichtbar, die sonst niemals
+
+abzufragen wären. Wir müssen also vom
+Internet der Dokumente zum Internet der
+
+Daten. Wir bräuchten Linked Open Data -
+linked, also verknüpfte Daten und offene
+
+Daten, also welche, die alle jederzeit für
+alles benutzen dürfen. Dazu gibt es eine
+
+gute Nachricht und eine schlechte. Zuerst
+die gute: Die wichtigsten Daten gibt's
+
+schon, zum Beispiel Geodaten,
+Mobilitätsdaten oder Öffnungszeiten. Und
+
+jetzt die schlechte. Die meisten Daten
+sind noch nicht offen, sondern gut
+
+versteckt in den Kommunen, viele noch
+nicht digital und nicht verknüpft. Wir
+
+müssen uns jetzt anschauen, wie wir die da
+rausbekommen.
+
+*Musik*
+[Füller, bitte in amara entfernen]
+
+Herald: So, das war die Open Show, die
+Premiere der Open Show. Ist das eigentlich
+
+schon ein Fortsetzungsformat, ein
+geplantes, oder war das jetzt einfach der
+
+Pilot, auf den vielleicht irgendwann mal
+was kommt?
+
+Sprecherin 4: Also wir hatten drei Wochen
+Zeit und wir hatten zwölf Folgen geplant.
+
+Es wurden dann am Ende nur zwei. Ich
+glaube, das ist okay. Aber wir haben auf
+
+jeden Fall noch mehr geplant. Wir haben
+auch schon eine ganze Menge Ideen mehr. Es
+
+ist immer schwierig zu sagen "ja, auf
+jeden Fall", weil man es dann ja
+
+vielleicht doch nicht macht. Aber wir
+haben es auf jeden Fall fest vor, sind nur
+
+gerade alle mit Uni beschäftigt und sobald
+vorlesungsfreie Zeit ist - also in ein
+
+paar Wochen - sind wir wieder am Start.
+Herald: Also ein bald Projekt. "Man müsste
+
+mal", "auf jeden Fall" weitermachen.
+Sprecherin 4: Nein, eben nicht! Nein. Es
+
+ist auf jeden Fall sehr konkret. Da kommt
+noch mehr.
+
+Herald: Okay. Es gibt schon eine Frage aus
+dem IRC, tatsächlich. Ihr könnt auch
+
+jederzeit noch Fragen stellen unter
+#rC3Wikipaka auf Twitter oder Mastodon.
+
+Eine Frage, die gerade kam, ist: Wie kommt
+man denn an diese Videos ran, wenn man die
+
+sich nochmal ansehen oder anderen Leuten
+zeigen möchte?
+
+Sprecherin 4: Diese Videos sind alle in
+dieser Form in einzelnen Teilen fertig
+
+geschnitten. Ich sage jetzt "diese Videos"
+- wir haben insgesamt 3 Stück jetzt. Also
+
+wir haben das erste, was ihr gesehen habt,
+in zwei Sprachen, in Deutsch und in
+
+Englisch. Und wir haben das zweite und die
+schaffen wir hoffentlich noch heute auf
+
+video.codefor.de hochzuladen. Das ist eine
+ganz neu aufgesetzte Instanz. Sie wird
+
+wundervoll. Die Frage ist halt, ob das
+funktioniert. Aber definitiv soll es... in
+
+den nächsten Tagen werden wir damit
+rumexperimentieren. Ich hab's heute so ein
+
+bisschen probiert, aber ich hatte nicht
+genug Zeit und ich dachte, da jetzt
+
+irgendwie mein ganzes Videomaterial
+hochzuladen, da mache ich lieber erstmal
+
+andere Sachen, die dringlicher sind.
+Herald: Das ist eine neue Instanz und das
+
+wird sicherlich wunderbar funktionieren.
+Ist ja das inoffizielle Motto von Tag 1
+
+des rC3...
+Sprecherin 4: Ja, richtig.
+
+Herald: Insofern passt das ja auch. Wie
+kam es denn dazu, dass gerade ihr jetzt
+
+diese Videos gemacht habt?
+Sprecherin 4:Das ist ehrlich gesagt eine
+
+gute Frage und ich glaube, die beste Frage
+überhaupt. Es waren Menschen zur richtigen
+
+Zeit am richtigen Ort oder vielleicht auch
+zur falschen Zeit am falschen Ort? Wir
+
+sind ja alle irgendwie in dieser ganzen
+Openknowledge-Codefor-JugendHackt-Bubble
+
+und haben uns darüber irgendwie
+kennengelernt. Und eigentlich kam jemand
+
+aus Hamburg und meinte: Hey, wir
+produzieren jetzt Videos für Ulm, für ein
+
+EU-Projekt dort, und da sollen wir
+irgendwas mit offenen Daten und Mobilität
+
+erklären. Das wird auch gefördert von der
+EU. Das ist also eine Sache, die auch eine
+
+Deadline hat und diese Deadline ist dann
+in... ich weiß nicht, wie lange es dann
+
+noch hin war, 5 Wochen oder so. Und
+irgendwie ist es dann dazu gekommen, dass
+
+wir gesagt haben: Naja, also gerade würde
+es mir eigentlich passen. Ich habe gerade
+
+nur so einen freien Job, wo ich relativ
+flexibel bin. Ich könnte mich da mal drum
+
+kümmern und dann hab ich halt angefangen,
+das zu machen. Ich hab noch nie davor was
+
+wie das gemacht. Ich hatte keine Ahnung
+und hab dann halt irgendwie angefangen, so
+
+ein bisschen Menschen zu fragen: Hey, hat
+nicht jemand Zeit, hat nicht jemand
+
+irgendwie Inhalte, die wichtig wären, zu
+sagen? Und dann hab ich angefangen mit
+
+Menschen zu sprechen und irgendwie, nach
+und nach kamen dann auf einmal Menschen,
+
+die gesagt haben: Ja, ich hab da Lust. Und
+irgendwie sind wir dann dazu gekommen,
+
+dass wir das in einer Gruppe machen. Also
+wir haben ein Kommunikationskanal von der
+
+OpenKnowledgeFoundation, wo halt Jugend
+hackt und auch andere Projekte irgendwie
+
+drin sind und auch CodeFor. Und da haben
+wir dann irgendwann so einen Kanal
+
+aufgemacht, wie man das so macht, uns
+getroffen, verabredet und irgendwann ist
+
+es passiert. Und ich glaube, ihr habt das
+ja so ein bisschen vielleicht auf dieser
+
+letzten Folie gesehen, so einen
+Miniabspann. Da waren am Ende mehr als 20
+
+Leute beteiligt, wo jeder so ein bisschen
+was beigesteuert hat. Also wir vier sitzen
+
+jetzt hier und uns sieht man, aber
+eigentlich gab's irgendjemand, der hat ne
+
+Karte beigesteuert, jemand hat... "ich
+habe dieses Foto gesehen, das ist aber
+
+nicht frei. Ich stelle euch das nach, gar
+kein Problem." Menschen, die so ganz
+
+kleine Teile beigesteuert haben. Wir haben
+dann irgendwie, ich hab Musik gesucht.
+
+Dann dachte ich: Okay, wen frage ich nach
+Musik. Ich kannte Arne Bense. Dann meinte
+
+ich so: kann man da irgendwie vielleicht
+etwas machen? Und dann meinte er: Ich
+
+suche mal. Und der kann dann bei sowas
+natürlich super unterstützen. Dann konnte
+
+ich irgendwie... naja, Bilder? Da dachte
+ich irgendwie an bleeptrack. Hab ich
+
+bleeptrack gesagt, meinte sie: Guck mal,
+was du so findest, kannst schon irgendwie
+
+Sachen von mir nehmen. Und das sind dann
+so Sachen, die irgendwie alle
+
+zusammenkommen. Und das heißt, es war ne
+ziemlich spontane Aktion und so sind wir
+
+ungefähr dazu gekommen. Und dass Jakob das
+z.B. gesprochen hat, das war auch ein
+
+Zufall, weil da gerade Kameras waren. Auf
+einmal wurden Kameras in seinem Wohnzimmer
+
+aufgebaut und dann konnte er gar nicht
+mehr anders, als sich da hinzusetzen und
+
+den Text zu sprechen. Genau. Das heißt ein
+ganz Großes danke an alle, die da
+
+irgendetwas beigesteuert haben. Das waren
+definitiv nicht nur wir vier, sondern auch
+
+sehr, sehr, sehr viel Wissen, sehr viele
+Menschen, die mir auch sehr viel erzählt
+
+haben.
+Herald: Das heißt, die Zauberformel, um
+
+für so ein Video vor der Kamera zu landen,
+ist zufälligerweise in einer WG zu sein,
+
+wo bereits Kameras sind und sich dann auch
+noch im passenden Slack Kanal zu befinden.
+
+Jetzt könnte man sagen, wie können wir
+andere Menschen onboarden? Es gibt ja noch
+
+das Staffelfinale, quasi noch
+"abzudrehen", wo die restlichen zehn
+
+Folgen noch übrig sind. Wenn ihr jetzt
+sagt, wir möchten auch noch andere
+
+Menschen vor die Kamera bringen -
+vielleicht fühlen sich Leute berufen,
+
+vielleicht kennt aber auch jemand jemanden
+oder jemande, die oder der da besonders
+
+gut geeignet wäre. Was müssten die
+Menschen denn tun, um zum Staffelfinale
+
+beitragen zu können?
+Sprecherin 4: Eigentlich, also Bescheid
+
+sagen.
+Sprecher 5: Genau, am besten Bescheid
+
+sagen.
+Herald: Aber wo?
+
+Sprecher 5: Wir haben einen Pad
+eingerichtet. Der Link müsste jetzt
+
+irgendwo unter uns eingeblendet werden.
+Dort stehen einerseits unsere
+
+Kontaktdaten, also unser
+Twitter/Mastodonhandle und eine
+
+Emailadresse drin. Da könnt ihr einfach
+mal eine E-Mail schreiben oder uns an
+
+twittern oder antuten. Wenn ihr da Lust
+habt, mitzumachen oder in das Pad auch
+
+einfach Feedback reinschreiben. Falls
+ihr... was wir vielleicht in den nächsten
+
+Videos noch mitnehmen könnten, was noch
+irgendwie relevante Inhalte wären, die da
+
+thematisch dazu passen, die wir vielleicht
+bisher noch nicht ausreichend bedacht
+
+haben. Was euch vielleicht interessieren
+würde als nächste Videos. Und das könnt
+
+ihr auch gerne entweder uns schreiben,
+über Social Media oder uns eine E-Mail
+
+schreiben, wenn ihr es nicht öffentlich
+machen wollt in das Pad reinschreiben. Ja.
+
+Oder natürlich jetzt in den IRC oder auf
+Twitter unter dem Hashtag, den Stefan
+
+vorhin genannt hat. Dann kriegen wir das
+jetzt direkt eingespielt.
+
+Sprecherin 4: Und natürlich ist auch immer
+die Frage: Wen braucht man eigentlich, um
+
+sowas zu machen? Also man denkt da: Oh,
+man braucht Leute, die vor der Kamera
+
+sitzen. Ja, das ist richtig. Man braucht
+aber mindestens genauso viele Leute, die
+
+auch hinten dran sind und recherchieren
+und recherchieren. Denkt man, ich setze
+
+mich ins Internet und suche irgendwo rum.
+Ja, kann funktionieren. Aber manchmal ist
+
+es auch einfach besser, irgendwo
+anzurufen. Ich glaube, damit hat Jakob
+
+ganz gute Erfahrungen gemacht.
+Herald: Aber es steht doch schon, die
+
+ganze Wahrheit steht doch schon im
+Internet, z.B. in der Wikipedia oder auf
+
+OpenStreetMap. Und da kommt nämlich auch
+direkt eine Frage, aus dem IRC gerade: Die
+
+Daten, zum Beispiel, wie sieht es mit
+OpenStreetMap-Daten aus? Sind die denn
+
+nicht eigentlich schon gut bezüglich
+Linked Open Data? Die sind maschinenlesbar
+
+und verknüpft und offene Lizenz und nicht
+hinter kommunalen Behörden verborgen. Ist
+
+das der Weisheit letzter Schluss?
+Sprecherin 4: Also das ist eine
+
+inhaltliche Frage, zu der ich jetzt sagen
+würde, nach meinem aktuellen Wissen: Ne,
+
+nicht ganz. Weil es geht ja auch ein
+bisschen darum, wer hat eigentlich Daten
+
+und wer sollte sie auch bereitstellen?
+Also, wenn wir sagen: Hey Komunen, macht
+
+bitte Linked Open Data, dann geht's ja
+auch darum... um die Daten, die eben
+
+vorhanden sind in den Kommunen. Und das,
+was in OpenStreetMap ist, das sind ja eher
+
+Sachen, die gecrowdsourced wurden, also
+die von Menschen zusammengetragen wurden
+
+und dann eben dort sind. Außerdem spielt
+natürlich auch noch so ein bisschen die
+
+Lizenz eine Rolle. Was genau sind denn
+jetzt offene Daten? Ja, man darf
+
+OpenStreetMap-Daten benutzen, aber soweit
+ich weiß, gilt da die eigene Lizenz, die
+
+es eben nicht erlaubt, die z.B. komplett
+frei, also unter einer CC0 Lizenz zu
+
+verwenden. Das heißt, dass ich nicht
+einmal angeben muss, wo sie herkommen. Und
+
+man denkt sich so: Ja, aber man kann doch
+das dazu schreiben. Ist aber bei Daten in
+
+manchen Kontexten echt schwierig. Wir
+hatten zum Beispiel auch dieses Problem:
+
+Wo kriegen wir eine Deutschlandkarte her?
+Es ist einfach viel einfacher... weil man
+
+weiß, Deutschland ist eigentlich immer
+gleich. Muss ich da jetzt wirklich
+
+dazuschreiben, wo ich die bekomme? Und
+dann haben wir irgendwo auch CC0, also
+
+komplett gemeinfreie Daten gefunden, die
+wir benutzen können. Nur diesen
+
+Deutschlandumriss. Und das wäre halt cool,
+wenn es das irgendwie für ein bisschen
+
+mehr Sachen gibt.
+Herald: Das ist aber schon wirklich auf
+
+hohem Niveau - praktisch der Unterschied
+zwischen der Share-alike-Lizenz und einer
+
+CC0 und ob es eigentlich ein geistiges
+Eigentum am Umriss der Bundesrepublik
+
+Deutschland geben kann. Wer solche
+Diskussionen spannend findet und gar nicht
+
+aufhören kann, darüber zu diskutieren, ist
+also richtig aufgehoben bei euch,
+
+weiterzumachen bei den weiteren Planungen.
+Gibt's da eigentlich auch Dinge, mit denen
+
+man locken kann, z.B. spannende Anekdoten,
+die passieren, wenn man z.B. irgendwo
+
+anruft und Fragen stellt?
+Sprecher 6: Das ist tatsächlich so, weil
+
+wir hatten ja - im ersten Film haben wir
+ja eine Geschichte erzählt, sozusagen,
+
+also die Idee war, dass wir probiert
+haben... also ihr habt ja das Video
+
+gesehen. Und wir haben halt eine Stadt
+gesucht, wo man nicht gut mit dem ÖPNV
+
+hinkommt. Und wir dachten uns halt: Sie
+soll imposant sein, also vielleicht am
+
+besten durchs ganze Land. Und dann haben
+wir halt irgendwie nach einer Stadt
+
+gesucht, in der es zwar keinen ÖPNV gibt,
+wo es aber irgendwie trotzdem mittelmäßig
+
+sinnvoll ist, hinzufahren. Also um sagen
+können, da ist etwas, wo ich jetzt hin
+
+möchte. Und dann haben wir halt
+angefangen, in Bayern zu suchen, weil
+
+Bayern ist halt weit weg von Wyk auf Föhr,
+was es da so für schöne Städte gibt und da
+
+sind wir halt auf Attenhausen gekommen,
+wovon ich ja erzählt hatte. Und wir haben
+
+dann geguckt, was gibt es denn in
+Attenhausen? Und es war nicht so richtig
+
+aufschlussreich. Und wir waren uns auch
+nicht so sicher, was es da, also wie viele
+
+Leute da sind. Und dann haben wir halt
+irgendwie angefangen, bei der
+
+Bürgermeisterin von der Gemeinde
+anzurufen. Also die größte... die höhere
+
+Gemeinde ist Icking. Das ist irgendwie
+auch halt... unten rechts in München und
+
+da haben wir angerufen. Die meinte: Ja
+,also ich weiß gar nicht so genau, was ist
+
+wo... also was da so passiert, da müsst
+ihr am besten mal meinen Kollegen anrufen,
+
+weil ich wohn da eigentlich nicht. Es ist
+auch um die 10km weg von hier, ich
+
+beschäftige mich nicht so viel damit. Und
+dann hab ich ihren Kollegen angerufen und
+
+gesagt: Hallo, wir drehen hier Videos und
+wir würden gerne wissen, was es in
+
+Attenhausen gibt. Und dann hab ich
+irgendwie wirklich eine Stunde lang mit
+
+diesem Menschen telefoniert und er hat mir
+alles mögliche erzählt, was... irgendwie,
+
+was wir machen und wir haben irgendwie
+zwischendurch Openbike gepitcht mehr oder
+
+weniger und meine Lebensgeschichte und
+seine Lebensgeschichte. Aber es ist am
+
+Ende rausgekommen, dass es, außer dieser
+erwähnten winzigen Kapelle einfach
+
+wirklich nichts gibt. Aber so haben wir
+halt trotzdem kennengelernt, also
+
+rausgefunden, dass es auch in Bayern
+irgendwie Interesse an Openbike gibt, zum
+
+Beispiel.
+Sprecherin 4: Und der Punkt ist: Wir
+
+mussten ja wirklich sichergehen, dass da
+wirklich keine Bushaltestelle ist. Weil
+
+nur, weil sie halt auf OpenStreetMap nicht
+eingezeichnet ist, kann es ja sein, dass
+
+es da trotzdem eine gibt. Es gibt wohl
+auch eine, aber nur für einen Schulbus und
+
+das ist kein richtiger Bus und deswegen
+kommt man da auch nicht mit hin oder weg
+
+oder irgendwo lang.
+Herald: Im ländlichen Bereich ist es ja
+
+üblich, dass dann unter Umständen der
+gedruckte Plan nicht mit dem
+
+übereinstimmt, was da in Wirklichkeit
+passiert, weil - man stelle sich vor, das
+
+gibt's ja in Schwaben ab und zu mal, da
+hält der Bus eigentlich nicht, aber da
+
+oben wohnt der Niko, und der Nico geht in
+den Kindergarten und heute ist es glatt,
+
+deswegen fährt der Busfahrer ihn heute
+noch heim. Das kann da gut passieren. Also
+
+okay, das heißt, es gibt auf jeden Fall
+noch sehr viel Potenzial fürs Mitmachen,
+
+fürs Weitermachen. Es steckt noch sehr
+viel Potenzial in offenen Daten. Jetzt
+
+noch mal ganz blöd gefragt: Warum
+überhaupt solche Videos? Wozu braucht es
+
+das? Und warum brauchen wir das, außer als
+Füller für das Programm?
+
+Sprecherin 4: Naja, wenn man sich mal
+anschaut... man möchte irgendetwas zu
+
+offenen Daten finden. Dann gibt's sehr
+viel, aber a, nur auf Englisch und man
+
+kann ja wohl von jedem Menschen irgendwie
+erwarten, dass er oder sie Englisch
+
+sprechen kann... das finde ich immer ein
+bisschen schwierig, weil gerade, wenn es
+
+dann halt um solche Fachbegriffe geht, ist
+man da einfach auf einer sehr abstrakten
+
+Ebene unterwegs. Und ich finde es schön,
+wenn Menschen eine möglichst niedrige
+
+Hürde haben, um sich mit dann doch so
+technisch gar nicht mal so einfachen
+
+Sachen auseinanderzusetzen. Und bei diesem
+"technisch gar nicht so einfach" ist man
+
+sehr schnell beim nächsten Problem. Wenn
+ich nach solchen Sachen suche, findet man
+
+sehr viele gestückelte Texte oder sehr
+sehr ausführliche, die mit sehr viel
+
+Fachjargon um sich werfen auf der einen
+Seite - oder halt Videos, die entweder
+
+schon sehr alt sind, weil ich das Gefühl
+habe, dass es auch... dieses ganze Thema
+
+Linked Open Data ist so ein Thema, was vor
+10 Jahren mal super modern und ein neuer
+
+Gedanke war in dieser, in so einer
+gewissen Nerd-Community, was da aber nicht
+
+so wirklich raus kam. Das heißt, man hat
+relativ alte Videos, wo Sachen
+
+superspannend... wo Leute super spannende
+Sachen erklären, die man aber gar nicht so
+
+richtig in den Kontext bekommt. Es sei
+denn, man schaut sich irgendwie noch 5
+
+Millionen Videos an und liest noch ganz
+viel dazu. Das heißt, wir wollten
+
+eigentlich sowas machen mit einem leichten
+Einstieg. Möglichst, dass man es versteht,
+
+so ein bisschen an Alltags-Beispielen und
+dann vielleicht noch ein bisschen nett,
+
+dass man sich das auch gerne angucken
+möchte und nicht ein verpixelten Fach-
+
+Vortragsredner hinter so einem kleinen
+Pult irgendwo sieht. Das war unsere Idee
+
+dahinter.
+Herald: Gibt es schon Pläne, um das...
+
+die Frage wäre jetzt so das nächste. Ich
+meine, geht man an TikTok ran, um die
+
+junge Generation zu erreichen oder ist es
+eher so das Facebook-Sharevideo für
+
+Entscheider in gesetzterem Alter?
+Sprecher 5: Ich glaube... die Idee war ja
+
+schon auch, dass man mit sowas halt Leute,
+die in Behörden arbeiten, erreichen kann
+
+und so. Und deswegen, dass die halt mehr
+die Themen verstehen, weil die am Ende
+
+doch viel umsetzen und nicht bei allem
+direkt die Politik... sondern auch...
+
+lieber die Leute aus den Behörden selber.
+Und wenn die dann sowas mitbekommen, davon
+
+wissen, dann ist es natürlich gut, wenn
+das irgendwo verständlich erklärt ist. Und
+
+dann ist das natürlich eher die Zielgruppe
+Facebook als TikTok.
+
+Sprecherin 4: Aber hey, unser Anspruch
+ist, das CC0 zu machen, d.h. wer Lust hat,
+
+irgendwas zu tanzen und das Ganze einer
+noch jüngeren Zielgruppe zu erklären und
+
+interessant zu machen: Warum nicht? Je
+mehr, desto besser. Das ist halt auch das
+
+Ding - wir wollen das gar nicht irgendwie
+für uns claimen und sagen: Wir haben das
+
+jetzt erklärt und wir haben das super toll
+gemacht. Sondern eher im Gegenteil. Das
+
+ist halt ein Anfang, um mal
+auszuprobieren, wie man es anders machen
+
+kann und wer noch mehr Ideen hat: Herzlich
+willkommen! Entweder bei uns oder
+
+vielleicht irgendwie was eigenes machen?
+Also wir sind sehr offen dafür.
+
+Herald: Aus dem Chat kommt auch gerade
+noch das Feedback von Lemmon, der auch
+
+meinte, oder die oder der gerade meinte,
+dass SchülerInnen in der elften, zwölften
+
+Klasse - auch denen spannend zu erklären
+ist, was man eigentlich mit Geodaten und
+
+Daten eigentlich alles machen kann. Und
+Lemmon freut sich darauf, in Zukunft die
+
+Videos verwenden zu können, um
+SchülerInnen für Informatik zu begeistern.
+
+Also das heißt, wir sehen, hier, es ist es
+offenbar hier ein Sparten-Kulturkanal, in
+
+dem junge Menschen sich mit offenen Daten
+beschäftigen und dabei auch noch Videos
+
+machen und Videoproduktion und verteiltes
+Arbeiten im Chaos. Mit Spartenkanal geht's
+
+heute Abend jetzt auch gleich weiter. Wir
+gehen gleich in den Sendeschluss über und
+
+versuchen dann, unser Nachtprogramm mit
+WTF Alpha zu starten, unsere Space Night,
+
+wenn alles funktioniert. Morgen geht's auf
+jeden Fall auch nochmal weiter mit
+
+Inhalten zu Wikidata ab ein Uhr und um 12
+Uhr mitteleuropäischer Zeit - das ist sehr
+
+wichtig, das muss man bei diesem rC3
+dazusagen - um 12 Uhr mittags
+
+mitteleuropäischer Zeit geht es weiter mit
+"Linux Remixen, ich mix mir eine Linux-
+
+Distribution". Ansonsten steht der
+Nachmittag im Zeichen von Jugend Hackt und
+
+zum Abend kommt passend zum gerade
+gezeigten Beitrag nochmal "eGovernment
+
+made in Germany - das schlechteste beider
+Welten". Und damit bleibt es den
+
+Beteiligten hier nochmal zum Abschied zu
+winken, bevor wir in den Sendeschluss und
+
+die Nacht-Schleife gehen. Vielen Dank für
+den Beitrag und hoffentlich bis bald.
+
+Sprecher 6: Bis bald.
+Sprecher 5: Ciao.
+
+Sprecherin 4: Bis bald.
+[Füller, bitte in amara entfernen]
+
+*Wikipaka Outromusik*
+[Füller, bitte in amara entfernen]
+
+Untertitel erstellt von c3subtitles.de
+im Jahr 2021. Mach mit und hilf uns!

@@ -1,0 +1,1449 @@
+﻿*36c3 Vorspannmusik*
+[Füller, bitte in amara entfernen]
+
+Herald: Jetzt brauch ich ein bisschen eure
+Hilfe. Wer von euch weiß, wie wo man sich
+
+das Wetter von vor 40 Jahren raussuchen
+kann? Eins, zwei, drei, vier. Okay, nicht
+
+mal ein Prozent des Publikums. Wer weiß
+was "Warming Stripes" sind? Das sind
+
+genauso viele und auch noch die gleichen
+Leute, verdammt! Und wer will wissen, ob
+
+es früher mehr Schnee gab? Fast alle von
+euch. Ihr werdet's in diesem Talk nicht
+
+erfahren, aber ihr werdet hier lernen wie
+es geht. Und das wird euch Manuel zeigen.
+
+Der macht sonst was mit Schwerkraft zur
+Nutzung von öffentlichen Klimadaten. Einen
+
+Riesenapplaus, bitte!
+[Füller, bitte in amara entfernen]
+
+
+*Applaus*
+[Füller, bitte in amara entfernen]
+
+Manuel: Hallo zusammen und einen
+wunderschönen guten Morgen! Ich mache
+
+normalerweise was mit Schwerkraft. Ich
+durfte ja vor zwei Jahren schon mal was
+
+vortragen darüber, wie man mit
+Satellitenmethoden das Schwerefeld der
+
+Erde bestimmt, daraus Massenveränderungen
+berechnet und dann sagen kann: Ja, in
+
+Grönland schmilzt im Jahrzehnt so und so
+viel Eis. Oder wir nutzen so und so viel
+
+zu viel Grundwasser in verschiedenen
+Regionen der Welt. Ich arbeite eigentlich
+
+mehr im lokalen Bereich. Ich möchte
+wissen: Was ist die Schwerkraft, das
+
+kleine "g"? Also hier, oder sagen wir da
+unten. Und da stören mich zeitlich
+
+variable Effekte sehr stark. Also Sonne,
+Mond, Sterne. Das kann ich herausrechnen,
+
+das ist ja einfach. Problem ist eher die
+Atmosphäre. Also aus messtechnischer Sicht
+
+ist Atmosphäre von Nachteil. Leider können
+wir da meistens relativ wenig dran ändern.
+
+Da ist halt Atmosphäre. Darum berechne ich
+für mich den Effekt der tatsächlichen,
+
+sich zeitlich ändernden Atmosphäre, im
+Vergleich zu einer Referenz-Atmosphäre,
+
+die zeitlich nicht veränderlich ist. Und
+der einfachste Ansatz, wenn ich das in
+
+meinen Schweremessungen berücksichtigen
+will, ist halt: Ich messe selber. Also ich
+
+hab hier mein kleines Gravimeter. Damit
+kann ich relative Schwereänderungen
+
+messen. Wie ändert sich das mit der Zeit?
+Daneben liegt ein Datenlogger, der
+
+zeichnet mir den Luftdruck auf. Ja,
+wunderschön. Ich habe den tatsächlichen
+
+Luftdruck. Ich ziehe die
+Referenzatmosphäre, also den
+
+Referenzluftdruck ab. Dann hab ich da so
+eine kleine Korrektur, die ich berechnen
+
+muss. Also diesen Delta Luftdruck mal Pi
+mal Daumen, also ungefähr mal 3, also mal
+
+drei Nanometer pro Sekunde Quadrat. Das
+ist ein mittlerer weltweiter
+
+Korrekturfaktor. Dann hab ich die
+zeitlichen Variationen in der Schwere
+
+durch die Atmosphäre weg. Ja, fast. Die
+tatsächliche Atmosphäre wird nicht allein
+
+durch den Luftdruck jetzt hier an meinem
+Punkt oder da neben meinem Gerät
+
+beschrieben. Man kann sich ja vorstellen,
+ich messe da einen Luftdruck von, sagen
+
+wir, 1000 hPa. Aber über mir in der
+Atmosphäre ist eine große Menge
+
+Wasserdampf, also ein hoher
+Luftfeuchtigkeitsgehalt in den oberen
+
+Atmosphärenschichten. Jetzt messe ich an
+einem anderen Tag. Ich habe wieder 1000
+
+hPa Luftdruck an meinem Gerät. Aber über
+mir ist sehr geringe Luftfeuchtigkeit,
+
+also ein geringer Wasserdampfgehalt. Das
+ist eine unterschiedliche Masse.
+
+Wasserdampf hat auch Masse, hat somit
+einen Effekt auf das Schwerefeld und auf
+
+die Messung, die ich durchführe. Das weiß
+man auch schon seit ein paar Jahrzehnten,
+
+dass man diese Korrektur mit diesem
+Daumenfaktor auch weiter treiben kann.
+
+Also ist der zweite Schritt: Ich suche mir
+eine Möglichkeit herauszufinden, wie sehen
+
+die Atmosphärenschichten über mir aus?
+Durch ein 3D-Atmosphärenmodell, durch ein
+
+Klimamodell. Ich hab hier mal als Beispiel
+eines meiner Ergebnisse dargestellt. Der
+
+Plot oben zeigt so die Atmosphärenhöhe bis
+zu 50 km. Ich habe also aus diesem Modell,
+
+das ist so in Schichten aufgeteilt, 37
+Schichten. Ich kann das auch bis in 80
+
+Kilometer machen, und ich berechne mir
+anhand verschiedener Klimavariablen, die
+
+ich aus dem Klimamodell bekomme, sowas wie
+Luftfeuchtigkeit, Temperatur, Luftdruck in
+
+den Höhen, so die Dichte dieser
+Atmosphärenschicht. Und wenn ich die
+
+Dichte habe und die Geometrie der
+Atmosphärenschichten, dann kann ich mir so
+
+nach Newton die Attraktion berechnen, also
+wie stark zieht die Atmosphäre, die über
+
+mir ist, das Gravitationsfeld, mich, nach
+oben? Wir messen g - 9,81 Meter pro
+
+Sekunde Quadrat - wir messen da in der
+zehnten an der achten bis neunten
+
+Nachkommastelle. Das ist die Genauigkeit,
+die wir erreichen können. Mit den Geräten,
+
+so wie ich das gerade eben gezeigt habe.
+Und wenn ich mir jetzt das Bild oben
+
+anschaue, dann ist auf der x-Achse die
+Zeit, auf der y-Achse die Höhe. Und man
+
+sieht auch so kleine Strukturen drin, und
+das sind so die einzelnen
+
+Atmosphärenschichten. Und der Effekt jeder
+einzelnen Atmosphärenschichten ist so
+
+plusminus 15 Nanometer pro Sekunde
+Quadrat. Und der untere Plot zeigt die
+
+Summe des oberen Plots. Und das ist so,
+ja, man kann so rechnen, das spielt sich
+
+ab so plusminus 100 nm/s2. Also Erfolg.
+Ich habe eine bessere Korrektur als
+
+vorher. Das kann man auch an vielen
+Vergleichen feststellen. Jetzt fragt ihr
+
+euch: Das ist ja ein sehr spezielles
+Problem, das ich hier habe. Ja, stimmt.
+
+Also was machen wir jetzt damit? Ich
+möchte im Folgenden über großen
+
+Datenreichtum berichten, den jeder so frei
+- positiv besetzten Datenreichtum -, den
+
+jeder selber nutzen kann. Ich zeige euch
+verschiedene Dienste, wo es Wetter oder
+
+Klimadaten frei zum Herunterladen gibt, wo
+man selber Visualisierungen machen kann
+
+und in seinen eigenen Projekten verwenden
+kann. Man könnte anders sagen: Ich rede
+
+über FTP-Server mit ASCII-Dateien, über
+APIs zum Datendownload und Online-
+
+Toolboxen zur Visualisierung und Analyse,
+und über Eyecandy. Der dritte Punkt -
+
+müssen wir mal schauen, ob wir das in der
+Zeit schaffen. Vorher gibts auch schon ein
+
+bisschen Farbe. Ich selber bin Nutzer
+dieser Daten. Also ich zeige, was ich so
+
+gefunden habe. Ich gehe nicht darauf ein,
+wie ein Klimamodell erstellt wird. Da war
+
+am Tag eins ein Talk mit dem Titel
+"Climate Modeling", den ich dafür weiter
+
+empfehlen möchte. Ich kann hier nur kleine
+Ausschnitte von diesen Diensten zeigen.
+
+Die sind wesentlich umfangreicher in ihren
+Fähigkeiten. Und auch zu den Daten selber
+
+kann ich in dieser kurzen Zeit nicht
+komplett alles darstellen. Aber alle diese
+
+Dienste sind sehr umfangreich
+dokumentiert. Das kann jeder für sich
+
+selber nachsehen. Alles, worüber ich jetzt
+gleich spreche, da gibt es im Fahrplan ein
+
+Dokument, das sämtliche Dienste aufführt,
+alle Ressourcen nennt auf GitHub - wenn
+
+Ihr nach "36c3_klima" sucht, dann findet
+ihr da die Skripte, die ich genutzt habe,
+
+um die Daten herunterzuladen für diesen
+Talk und um die Abbildungen zu erzeugen.
+
+Also fangen wir an mit selber messen.
+Funktioniert ja häufig sehr gut. Außer
+
+wenn man bedenkt, das sind Messgeräte, die
+über serielle Schnittstelle mit Windows-
+
+PCs sprechen. Da muss man auch schon mal
+schauen, ob jemand anders die Daten schon
+
+für einen gemessen hat. Da kommt zuerst
+der Deutsche Wetterdienst ins Spiel, der
+
+auch Klimamodelle selber erzeugt. ICON und
+COSMO sind da die aktuellen Ausgaben für
+
+Europa und weltweit. Aber hier geht es
+jetzt eigentlich erst mal um Wetterdaten,
+
+die ich darstellen möchte. Die werden auf
+verschiedenen Kanälen verteilt. Das erste
+
+ist das Climate Data Center Portal. Das
+ist ein interaktives Webtool. Da kann ich
+
+mir klicken, welche Parameter möchte ich
+wissen? Dann kann ich mir auf einer Karte
+
+eine Station klicken, und dann kriege ich
+die Daten. Wenn man ein GIS einsetzt, dann
+
+kann man auch über Schnittstellen des
+Deutschen Wetterdienstes Web Feature oder
+
+Mapping Service einbinden und so Daten
+erhalten. Da möchte ich nicht weiter
+
+darauf eingehen. Ich habe ja ASCII-Dateien
+vom FTP-Server versprochen, mit denen wir
+
+uns jetzt näher beschäftigen würden. Da
+gibt es für Stationen Stationszeitreihen
+
+verschiedener Messgrößen: Temperatur,
+Luftdruck, Niederschlag und ähnliches. Und
+
+daraus aufbereitete Rasterdaten, die
+Gesamtdeutschland erfassen. In jedem
+
+Datenverzeichnis gibt es dann Metadaten zu
+eingesetzten Geräten, Fehlerquellen und
+
+die Beschreibung, wie dieses Produkt, wenn
+es ein Produkt ist, erstellt wurde. Wir
+
+haben hier eine Stationsübersicht des
+Deutschen Wetterdienstes in Deutschland.
+
+Der Dienst selber stellt auch Daten Europa
+und global eingeschränkt bereit. Ich
+
+konzentriere mich jetzt hier gleich auf
+eine Zeitreihe aus Deutschland.
+
+Fünfhundert Stationen haben in diesem
+Monat Messzeitreihen abgeliefert,
+
+beigesteuert. Und ich möchte hier
+hauptsächlich über Lufttemperatur zwei
+
+Meter Höhe über dem Boden reden. Wenn man
+sich einmal die Länge der Zeitreihen
+
+ansieht, dann sieht man eigentlich: Die
+meisten sind so um die 20 Jahre, da gibt
+
+es aber auch welche mit 60 Jahren, 80
+Jahren und ganz hinten gibt's eine Station
+
+mit über 120 Jahren, das ist Potsdam am
+Telegrafenberg. Da kann man sich jetzt mal
+
+die Stationszeitreihe herunterladen.
+Temperatur. Weil die täglichen Messungen
+
+eigentlich nur ein dickes blaues Band hier
+in dem Plot wären, habe ich schon mal
+
+Monatsmittelwerte gebildet. Ja gut, da
+sieht man jetzt den jährlichen Zyklus,
+
+nicht wahr? Es gibt Mitte des Plots auch
+mal viele kältere Jahre, und Ende des
+
+Plots wird das irgendwie wärmer. Wenn man
+aus den Monatsmitteln die Jahresmittel
+
+bildet, sieht das Ganze so aus. Und
+spätestens in dieser Darstellung erkennt
+
+man, was eigentlich auch hinlänglich
+bekannt ist: Dass in den letzten 100
+
+Jahren so die Durchschnittsgeschwindigkeit
+- das sind ja Jahresdurchschnittswerte -
+
+leicht angestiegen sind. Eine moderne oder
+aktuelle Darstellungsweise für diese Art
+
+der Zeitreihe ist ja so jetzt diese
+Warming Stripes oder Wärmestreifen. Wer
+
+mal so Material von den Scientists vor
+Future gesehen hat da sind so im
+
+Hintergrund immer so blau-weiß-rote
+Streifen, die die Erwärmung zeigen sollen.
+
+Das kann man so aus diesen Jahresmitteln
+berechnen. Da wird einfach für eine
+
+bestimmte Referenzepoche, sagen wir 1960
+bis 90, so der Mittelwert genommen. Das
+
+waren jetzt hier für Potsdam 8,7 Grad, und
+abgezogen. Dann habe ich diese obere
+
+Zeitreihe, also Mittelwert plus minus zwei
+bis zweieinhalb Grad, ist die Variation da
+
+etwa. Und die untere Farbskala ist ja
+limitiert auf plus minus zweieinhalb Grad.
+
+Und so kommen halt zustande für Temperatur
+untere Mittel so leicht blaue bis
+
+tiefblaue Balken und für die höheren
+Temperaturen halt leicht rot bis leuchtend
+
+rot. Erstellt ist das Ganze nach der Seite
+„Show Your Stripes“. Kann man sich
+
+angucken, wenn man auf die Seite geht,
+dann hat man hier den ersten Plot, so
+
+global weltweit. Interessant ist hier
+eigentlich der Punkt unter „information“.
+
+Da steht, wo die Daten herkommen. Also
+jetzt schaue ich doch mal, was die hier
+
+über uns sagen. Europa, Germany. Das Bild
+sieht jetzt ungefähr so aus wie das, was
+
+ich eben hatte. Und unter „Information“
+steht jetzt "annual average temperatures",
+
+okay, 1881 bis 2018 vom DWD. Wenn man das
+für andere Regionen macht, dann bekommt
+
+man auch jeweils die Datenquelle. Und oben
+rechts unter FAQ findet man dann auch die
+
+entsprechenden Services dafür. Gut also.
+Es gibt offensichtlich beim Deutschen
+
+Wetterdienst Daten deutschlandweit
+Temperaturen ab 1881. Da war mein erster
+
+Gedanke vor ein paar Monaten, als ich
+diesen Beitrag eingereicht habe: Das
+
+könnte man ja mal machen, dass da jeder
+jetzt kommen kann, nach Koordinate, und
+
+dann berechne ich mir: Wie sieht es jetzt
+für meinen Wunschort aus? Die Idee hatte
+
+nicht nur ich. Das hatte auch Zeit ONLINE
+vor zweieinhalb Wochen. Mit dem Artikel
+
+"Viel zu warm hier" haben Sie so ein Tool
+bereitgestellt. Da kann man eingeben in
+
+die Maske seinen Wunschort - Leipzig, und
+erhält dann diesen Streifen. Und man
+
+sieht, wenn man an dem rechten Bild unten
+die letzte Zeile liest, - mal von rechts
+
+nach links: Inspiriert von Ed Hawkins, das
+ist dieses ShowYourStripes.Info, Quelle:
+
+Deutscher Wetterdienst, das ist dann diese
+Datenzeitreihe, und unter Methodik ist
+
+letzten Endes das beschrieben, was ich
+auch gerade erklärt habe, Plus da wird
+
+noch drauf eingegangen, wie das Geo Coding
+geht, das ich jetzt "Leipzig" tippe und
+
+nicht die Koordinate von Leipzig. Also
+schauen wir uns einmal ganz kurz diesen
+
+Datensatz an, also Flächendaten des
+Deutschen Wetterdienstes. Da gibt es auch
+
+wiederum viele verschiedene Variablen. Ich
+zeige jetzt ja wieder drum die
+
+Lufttemperatur. In dieser Animation ist
+aber jedes einzelne Pixel 1x1 Kilometer -
+
+die Auflösung des Datensatzes - , und für
+jedes Pixel ist halt dieser Mittelwert
+
+berechnet und abgezogen. Die Animation ist
+quasi der Warming Streifen für jeden
+
+einzelnen Pixel dargestellt. Die
+Koordinaten sind unglücklicherweise Gauß-
+
+Krüger. Das ist ein rechtwinkliges
+Koordinatensystem, sehr schön zum
+
+Interpolieren, wenn man denn Gauß-Krüger-
+Koordinaten kennt. Für das Skript auf
+
+GitHub habe ich dann das noch in
+geografische Koordinaten umgerechnet. Die
+
+Flächendaten des DWD, also wirklich viele
+Produkte, manche beginnen erst in den
+
+1950ern, so etwas wie Niederschlag oder
+so. Durchaus interessant, aber das hier
+
+war ja alles nur Oberfläche. Ich habe ja
+gerade gesagt, ich brauche die dritte
+
+Dimension. Also brauchen wir Klimamodelle,
+und das beständig, zeitlich
+
+kontinuierlich, wo ich mich darauf
+verlassen kann, dass ich in fünf Jahren
+
+noch die gleichen Daten bekomme. Da haben
+eine Kollegin vor mir und ich uns
+
+entschieden für das European Center for
+Medium-Range Weather Forecasts - der Name
+
+sagt schon: Es ist eine EU-Institution,
+getragen von den EU-Mitgliedstaaten, und
+
+deren Aufgabe ist Wettervorhersage.
+Wunderschön. Es ist gleichzeitig eine
+
+Forschungseinrichtung. Sie erstellen ihre
+eigenen Klimamodelle und nach eigener
+
+Beschreibung das weltweit größte
+Datenarchiv für Klimadaten. Die Modelle
+
+gehen zurück bis 1979. Für das Aktuelle
+ist angestrebt, das bis auf 1950
+
+auszudehnen. Mal schauen. Da bekomme ich
+dann nochmal altes Wetter her, wenn ich
+
+nicht „Tagesschau vor 40 Jahren“ kucken
+will. Innerhalb des Copernicus Programms -
+
+das ist das EU-Programm zur Erdbeobachtung
+- stellt das ECMWF den sogenannten Climate
+
+Change Service. Das ist die Datenquelle,
+auf dem sie Ihr aktuellstes Modell
+
+verbreiten. Das Copernicus Programm bietet
+auch freien Datenzugang in sechs
+
+Themenschwerpunkten. Davon ist Climate
+Change einer. "Freie" hat ein Sternchen,
+
+weil einer der Themenschwerpunkte ist halt
+Security, und da ist es dann mit dem
+
+freien Datenzugriff vielleicht etwas
+eingeschränkt. Ich habe es nicht genau
+
+nachgeguckt. Schauen wir uns diesen
+Climate Change Service einmal an. Geht aus
+
+dem WLAN, ich will eine Demo machen. Da
+wird man begrüßt mit „Welcome to the
+
+climate data store“ - Store im Sinne von
+Speicher, nicht im Sinne von Shopping -
+
+und hat drei freundliche Buttons auf der
+Seite. Auf die ersten zwei werden wir
+
+gleich genau eingehen, der dritte, das ist
+ein Hilfe-Forum. Das ist auch tatsächlich
+
+hilfreich. Also das aktuellste Modell von
+denen nennt sich ERA5, also ECW, Free
+
+Analysis Nr. 5. Das hat normal eine
+Auflösung von so 25 bis 30 Kilometer auf
+
+Land und auf See. Und wenn man sich
+speziell für Klimaparameter der Landmassen
+
+interessiert, wie z.B. Bodenfeuchtigkeit
+bis in 4 Meter, da gibt es noch eine
+
+hochaufgelöste Version, die nennt sich
+ERA5 Land. Aber das ist für meine Arbeit
+
+nicht so entscheidend. Und standardmäßig
+wird geliefert: Eine stündliche Auflösung
+
+und Monatsmittelwerte. Und zwar von 1979
+bis heute vor fünf Tagen. Den Datenzugriff
+
+schauen uns gleich genauer an. Die Scripte
+hierfür und für das Auslesen des NetCDF-
+
+Formats gibt's dann auf GitHub. NetCDF-
+Bibliotheken gibt es für Python, Octave,
+
+Matlab, was immer man da machen möchte.
+Das schauen wir uns jetzt ganz kurz an.
+
+Ich möchte jetzt nicht selber den ganzen
+Krempel installieren, diese Datenmenge
+
+runterladen. Da hilft uns der Climate Data
+Store weiter, also Copernicus - da gibts
+
+so eine ONLINE Toolbox. ...du warst schon
+geladen. Also man hat links, auf der
+
+linken Seite einmal so das was man schon
+beschrieben hatte, mit ein paar
+
+Beispielen, die zeigen, wie das Ganze zu
+funktionieren hat. Und es gibt auch hier
+
+die Dokumentation der Funktionen. Das ist
+jetzt nicht weiter wichtig. Ich presse
+
+schon mal auf play, weil das kann dauern.
+Das Script ist dann auch verfügbar über
+
+den Fahrplan. Das lädt nur deshalb jetzt
+so schnell, weil ich das vorhin schon
+
+ausgeführt hab. Normal kann das schon mal
+10, 20 Minuten dauern, weil die Daten
+
+werden zusammengestellt und dann
+präsentiert. Das Skript selber hat einen
+
+Teil, indem ich definiere, was ich haben
+möchte. Also ich habe drei Klimavariablen
+
+2-Meter-Temperatur, Schneetiefe und
+totaler Niederschlag. Das sind die Namen
+
+so wie sie im Datenkatalog vorhanden sind,
+auf den ich gleich zu sprechen komme. Ja,
+
+ich definiere hier mittig ein paar
+Koordinaten, für die ich den Plot
+
+erstellen möchte. Das ist jetzt hier
+Leipzig. Und das ist die Datenanfrage, wo
+
+ich ganz einfach sage: Ein Gitter 0,25
+Grad, das ist die höchste Auflösung. Ich
+
+kann auch sagen, ich möchte ein Grad
+Auflösung, dann ist die Datenmenge
+
+natürlich kleiner. Mein Zeitraum, den ich
+haben möchte, also alle Jahre, alle
+
+Monate. Und ich habe unten noch
+eingeschränkt das Gebiet, soll jetzt hier
+
+nur Deutschland sein. Wenn ich ein
+größeres Gebiet anfordere, dann kann die
+
+Anforderung auch länger dauern. Man kann
+durchaus, wenn man Monatskarten anfordert,
+
+schon mal sechs bis zwölf Stunden warten,
+dass die runtergeladen werden. Also, der
+
+Dienst setzt so täglich 30 bis 40 Terabyte
+an Daten um, die er an Benutzer sendet.
+
+Gut, das Ergebnis haben wir jetzt hier
+gleich dargestellt. Man kann hier rein
+
+zoomen, sich Ausschnitte ansehen. Wir
+haben ja drei verschiedene Variablen
+
+angefordert. Man kann auch mal die
+Schneetiefe anschauen. Schneetiefe ist
+
+hier als Wasseräquivalent: Man nehme an,
+der gesamte Schnee ist geschmolzen, und
+
+ich habe eine durchgehende Wasserschicht
+in dieser Gitterzelle. Und ich kann hier
+
+meinetwegen noch Koordinaten ändern. Und
+dann wird der Plot neu für diese
+
+Koordinaten erzeugt, sofern ich diesen
+Datensatz für diese Koordinaten vorher
+
+runtergeladen habe. Also wenn ich jetzt
+hier eine Nordamerika-Koordinate eingebe,
+
+funktioniert das nicht - ich habe ja nur
+die Daten für Deutschland angefordert. Das
+
+ist die erste Möglichkeit. Ich kann da
+schnell Plotten lassen. Ich muss da keine
+
+Gigabyte Datenströmen runterladen. Ich
+muss nur diese Skriptsprache so ein
+
+bisschen beherrschen. Aber schauen wir uns
+doch mal die eigenen Daten insgesamt an,
+
+den Katalog, denn meine Berechnungen sind
+zu komplex, um sie in dieser Toolbox
+
+durchzuführen. Außerdem bekommt man so
+einen Überblick darüber: Was gibt das da
+
+überhaupt alles? Ganz grundsätzlich hat
+dieser Climate Data Store nicht nur jetzt
+
+diese ERA5 Klimadaten, sondern allerlei
+Produkte schon vorrätig. also hier:
+
+"Arktische Seerouten": Wie entwickelt sich
+das für die Schifffahrt zum Beispiel. Aber
+
+wir wollen jetzt ERA5. Hier sehen wir alle
+Produkte zum Thema ERA5, die es so gibt.
+
+So gibt es hier zum Beispiel die Lösung so
+stündliche Atmosphärenparameter seit 1979,
+
+bis heute vor 5 Tagen. Da gibt es jetzt
+drei Möglichkeiten, das runter zu
+
+bekommen. Ich habe schon angesprochen, es
+gibt eine Python API, die man sich
+
+installiert. Dann kann man das ganze
+gescripted runterladen. Da möge man bitte
+
+bei größeren Mengen auch die Download
+Policy beachten. Die empfehlen
+
+Monatsstücke einzeln runterzuladen, wenn
+man zum Beispiel eine Zeitreihe von 2 oder
+
+3 Jahren haben möchte. Sonst kann man
+durchaus mehrere Tage in der Download-
+
+Schlange hängen. Man hat hier erst mal
+eine Beschreibung des Produkts. Okay, und
+
+kann man rechts den Scrollstreifen sehen?
+Das ist die Liste der ganzen Parameter,
+
+die es gibt. Da ist sicher was für jeden
+dabei. Aber wir wissen ja, was wir haben
+
+wollen. Hier ist schon mal ausgewählt,
+weil ich das vorhin geklickt habe:
+
+"Populäre Datensätze", also Kunden, die
+2m-Temperatur klickten, klickten auch
+
+totalen Niederschlag und meinetwegen
+Luftdruck. Für andere Variablen ist das
+
+hier so thematisch geordnet, so Wind,
+Schneefall und so weiter. Man kann sich
+
+den Zeitraum klicken, Zeitpunkte, das
+Format. Und wenn ich jetzt mein eigenes
+
+Python-Skript starten möchte, kann ich
+über "Show API Request" mir dann direkt
+
+darstellen lassen: Mit dieser Anfrage, in
+Python ausgeführt auf meinem Rechner,
+
+bekomme ich den vorhin angeklickten
+Datensatz. Wenn ich jetzt das für die
+
+Toolbox machen möchte, die ich gerade
+gezeigt habe, dann kann man auf "Toolbox
+
+Request" klicken, kann sich diesen
+Abschnitt hier in sein Skript kopieren, wo
+
+dann noch die Visualisierung darunter ist.
+Muss man also auch nicht von Hand machen.
+
+Oder wenn man den download-link möchte,
+dann klickt man halt auf "submit form".
+
+Und dann wird das gezeigt, was man schon
+mal herunterladen wollte. Und er hat
+
+erkannt: Das habe ich schon mal haben
+wollen. Also hier wäre der Downloadlink,
+
+normalerweise. Wie gesagt, je nach
+Datenmenge kann das mehrere Stunden oder
+
+vielleicht auch mal einen Tag dauern. Dass
+die Daten zusammengesucht wurden und zum
+
+Download bereit stehen. Wenn man das
+höchst aufgelöste Klimamodell möchte, das
+
+ist auf Magnetbänder gespeichert, das
+dauert dann halt ein bisschen. Gut, wenn
+
+das jetzt alles nichts für einen war, dann
+gibt es immer noch vorbereitete
+
+Themenbereiche, wo es für bestimmte Themen
+wie zum Beispiel" Auswuchs des Ausmaßes
+
+arktischen Meereises über die letzten 40
+Jahre" bereits vorbereitete Applikationen
+
+gibt, die live die Daten laden und dann
+visualisieren. Also man sieht, ich lade
+
+eigentlich immer wieder die gleiche Seite,
+es sind nur unterschiedliche Reiter, die
+
+ich hier habe, also Applications. Da haben
+wir vorhin schon gesehen, es gibt eine
+
+Navigation. Wann ist die Nordwestpassage
+eisfrei? Wann ist da Schifffahrt möglich?
+
+Da wird man sehen, dass das von Jahr zu
+Jahr ein längerer Zeitraum ist. Es gibt,
+
+was gibt's denn hier, Überlebensfähigkeit
+einer bestimmten Mückenart in Europa.
+
+Zukünftig? Der Einmarsch von
+Tropenkrankheiten zum Beispiel über diese
+
+Mücke, wie wird sich das entwickeln? Aber
+ich bin ja beim Klima, also schauen wir
+
+uns mal den ERA5 Explorer an! Der
+präsentiert uns zuerst eine Karte bzw. ich
+
+klicke das, was ich schon geladen habe.
+Man erhält also so eine Karte. Das ist die
+
+Weltkarte, man kann darin zoomen, sich
+einen Ort suchen, für den man jetzt die
+
+gesamten Klimadaten der vergangenen 40
+Jahre anzeigen möchte. Dann bekommt man
+
+hier rechts so das Ergebnis gezeigt. Der
+erste Plot zeigt dann quasi für die 40
+
+Jahre, für jeden Monat, die
+Durchschnittstemperatur, die maximalen
+
+minimalen Tageswerte. Wenn man also
+irgendwo in den Urlaub fährt, zur Arbeit
+
+fährt, nicht weiß, wie ist dort das Wetter
+im März, kann man sich das hier einmal
+
+quasi direkt visualisieren lassen. Gut,
+warming stripes, da haben wir drüber
+
+gesprochen. Aber wie ist das denn, die
+langfristige Entwicklung an so einem Ort?
+
+Das hier ist jetzt geklickt ungefähr
+Leipzig. Diese Darstellung zeigt jetzt die
+
+gesamte Zeitreihe und glättet das mit
+Fünf-Jahres-Mittelwerten, und dargestellt
+
+werden Sommertage. Das sind Tage mit einer
+maximalen Temperatur über 25 Grad,
+
+Frosttage, das sind Tage mit einer
+Minimaltemperatur unter null Grad, und
+
+tropische Nächte, das sind Nächte, in
+denen es mindestens 20 Grad als
+
+Minimaltemperatur hat. Und da jetzt die
+Entwicklung der vergangenen vierzig Jahre,
+
+sieht man halt jetzt für diesen geklickten
+Ort. Anstieg der Sommertage also
+
+Durchschnittstemperatur über 25 Grad,
+Niedergang der Frostnächte. Aber
+
+interessant, auch wenn es nur ein kleiner
+Prozentsatz ist, ist eigentlich auch: die
+
+tropischen Nächte, in denen es nicht
+kälter wird als 20 Grad, ist halt auch in
+
+der Zunahme. Also das waren von diesem
+Climate Data Store von dem ERA5-Modell so
+
+verschiedene Anwendungsfälle. Für das, was
+man selber programmieren kann, habe ich
+
+wie gesagt Beispielscripte oder wenn man
+sich nur ein bisschen umschauen möchte,
+
+gibt es halt diese vorbereiteten
+Applikationen. Für den Fall, dass die Demo
+
+nicht funktioniert.. Das letzte ist ein
+Dienst der Nasa, der in erster Linie die
+
+verschiedenen Satellitenmissionen der Nasa
+und zum Teil auch der ESA darstellt. Das
+
+nennt sich Nasa EOSDIS Earth Observing
+System Data Information System. Wer früher
+
+schon mal mit NASA Daten gearbeitet hat,
+dem wird das vor vier Monaten aufgefallen
+
+sein, dass die Daten nicht mehr einfach
+zum Klicken und Runterladen sind. Man
+
+braucht jetzt diesen EarthData UserID, um
+zu seinen früheren Datenarchiven zu
+
+kommen. Das Visualisierungstool ist
+Worldview. Das kann in GIS-Systeme
+
+exportieren, die man hat. Man kann den
+SourceCode runterladen und eine Instanz
+
+bei sich selbst laufen lassen, die die
+Daten von den Nasa Datendiensten heraus
+
+abgreift. Wenn wir uns das mal anschauen,
+wird man auch wieder mit bereits
+
+aufbereiteten thematischen Präsentationen
+begrüßt, die einem eigentlich
+
+hauptsächlich die Fähigkeiten dieses
+Visualisierungsdienstes zeigen. Man sieht
+
+im Hintergrund das aktuelle
+Satellitenbild. Man kann in der linken
+
+Spalte verschiedene Layer auswählen, was
+man dargestellt haben möchte, das sind so
+
+ungefähr 900, geben die an. Aus
+Zeitgründen schauen wir uns nur mal an,
+
+sowas wie: Feuer in Kalifornien und Teilen
+Kanadas. Das ist einfach nur das
+
+Satellitenbild, so gut, man kann es auch
+rechts in der Beschreibung lesen. Man
+
+sieht schon so in dem Bild, das da
+irgendwie so Rauch rüberzieht. Jetzt wird
+
+das mit verschiedenen Satellitenmissionen
+kombiniert. Jeder rote Punkt ist durch die
+
+Satellitenmission, durch das Moderate
+Resolution Imaging Spectroradiometer
+
+(MODIS) identifizierte Feuer schon
+deutlicher zu erkennen. Den Rest kann man
+
+sich auch selber anschauen. Und eigentlich
+entscheidend ist: Man kann sich hier auch
+
+durch die Zeit dieser
+Satellitenbeobachtungen quasi zeitlich
+
+zurück bewegen, inklusive das Erstellen
+von Animationen, also einen Satelliten-
+
+Film einer bestimmten Größe, für die man
+sich interessiert, sei es
+
+Meerestemperatur, das jetzt Wildfeuer,
+verschiedene Gaskonzentrationen in der
+
+Atmosphäre, Aerosole, Rauch, Schadstoffe.
+Da kann man gerne wahrscheinlich ein paar
+
+Tage mit verbringen. Die Daten hier im
+Hintergrund sind alle frei
+
+herunterzuladen. Man muss sich allerdings
+auch hier für den Account registrieren,
+
+was aber zumindest in meinem Test keine
+Probleme gegeben hat. Abschließend kann
+
+man sagen, es gibt einen reichen
+Datenschatz, den man zu diesem Thema
+
+Wetter und Klimadaten nutzen kann, der
+auch explizit für den öffentlichen
+
+Nutzer/Nutzerinnen verfügbar ist. Die
+Einstiegshürden sind relativ gering. Wie
+
+gesagt, wir beginnen mit FTP-Server und
+ASCII-Dateien. Die Einstiegshürde ist ja
+
+die Darstellung und dann, wenn man
+bestimmte Analysen machen möchte, wie das
+
+funktioniert. Aber auch wenn man nicht
+programmieren möchte, habe ich zumindest
+
+eine Handvoll Tools gezeigt, wo teilweise
+thematisch bereits aufbereitete Themen
+
+sind, die durchaus von Interesse sein
+können. Oder die einem zeigen, was letzten
+
+Endes alles möglich ist. Die Antwort auf
+die Frage war jetzt früher mehr Schnee?
+
+Die kann sich hoffentlich jetzt jeder
+selber suchen. Die Ressourcen dafür sind
+
+im Fahrplan. Auf GitHub gibts die
+passenden Skripte dazu bei der Suche nach
+
+36c3_Klima, oder man kann mich hier
+ansprechen, sei es per DECT oder über die
+
+Mailadresse im Fahrplan. Da möchte ich
+mich für die Aufmerksamkeit und das
+
+Interesse bedanken und nutzt mehr
+öffentliche Daten. Dankeschön.
+
+Herald: So kommen wir zum Fragenteil Wer
+von euch hat Fragen? Hände hoch und ran an
+
+die Mikrofone. Keine Fragen aus dem
+Internet? Das Mikrofon Nummer neun, bitte.
+
+Frage: Bei Folie zwölf haste ja so
+Deutschland mit ner Kilometer mal
+
+Kilometer Auflösung gehabt. Da war ganz am
+Anfang bei 1800 irgendwas rum so ein roter
+
+Punkt so in Höhe NRW. Weißt du, was das
+war?
+
+Manuel: Nee, kann ich jetzt so nicht genau
+sagen. Also diese Daten sind interpoliert
+
+aus den Stationsbeobachtungen oder wie der
+deutsche Wetterdienst zu der Zeit geheißen
+
+hat plus weiterer Dienste, die die
+gleichen Qualitäten bieten. In der
+
+Beschreibung des Produktes auf dem Server
+findet man weitere Informationen zu den
+
+relevanten Literatur Quellen.
+Herald: Mikrofon Nummer drei, bitte!
+
+Vielen Dank für den Talk und vielen Dank
+für die ganzen coolen Quellen. Ich habe
+
+tatsächlich eine Frage zu eher deinem
+Gebiet, und zwar relativ anfangs. In den
+
+Folien hattest du mal argumentiert oder
+gesagt, dass es auch Effekte der
+
+Atmosphäre gibt, die die Erdbeschleunigung
+verringern, nein Schmarrn, verstärken. Die
+
+Skala ging in beide Richtungen, sowohl ins
+Positive als auch Negative. Woher kommt
+
+das?
+Manuel: Also das ist der. Also da wir die
+
+Atmosphäre nicht entfernen können oder
+sollten, machen wir unsere Berechnungen
+
+bezogen auf eine zeitlich nicht variable
+Atmosphäre, also Normalatmosphäre. Das ist
+
+so Normaldruck auf Meeresspiegelniveau,
+1013 hPa, und da kann man sich mit Formeln
+
+herrechnen, in welcher Höhe meiner Station
+welcher Luftdruck herrschen sollte. Der
+
+normale Vorgang ist eigentlich, ich messe
+meinen lokalen Luftdruck, mal angenommen
+
+am Meeresspiegel, ich messe 1020. Dann hab
+ich also sieben hPa Differenz zu dem
+
+Referenzdruck, sieben Hektopascal mal drei
+Nanometer pro Sekunde-Quadat, sind 21
+
+nm/s2. Das ist die Attraktionswirkung, die
+die Luftmasse selber hat. Masse, aehm
+
+Luft, wiegt ja auch was. Und der Effekt
+die Masse der Luft drückt auf die
+
+Erdoberfläche, und die Erdoberfläche
+deformiert sich je nach Masse. Also ich
+
+habe ein Hochdruckgebiet, dann deformiert
+sich die Erdmasse stärker. Ich habe ein
+
+Tiefdruckgebiet, dann wird sie sich wieder
+leicht ausdellen. Und das ist der Effekt
+
+der Messungen, der dann meine
+Schweremessung um in diesem Fall 21
+
+Nanometer pro Sekunde Quadrat beeinflusst.
+Das ist natürlich, wie gesagt, son
+
+Daumenwert. Mit den Methoden jetzt über
+die Atmosphäre hat man dann eine etwas
+
+bessere Korrektur. Das heißt, wenn ich
+weiß, dass irgendwo ein Signal durch einen
+
+nahegelegenen, sagen wir ein Meer, durch
+einen See oder ein Meeresteil, durch
+
+Küste, dann habe ich eine bessere
+Korrelation. Wenn ich jetzt meine Methode
+
+benutze mit den Pegeldaten, weil
+Meerwasser ist auch mehr Schwere oder
+
+weniger Wasser weniger Schwere, als wenn
+ich jetzt diesen Daumenwert benutze.
+
+Herald: Kannst du diese Geschwindigkeits
+Angabe nochmal irgendwie für uns fassbares
+
+Mass schicken? So eine Viertelsekunde pro
+Jahr oder sowas?
+
+Manuel: Welche Geschwindigkeit?
+Herald: Wie sehr die Erde verlangsamt
+
+wird?
+Manuel: Also das hat jetzt nichts direkt
+
+mit Erdrotation zu tun. Das geht jetzt bei
+mir wirklich nur darum, das kleine g, die
+
+9,81m/s2, wie ändert sich das durch die
+Masse der Atmosphäre, durch den
+
+Wassergehalt und Ähnliches. Tatsächlich
+hat natürlich die je nachdem, wie die
+
+Atmosphäre auf die Erde verteilt hat das
+auch einen Effekt auf die Erdrotation, so
+
+Sommer, Winter. Also wo ist wieviel
+Atmosphärenmasse gerade, Nord-,
+
+Südhalbkugel, da reden wir aber um
+Millisekunden also die tägliche
+
+Erdrotation variiert im Millisekunden-
+Bereich je nach Massenverteilung der Erde.
+
+Herald: Mikro Nummer 2, bitte.
+Frage: Von mir auch herzlichen Dank für
+
+den Zugang. Du hast gesagt, dass das
+Downloaden der Daten zum Teil sehr lange
+
+dauert. Liegt es jetzt an der Menge, oder
+dass die auf Ihren Servern lokal die Daten
+
+erst zusammenstellen müssen?
+Manuel: Ja, letzteres also, je nachdem,
+
+wie groß die Datenmenge ist, die man haben
+möchte. Die Daten werden dann für einen
+
+von den Datenservern zusammengesucht, und
+dann lädt man das runter. Also man
+
+verbringt erst eine gewisse Zeit, quasi in
+der Warteschlange. Das können dann so 4-5
+
+Stunden sein, und dann dauert das ne
+knappe Stunde, bis die Daten gesammelt
+
+sind und dann je nach Internetverbindung
+halt. Wenn man jetzt son 10 Gigabyte
+
+Datensatz angefordert hat, das ist so ein
+Monat Europa, drei verschiedene
+
+Klimavariablen, die gesamte Höhe der
+Atmosphäre. Das ist das, was ich so
+
+brauche. Das sind so 10 Gigabyte. Aber man
+muss den Rechner nicht zwischendurch
+
+laufen lassen. Wenn man das Skript einfach
+am nächsten Morgen nochmal startet, dann
+
+sieht das der Server. Aha, der hat da
+schon nach gefragt. Die Daten stehen
+
+bereit, und sie werden runtergeladen. Aber
+wie gesagt, der Dienst setzt pro Tag 30,
+
+40 Terrabyte um. Man stellt sich halt
+hinten an.
+
+Herald: Mikrofon Nummer 1 bitte. Noch eine
+Frage zum Schwerenetz. Wofür braucht man
+
+denn die Daten, die jetzt in der 8. oder
+9. Nachkommastelle gemessen werden?
+
+Manuel: Meine Arbeit beschäftigt sich mit
+der Entwicklung neuartiger Sensoren, also
+
+präziser Gravimeter. Wenn mir jetzt einer
+sagen möchte, ich habe das präzisere
+
+Gerät, und dann schaue ich in die
+Datenbank. Und da ist jetzt noch irgendwie
+
+ein komischer Bogen. Dann sage ich dem "Da
+ist ein Bogen in deinen Daten. Du bist
+
+doch genauer." Also muss ich ein möglichst
+genaues Modell der tatsächlichen, zeitlich
+
+variabel Schwereänderung haben. Insgesamt
+ist das interessant für alles, was man
+
+sonst direkt nicht messen kann, aber Masse
+ist. Grundwasser ist ein weit verbreitetes
+
+Anwendungsgebiet. Man kann nicht
+überall..., gut in Deutschland ist ein
+
+weit verbreitetes Netz an
+Grundwasserbohrungen und
+
+Grundwasserpegeln, wo die zuständigen
+Landesämter diese Daten erfassen. Wenn man
+
+das Glück nicht hat, dann ist Gravimetrie
+eine Möglichkeit zu überprüfen, wie
+
+verhält sich das Grundwasser? Wir hatten
+ein großes Regenereignis. Bleibt das
+
+Grundwasser vor Ort oder fließt das ab?
+Das wäre eine Möglichkeit, mit Gravimetrie
+
+festzustellen. Und auch hier müssen wir
+alles korrigieren bis auf diesen
+
+Grundwassereffekt. Auch da braucht man
+dann genaue Atmosphärenmodelle.
+
+Frage: Hätte ich noch eine Anschlussfrage?
+Gibt es für diese Grundwasserwerte auch
+
+öffentliche Daten?
+Manuel: In der Regel ja, die muss man
+
+allerdings.. Da gibt es jetzt keinen so
+Verteiler, keine Seite, auf den man
+
+klicken kann. Das ist relativ
+unterschiedlich von Bundesland zu
+
+Bundesland. In der Regel hat die jetzt..
+ich komme aus Hannover. Da gibt es in der
+
+Stadtverwaltung eine Abteilung, wo dann
+das Untermenü ist Grundwasser, und da kann
+
+man persönlich anfragen. Da bekommt man
+das frei, wenn man so
+
+Wissenschaftsforschung macht, oder ich
+weiß nicht, ob man das alles bezahlen
+
+muss, kann ich jetzt leider nicht genau
+sagen. Aber es ist Aufgabe der Stadt, der
+
+Kommune, in der Regel.
+Herald: Mikrofon Nummer zwei, bitte!
+
+Frage: Das sind ja alles Klimamodelldaten
+also nicht aktuell gemessen - da fliegt ja
+
+keiner in zwei Kilometer und misst das.
+Wann werden die gerechnet? Werden die
+
+aktuell gerechnet? Werden die hinterher
+gerechnet? Werden die vorher gerechnet?
+
+Manuel: Also das ERA5, das ist jetzt quasi
+immer fünf Tage zurück. Es wird das Modell
+
+gerechnet, mit den Daten, die jetzt gerade
+anfallen. Bis vor kurzem gab es eine
+
+Verzögerung von drei Monaten, und man muss
+auch jetzt noch damit rechnen, dass quasi
+
+wenn ich jetzt heute Daten nehme, die für
+vor zwei Wochen sind, dass sich diese
+
+Daten noch leicht ändern können, weil halt
+die jetzt gerade gemessenen Daten noch
+
+einfließen können in das Modell. Aber man
+hat so eine Verzögerung im Moment von
+
+fünf, fünf Tagen, die, wie das erstellt
+wird, so ein Modell ist, wie gesagt, am
+
+Tag eins im Talk Climate Modeling ist das
+enthalten gewesen.
+
+Herald: Mikrofon Nummer eins, bitte.
+Frage: Wenn die Daten berechnet werden,
+
+heißt das, das wird auch nachträglich
+wieder langfristig in die Vergangenheit
+
+zurück korrigiert, wenn man bessere
+Modelle hat?
+
+Manuel: Die machen regelmäßige, ja
+regelmäßig, alle zehn Jahre ungefähr kommt
+
+eine neue Version dieses Modells heraus,
+das ERA-Interim der Vorgänger, das war vor
+
+zehn Jahren. Und die halten beide Modelle
+vor. Ich kann jetzt hingehen und sagen,
+
+ich nehme einen Zeitpunkt aus den 80er-
+Jahren und vergleiche beide Klimamodelle.
+
+Was kommt da raus? Gibt's da Diskrepanzen?
+Wie das genau mit der Erstellung geht,
+
+kann ich jetzt so nicht sagen. Aber ich
+habe die Möglichkeit, auch wenn ich meine
+
+Arbeit mit der einer Kollegin von vor zehn
+Jahren vergleichen will. Ich kann mir
+
+immer noch das Klimamodell von damals
+laden und mit meinen eigenen Methoden
+
+vergleichen. Das ist bei diesem ECMWF
+eigentlich ein großer Vorteil, dass alle
+
+Modelle relativ zeitlang noch weiter
+gepflegt werden und parallel verfügbar
+
+sind für gleiche Zeiträume.
+Herald: Als letzte Frage Mikrofon Nummer
+
+5.
+Frage: Ja, hallo. Ich wollte fragen, ob
+
+Europa der Vorreiter ist mit der
+Bereitstellung der Daten oder weltweit
+
+wirklich die Daten gut, also wirklich
+öffentlich gemacht werden und dass jeder
+
+die gleichberechtigt benutzen kann?
+Manuel: Das kann ich so nicht beantworten.
+
+Ich bin mir ziemlich sicher, dass das
+andere meteorologische Anstalten gibt, die
+
+wie der Deutsche Wetterdienst auch die
+Daten so frei zur Verfügung stellen bzw.
+
+dieses Klimamodell wie das ERA5 auch
+vergleichsweise woanders bereitgestellt
+
+wird. Für die amerikanische Version würde
+ich auf diesem von mir zuletzt gezeigten
+
+Data Dienst tippen, dass es da enthalten
+ist. Ganz genau wie gesagt, kann ich das
+
+so nicht sagen. Das deutsche Wetter. Der
+Deutsche Wetterdienst hat eigene
+
+Klimamodelle, wo ich mir auch nicht sicher
+bin, ob die frei zugänglich sind. Der
+
+Grund, warum damals dieses ECMWF
+aufgenommen wurde, war genau, weil ich das
+
+und auch meine Kollegin vor mir so direkt
+nutzen konnte. Also, wenn man sich da
+
+klickt, da steht auch explizit nicht nur
+Forschung, Wissenschaft, Commercial da, da
+
+steht explizit auch public interest, also
+jeder Bürger, Bürgerin, sich da bedienen
+
+kann und soll. Die Frage ist natürlich,
+wenn ich jetzt ein kommerzielles Produkt
+
+daraus mache. Da müsste man persönlich
+nochmal nachlesen, wie die Einschränkungen
+
+sind.
+Herald: Vielen Dank für diesen sehr
+
+interessanten Talk einen großen Applaus.
+Manuel: Ja, vielen Dank für die
+
+Aufmerksamkeit.
+[Füller, bitte in amara entfernen]
+
+*Applaus*
+[Füller, bitte in amara entfernen]
+
+*36c3 Abspannmusik*
+[Füller, bitte in amara entfernen]
+
+Untertitel erstellt von c3subtitles.de
+im Jahr 2020. Mach mit und hilf uns!

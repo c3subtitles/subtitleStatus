@@ -1,0 +1,2273 @@
+0:00:06.342,0:00:18.406
+*36C3 Intro musik*
+
+0:00:18.406,0:00:22.640
+Herald: The next talk will be titled 'How<br/>to Design Highly Reliable Digital
+
+0:00:22.640,0:00:27.312
+Electronics', and it will be delivered to<br/>you by Szymon and Stefan. Warm Applause
+
+0:00:27.312,0:00:32.139
+for them.
+
+0:00:32.139,0:00:35.173
+*applause*
+
+0:00:35.173,0:00:41.360
+Stefan: All right. Good morning, Congress.<br/>So perhaps every one of you in the room
+
+0:00:41.360,0:00:45.600
+here has at one point or another in their<br/>lives witnessed their computer behaving
+
+0:00:45.600,0:00:50.320
+weirdly and doing things that it was not<br/>supposed to do or what you didn't
+
+0:00:50.320,0:00:54.400
+anticipate it to do. And well, typically<br/>that would have probably been the result
+
+0:00:54.400,0:01:00.000
+of a software bug of some sort somewhere<br/>inside the huge software stack your PC is
+
+0:01:00.000,0:01:04.720
+running on. Have you ever considered what<br/>the probability of this weird behavior
+
+0:01:04.720,0:01:09.120
+being caused by a bit flipped somewhere in<br/>your memory of your computer might have
+
+0:01:09.120,0:01:16.240
+been? So what you can see in this video on<br/>the screen now is a physics experiment
+
+0:01:16.240,0:01:20.000
+called a cloud chamber. It's a very simple<br/>experiment that is actually able to
+
+0:01:20.720,0:01:26.560
+visualize and make apparent all the<br/>constant stream of background radiation we
+
+0:01:26.560,0:01:32.640
+all are constantly exposed to. So what's<br/>happening here is that highly energetic
+
+0:01:32.640,0:01:39.040
+particles, for example, from space they<br/>trace through gaseous alcohol and they
+
+0:01:39.040,0:01:42.160
+collide with alcohol molecules and they<br/>form in this process a trail of
+
+0:01:42.160,0:01:48.240
+condensation while they do that. And if<br/>you think about your computer, a typical
+
+0:01:48.240,0:01:53.200
+cell of RAM, of which you might have, I<br/>don't know, 4, 8, 10 gigabytes in your
+
+0:01:53.200,0:01:58.400
+machine is as big as only 80 nanometers<br/>wide. So it's very, very tiny. And you
+
+0:01:58.400,0:02:02.560
+probably are able to appreciate the small<br/>amount of energy that is needed or that is
+
+0:02:02.560,0:02:08.480
+used to store the information inside each<br/>of those bits. And the sheer amount of of
+
+0:02:08.480,0:02:12.560
+those bits you have in your RAM and your<br/>computer. So a couple of years ago, there
+
+0:02:12.560,0:02:16.800
+was a study that concluded that in a<br/>computer with about four gigabytes of RAM,
+
+0:02:17.600,0:02:23.600
+a bit flip, um, caused by such an event by<br/>cosmic background radiation can occur
+
+0:02:23.600,0:02:29.200
+about once every thirtythree hours. So a<br/>bit less than than one per day. In an
+
+0:02:29.200,0:02:34.960
+incident in 2008, a Quantas Airlines<br/>flight actually nearly crashed, and the
+
+0:02:34.960,0:02:40.080
+reason for this crash was traced back to<br/>be very likely caused by a bit flipped
+
+0:02:40.080,0:02:44.400
+somewhere in one of the CPUs of the<br/>avionics system and nearly caused the
+
+0:02:44.400,0:02:50.480
+death of a lot of passengers on this<br/>plane. In 2003, in Belgium, a small
+
+0:02:50.480,0:02:55.840
+municipal vote actually had a weird hiccup<br/>in which one of the candidates in this
+
+0:02:56.880,0:03:02.080
+election actually got four thousand ninety<br/>six more votes added in a single instance.
+
+0:03:02.080,0:03:06.480
+And that was traced back to be very likely<br/>caused by cosmic background radiation,
+
+0:03:06.480,0:03:10.000
+flipping a memory cell somewhere that<br/>stored the vote count. And it was only
+
+0:03:10.000,0:03:14.560
+discovered that this happened because this<br/>number of votes for this particular
+
+0:03:14.560,0:03:18.880
+candidate was considered unreasonable, but<br/>otherwise would have gotten away probably
+
+0:03:18.880,0:03:27.360
+without being detected. So a few words<br/>about us: Szymon and I, we both work at
+
+0:03:27.360,0:03:32.480
+CERN in the microelectronics section and<br/>we both develop electronics that need to
+
+0:03:32.480,0:03:37.360
+be tolerant to these sorts of effects. So<br/>we develop radiation tolerant electronics
+
+0:03:37.360,0:03:42.160
+for the experiments at CERN, at the LHC.<br/>Among a lot of other applications, you can
+
+0:03:42.160,0:03:48.440
+meet the two of us at the Lötlabor Jena<br/>assembly if you are interested in what we
+
+0:03:48.440,0:03:54.330
+are talking about today. And we will also<br/>give a small talk or a small workshop
+
+0:03:54.330,0:03:59.200
+about radiation detection tomorrow, in one<br/>of the seminar rooms. So feel free to pass
+
+0:03:59.200,0:04:02.697
+by there, it will be a quick introduction.<br/>To give you a small idea of what kind of
+
+0:04:02.697,0:04:08.681
+environment we are working for: So if you<br/>would use one of your default intel i7
+
+0:04:08.681,0:04:14.954
+CPUs from your notebook and would put it<br/>anywhere where we operate our electronics,
+
+0:04:14.954,0:04:20.080
+it would very shortly die in a matter of<br/>probably one or two minutes and it would
+
+0:04:20.080,0:04:25.080
+die for more than just one reason, which<br/>is rather interesting and compelling. So
+
+0:04:25.080,0:04:30.432
+the idea for today's talk is to give you<br/>all an insight into all the things that
+
+0:04:30.432,0:04:34.846
+need to be taken into account when you<br/>design electronics for radiation
+
+0:04:34.846,0:04:39.322
+environments. What kinds of different<br/>challenges come when you try to do that.
+
+0:04:39.322,0:04:43.558
+We classify and explain the different<br/>types of radiation effects that exist. And
+
+0:04:43.558,0:04:48.051
+then we also present what you can do to<br/>mitigate these effects and also validate
+
+0:04:48.051,0:04:52.882
+that what you did to care for them or<br/>protect your circuits actually worked. And
+
+0:04:52.882,0:04:57.953
+of course, as we do that, we'll try to<br/>give our view on how we develop radiation
+
+0:04:57.953,0:05:03.483
+tolerant electronics at CERN and how our<br/>workflow looks like to make sure this
+
+0:05:03.483,0:05:08.788
+works. So let's first maybe take a step<br/>back and have a look at what we mean when
+
+0:05:08.788,0:05:13.575
+we say radiation environments. The first<br/>one that you probably have in mind right
+
+0:05:13.575,0:05:18.724
+now when you think about radiation is<br/>space. So, this interstellar space is
+
+0:05:18.724,0:05:24.666
+basically filled with, very high speed,<br/>highly energetic electrons and protons and
+
+0:05:24.666,0:05:29.938
+all sorts of high energy particles. And<br/>while they, for example, traverse close to
+
+0:05:29.938,0:05:34.651
+planets as our Earth - these planets<br/>sometimes do have a magnetic field and the
+
+0:05:34.651,0:05:39.496
+highly energetic particles are actually<br/>deflected by these magnetic fields and
+
+0:05:39.496,0:05:44.318
+they can protect the planets as our<br/>planet, for example, from this highly
+
+0:05:44.318,0:05:48.440
+energetic radiation. But in the process,<br/>there around these planets sometimes they
+
+0:05:48.440,0:05:52.086
+form these radiation belts - known as the<br/>Van Allen belts after the guy who
+
+0:05:52.086,0:05:56.129
+discovered this effect a long time ago.<br/>And a satellite in space as it orbits
+
+0:05:56.129,0:06:01.717
+around the Earth might, depending on what<br/>orbit is chosen, sometimes go through
+
+0:06:01.717,0:06:05.760
+these belts of highly intense radiation.<br/>That, of course, then needs to be taken
+
+0:06:05.760,0:06:11.480
+into account when designing electronics<br/>for such a satellite. And if Earth itself
+
+0:06:11.480,0:06:17.403
+is not able to give you enough radiation,<br/>you may think of the very famous Juno
+
+0:06:17.403,0:06:23.504
+Jupiter mission that has become famous<br/>about a year ago. They actually in the
+
+0:06:23.504,0:06:29.105
+environment of Jupiter they anticipated so<br/>much radiation that they actually decided
+
+0:06:29.105,0:06:33.682
+to put all the electronics of the<br/>satellite inside a one centimeter thick
+
+0:06:33.682,0:06:39.734
+cube of titanium, which is famously known<br/>as the Juno Radiation Vault. But not only
+
+0:06:39.734,0:06:44.159
+space offers radiation environments.<br/>Another form of radiation you probably all
+
+0:06:44.159,0:06:48.871
+recognize this when I show you this<br/>picture, which is an X-ray image of a
+
+0:06:48.871,0:06:55.011
+hand. And X-ray is also considered a form<br/>of radiation. And while, of course, the
+
+0:06:55.011,0:07:00.610
+doses or amounts of radiation any patient<br/>is exposed to while doing diagnosis or
+
+0:07:00.610,0:07:06.031
+treatment of some disease, that might not<br/>be the full story when it comes to medical
+
+0:07:06.031,0:07:10.250
+applications. So this is a medical<br/>particle accelerator which is used for
+
+0:07:10.250,0:07:15.288
+cancer treatment. And in these sorts of<br/>accelerators, typically carbon ions or
+
+0:07:15.288,0:07:20.792
+protons are accelerated and then focused<br/>and used to treat and selectively destroy
+
+0:07:20.792,0:07:24.737
+cancer cells in the body. And this comes<br/>already relatively close to the
+
+0:07:24.737,0:07:29.682
+environment we are working in and working<br/>for. So Szymon and I are working, for
+
+0:07:29.682,0:07:36.800
+example, on electronics, for the CMS<br/>detector inside the LHC or which we build
+
+0:07:36.800,0:07:43.555
+dedicated, radiation tolerant, integrated<br/>circuits which have to withstand very,
+
+0:07:43.555,0:07:48.698
+very large amounts and doses of short<br/>lived radiation in order to function
+
+0:07:48.698,0:07:54.029
+correctly. And if we didn't specifically<br/>design electronics for that, basically the
+
+0:07:54.029,0:07:59.323
+whole system would never be able to work.<br/>To illustrate a bit how you can imagine
+
+0:07:59.323,0:08:05.571
+the scale of this environment: This is a<br/>single plot of a collision event that was
+
+0:08:05.571,0:08:10.809
+recorded in the ATLAS experiment. And each<br/>of those tiny little traces you can make
+
+0:08:10.809,0:08:16.384
+out in this diagram is actually either one<br/>or multiple secondary particles that were
+
+0:08:16.384,0:08:22.000
+created in the initial collision of two<br/>proton bunches inside the experiment. And
+
+0:08:22.000,0:08:27.791
+in each of those, of course, races around<br/>the detector electronics, which make these
+
+0:08:27.791,0:08:32.943
+traces visible itself, then decaying into<br/>multiple other secondary particles which
+
+0:08:32.943,0:08:37.680
+all go through our electronics. And if<br/>that doesn't sound, let's say, bad enough
+
+0:08:37.680,0:08:42.499
+for digital electronics, these collisions<br/>happen about 40 million times a second. Of
+
+0:08:42.499,0:08:47.841
+course, multiplying the number of events<br/>or problems they can cause in our
+
+0:08:47.841,0:08:54.200
+circuits. So we now want to introduce all<br/>the things that can happen, the different
+
+0:08:54.200,0:08:58.334
+radiation effects. But first, probably we<br/>take a step back and look at what we mean
+
+0:08:58.334,0:09:05.492
+when we say digital electronics or digital<br/>logic, which we want to focus on today. So
+
+0:09:05.492,0:09:10.553
+from your university lectures or your<br/>reading, you probably know the first class
+
+0:09:10.553,0:09:14.433
+of digital logic, which is the<br/>combinatorial logic. So this is typically
+
+0:09:14.433,0:09:18.990
+logic that just does a simple linear<br/>relation of the inputs of a circuit and
+
+0:09:18.990,0:09:23.968
+produces an output as exemplified with<br/>these AND and OR, NAND, XOR gates that you
+
+0:09:23.968,0:09:28.280
+see here. But if you want to build - I<br/>mean even though we use those everywhere
+
+0:09:28.280,0:09:32.800
+in our circuits - you probably also want<br/>to store state in a more complex circuit,
+
+0:09:32.800,0:09:37.135
+for example, in the registers of your CPU<br/>they store some sort of internal
+
+0:09:37.135,0:09:40.740
+information. And for that we use the other<br/>class of logic, which is called the
+
+0:09:40.740,0:09:44.815
+sequential logic. So this is typically<br/>clocked with some system clock frequency
+
+0:09:44.815,0:09:49.690
+and it changes its output with relation to<br/>the inputs whenever this clock signal
+
+0:09:49.690,0:09:53.912
+changes. And now if we look at how all<br/>these different logic functionalities are
+
+0:09:53.912,0:09:57.597
+implemented. So typically nowadays for<br/>that you may know that we use CMOS
+
+0:09:57.597,0:10:03.040
+technologies and basically represent all<br/>this logic functionality as digital gates
+
+0:10:03.040,0:10:09.880
+using small P-MOS and N-MOS MOSFET<br/>transistors in CMOS technologies. And if
+
+0:10:09.880,0:10:16.160
+we kind of try to build a model for more<br/>complex digital circuits, we typically use
+
+0:10:16.160,0:10:20.831
+something we call the finite state machine<br/>model, in which we use a model that
+
+0:10:20.831,0:10:25.880
+consists of a combinatorial and a<br/>sequential part. And you can see that the
+
+0:10:25.880,0:10:30.786
+output of the circuit depends both on the<br/>internal state inside the register as well
+
+0:10:30.786,0:10:35.532
+as also the input to the combinatorial<br/>logic. And accordingly, also the state
+
+0:10:35.532,0:10:40.157
+that is internal is always changed by the<br/>inputs as well as the current state. So
+
+0:10:40.157,0:10:44.912
+this is kind of the simple model for more<br/>complex systems that can be used to model
+
+0:10:44.912,0:10:49.622
+different effects. Um, now let's try to<br/>actually look at what the radiation can do
+
+0:10:49.622,0:10:53.126
+to transistors. And for that we are going<br/>to have a quick recap at what the
+
+0:10:53.126,0:10:58.120
+transistor actually is and how it looks<br/>like. As you may perhaps know is that in
+
+0:10:58.120,0:11:03.767
+CMOS technologies, transistors are built<br/>on wafers of high purity silicon. So this
+
+0:11:03.767,0:11:08.950
+is a crystalline, very regularly organized<br/>lattice of silicon atoms. And what we do
+
+0:11:08.950,0:11:14.169
+to form a transistor on such a wafer is<br/>that we add dopants. So in order to form
+
+0:11:14.169,0:11:19.461
+diffusion regions, which later will become<br/>the source and drain of our transistors.
+
+0:11:19.461,0:11:24.136
+And then on top of that we grow a layer of<br/>insulating oxide. And on top of that we
+
+0:11:24.136,0:11:28.200
+put polysilicon, which forms the gate<br/>terminal of the transistor. And in the end
+
+0:11:28.200,0:11:32.741
+we end up with an equivalent circuit a bit<br/>like that. And now to put things back into
+
+0:11:32.741,0:11:37.547
+perspective - you may also note that the<br/>dimension of these structures are very
+
+0:11:37.547,0:11:42.157
+tiny. So we talk about tens of nanometers<br/>for some of the dimensions I've outlined
+
+0:11:42.157,0:11:46.648
+here. And as the technologies shrink,<br/>these become smaller and smaller and
+
+0:11:46.648,0:11:51.986
+therefore you'll probably also realize or<br/>are able to appreciate the small amount of
+
+0:11:51.986,0:11:56.265
+energy that are used to store information<br/>inside these digital circuits, which makes
+
+0:11:56.265,0:12:01.680
+them perhaps more sensitive to radiation.<br/>So let's take a look. What different types
+
+0:12:01.680,0:12:08.447
+of radiation effects exist? We typically<br/>in this case, differentiate them into two
+
+0:12:08.447,0:12:13.010
+main classes of events. The first one<br/>would be the cumulative effects, which are
+
+0:12:13.010,0:12:17.228
+effects that, as the name implies,<br/>accumulate over time. So as the circuit is
+
+0:12:17.228,0:12:21.918
+placed inside some radiation environment,<br/>over time it accumulates more and more
+
+0:12:21.918,0:12:26.328
+dose and therefore worsens its performance<br/>or changes how it operates. And on the
+
+0:12:26.328,0:12:30.360
+other side, we have the Single Event<br/>Effects, which are always events that
+
+0:12:30.360,0:12:34.763
+happen at some instantaneous point in<br/>time, and then suddenly, without being
+
+0:12:34.763,0:12:39.017
+predictable, change how the circuit<br/>operates or how it functions or if it
+
+0:12:39.017,0:12:43.151
+works in the first place or not. So I'm<br/>going to first go into the class of
+
+0:12:43.151,0:12:47.880
+cumulative effects and then later on,<br/>Szymon will go into the other class of the
+
+0:12:47.880,0:12:52.932
+Single Event Effects. So in terms of these<br/>accumulating effects, we basically have
+
+0:12:52.932,0:12:57.280
+two main subclasses: The first one being<br/>ionization or TID effects, for Total
+
+0:12:57.280,0:13:02.024
+Ionizing Dose - and the second one being<br/>displacement damages. So displacement
+
+0:13:02.024,0:13:06.733
+damages do exactly what they sound like.<br/>It is all the effects that happen when an
+
+0:13:06.733,0:13:10.956
+atom in the silicon lattice is actually<br/>displaced or removed from its lattice
+
+0:13:10.956,0:13:14.885
+position and actually changes the<br/>structure of the semiconductor. But
+
+0:13:14.885,0:13:18.997
+luckily, these effects don't have a big<br/>impact in the CMOS digital circuits that
+
+0:13:18.997,0:13:22.866
+we are looking at today. So we will<br/>disregard them for the moment and we'll be
+
+0:13:22.866,0:13:29.160
+looking more at the ionization damage, or<br/>TID. So ionization - as a quick recap - is
+
+0:13:29.160,0:13:36.843
+whenever electrons are removed or added to<br/>an atom, effectively transforming it into
+
+0:13:36.843,0:13:42.236
+an ion. And these effects are especially<br/>critical for the circuits we are building
+
+0:13:42.236,0:13:45.849
+because of what they do is that they<br/>change the behavior of the transistors.
+
+0:13:45.849,0:13:50.400
+And without looking too much into the<br/>semiconductor details, I just want to show
+
+0:13:50.400,0:13:55.798
+their typical effect that we are concerned<br/>about in this very simple circuit here. So
+
+0:13:55.798,0:14:00.424
+this is just an inverter circuit<br/>consisting of two transistors here and
+
+0:14:00.424,0:14:05.549
+there. And what the circuit does in normal<br/>operation is it just takes an input signal
+
+0:14:05.549,0:14:10.120
+and inverts and basically gives the<br/>inverted signal at the output. And as the
+
+0:14:10.120,0:14:15.612
+transistors are irradiated and accumulate<br/>dose, you can see that the edges of the
+
+0:14:15.612,0:14:19.934
+output signal get slower. So the<br/>transistor takes longer to turn on and
+
+0:14:19.934,0:14:24.306
+off. And what that does in turn is that it<br/>limits the maximum operation frequency of
+
+0:14:24.306,0:14:27.840
+your circuit. And of course, that is not<br/>something you want to do. You want your
+
+0:14:27.840,0:14:31.095
+circuit to operate at some frequency in<br/>your final system. And if the maximum
+
+0:14:31.095,0:14:35.300
+frequency it can work at degrades over<br/>time, at some point it will fail as the
+
+0:14:35.300,0:14:39.636
+maximum frequency is just too low. So<br/>let's have a look at what we can do to
+
+0:14:39.636,0:14:44.120
+mitigate these effects. The first one and<br/>I already mentioned it when talking about
+
+0:14:44.120,0:14:48.060
+the Juno mission, is shielding. So if you<br/>can actually put a box around your
+
+0:14:48.060,0:14:52.334
+electronics and shield any radiation from<br/>actually hitting your transistors, it is
+
+0:14:52.334,0:14:56.800
+obvious that they will last longer and<br/>will suffer less from the radiation damage
+
+0:14:56.800,0:15:00.557
+that it would otherwise do. So this<br/>approach is very often used in space
+
+0:15:00.557,0:15:04.284
+applications like on satellites, but it's<br/>not very useful if you are actually trying
+
+0:15:04.284,0:15:07.719
+to measure the radiation with your<br/>circuits as we do, for example, in the
+
+0:15:07.719,0:15:11.845
+particle accelerators we build integrated<br/>circuits for. So there first of all, we
+
+0:15:11.845,0:15:16.080
+want to measure the radiation so we cannot<br/>shield our detectors from the radiation.
+
+0:15:16.080,0:15:20.008
+And also, we don't want to influence the<br/>tracks of these secondary collision
+
+0:15:20.008,0:15:24.168
+products with any shielding material that<br/>would be in the way. So this is not very
+
+0:15:24.168,0:15:27.825
+useful in a particle accelerator<br/>environment, let's say. So we have to
+
+0:15:27.825,0:15:33.720
+resort to different methods. So as I said,<br/>we do have to design our own integrated
+
+0:15:33.720,0:15:39.318
+circuits in the first place. So we have<br/>some freedom in what we call transistor
+
+0:15:39.318,0:15:45.219
+level design. So we can actually alter the<br/>dimensions of the transistors. We can make
+
+0:15:45.219,0:15:49.493
+them larger to withstand larger doses of<br/>radiation and we can use special
+
+0:15:49.493,0:15:54.126
+techniques in terms of layout that we can<br/>experimentally verifiy to be more
+
+0:15:54.126,0:15:58.944
+resistant to radiation effects. And as a<br/>third measure, which is probably the most
+
+0:15:58.944,0:16:03.509
+important one for us, is what we call<br/>modeling. So we actually are able to
+
+0:16:03.509,0:16:07.855
+characterize all the effects that<br/>radiation will have on a transistor. And
+
+0:16:07.855,0:16:12.414
+if we can do that, if we will know: 'If I<br/>put it into a radiation environment for a
+
+0:16:12.414,0:16:16.480
+year, how much slower will it become?'<br/>Then it is of course easy to say: 'OK, I
+
+0:16:16.480,0:16:19.958
+can just over-design my circuit and make<br/>it a bit more simple, maybe have less
+
+0:16:19.958,0:16:24.916
+functionality, but be able to operate at a<br/>higher frequency and therefore withstand
+
+0:16:24.916,0:16:30.295
+the radiation effects for a longer time<br/>while still working sufficiently well at
+
+0:16:30.295,0:16:34.324
+the end of its expected lifetime.' So<br/>that's more or less what we can do about
+
+0:16:34.324,0:16:37.600
+these effects. And I'll hand over to<br/>Szymon for the second class.
+
+0:16:37.600,0:16:42.040
+Szymon: Contrary to the cumulative effects<br/>presented by Stefan, the other group are
+
+0:16:42.040,0:16:46.680
+Single Event Effects which are caused by<br/>high energy deposits, which are caused by
+
+0:16:46.680,0:16:51.941
+a single particle or shower of particles.<br/>And they can happen at any time, even
+
+0:16:51.941,0:16:57.011
+seconds after irradiation is started. It<br/>means that if your circuit is vulnerable
+
+0:16:57.011,0:17:01.520
+to this class of effects, it can fail<br/>immediately after radiation is present.
+
+0:17:01.520,0:17:06.352
+And here we also classify these effects<br/>into several groups. The first are hard,
+
+0:17:06.352,0:17:12.454
+or permanent, errors, which as the name<br/>indicates can permanently destroy your
+
+0:17:12.454,0:17:18.160
+circuit. And this type of errors are<br/>typically critical for power devices where
+
+0:17:18.160,0:17:22.240
+you have large power densities and they<br/>are not so much of a problem for digital
+
+0:17:22.240,0:17:28.000
+circuits. In the other class of effects<br/>are soft errors. And here we distinguish
+
+0:17:28.000,0:17:32.000
+transients, or Single Event Transient<br/>errors, which are spurious signals
+
+0:17:32.000,0:17:39.120
+propagating in your circuit as a result of<br/>a gate being hit by a particle and they
+
+0:17:39.120,0:17:43.600
+are especially problematic for analog<br/>circuits or asynchronous digital circuits,
+
+0:17:43.600,0:17:48.800
+but under some circumstances they can be<br/>also problematic for synchronous systems.
+
+0:17:49.360,0:17:54.320
+And the other class of problems are<br/>static, or Single Event Upset problems,
+
+0:17:54.320,0:17:59.120
+which basically means that your memory<br/>element like a register gets flipped. And
+
+0:17:59.120,0:18:02.960
+then of course, if your system is not<br/>designed to handle this type of errors
+
+0:18:02.960,0:18:07.520
+properly, it can lead to a failure. So in<br/>the following part of the presentation
+
+0:18:07.520,0:18:13.200
+we'll focus mostly on soft errors. So<br/>let's try to understand what is the origin
+
+0:18:13.200,0:18:18.720
+of this type of problem. So as Stefan<br/>mentioned, the typical transistor is built
+
+0:18:18.720,0:18:24.800
+out of diffusions, gate and channel. So<br/>here you can see one diffusion. Let's
+
+0:18:24.800,0:18:28.080
+assume that it is a drain diffusion. And<br/>then when a particle goes through and
+
+0:18:28.080,0:18:35.280
+deposits charge, it creates free electron-<br/>hole pairs, which then in the presence of
+
+0:18:35.280,0:18:42.080
+electric fields, they get collected by<br/>means of drift, which results in a large
+
+0:18:42.080,0:18:46.160
+current spike, which is very short. And<br/>then the rest of the charge could be
+
+0:18:46.160,0:18:50.160
+collected by diffusion which is a much<br/>slower process and therefore also the
+
+0:18:50.160,0:18:56.080
+amplitude of the event is much, much<br/>smaller. So let's try to understand what
+
+0:18:56.080,0:19:00.560
+could happen in a typical memory cell. So<br/>on this schematic, you can see the
+
+0:19:00.560,0:19:05.440
+simplest memory cell, which is composed of<br/>two back-to-back inverters. And let's
+
+0:19:05.440,0:19:12.320
+assume that node A is that high and node B<br/>is at low potential initially. And then we
+
+0:19:12.320,0:19:16.720
+have a particle hitting the drain of<br/>transistor M1 which creates a short
+
+0:19:16.720,0:19:22.240
+circuit current between drain and ground,<br/>bringing the drain of transistor M1 to low
+
+0:19:22.240,0:19:29.680
+potential, which also acts on the gates of<br/>second inverter, temporarily changing its
+
+0:19:29.680,0:19:38.320
+state from low to high, which reinforces<br/>the wrong state in the first inverter. And
+
+0:19:38.320,0:19:44.240
+at this time the error is locked in your<br/>memory cell and you basically lost your
+
+0:19:44.800,0:19:49.120
+information. So you may be asking<br/>yourself: 'How much charge is needed
+
+0:19:49.120,0:19:53.760
+really to flip a state of a memory cell?'.<br/>And you can get this number from either
+
+0:19:53.760,0:19:59.440
+simulations or from measurements. So let's<br/>assume that what we could do, we could try
+
+0:19:59.440,0:20:03.920
+to inject some current into the sensitive<br/>node, for example, drain of transistor M1.
+
+0:20:03.920,0:20:07.680
+And here what I will show is that on the<br/>top plot you will have current a function
+
+0:20:07.680,0:20:12.720
+of time. On the second plot you will have<br/>output voltage. So voltage at node B as a
+
+0:20:12.720,0:20:18.080
+function of time and the lowest plot you<br/>will see a probability of having a bit
+
+0:20:18.080,0:20:22.640
+flip. So if you inject very little<br/>current, of course nothing changes at the
+
+0:20:22.640,0:20:27.360
+output, but once you start increasing the<br/>amount of current you are injecting, you
+
+0:20:27.360,0:20:32.800
+see that something appears at the output<br/>and at some point the output will toggle,
+
+0:20:32.800,0:20:38.880
+so it will switch to the other state. And<br/>at this point, if you really calculate
+
+0:20:38.880,0:20:46.000
+what is the area under the current curve<br/>you can find what is the critical charge
+
+0:20:46.000,0:20:53.280
+needed to flip the memory cell. And if you<br/>go further, if you start injecting even
+
+0:20:53.280,0:21:00.320
+more current, you will not see that much<br/>difference in the output voltage waveform.
+
+0:21:00.320,0:21:04.640
+It could become only slightly faster. And<br/>at this point, you also can notice that
+
+0:21:04.640,0:21:08.960
+the probability now jumped to one, which<br/>means that any time you inject so much
+
+0:21:08.960,0:21:17.040
+current there is a fault in your circuit.<br/>So for now, we just found what is the
+
+0:21:17.040,0:21:22.160
+probability of having a bit-flip from 0 to<br/>1 in node B. Of course we should also
+
+0:21:22.160,0:21:27.280
+calculate the same for the other<br/>direction, so from 1 to zero. And usually
+
+0:21:27.280,0:21:31.200
+it is slightly different. And then of<br/>course we should inject in all the other
+
+0:21:32.000,0:21:37.680
+nodes, for example node B and also should<br/>study all possible transitions. And then
+
+0:21:37.680,0:21:42.960
+at the end, if you calculate the<br/>superposition of these effects and you
+
+0:21:42.960,0:21:47.920
+multiply them by the active area of each<br/>node, you will end up with what we call
+
+0:21:47.920,0:21:51.440
+the cross section, which has a dimension<br/>of centimeters squared, which will tell
+
+0:21:51.440,0:21:56.640
+you how sensitive your circuit is to this<br/>type of effects. And then knowing the
+
+0:21:56.640,0:22:03.520
+radiation profile of your environment, you<br/>can calculate the expected upset rate in
+
+0:22:03.520,0:22:09.680
+the final application. So now, having<br/>covered the basic of the single event
+
+0:22:09.680,0:22:15.680
+effects, let's try to check how we can<br/>mitigate them. And here also technology
+
+0:22:15.680,0:22:20.640
+plays a significant role. So of course,<br/>newer technologies offer us much smaller
+
+0:22:20.640,0:22:26.080
+devices. And together with that, what<br/>follows is that usually supply voltages
+
+0:22:26.080,0:22:30.640
+are getting smaller and smaller as well as<br/>the node capacitance, which means that for
+
+0:22:30.640,0:22:35.040
+our Single Event Upsets it is very bad<br/>because the critical charge which is
+
+0:22:35.040,0:22:40.000
+required to flip our bit is getting less<br/>and less. But at the end, at the same
+
+0:22:40.000,0:22:43.600
+time, physical dimensions of our<br/>transistors are getting smaller, which
+
+0:22:43.600,0:22:47.680
+means that the cross section for them<br/>being hit is also getting smaller. So
+
+0:22:47.680,0:22:52.240
+overall, the effects really depend on the<br/>circuit topology and the radiation
+
+0:22:52.240,0:22:58.880
+environment. So another protection method<br/>could be introduced on the cell level. And
+
+0:22:58.880,0:23:04.880
+here we could imagine increasing the<br/>critical charge. And that could be done in
+
+0:23:04.880,0:23:10.400
+the easiest way by just increasing the<br/>node capacitance by, for example, putting
+
+0:23:10.400,0:23:15.520
+larger transistors. But of course, this<br/>also increases the collection electrode,
+
+0:23:15.520,0:23:22.080
+which is not nice. And another way could<br/>be just increase the capacitance by adding
+
+0:23:22.080,0:23:27.920
+some extra metal capacitance, but it, of<br/>course, slows down the circuit. Another
+
+0:23:27.920,0:23:32.960
+approach could be to try to store the<br/>information on more than two nodes. So I
+
+0:23:32.960,0:23:37.920
+showed you that on a simple SRAM cell we<br/>store information only on two nodes, so
+
+0:23:37.920,0:23:42.240
+you could try to come up with some other<br/>cells, for example, like that one in which
+
+0:23:42.240,0:23:46.720
+the information you start on four nodes.<br/>So you can see that the architecture is
+
+0:23:46.720,0:23:53.440
+very similar to the basic SRAM cell. But<br/>you should be careful always to very
+
+0:23:53.440,0:23:58.160
+carefully simulate your design, because if<br/>we analyze this circuit, you will quickly
+
+0:23:58.160,0:24:02.560
+realize that this circuit, even though the<br/>information is stored in four different
+
+0:24:02.560,0:24:09.440
+nodes, the same type of loop exists as in<br/>the basic circuit. Meaning that at the end
+
+0:24:09.440,0:24:14.800
+the circuit offers basically no hardening<br/>with respect to the previous cell. So
+
+0:24:14.800,0:24:20.880
+actually we can do it better. So here you<br/>can see a typical dual interlocked cell.
+
+0:24:20.880,0:24:25.840
+So the amount of transistors is exactly<br/>the same as in the previous example, but
+
+0:24:25.840,0:24:30.240
+now they are interconnected slightly<br/>differently. And here you can see that
+
+0:24:30.240,0:24:36.000
+this cell has also two stable<br/>configurations. But this time, the low
+
+0:24:36.000,0:24:40.320
+level from a given node can propagate to<br/>only to the left hand side, while the high
+
+0:24:40.320,0:24:47.520
+level can propagate to the right hand<br/>side. And each stage being inverting means
+
+0:24:47.520,0:24:54.480
+that the fault can not propagate for more<br/>than one node. Of course, this cell has
+
+0:24:54.480,0:24:59.840
+some drawbacks: It consumes more area than<br/>as simple SRAM cell and also write access
+
+0:24:59.840,0:25:03.440
+requires accessing at least two nodes at<br/>the same time to really change the state
+
+0:25:03.440,0:25:09.440
+of the cell. And so you may ask yourself,<br/>how effective is this cell? So here I will
+
+0:25:09.440,0:25:13.200
+show you a cross section plot. So it is<br/>the probability of having an error as a
+
+0:25:13.200,0:25:18.400
+function of injected energy. And as a<br/>reference, you can see a pink curve on the
+
+0:25:18.400,0:25:23.520
+top, which is for a normal, not protected<br/>cell. And on the green you can see the
+
+0:25:25.280,0:25:30.160
+cross section for the error in the DICE<br/>cell. So as you can see, it is one order
+
+0:25:30.160,0:25:36.400
+of magnitude better than the normal cell.<br/>But still, the cross section is far from
+
+0:25:36.400,0:25:41.106
+being negligible, So, the problem was<br/>identified: So it was identified that the
+
+0:25:41.106,0:25:45.728
+problem was caused by the fact that some<br/>sensitive nodes were very close together
+
+0:25:45.728,0:25:50.304
+on the layout and therefore they could be<br/>upset by the same particle. Because as we
+
+0:25:50.304,0:25:54.656
+mentioned, single devices there are very<br/>small. We are talking about dimensions
+
+0:25:54.656,0:25:59.133
+below a micron. So after realizing that,<br/>we designed another cell in which we
+
+0:25:59.133,0:26:04.280
+separated more sensitive nodes and we<br/>ended up with the blue curve, and as you
+
+0:26:04.280,0:26:08.825
+can see the cross section was reduced by<br/>two more orders of magnitude and the
+
+0:26:08.825,0:26:13.747
+threshold was increased significantly. So<br/>if you don't want to redesign your
+
+0:26:13.747,0:26:19.115
+standard cells, you could also apply some<br/>mitigation techniques on block level. So
+
+0:26:19.115,0:26:25.232
+here we can use some encoding to encode<br/>our state better. And as an example, I
+
+0:26:25.232,0:26:32.080
+will show you a typical Hamming code. So<br/>to protect four bits, we have to add three
+
+0:26:32.080,0:26:38.366
+additional party bits which are calculated<br/>according to this formula. And then once
+
+0:26:38.366,0:26:44.557
+you calculate the parity bits, you can use<br/>those to check the state integrity of your
+
+0:26:44.557,0:26:50.536
+internal state. And if any of their party<br/>bits is not equal to zero, then the bits
+
+0:26:50.536,0:26:55.066
+instantaneously become syndromes,<br/>indicating where the error happened. And
+
+0:26:55.066,0:27:00.516
+you can use this information to correct<br/>the error. Of course, in this case, the
+
+0:27:00.516,0:27:06.600
+efficiency is not really nice because we<br/>need three additional bits to protect only
+
+0:27:06.600,0:27:12.632
+four bits of information. But as the state<br/>length increases the protection also is
+
+0:27:12.632,0:27:18.815
+more efficient. Another approach would be<br/>to do even less. Meaning that instead of
+
+0:27:18.815,0:27:23.425
+changing anything you need in your design,<br/>you can just triplicate your design or
+
+0:27:23.425,0:27:28.800
+multiply it many times and just vote,<br/>which state is correct? So this concept is
+
+0:27:28.800,0:27:35.174
+called tripple modular redudancy and it is<br/>based around the vaulter cell. So it is a
+
+0:27:35.174,0:27:39.956
+cell which has even or odd number of<br/>inputs and outputs is always equal to
+
+0:27:39.956,0:27:44.496
+majority of its input. And as I mentioned<br/>that the idea is that you have, for
+
+0:27:44.496,0:27:49.287
+example, three circuits: A, B and C, and<br/>during normal operation, when they are
+
+0:27:49.287,0:27:54.648
+identical, the output is also the same.<br/>However, when there is a problem, for
+
+0:27:54.648,0:28:00.428
+example, in logic, part B, the the output<br/>is affected. So this problem is
+
+0:28:00.428,0:28:05.290
+effectively masked by the Voltaire cell<br/>and it is not visible from outside of the
+
+0:28:05.290,0:28:10.029
+circuit. But you have to be careful not to<br/>take this picture as a as a design type
+
+0:28:10.029,0:28:15.149
+template. So let's try to analyze what<br/>would happen with the state machine
+
+0:28:15.149,0:28:20.244
+similar to what Stephan introduced. If you<br/>were to just use this concept. So here you
+
+0:28:20.244,0:28:24.572
+can see a three state machines and<br/>vaulterout the output. And as we can see,
+
+0:28:24.572,0:28:29.400
+if you have an upside in, for example, the<br/>state register A, then the state is
+
+0:28:29.400,0:28:34.875
+broken. But still the output of the<br/>circuit, which is indicated by letter s is
+
+0:28:34.875,0:28:42.959
+correct because the B and C registers are<br/>still fine. But what happens if some time
+
+0:28:42.959,0:28:49.883
+later we have an upset in memory element B<br/>or C? Then of course that that the state
+
+0:28:49.883,0:28:56.520
+of ours system is broken and we can not<br/>recover it. So you can ask yourself what
+
+0:28:56.520,0:29:01.906
+can we do better in order to avoid this<br/>situation? So that just to be sure. Please
+
+0:29:01.906,0:29:07.320
+do not use this technique to protect your<br/>circuits. So the easiest mitigation could
+
+0:29:07.320,0:29:13.148
+be to use as an input to your logic to use<br/>the output of the vaulter sell itself.
+
+0:29:13.148,0:29:17.924
+What it offers us is that now whenever you<br/>have an upset in one of the memory
+
+0:29:17.924,0:29:22.689
+elements for the next computation, for the<br/>next stage, we always use the voltage
+
+0:29:22.689,0:29:27.560
+outward, which ensures that the signal<br/>will be removed one clock cycle later. So
+
+0:29:27.560,0:29:33.200
+you will have another hit sometime later,<br/>basically, it will not affect our state.
+
+0:29:33.200,0:29:40.005
+Until now we consider only upsets in our<br/>registers but what happens if we have
+
+0:29:40.005,0:29:45.934
+charge and in our vaulter. So you see that<br/>if there is no state change, basically the
+
+0:29:45.934,0:29:50.870
+transient in the vaulter doesn't impact<br/>our system. But if you are really unlucky
+
+0:29:50.870,0:29:55.860
+and the transient happens when the clock<br/>transition happens, so when whenever we
+
+0:29:55.860,0:30:00.962
+enlarge the data, we can corrupt the state<br/>in three registers at the same time, which
+
+0:30:00.962,0:30:05.687
+is less than ideal. So to overcome this<br/>limitation, you can consider skewing our
+
+0:30:05.687,0:30:11.822
+clocks by some time, which is larger than<br/>the maximum charge in time. And now,
+
+0:30:11.822,0:30:18.101
+because with each register samples the<br/>output of the vaulter a slightly different
+
+0:30:18.101,0:30:23.795
+time, we can corrupt only one flips over<br/>the at the time. So of course, if you are
+
+0:30:23.795,0:30:28.420
+unlucky, we can have problematic<br/>situations in which one register is
+
+0:30:28.420,0:30:33.766
+already in your state. The other register<br/>is still. in the old state. And then it
+
+0:30:33.766,0:30:40.388
+can lead to undetermenistic result. So it<br/>is better, but still not ideal. So as a
+
+0:30:40.388,0:30:45.937
+general theme, you have seen that we were<br/>adding and adding more resources so you
+
+0:30:45.937,0:30:49.951
+can ask yourself what would happen if we<br/>tripplicate everything. So in this case,
+
+0:30:49.951,0:30:54.177
+we tripplicate ower registers, we<br/>tripplicate our logic and our vaulter. And
+
+0:30:54.177,0:30:59.344
+now you can see that whenever we have an<br/>upset in our register, it can only affect
+
+0:30:59.344,0:31:04.120
+one register at the time and the error<br/>will be removed from the system one clock
+
+0:31:04.120,0:31:08.588
+cycle later. Also, you will have an upset<br/>in the voter or in their logic. It can be
+
+0:31:08.588,0:31:13.068
+larged only to one register, which means<br/>that in principle we create that system
+
+0:31:13.068,0:31:17.800
+which is really robust. Unfortunately,<br/>nothing is for free. So here I compare a
+
+0:31:17.800,0:31:21.979
+different tripplication environments and<br/>as you can see that the more protection
+
+0:31:21.979,0:31:26.410
+you want to have, the more you have to pay<br/>in terms of resources being power in the
+
+0:31:26.410,0:31:31.880
+area. And also usual, you pay small<br/>penalty in terms of maximum operational
+
+0:31:31.880,0:31:37.327
+speed. So which flavor of protection you<br/>have you use depends really on
+
+0:31:37.327,0:31:42.091
+application. So for most sensitive<br/>circuits, you probably you want to use
+
+0:31:42.091,0:31:49.078
+faulty MRO and you may leave some other<br/>bits of logic unprotected. So another, if
+
+0:31:49.078,0:31:54.890
+your system is not mission critical and<br/>you can tolerate some downtime, you can
+
+0:31:54.890,0:32:00.040
+consider scrubbing, periodically checking<br/>the state of your system and refreshing it
+
+0:32:00.040,0:32:05.354
+if necessary if an error is detected using<br/>some parity bits or copy of the data in
+
+0:32:05.354,0:32:09.621
+that safe space. Or you can have a<br/>watchdog which will find out that
+
+0:32:09.621,0:32:14.048
+something went wrong and it will just<br/>reinitialize the whole system. So now,
+
+0:32:14.048,0:32:19.640
+having covered the basics of all the<br/>facts, we will have to face. We would like
+
+0:32:19.640,0:32:24.595
+to show you the basic flow which we follow<br/>during designing our radiation hardened
+
+0:32:24.595,0:32:29.296
+circuits. So of course we always start<br/>with specifications. So we try to
+
+0:32:29.296,0:32:33.976
+understand our radiation environment in<br/>which the circuit is meant to operate. So
+
+0:32:33.976,0:32:39.035
+we come up with some specifications for<br/>total dose which could be accumulated and
+
+0:32:39.035,0:32:45.066
+for the rate of single event upsets. And<br/>at this moment, it is also not very rare
+
+0:32:45.066,0:32:50.440
+that we have to decide to move some<br/>functionality out of our detector volume,
+
+0:32:50.440,0:32:56.013
+outside, where we can use of the sort of<br/>commercial equipment to do number
+
+0:32:56.013,0:33:02.720
+crunching. But let's assume that we would<br/>go with our ASIC. So having that the
+
+0:33:02.720,0:33:07.120
+specifications, of course we proceed with<br/>functional implementation. This we
+
+0:33:07.120,0:33:12.160
+typically do with hardware describtion<br/>languages, so verilog or VHDL which we may
+
+0:33:12.160,0:33:16.800
+know from typical FPGA flow. And of course<br/>we write a lot of simulations too to
+
+0:33:16.800,0:33:22.880
+understand whether we are meeting our<br/>functional goals or whether our circuit
+
+0:33:22.880,0:33:30.080
+behaves as expected. And then we<br/>selectively select some parts of the
+
+0:33:30.080,0:33:35.760
+circuits which we want to protect from<br/>radiation effects. So, for example, we can
+
+0:33:35.760,0:33:41.200
+decide to use triplication or some other<br/>methods. So these days we typically use
+
+0:33:41.200,0:33:45.760
+triplication as the most straightforward<br/>and very effective method. So you can ask
+
+0:33:45.760,0:33:50.640
+yourself how do we triplicate the logic?<br/>So does the simplest. Would we just copy
+
+0:33:50.640,0:33:54.960
+and paste the code three times at some<br/>postfixes like A, B and C and you are
+
+0:33:54.960,0:34:00.640
+done. But of course this solution has some<br/>drawbacks. So it is time consuming and it
+
+0:34:00.640,0:34:04.640
+is very error prone. So maybe you have<br/>noticed that I had a typo there. So of
+
+0:34:04.640,0:34:07.920
+course we don't want to do that. So we<br/>developed our own tool, which we called
+
+0:34:07.920,0:34:16.000
+TMRG, which automatizes the process of<br/>triplication and eliminates the two main
+
+0:34:16.000,0:34:22.000
+drawbacks, which I just described. So<br/>after we have our code triplicated and of
+
+0:34:22.000,0:34:25.920
+course, not before rerunning all the<br/>simulations to make sure that everything
+
+0:34:25.920,0:34:33.440
+went as expected. We then proceed to the<br/>synthesis process in which we convert our
+
+0:34:33.440,0:34:40.880
+high level hardware description languages<br/>to gate level, in which all the functions
+
+0:34:40.880,0:34:45.520
+are mapped to gates, which were introduced<br/>by Stefan, so both combinatorial and
+
+0:34:45.520,0:34:53.120
+sequential. And here we also have to be<br/>careful because modern CAD tools have a
+
+0:34:53.120,0:34:58.160
+tendency, of course, to optimise the logic<br/>as much as possible. And our logic in most
+
+0:34:58.160,0:35:03.280
+of the cases is really redundant. So it is<br/>very easy; So, it should be removed. So we
+
+0:35:03.280,0:35:07.680
+really have to make sure that it is not<br/>removed. That's why our tool also provides
+
+0:35:07.680,0:35:13.120
+some constraints for the synthesizer to<br/>make sure that our design intent is
+
+0:35:13.120,0:35:18.800
+clearly and well understood by the tool.<br/>And once we have the output lattice, we
+
+0:35:18.800,0:35:24.880
+proceed to place and route process where<br/>this kind of lattice representation is
+
+0:35:24.880,0:35:30.480
+mapped to a layout of what will become<br/>soon our digital chip where we placed all
+
+0:35:30.480,0:35:35.760
+the cells and we route connections between<br/>them and here there are another. There is
+
+0:35:35.760,0:35:40.080
+another danger we have mentioned already,<br/>it's that in modern technologies the cells
+
+0:35:40.080,0:35:45.200
+are so small that they could be easily<br/>affected by a single particle at the same
+
+0:35:45.200,0:35:50.000
+time. So we have to really space although<br/>the big cells which are responsible for
+
+0:35:50.800,0:35:56.080
+keeping the information about the state to<br/>make sure that a single particle cannot
+
+0:35:56.080,0:36:02.880
+upset A and B, for example, read research<br/>from the same register. And then in the
+
+0:36:02.880,0:36:07.440
+last step, of course, we'll have to verify<br/>that everything. What we have done is
+
+0:36:07.440,0:36:13.200
+correct. And at this level, we also try to<br/>introduce some single event effects in our
+
+0:36:13.200,0:36:19.360
+simulations. So we could randomly flip<br/>bits in our system. We can also inject
+
+0:36:19.360,0:36:25.600
+transients. And typically we used to do<br/>that on the lattices level, which works
+
+0:36:25.600,0:36:30.800
+very fine. And it is very nice. But the<br/>problem with this approach is that we can
+
+0:36:30.800,0:36:35.760
+perform these actions very late in the<br/>design cycle, which is less than ideal.
+
+0:36:36.480,0:36:42.240
+And also that if we find that there is<br/>problem in our simulation, typical lattice
+
+0:36:42.240,0:36:47.840
+at this level has probably few orders of<br/>magnitude more lines than our initial RTL
+
+0:36:47.840,0:36:52.640
+code. So to trace back what is the<br/>problematic line of code is not so
+
+0:36:52.640,0:36:56.960
+straightforward. At this time. So you can<br/>ask yourself why not to try to inject
+
+0:36:56.960,0:37:05.040
+errors in the RTL design? And the answer<br/>was, the answer is that it is not so
+
+0:37:05.040,0:37:09.760
+trivially to map the hardware description<br/>language's is high level constructs to
+
+0:37:09.760,0:37:14.800
+what will become combinatorial or<br/>sequential logic. So in order to eliminate
+
+0:37:14.800,0:37:18.880
+this problem, we also develop another open<br/>source tool, which is, which allows us to
+
+0:37:18.880,0:37:25.760
+do so. So we decided to use Yosys open<br/>source synthesis tool from clifford, which
+
+0:37:25.760,0:37:30.560
+was presented in the Congress several<br/>years ago. So we use this tool to make a
+
+0:37:30.560,0:37:35.200
+first pass through our RTL code to<br/>understand which elements will be mapped
+
+0:37:35.200,0:37:39.760
+to sequential and combinatorial. And then<br/>having this information, we will use
+
+0:37:39.760,0:37:45.600
+cocotb, another python verification<br/>framework, which allows us programmatic
+
+0:37:45.600,0:37:50.480
+access to these nodes and we can<br/>effectively inject the errors in our
+
+0:37:51.040,0:37:56.400
+simulations. And I forgot to mention that<br/>the TMRG tool is also open source. So if
+
+0:37:56.400,0:38:03.440
+you are interested in one of the tools,<br/>please feel free to contact us. And of
+
+0:38:03.440,0:38:09.040
+course, after our simulation is done, then<br/>the next step would really tape out. And
+
+0:38:09.040,0:38:13.680
+so we submit our chip to manufacturing and<br/>hopefully a few months later we receive
+
+0:38:13.680,0:38:17.377
+our chip back.<br/>Stefan: All right. So after patiently
+
+0:38:17.377,0:38:23.360
+waiting then for a couple of months while<br/>your chip is in manufacturing and you're
+
+0:38:23.360,0:38:28.473
+spending time on preparing a test set up<br/>and preparing yourself to actually test if
+
+0:38:28.473,0:38:33.501
+your chip works as you expect it to. Now,<br/>it's probably also a good time to think
+
+0:38:33.501,0:38:37.441
+about how to actually validate or test if<br/>all the measures that you've taken to
+
+0:38:37.441,0:38:41.280
+protect your circuit from radiation<br/>effects actually are effective or if they
+
+0:38:41.280,0:38:45.623
+are not. And so again, we will split this<br/>in two parts. So you will probably want to
+
+0:38:45.623,0:38:49.944
+start with testing for the total ionizing<br/>dose effects. So for the cumulative effect
+
+0:38:49.944,0:38:54.516
+and for that, you typically use x ray<br/>radiation relatively similar to the one
+
+0:38:54.516,0:38:58.707
+used in medical treatment. So this<br/>radiation is relatively low, energetic,
+
+0:38:58.707,0:39:02.960
+which has the upside of not producing any<br/>single event effects, but you can really
+
+0:39:02.960,0:39:07.294
+only accumulate radiation dose and focus<br/>on the accumulating effects. And typically
+
+0:39:07.294,0:39:11.656
+you would use a machine that looks<br/>somewhat like this, a relatively compact
+
+0:39:11.656,0:39:16.540
+thing. You can have in your laboratory and<br/>you can use that to really accumulate
+
+0:39:16.540,0:39:21.513
+large amounts of radiation dose on your<br/>circuit. And then you need some sort of
+
+0:39:21.513,0:39:26.388
+mechanism to verify or to quantify how<br/>much your circuit slows down due to this
+
+0:39:26.388,0:39:31.297
+radiation dose. And if you do that, you<br/>typically end up with a graphic such as
+
+0:39:31.297,0:39:36.160
+this one, where in the x axis you have the<br/>radiation dose your circuit was exposed
+
+0:39:36.160,0:39:40.103
+to. And on the y axis, you see that the<br/>frequency has gone down over time and you
+
+0:39:40.103,0:39:44.431
+can use this information to see, to say,<br/>OK, my final application, I expect this
+
+0:39:44.431,0:39:48.920
+level of radiation dose. I mean, I can<br/>still see that my circuit will work fine
+
+0:39:48.920,0:39:53.409
+under some given environmental condition<br/>or some operation condition. So this is
+
+0:39:53.409,0:39:57.393
+the test for the first class of effects.<br/>And the test for the second class of
+
+0:39:57.393,0:40:02.165
+effects for the single event effect is a<br/>bit more involved. So there what you would
+
+0:40:02.165,0:40:07.247
+typically start to do is go for a heavy<br/>ion test campaign. So you would go to a
+
+0:40:07.247,0:40:12.200
+specialized, relatively rare facility. We<br/>have a couple of those in Europe and would
+
+0:40:12.200,0:40:16.390
+look perhaps somewhat like this. So it's a<br/>small particle accelerator somewhere that
+
+0:40:16.390,0:40:20.710
+typically have they typically have<br/>different types of heavy ions at their
+
+0:40:20.710,0:40:26.678
+disposal that they can accelerate and then<br/>shoot at your chip that you can place in a
+
+0:40:26.678,0:40:32.148
+vacuum chamber and these ions can deposit<br/>very well known amounts of energy in your
+
+0:40:32.148,0:40:36.626
+circuit and you can use that information<br/>to characterize your circuit. The downside
+
+0:40:36.626,0:40:40.600
+is a bit that these facilities tend to be<br/>relatively expensive to access and also a
+
+0:40:40.600,0:40:45.113
+bit hard to access. So typically you need<br/>to book them a lot of time in advance and
+
+0:40:45.113,0:40:50.341
+that's sometimes not very easy. But what<br/>it offers you, you can use different types
+
+0:40:50.341,0:40:54.935
+of ions with different energies. You can<br/>really make a very well-defined
+
+0:40:54.935,0:40:59.552
+sensitivity curve similar to the one that<br/>Szymon has described. You can get from
+
+0:40:59.552,0:41:04.296
+simulations and really characterize your<br/>circuit for how often, any single event
+
+0:41:04.296,0:41:08.408
+effects will appear in the final<br/>application if there is any remaining
+
+0:41:08.408,0:41:12.830
+effects left. If you have left something<br/>unprotected. The problem here is that
+
+0:41:12.830,0:41:18.416
+these particle accelerators typically just<br/>bombard your circuit with like thousands
+
+0:41:18.416,0:41:22.578
+of particles per second and they hit<br/>basically the whole area in a random
+
+0:41:22.578,0:41:26.433
+fashion. So you don't really have a way of<br/>steering those or measuring the position
+
+0:41:26.433,0:41:30.514
+of these particles. So typically you are a<br/>bit in the dark and really have to really
+
+0:41:30.514,0:41:34.582
+carefully know the behavior of your<br/>circuit and all the quirks it has. Even
+
+0:41:34.582,0:41:39.249
+without the radiation to instantly notice<br/>when something has gone wrong. Um, and
+
+0:41:39.249,0:41:43.412
+this is this is typically not very easy<br/>and you can kind of compare it with having
+
+0:41:43.412,0:41:47.011
+some weird crash somewhere in your<br/>software stack and then having to have
+
+0:41:47.011,0:41:51.987
+first take a look and see what actually<br/>has happened. And then to be. Typically
+
+0:41:51.987,0:41:56.891
+you find something that has not been<br/>properly protected and you see some weird
+
+0:41:56.891,0:42:01.560
+effect on your circuit and then you try to<br/>get a better idea of where that problem
+
+0:42:01.560,0:42:06.052
+actually is located. And the answer for<br/>these types of problems involving position
+
+0:42:06.052,0:42:11.106
+is, of course, always lasers. So we have<br/>two types of laser experiments available
+
+0:42:11.106,0:42:15.376
+that can be used to more selectively probe<br/>your circuit for these problems. The first
+
+0:42:15.376,0:42:19.549
+one being the single photon absorption<br/>laser. And it sounds this relatively
+
+0:42:19.549,0:42:24.792
+simple in terms of setup. You just use a<br/>single laser beam that shoots straight up
+
+0:42:24.792,0:42:29.586
+at your circuit from the back. And while<br/>it does that, it deposits energy all along
+
+0:42:29.586,0:42:33.786
+the silicon and also in the diffusions of<br/>your transistors and is therefore also
+
+0:42:33.786,0:42:37.867
+able to inject energy there, potentially<br/>upsetting a bit of memory or exposing
+
+0:42:37.867,0:42:42.480
+whatever other single event effects you<br/>have. And of course, you can steer this
+
+0:42:42.480,0:42:46.627
+beam across the surface of your chip or<br/>whatever circuit you are testing and then
+
+0:42:46.627,0:42:50.760
+find the sensitive location. The problem<br/>here is that the amount of energy that is
+
+0:42:50.760,0:42:54.549
+deposited is really large due to the fact<br/>that it has to go through the whole
+
+0:42:54.549,0:42:58.342
+silicon until it reaches the transistor.<br/>And therefore it's mostly used to find
+
+0:42:58.342,0:43:02.828
+these destructive effects that really<br/>break something in your circuit. The more
+
+0:43:02.828,0:43:07.986
+clever and some beautiful experiment is<br/>the two photon absorption laser experiment
+
+0:43:07.986,0:43:13.072
+in which you use two laser beams of a<br/>different wavelength. And these actually
+
+0:43:13.072,0:43:17.831
+do not have enough energy to cause any<br/>effect in your silicon. If only one of the
+
+0:43:17.831,0:43:21.915
+laser beams is present, but only in the<br/>small location where the two beams
+
+0:43:21.915,0:43:26.076
+intersect, the energy is actually large<br/>enough to produce the effect. And this
+
+0:43:26.076,0:43:31.645
+allows you to very selectively and only on<br/>a very small volume produce charge and the
+
+0:43:31.645,0:43:37.360
+cause an effect in your circuit. And when<br/>you do that now, you can systematically
+
+0:43:37.360,0:43:41.712
+scan both the X and Y directions across<br/>your chip and also the Z direction and can
+
+0:43:41.712,0:43:46.080
+really measure the volume of sensitive<br/>area. And this is what you would typically
+
+0:43:46.080,0:43:50.287
+get of such an experiment. So in black and<br/>white in the back, you'll see an infrared
+
+0:43:50.287,0:43:54.509
+image of your chip where you can really<br/>make out the individual, say structural
+
+0:43:54.509,0:43:58.857
+components. And then overlaid in blue, you<br/>can basically highlight all the sensitive
+
+0:43:58.857,0:44:03.437
+points that made you measure something you<br/>didn't expect some weird bit flip in a
+
+0:44:03.437,0:44:08.474
+register or something. And you can really<br/>then go to your layout software and find
+
+0:44:08.474,0:44:13.021
+what is the the register or the gate in<br/>your net list that is responsible for
+
+0:44:13.021,0:44:17.317
+this. And then it's more like operating a<br/>debugger in a software environment.
+
+0:44:17.317,0:44:24.374
+Tracing back from there what the line of<br/>code are responsible for this bug is. And
+
+0:44:24.374,0:44:31.237
+to close out, it is always best to learn<br/>from mistakes. And we offer our mistakes
+
+0:44:31.237,0:44:35.669
+as a guideline for if you ever feel<br/>yourself the need to design radiation
+
+0:44:35.669,0:44:40.314
+tolerant circuits. So we want to present<br/>two or three small issues we had and in
+
+0:44:40.314,0:44:45.120
+circuits where we were convinced it should<br/>have been working fine. So the first one
+
+0:44:45.120,0:44:50.306
+this you will probably recognize is this<br/>full triple modular redundancy scheme that
+
+0:44:50.306,0:44:54.803
+Szymon has presented. So we made sure to<br/>triplicate everything and we're relatively
+
+0:44:54.803,0:44:58.717
+sure that everything should be fine. The<br/>only modification we did is that to all
+
+0:44:58.717,0:45:03.132
+those registers in our design, we've added<br/>a reset, because we wanted to initialize
+
+0:45:03.132,0:45:07.633
+the system to some known state when we<br/>started up, which is a very obvious thing
+
+0:45:07.633,0:45:12.000
+to do. Every CPU has a reset. But of<br/>course, what we didn't think about here
+
+0:45:12.000,0:45:16.017
+was that at some point there's a buffer<br/>driving this reset line somewhere. And if
+
+0:45:16.017,0:45:19.820
+there's only a single buffer. What happens<br/>if this buffer experiences a small
+
+0:45:19.820,0:45:23.905
+transient event? Of course, the obvious<br/>thing that happened is that as soon as
+
+0:45:23.905,0:45:27.744
+that happened, all the registers were<br/>upset at the same time and were basically
+
+0:45:27.744,0:45:32.302
+cleared and all our fancy protection was<br/>invalidated. So next time we decided,
+
+0:45:32.302,0:45:36.738
+let's be smarter this time. And of course,<br/>we triplicate all the logic and all the
+
+0:45:36.738,0:45:40.400
+voters and all the registers. So let's<br/>also triplicate the reset lines. And while
+
+0:45:40.400,0:45:44.573
+the designer of that block probably had<br/>very good intentions, um, it turned out
+
+0:45:44.573,0:45:49.408
+that later than when we manufactured the<br/>chip, it still sometimes showed a complete
+
+0:45:49.408,0:45:54.500
+reset without any good explanation for<br/>that. And what was left out of the the
+
+0:45:54.500,0:46:00.086
+scope of thinking here was that this reset<br/>actually was connected to the system reset
+
+0:46:00.086,0:46:04.545
+of the chip that we had. And typically<br/>pins are on the chip or something that is
+
+0:46:04.545,0:46:08.535
+not available in huge quantities. So you<br/>typically don't want to spend three pins
+
+0:46:08.535,0:46:12.901
+of your chip just for a stupid reset that<br/>you don't use ninety nine percent of the
+
+0:46:12.901,0:46:17.590
+time. So what we did at some point we just<br/>connected again the, uh, reset lines to a
+
+0:46:17.590,0:46:21.264
+single input buffer. That was then<br/>connected to a pin of the chip. And of
+
+0:46:21.264,0:46:25.404
+course, this also represented a small<br/>sensitive area in the chip. And again, uh,
+
+0:46:25.404,0:46:30.120
+a single upset here was able to destroy<br/>all three of our flip flops. All right.
+
+0:46:30.120,0:46:34.432
+And the last lesson I'm bringing or the<br/>last thing that goes back to the
+
+0:46:34.432,0:46:38.274
+implementation details that Szymon has<br/>mentioned. So this time, really simple
+
+0:46:38.274,0:46:41.990
+circuit. We were absolutely convinced it<br/>must work because it was basically the
+
+0:46:41.990,0:46:45.416
+textbook example that Szymon was<br/>presenting. And we were the code was so
+
+0:46:45.416,0:46:49.532
+small we were able to inspect everything<br/>and were very much sure that nothing
+
+0:46:49.532,0:46:54.741
+should have happened. And what we saw when<br/>we went for this laser testing experiment,
+
+0:46:54.741,0:46:59.549
+uh, in simplified form is basically that<br/>only this first voter. And when this was
+
+0:46:59.549,0:47:04.151
+hit, I always all our register was was,<br/>uh, was upset while the other ones were
+
+0:47:04.151,0:47:08.513
+never manifested to show anything strange.<br/>And it took us quite a while to actually
+
+0:47:08.513,0:47:13.014
+look at the layout later on and figure out<br/>that what was in the chip was rather this.
+
+0:47:13.014,0:47:16.900
+So two of the voters were actually not<br/>there. And Szymon mentioned the reason for
+
+0:47:16.900,0:47:21.147
+that. So synthesis tool these days are<br/>really clever at identifying redundant
+
+0:47:21.147,0:47:25.720
+logic and because we forgot to tell it to<br/>not optimize these redundant pieces of
+
+0:47:25.720,0:47:29.701
+logic, which the voters really are. It<br/>just merged them into one. And that
+
+0:47:29.701,0:47:33.880
+explains why we only saw this one. voter<br/>being the sensitive one. And of course, if
+
+0:47:33.880,0:47:37.730
+you have a transient event there, then you<br/>suddenly upset all your registers and that
+
+0:47:37.730,0:47:41.334
+without even knowing it and with being<br/>sure, having looked at every single line
+
+0:47:41.334,0:47:46.116
+of verilog code and being very sure,<br/>everything should have been fine. But that
+
+0:47:46.116,0:47:51.578
+seems to be how this business goes. So we<br/>hope we had been we had the chance and you
+
+0:47:51.578,0:47:56.784
+were able to get some insight in in what<br/>we do to make sure the experiments at the
+
+0:47:56.784,0:48:01.680
+LHC work fine. What what you can do to<br/>make sure the satellite you are working on
+
+0:48:01.680,0:48:06.053
+might be working OK. Even before launching<br/>it into space, if you're interested into
+
+0:48:06.053,0:48:09.788
+some more information on this topic, feel<br/>free to pass by at the assembly I
+
+0:48:09.788,0:48:18.191
+mentioned at the beginning or just meet us<br/>after the talk and otherwise. Thank you
+
+0:48:18.191,0:48:22.056
+very much.
+
+0:48:22.056,0:48:26.633
+Herald: Thank you very much indeed.<br/>There's about 10 minutes left for Q and A,
+
+0:48:26.633,0:48:32.478
+so if you have any questions go to a<br/>microphone. And as a cautious reminder,
+
+0:48:32.478,0:48:38.000
+questions are short sentences with. That<br/>starts with a question. Well, ends with a
+
+0:48:38.000,0:48:41.354
+question mark and the first question goes<br/>to the Internet.
+
+0:48:41.354,0:48:46.170
+Internet: Well, hello. Um, do you also<br/>incorporate radiation as the source for
+
+0:48:46.170,0:48:51.201
+randomness when that's needed?<br/>Stefan: So we personally don't. So in our
+
+0:48:51.201,0:48:56.465
+designs we don't. But it is done indeed<br/>for a random number generator. This is
+
+0:48:56.465,0:49:00.389
+sometimes done that they use radioactive<br/>decay as a source for randomness. So this
+
+0:49:00.389,0:49:02.430
+is done, but we don't do it in our<br/>experiments.
+
+0:49:02.430,0:49:05.912
+We rather want deterministic data out of<br/>the things we built.
+
+0:49:05.912,0:49:10.626
+Herald: Okay. Next question goes to<br/>microphone number four.
+
+0:49:10.626,0:49:15.903
+Mic 4: Do you do your tripplication before<br/>or after elaboration?
+
+0:49:15.903,0:49:20.900
+Szymon: So currently we do it before<br/>elaboration. So we decided that our tool
+
+0:49:20.900,0:49:25.985
+works on verilog input and it produces<br/>verilog output because it offers much more
+
+0:49:25.985,0:49:30.067
+flexibility in the way how you can<br/>incorporate different tripplication
+
+0:49:30.067,0:49:33.896
+schemes. If you were to apply to only<br/>after elaboration, then of course doing a
+
+0:49:33.896,0:49:38.407
+full tripplication might be easy. But then<br/>you - to having a really precise control
+
+0:49:38.407,0:49:42.831
+or on types of tripplication on different<br/>levels is much more difficult.
+
+0:49:42.831,0:49:45.900
+Herald: Next question from microphone<br/>number two.
+
+0:49:45.900,0:49:50.218
+Mic 4: Is it possible to use DCDC<br/>converters or switch mode power supplies
+
+0:49:50.218,0:49:54.720
+within the radiation environment to power<br/>your logic? Or you use only linear power?
+
+0:49:54.720,0:50:00.185
+Szymon: Yes, alternatively we also have a<br/>dedicated program which develops radiation
+
+0:50:00.185,0:50:05.600
+hardened the DCDC converters who operate<br/>in our environments. So they are available
+
+0:50:05.600,0:50:11.329
+also for space applications, as far as I'm<br/>aware. And they are hardened against total
+
+0:50:11.329,0:50:14.454
+ionizing ??? as well as single event<br/>upsets.
+
+0:50:14.454,0:50:18.376
+Herald: Okay next question goes to<br/>microphone number one.
+
+0:50:18.376,0:50:22.377
+Mic 1: Thank you very much for the great<br/>talk. I'm just wondering, would it be
+
+0:50:22.377,0:50:27.240
+possible to hook up every logic gate in<br/>every water in a way of mesh network? And
+
+0:50:27.240,0:50:30.148
+what are the pitfalls and limitations for<br/>that?
+
+0:50:30.148,0:50:36.714
+Stefan: So that is not something I'm aware<br/>of, of being done. So typically: No. I
+
+0:50:36.714,0:50:39.701
+wouldn't say that that's something we<br/>would do.
+
+0:50:39.701,0:50:42.252
+Szymon: I'm not really sure if I<br/>understood the question.
+
+0:50:42.252,0:50:45.571
+Stefan: So maybe you can rephrase what<br/>your idea is?
+
+0:50:45.571,0:50:51.248
+Mic 1: On the last slide, there were a<br/>lesson learned.
+
+0:50:51.248,0:50:55.922
+Stefan: Yes. One of those?<br/>Mic 1: In here. Yeah. Would you be able to
+
+0:50:55.922,0:50:58.920
+connect everything interchangeably in a<br/>mesh network?
+
+0:50:58.920,0:51:03.710
+Szymon: So what you are probably asking<br/>about is whether we can build our own
+
+0:51:03.710,0:51:06.702
+FPGA, like programable logic device.<br/>Mic 1: Probably.
+
+0:51:06.702,0:51:10.989
+Szymon: Yeah. And so this we typically<br/>don't do, because in our experiments, our
+
+0:51:10.989,0:51:15.614
+power budget is also very limited, so we<br/>cannot really afford this level of
+
+0:51:15.614,0:51:20.646
+complexity. So of course you can make your<br/>FPGA design radiation hard, but this is
+
+0:51:20.646,0:51:23.569
+not what we will typically do in our<br/>experiments.
+
+0:51:23.569,0:51:27.115
+Herald: Next question goes to microphone<br/>number two.
+
+0:51:27.115,0:51:32.446
+Mic 2: Hi, I would like to ask if the<br/>orientation of your transistors and your
+
+0:51:32.446,0:51:37.920
+chip is part of your design. So mostly you<br/>have something like a bounding box around
+
+0:51:37.920,0:51:42.829
+your design and with an attack surface in<br/>different sizes. So do you use this
+
+0:51:42.829,0:51:47.842
+orientation to minimize the attack surface<br/>off the radiation on chips, if you know
+
+0:51:47.842,0:51:52.997
+the source of the radiation?<br/>Szymon: No. So I don't think we'd do that.
+
+0:51:52.997,0:51:58.259
+So, of course, we control our orientation<br/>of transistors during the design phase.
+
+0:51:58.259,0:52:02.767
+But usually in our experiment, the<br/>radiation is really perpendicular to the
+
+0:52:02.767,0:52:07.590
+chip area, which means that if you rotate<br/>it by 90 degrees, you don't really gain
+
+0:52:07.590,0:52:11.891
+that much. And moreover, our chips,<br/>usually they are mounted done in a bigger
+
+0:52:11.891,0:52:16.166
+system where we don't control how they are<br/>oriented.
+
+0:52:16.166,0:52:22.320
+Herald: Again, microphone number two.<br/>Mic 2: Do you take meta stability into
+
+0:52:22.320,0:52:29.760
+account when designing voters?<br/>Szymon: The voter itself is combinatorial.
+
+0:52:31.040,0:52:36.720
+So ... -<br/>Mic 2: Yeah, but if the state of the rest
+
+0:52:36.720,0:52:43.200
+can change in any time that then the<br/>voters can have like glitches, yeah?
+
+0:52:43.200,0:52:49.040
+Szymon: Correct. So that's why - so to<br/>avoid this, we don't take it into account
+
+0:52:49.040,0:52:52.960
+during the design phase. But if we use<br/>that scheme which is just displayed here,
+
+0:52:52.960,0:52:56.880
+we avoid this problem altogether, right?<br/>Because even if you have meta stability in
+
+0:52:56.880,0:53:01.920
+one of the blocks like A, B or C, then it<br/>will be fixed in the next clock cycle.
+
+0:53:03.200,0:53:07.840
+Because usually our systems operate our<br/>drugs with low frequencies, hundreds of
+
+0:53:07.840,0:53:11.424
+megahertz, which means that any meta<br/>stability should be resolved by the next
+
+0:53:11.424,0:53:13.764
+clock cycle.<br/>Mic 2: Thank you.
+
+0:53:13.764,0:53:17.303
+Herald: Next question microphone number<br/>one.
+
+0:53:17.303,0:53:22.836
+Mic 1: How do you handle the register<br/>duplication that can be performed by a
+
+0:53:22.836,0:53:27.770
+synthesis and pleasent route? So the tools<br/>will try to optimize timing sometimes by
+
+0:53:27.770,0:53:30.853
+adding registers. And these registers are<br/>not trivial.
+
+0:53:30.853,0:53:35.473
+Stefan: Yes. So what we do is that I mean,<br/>in a typical, let's say, standard ASIC
+
+0:53:35.473,0:53:40.011
+design flaw, this is not what happens. So<br/>you have to actually instruct a tool to do
+
+0:53:40.011,0:53:44.108
+that, to do re timing and add additional<br/>registers. But for what we are doing, we
+
+0:53:44.108,0:53:47.931
+have to - let's say not do this<br/>optimization and instruct a tool to keep
+
+0:53:47.931,0:53:52.440
+all the registers we described in our RTL<br/>code to keep them until the very end. And
+
+0:53:52.440,0:53:57.171
+we realy also constrain them to always<br/>keep their associated logic tripplicated.
+
+0:53:57.171,0:54:00.136
+Herald: The next question is from the<br/>internet.
+
+0:54:00.136,0:54:04.812
+Internet: Do you have some simple tips for<br/>improving radiation tolerance?
+
+0:54:04.812,0:54:09.920
+Stefan: Simple tips? Ahhhm...<br/>Szymon: For your electronics inside the
+
+0:54:09.920,0:54:10.720
+box?<br/>Internet: Yes.
+
+0:54:10.720,0:54:15.280
+*some laughter*<br/>Stefan: What there there's there's just no
+
+0:54:15.280,0:54:20.880
+single one size fits all textbook recipe<br/>for this as it really always comes down to
+
+0:54:20.880,0:54:25.920
+analyzing our environment, really getting<br/>an awareness first of what rate and what
+
+0:54:25.920,0:54:29.840
+number of events you are looking at, what<br/>type of particles cause them, and then
+
+0:54:29.840,0:54:34.320
+take the appropriate measures to mitigate<br/>them. So there is no one size fits all
+
+0:54:34.320,0:54:37.129
+thing I say.<br/>Herald: Next question goes from mycrophone
+
+0:54:37.129,0:54:42.000
+number two.<br/>Mic 2: Hi. Thanks for the talk. How much
+
+0:54:42.000,0:54:48.774
+of your software used to design is<br/>actually open source? I only know a super
+
+0:54:48.774,0:54:54.410
+expensive chip design software.<br/>Stefan: You write the core of all the
+
+0:54:54.410,0:55:00.253
+implementation tools like the synthesis<br/>and place and route search for the ASICS,
+
+0:55:00.253,0:55:05.155
+that we design is actually a commercial<br/>closed source tools. Um. And, uh. And if
+
+0:55:05.155,0:55:09.774
+you're asking for diffraction, that's a<br/>bit hard to answer. I cannot give a
+
+0:55:09.774,0:55:13.910
+statement about the size of the commercial<br/>closed tools. But we tried to do
+
+0:55:13.910,0:55:18.278
+everything we develop, tried to make it<br/>available to the widest possible audience
+
+0:55:18.278,0:55:21.871
+and therefore decided to make the<br/>extensions to this design flaw a valuable
+
+0:55:21.871,0:55:26.022
+and public forum. And that's why these<br/>tools that we develop and share among the
+
+0:55:26.022,0:55:30.320
+community of ASIC designers and this<br/>environment is our open source.
+
+0:55:30.320,0:55:35.240
+Herald: Microphone number four.<br/>Mic 4: Have you ever tried using steered
+
+0:55:35.240,0:55:39.828
+iron beams for more localized, radiation<br/>ingress testing?
+
+0:55:39.828,0:55:44.480
+Stefan: Yes, indeed! And the picture I<br/>showed actually, uh, didn't disclaimer
+
+0:55:44.480,0:55:48.812
+that, but the facility you saw here is<br/>actually a facility in Darmstadt in
+
+0:55:48.812,0:55:53.466
+Germany and is actually a micro beem<br/>facility. So it's a facility that allows
+
+0:55:53.466,0:55:57.604
+steering a heavy iron beam really on a<br/>single position with less than a
+
+0:55:57.604,0:56:01.449
+micrometer accuracy. So it provides<br/>probably exactly what you were asking for.
+
+0:56:01.449,0:56:05.280
+But that's not the typical case. That is<br/>really a special thing. And it's probably
+
+0:56:05.280,0:56:07.861
+also the only facility in Europe that can<br/>do that.
+
+0:56:07.861,0:56:13.328
+Herald: Microphone number one.<br/>Mic 1: Was very good very good talk. Thank
+
+0:56:13.328,0:56:19.600
+you very much. My question is, did you<br/>compare what you did to what is done for
+
+0:56:19.600,0:56:25.320
+securing secret chips? You know, when you<br/>have credit card chips, you can make fault
+
+0:56:25.320,0:56:29.544
+attacks into them so you can make them<br/>malfunction on extract to cryptographic
+
+0:56:29.544,0:56:33.180
+key for example from the banking card.<br/>There are techniques here to observe these
+
+0:56:33.180,0:56:38.181
+chips against fault attacks. So which are<br/>like voluntary faults while you have hold
+
+0:56:38.181,0:56:42.984
+em less faults due to like involatility<br/>attacks. You know what? Can you explain if
+
+0:56:42.984,0:56:45.492
+you compared in a way what you did to<br/>this?
+
+0:56:45.492,0:56:50.069
+Stefan: Um, so no, we didn't explicitly<br/>compared it, but it is right that the
+
+0:56:50.069,0:56:54.192
+techniques we present can also be used in<br/>a variety of different contexts. So one
+
+0:56:54.192,0:56:58.952
+thing that's not exactly what what you are<br/>referring to, but relatively on a similar
+
+0:56:58.952,0:57:03.280
+scale is that currently in very small<br/>technologies you get two problems with the
+
+0:57:03.280,0:57:07.306
+reliability and yield of the manufacturing<br/>process itself, meaning that sometimes
+
+0:57:07.306,0:57:11.135
+just the metal interconnection between two<br/>gates and your circuit might be broken
+
+0:57:11.135,0:57:16.002
+after manufacturing and then adding the<br/>sort of redundancy with the same kinds of
+
+0:57:16.002,0:57:20.063
+techniques can be used to make Mike to<br/>produce more working chips out of a
+
+0:57:20.063,0:57:25.044
+manufacturing run. So in this sort of<br/>context, these sorts of techniques are
+
+0:57:25.044,0:57:30.387
+used very often these days. But, um, I'm<br/>and I'm pretty sure they can be applied to
+
+0:57:30.387,0:57:33.922
+these sorts of, uh, security fault attack<br/>scenarios as well.
+
+0:57:33.922,0:57:38.336
+Herald: Next question from microphone<br/>number two.
+
+0:57:38.336,0:57:43.931
+Mic 2: Hi, you briefly also mentioned the<br/>mitigation techniques on the cell level
+
+0:57:43.931,0:57:48.928
+and yesterday there was a very nice talk<br/>from the liberal silicon people and they
+
+0:57:48.928,0:57:55.382
+are trying to build a standard cell<br/>library. Uh, open source standard cell
+
+0:57:55.382,0:57:59.758
+libraries. So are you in contact with them<br/>or maybe you could help them to improve
+
+0:57:59.758,0:58:02.208
+their design and then the radiation<br/>hardness?
+
+0:58:02.208,0:58:06.533
+Stefan: No. We also saw the talk<br/>yesterday, but we are not getting in
+
+0:58:06.533,0:58:12.080
+contact with them. No.<br/>Herald: Does the Internet have questions?
+
+0:58:12.080,0:58:19.280
+Internet: Yes, I do. Um, two in fact.<br/>First one would be would TTL or other BJT
+
+0:58:19.280,0:58:24.640
+based logic be more resistant?<br/>Szymon: Uh, yeah. So depending on which
+
+0:58:24.640,0:58:29.680
+type of virus we are considering. So BJT<br/>transistors ttransistors they have ...
+
+0:58:29.680,0:58:34.400
+Stefan in his part mentioned that<br/>displacement damage is not a problem for
+
+0:58:34.400,0:58:39.440
+seamless devices, but it is not the case<br/>for BJT devices. So when they are exposed
+
+0:58:39.440,0:58:46.320
+to to high energy hadrons or protons, that<br/>they degrade a lot. So that's why we don't
+
+0:58:46.320,0:58:51.440
+use them in really our environment. They<br/>could be probably much more robust to
+
+0:58:51.440,0:58:56.640
+single even try, uh, effects because their<br/>resistance everywhere is much lower. But
+
+0:58:56.640,0:59:00.080
+they would have another problems. And also<br/>another problem which just worth
+
+0:59:00.080,0:59:04.320
+mentioning is that for those devices that<br/>consume much, much, much more power, which
+
+0:59:04.320,0:59:12.720
+we cannot afford in our applications.<br/>Internet: And the last one would be how do
+
+0:59:12.720,0:59:18.720
+I use the output of the full TMR setup? Is<br/>it still three signals? How do I know
+
+0:59:18.720,0:59:24.160
+which one to use and address?<br/>Stefan: Um, yes. So with this, um,
+
+0:59:24.160,0:59:28.800
+architecture, what you could either do is<br/>really do the the full triplication scheme
+
+0:59:28.800,0:59:34.000
+to your whole logic tree basically and<br/>really triplicate everything or, and
+
+0:59:34.000,0:59:38.480
+that's going in the direction of one of<br/>the lessons learned I had at some point,
+
+0:59:38.480,0:59:42.480
+of course you have an interface to your<br/>chip, so you have pins left and right that
+
+0:59:42.480,0:59:45.520
+our inputs and outputs. And then you have<br/>to decide either you want to spend the
+
+0:59:45.520,0:59:50.160
+effort and also have three dedicated input<br/>pins for each of the signals, or you at
+
+0:59:50.160,0:59:53.120
+some point have the voter and say, okay.<br/>At this point, all these signals are
+
+0:59:53.120,0:59:57.280
+combined. But I was able to reduce the<br/>amount of sensitive area in my chip
+
+0:59:57.280,1:00:01.680
+significantly and can live with the very<br/>small remaining sensitive area that just
+
+1:00:01.680,1:00:05.360
+the input and output pins provide.<br/>Szymon: So maybe I will add one more thing
+
+1:00:05.360,1:00:09.680
+is that typically in our systems, of<br/>course we triplicate our logic internally,
+
+1:00:09.680,1:00:13.200
+but when we interface with external<br/>worlds, we can apply another protection
+
+1:00:13.200,1:00:18.240
+mechanism. So for example, for our high<br/>serialisers, we will use different types
+
+1:00:18.240,1:00:22.880
+of encoding to add protection, to lock, to<br/>add the like forward error correction
+
+1:00:22.880,1:00:28.240
+codes which would allow us to recover this<br/>type of faults in the backend later on.
+
+1:00:28.240,1:00:35.440
+Herald: Okay. If ...if we keep this very,<br/>very short. Last question goes to
+
+1:00:35.440,1:00:40.720
+microphone number two.<br/>Mic 2: I don't know much about physics. So
+
+1:00:40.720,1:00:46.320
+just the question, how important is the<br/>physical testing after the chip is
+
+1:00:46.320,1:00:51.120
+manufactured? Isn't the simulation, the<br/>computer simulation enough if you just
+
+1:00:51.120,1:00:56.000
+shoot particles at it?<br/>Stefan: Yes and no. So in principle, of
+
+1:00:56.000,1:01:00.960
+course, you are right that you should be<br/>able to simulate all the effects we look
+
+1:01:00.960,1:01:05.760
+at. The problem is that as the designs<br/>grow big and they do grow bigger as the
+
+1:01:05.760,1:01:10.320
+technologies shrink and they get have so<br/>this final net list that you end up with
+
+1:01:10.320,1:01:14.640
+can have millions or billions of nodes and<br/>it just is not feasible anymore to
+
+1:01:14.640,1:01:18.320
+simulate it exhaustively because you have<br/>to have so many dimensions. You have to
+
+1:01:19.120,1:01:25.120
+change when you inject. For example, bit<br/>flips or transients in your design in any
+
+1:01:25.120,1:01:30.080
+of those nodes for varying time offsets.<br/>And it's just the state space the circuit
+
+1:01:30.080,1:01:34.080
+can be in is just too huge to capture in a<br/>in a full simulation. So it's not possible
+
+1:01:34.080,1:01:38.240
+to exhaustively test it in simulation. And<br/>so typically you end up with having missed
+
+1:01:38.240,1:01:42.320
+something that you discover only in the<br/>physical testing afterwards, which you
+
+1:01:42.320,1:01:46.320
+always want to do before you put your, uh,<br/>your chip into final experiment or on your
+
+1:01:46.320,1:01:50.560
+satellite and then realise it's it's not<br/>working as intended. So it has a big
+
+1:01:50.560,1:01:53.440
+importance as well.<br/>Herald: Okay. Thank you. Time is up. All
+
+1:01:53.440,1:01:56.068
+right. Thank you all very much.
+
+1:01:56.068,1:01:56.114
+*applause*
+
+1:01:56.114,1:01:56.251
+*36c3 postroll music*
+
+1:01:56.251,1:02:05.840
+Subtitles created by c3subtitles.de<br/>in the year 2020. Join, and help us!

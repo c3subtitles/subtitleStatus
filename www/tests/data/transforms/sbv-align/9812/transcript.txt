@@ -1,0 +1,2180 @@
+﻿*35c3 preroll music*
+[Filler, please remove in amara]
+
+Herald: So our first talk is going to be
+presented by two speakers: Michael Sperber
+
+and Nicole Rauch. Michael is the CEO of
+Active Group. He has been developing
+
+software and teaching programming for over
+30 years, and Nicole is an independent
+
+software developer, focusing on domain
+driven design and events streaming and
+
+she's been organizing Software
+Craftsmanship conferences. So please give
+
+them a big round of applause for this
+talk.
+
+Michael: Good morning everyone. Ah, this
+thing is on.
+
+Nicole: Hey, it works. Excellent. Cool.
+So… soul-crushing code: I think before we
+
+say farewell, we should think about what
+it actually is. And so I thought… *looks
+
+at projection surface* I'd maybe get a
+presentation first. *projection of slides
+
+starts* Excellent. So. OK. So first maybe
+we should talk a little bit about what's
+
+soul-crushing code is and so I brought
+something for you for your entertainment.
+
+And here we go. This is some code I found
+in an eclipse tutorial. If you know a
+
+little bit about eclipse you can see this
+by looking at this "I…" thing here. Yeah.
+
+And this actually… I mean I have no idea
+what that this does. You know, you have
+
+this AdapterFactory which is really like…
+okay… and then we get an adapter and
+
+there's lots of stuff going on. But what
+actually is this doing… so there is
+
+"Todo". OK. This gives a hunch that this
+might be this famous Todo example, but
+
+then I have no idea what's happening here
+M: but maybe that's just Eclipse, right,
+
+and in Eclipse everything is an adapter
+for something else.
+
+N: OK. Maybe. So, OK, I had expected you
+to say something like this so I thought
+
+I'd bring another example. And this
+actually is from an open source project.
+
+And this actually is a
+NativeQueryInterpreterInitiator. I also
+
+want an interpreter initiator – who
+doesn't? And also it's a
+
+SessionFactoryServiceInitiator. Wow, I'm
+getting impressed. So. And then it also
+
+does lots of stuff and then. OK. We have
+initiateService() and then we have another
+
+initiateService(). And then at the end…
+wow… we have this: getServiceInitiated.
+
+Well OK so fine.
+M: But I mean that's just a bunch of kids
+
+doing open source software.
+N: Right. Yeah, this is open source
+
+software.
+M: So these are all hobbyists. So I mean
+
+what would you expect from something like
+that, right?
+
+N: OK fair enough.
+M: So, I brought a professional example.
+
+N: Oh I see.
+*laughter in the audience*
+
+N: Everybody stand back.
+M: So here's a professional example. So
+
+this is from a system that does queries of
+some sort. I think there's a mishap in
+
+translation from German or French to
+English in me or somewhere. So we can see
+
+that it does either full text search or it
+does non full text search or something
+
+like that. And so obviously in the
+initialization of some C++ class it checks
+
+that flag and it instantiates some object
+either to the full text variant or the non
+
+full text variant. Right. And you would
+think that this object oriented design,
+
+you just go and call methods.
+N: Yeah…
+
+M: You get one instance variable that you
+have there.
+
+N: if and else is sooo object oriented.
+M: Yeah, well, that's just the
+
+constructor. Right. This is not the bad
+part. The bad part is that every single
+
+method that actually does something – like
+this one – looks like this, right, it
+
+checks that flag again
+[Filler, please remove in amara]
+
+*laughter in the audience*
+[Filler, please remove in amara]
+
+M: and it either calls "VolltextRecherche"
+which is… I guess it also has something to
+
+do with full text search… you can see that
+there's lines commented out and nobody
+
+remembered to leave a comment as to why
+it's commented out. And you can see that
+
+this code is really fragile, right. If you
+want to maintain that kind of code… every
+
+method looks like this. You always need to
+remember to check that flag before you do
+
+anything to be sure that… "Oh I'm here" or
+"I'm there".
+
+N: OK yeah. So I mean… OK… So the fact
+that somebody uses an object-oriented
+
+programming language does not necessarily
+imply they actually understand what object
+
+orientation is all about. Right. So maybe
+they are just crappy programmers.
+
+M: OK.
+N: So they happen to use this and then
+
+they mess it up on the way you know…
+M: You mean non-crappy programmers can
+
+produce crappy code
+N: And now you're getting me confused…
+
+*both laugh*
+N: … probably.
+
+M: I think I have… you have another
+example.
+
+N: Yes I have a much better example here.
+A real object-oriented example. So this is
+
+finance, right. So here we have options,
+in this case just call options, and so the
+
+the financial guys want to talk about
+those options. But there are so many
+
+different kinds of options so they cannot
+talk about each of them individually and
+
+so they want to group them together in
+something they call a basket. So up here
+
+you can see this basket, and it contains
+Google and Facebook, because they are sort
+
+of like the same, you know.
+So they just group them together in this
+
+basket and then they want to talk about
+properties of this basket of all those
+
+options that are contained in it. And for
+example here they implement this market
+
+data. And so this is standard object-
+oriented business like everything is a
+
+class., right. And there we have two
+methods in there because that's also
+
+standard object oriented business: We have
+a class and then we have methods in there.
+
+And one of the first methods, GetSpot(),
+just gives us the spot price. So all of
+
+these options have a number in the real
+world. And that's why they number this
+
+here and now for fun they call this
+sicovam. I have no idea why, this seems to
+
+be a French word for… I don't know what it
+means, but yeah, just go with us.
+
+M: So. So this maturity thing that's the
+date at which point the option expires.
+
+N: Yeah. So that's for the volatility. So
+you get the volatility for an option. An
+
+option as defined by the underlying asset.
+And by the date it's due and also by the
+
+price it's supposed to have then, and
+that's what is encoded here. So we have
+
+the option with this long and then we have
+the maturity which is a point in time, so
+
+we can properly use a double for this, I
+think. And then we have the strike which
+
+is the price and probably some of you know
+that it's not a very good idea to deal
+
+with money in terms of doubles. But on the
+other hand it's fairly common in banking.
+
+So let's let's do this here as well. Okay
+fine. So yeah that's it. Yeah. And then
+
+what what they actually want to do so they
+don't only want to look at the world as it
+
+is but you know those guys with the
+suspenders you know they want to analyze
+
+and see what might happen if something
+would happen you know. So they want to
+
+play what-if games and for this what-if
+game here they take the spot price and
+
+they actually want to shift it. So they
+want to say what if the spot price were
+
+different and what would happen then with
+my options. And here they are just… you
+
+know, so if you want to modify something
+in object orientation you write a derived
+
+class and this is the derived class
+SpotShiftedMarketData, and this derived
+
+class overrides the GetSpot method and it
+takes the value of the parent class and
+
+multiplies it with the factor. Okay.
+Sounds straightforward so far. And then of
+
+course they don't only want to multiply
+this with a factor, but they also want to
+
+do other modifications and they want to be
+able to do all these modifications without
+
+re-compiling. So they want to play around
+with these and they don't want to
+
+recompile their code every time they
+change something. So they want to have a
+
+dynamically configurable code base so to
+speak, or dynamically configurable market
+
+data. And if you look this up in the
+object-oriented literature you come up
+
+with the decorator pattern. And so the
+Decorator pattern is something that allows
+
+you to dynamically modify your code. So
+you have a component and then you derive a
+
+decorator and the decorator is a delegate
+to something else. You want to plug-in
+
+basically. And this is how they
+implemented the delegate so they wrote the
+
+decorator as a derived class. And then
+they have there that they have the real
+
+object in there and for the GetSpot method
+here they just ask the GetSpot method of
+
+the underlying object. Fair enough. And
+now going back to the baskets, where I
+
+started out initially. So what they did in
+this one derived modification here they
+
+multiplied with a factor. And now in the
+basket they are they get here. Here they
+
+get a bunch of options, say, or a bunch of
+assets and now they want to calculate this
+
+for all of them and they go into this
+recursively and – it's very hard to see
+
+here – but what actually happens is they
+go into this recursively and do this this
+
+modified operation for all of them and
+because of late binding it happens that
+
+they keep getting through this upper
+method again and again so adding the
+
+factor again and again. And of course they
+did not figure this out by looking at the
+
+code, because it's – like I said – really
+hard to to understand. And of course this
+
+is all just small snippets of the code but
+this is the essence. But they found this
+
+because the values were incorrect, right,
+and so what they did is they compensated
+
+for this. And for example here is the most
+interesting part I think: does the first
+
+market data derive from the second one. So
+they check whether they have this chain
+
+going on and then they they do something
+differently. Wow. I mean this is
+
+production code, right. And this is still
+in operation and probably this method by
+
+now is like hundreds of lines long because
+they have so many edge cases they need to
+
+compensate for. Well:
+M: yeah. So can imagine that. Yeah but I
+
+mean it's obvious they just shouldn't have
+done this in C++ or using object-oriented
+
+programming, right.
+N: Phew… so, do you have a better
+
+solution?
+M: Oh, absolutely. Absolutely. We have
+
+slides on this.
+N: You have slides!
+
+M: People should have used functional
+programming, right. Which is great,
+
+because…
+N: Oh, how could I forget this?
+
+M: Yeah.
+N: Of course you would say that.
+
+M: Yeah. You know, I'm the functional
+programming person here on stage.
+
+N: *chuckles*
+M: So functional programming has all these
+
+advantages, right. You can have immutable
+data. Immutable data means you have less
+
+coupling. You don't have these complicated
+effects going on that you saw earlier
+
+maybe. You can use… functional programming
+is very close to mathematics, so you can
+
+apply formal verification…
+N: isn't that scary?
+
+M: Yeah. You can use all these great
+mathematical things in there. You can have
+
+catamorphisms, you can have bifunctors.
+That's my new favorite thing. Monadic
+
+profunctors is also something that we've
+been using lately. That's great. Kleisli
+
+arrows. There's all these wonderful things
+in functional programming and they solve
+
+all of these problems, right?
+N: Yes I could…
+
+M: (towards the audience) Why are you
+laughing? Who's laughing?
+
+N: I should have imagined you saying
+something like this. So… but… have you
+
+ever considered that you're tackling the
+problem from the wrong angle. I mean you
+
+and your horde of IT tech nerds, you're
+sitting in your cave, hacking away, having
+
+your hoodie over your head and just
+sitting there and hacking and hacking.
+
+M: (takes off his hoodie)
+*N chuckles, audience laughs*
+
+M: So that problem solved. Okay anyway.
+N: Yeah. And I mean really just throwing
+
+tech at the problem is not a solution,
+it's actually part of the problem…
+
+M: But Nicole, we're producing software,
+we're producing tech, right? Have you gone
+
+through this thing here *points outside
+the hall*? There's tech outside everywhere
+
+that… How do you make that?
+N: Probably not by sitting in the corner
+
+and just writing… hacking away.
+M: OK.
+
+N: So have you considered that there is
+more to it, that it's not only just tech,
+
+that you need to talk to each other?
+M: Mm hmm…
+
+N: Yesterday I saw this robot walking
+around in a circle and it said "I need new
+
+code, please talk to me", right. This is
+something like this.
+
+M: OK.
+N: So we need to talk to each other. It's
+
+not only tech. Tech is nice and
+everything.
+
+M: So where is… Do you have like a pattern
+manual for that?
+
+N: A pattern manual? Yes, of course. There
+are talking patterns actually for people
+
+like you. *chuckles, audience laughs*
+M: *clears throat* OK. So go. Go ahead.
+
+N: So…
+M: Educate me.
+
+N: OK. So I mean there were many
+approaches over the years, right. Some
+
+approaches were for example… looking at
+agile software development you know and it
+
+says "individuals and interactions over
+processes and tools". Tools… tech…
+
+M: OK
+N: So let's talk together and let's figure
+
+out things.
+M: OK well but it does say working
+
+software also, right?
+N: One of four, you know, says "working
+
+software" because of course we also want
+working software, right.
+
+M: Yeah.
+N: I mean, just talking and no coding is
+
+also not the answer. So…
+M: Yeah, anyway, so last year we were at
+
+this conference, right, and you were
+probably talking to somebody but I
+
+actually attended the keynote and it was
+by somebody who talked about what worked
+
+and what were the ongoing problems in
+software engineering. And this was an
+
+agile company, right? They do everything
+in an agile manner. So supposedly they
+
+communicate all the time, but still when
+they look at where they spend all of their
+
+time and all of their work and effort they
+say that they still spend 53 percent on
+
+maintenance and complexity and not on new
+features or… I have no idea what that
+
+professionalization thing is actually. But
+it takes up 18 percent…
+
+N: nice
+M: So let's get back to the technical
+
+problem, shall we. OK
+N: Yeah. So I mean we already saw this
+
+right in the market data example. I think
+much of this maintenance and complexity
+
+problems is caused that we're in a world
+consisting of objects and so everybody
+
+jumps on this object-oriented bandwagon,
+right? So what they actually end up with
+
+is something like this
+*laughter in the audience*
+
+M: OK
+N: And this is sort of… yeah… not helpful.
+
+M: So maybe but I would like to explain
+this maybe in a different way. So modern
+
+object oriented programming – while you
+can all laugh at that slide before – but
+
+we really need to understand the problem,
+right. The technical problem is this,
+
+right? So at the at the heart of modern
+object-oriented programming something
+
+called imperative programming where all
+these objects that you showed on the
+
+previous slides they have what's called
+encapsulated state. Okay? There's some
+
+state in there. And what happens is the
+world progresses by all these objects
+
+sending messages to each other. And as a
+result of a message, some code gets
+
+executed that modifies that encapsulated
+state. Now the thing was… I mean object-
+
+oriented programming was originally
+developed to support simulations of the
+
+real world. And the problem is that the
+real world just does not work like that.
+
+The real world is not a bunch of objects
+sending messages to each other. So one
+
+simple example that maybe can help explain
+that is there is an el… Speaking of
+
+elephants, right?
+N: Yes
+
+M: Great elephant slide. So. So there is
+an elephant and the elephant comes in from
+
+the jungle and walks into some kind of
+room, right? And the object-oriented model
+
+for this is… well… all the entities get
+models, get objects, so that the elephant
+
+has an object, the jungle has an object,
+and the room that the elephant enters has
+
+an object that represents them. And you
+have the sequence of method calls or
+
+message sends that tries to reproduce that
+sequence as well that you know the jung…
+
+that the elephant exits the jungle and the
+elephant enters the room, right? The
+
+problem is that the exiting of the jungle
+and the entering of the room are one and
+
+the same act. So the real world has
+dependencies, it is not just a bunch of
+
+isolated entities that are sending
+messages to each other. Things hang
+
+together in the real world. So if… so I
+think a more useful model for thinking
+
+about programs and how programs should
+model the real world has to do with…
+
+should really go through the way that we
+perceive things. So, if you watch a soccer
+
+game these days there's lots of objects
+that you see, right. So you see 22
+
+players, maybe you see a ball, you see the
+referees and you see lots of people in the
+
+audience and they all move. Now. So, they
+all change their internal state if that's
+
+the model that you use. Now, if you want
+to know what's going on in the football
+
+field, you need to observe all of these
+changes. But, you know what the object
+
+orient model is for observing changes?
+Something called the observer pattern,
+
+which means that you register which each
+of these objects and tell them: Well, if
+
+anything changes with you, send me a
+message. You want your ball, send me a
+
+message if you move, you know, you do that
+with all the players, supposedly, you do
+
+that with all the 20000 audience members.
+And of course, when you leave the stadium
+
+you all send the messages: Oh no, I'm no
+longer interested in what you're doing,
+
+right. The world doesn't work like that.
+It has another problem, that all these
+
+messages will arrive in some sort of
+sequential order, and that also would mean
+
+that with all of these objects moving
+around, we would observe inconsistencies
+
+all the time, the same way that you
+observed it with the elephants going into
+
+the room, right. If you remember, there
+was an inconsistent state in the middle
+
+here. Which was that after the first step
+the elephant is, for a brief amount of
+
+time, is nowhere. It has exited the
+jungle, but it has not entered the room
+
+yet. And the same is true, of course, if
+we have many moving objects. But yet, we
+
+never observe, like one person getting up
+and suddenly appearing in another place,
+
+or two people appearing in the same place
+at the same time. And that's because our
+
+perceptive apparatus creates consistent
+snapshots of what we observe, right? We
+
+look at something, and it gets stored in
+memory and we can think about it for a
+
+little amount of time and analyze what's
+going on. And so, of course, we remember
+
+things that were in the past, which is
+also something that an object oriented
+
+model cannot do. So, I think there's
+fundamental problems with this object
+
+oriented model of programming, and that's
+one of the fundamental things that leads
+
+to that soul crushing code that we've been
+talking about.
+
+N: Now, that actually reminds me of a very
+interesting thing that lots of people are
+
+using, and that's in the UI and it's
+called the MVC pattern, or Model View
+
+Controller. And if you have ever worked
+with us, you can see here that this all
+
+goes in circles and you can go in any
+direction and then you end up here again,
+
+or you go this way around, or anything, or
+follow this dashed line. And so you can go
+
+from anywhere to everywhere. And this
+leads to the obvious problem that, if you
+
+have changes in the model, and changes in
+view, they need to, hopefully, be
+
+corresponding. Or, maybe not. And what do
+you do about this? So, what you end up
+
+with, if you do this enough, and if you
+aren't very, very careful, you end up with
+
+this.
+M: Night MVC fraught programs have always
+
+looked like that, right.
+N: Yes. Feels really familiar doesn't it.
+
+M: Yeah. Yeah, it does.
+N: And I think that's also what Alan Kay
+
+was talking about, back in the day. So,
+this is a quote from 1996. But I think the
+
+paper just appeared then. But the original
+quote is much older. And so he said, okay,
+
+OOP had those motivations that we
+described here. But eventually, we need to
+
+overcome this model and we need to find
+something better, and eliminate it
+
+altogether. That's what he says here.
+M: But that never happened, right?
+
+N: No, I don't think so.
+M: Never happened. So if these days, if
+
+you look for examples of how object
+oriented programming works, it always is
+
+about encapsulated state that Alan Kay
+wanted to get rid of. So, I think that's
+
+the first thing when I searched for Object
+Oriented examples, was something with
+
+students, and you can immediately see that
+a lot of attributes that you have there go
+
+through some kind of, some method that
+modifies them. My favorite one is that you
+
+have the student and you can set the grade
+point average of the student. So you can
+
+just,... yeah. So, if you're not happy
+with the grades that your kid is getting
+
+you just sent the object a message. Get it
+get a perfect GPA there. So, and let me
+
+reiterate, Nicole, of course people should
+have used functional programming. Which
+
+has all these simple languages, less
+complexity, higher productivity, less
+
+bugs. You know, we have all these powerful
+type systems, we can do property based
+
+testing. We can do, oh it goes on and on,
+and we get more predictable behavior.
+
+Generally testing is easier, because we
+don't need, you know, set up and tear down
+
+methods. You get lower couplings, you have
+fewer dependency cycles. So, I didn't even
+
+say monad, right, here in this list. So
+you get all these concrete...
+
+N (at the same time): Lucky me.
+M: You get all these concrete advantages
+
+from doing functional programming, right?
+And so that's what people should do to
+
+solve those problems.
+N: So do you remember
+
+M (at the same time): You, too.
+N: Fred Brooks, he said there is no silver
+
+bullet.
+M: OK.
+
+N: So, what do you say about that?
+M: Fred Brooks is an old guy, right?
+
+N: Yes.
+[Filler, please remove in amara]
+
+*laughter*
+[Filler, please remove in amara]
+
+N: And what about you?
+M (laughing): Yeah, I guess I am, too.
+
+M: I'm getting there. Yeah. Well, so Fred
+Brooks said that, but he's an old guy. So
+
+let me get you one example of why that
+maybe is not true. So in the early 90s
+
+actually, there was a big study conducted
+by the U.S. Navy, on the effectiveness of
+
+different programming languages. And they
+had one set problem that was about
+
+determining the regions of influence of
+warships and they had different teams
+
+write solutions for their problem in
+different languages. And what they ended
+
+up doing is also, they gave that also to
+people who were using functional
+
+programming, specifically in the Haskell
+programming language, which was still
+
+pretty young back then. And you can see,
+well, the solution in Haskell is much
+
+shorter than the solution... you know C++,
+definitely. You know, less than 10 times
+
+as short than the C++ solution. I think
+Java wasn't as big then. But I think the
+
+factor would also be around between 3 and
+10 somewhere. Also, what's maybe
+
+interesting, is that there are two Haskell
+solutions. One at the top and one of the
+
+bottom, and...
+N: Probably they just split the code so
+
+the numbers look nice.
+[Filler, please remove in amara]
+
+*laughter*
+[Filler, please remove in amara]
+
+M: Yeah, yeah. You would need to add them
+up, now that would be interesting. But
+
+what they did is, they had a Haskell
+expert write a solution, and then they
+
+also gave the solution to a student, I
+think, who learned Haskell for two or
+
+three weeks and who also wrote a solution.
+And if you look at development time, so
+
+somebody took 10, hours and somebody took
+8 hours, and the 8 hours as a student.
+
+That's because the Haskell expert Haskell
+expert tried to put many interesting
+
+flourishes and super cool programming
+techniques into the program but the
+
+student was actually doing pretty well.
+So if that is not a silver if that's
+
+not what a silver bullet looks like I
+don't know what would.
+
+N: So the Yale study. They got a fixed set
+of instructions and they just had to code
+
+those instructions. Do I Remember that
+correctly?
+
+M: Yeah. Yeah. Yeah.
+N: So do you ever experience that in the
+
+real world? Getting a fixed set of
+instructions from your client and then
+
+just implementing this and they never
+change their mind? They never come up with
+
+new ideas? They never say "Oh I forgot
+something". I actually don't experience
+
+this.
+M: Let me think about it.
+
+N: That's what we need to consider as
+well. Coming back to the elephant. Talking
+
+to each other. Everybody has different
+ideas ...
+
+M: Are you gonna start with that agile
+stuff again?
+
+N: Everybody has different ideas when they
+look at something and everybody describes
+
+things differently and so what we need to
+do is to figure this out together. You
+
+know coding a bit, talking a bit, talking
+a bit, coding a bit. And so this needs to
+
+go hand-in-hand. And this is sort of
+agile, you know. So it doesn't mean Scrum
+
+and you know standing in a circle every
+day or something. relax. okay.
+
+M: So I personally I like to communicate
+with code.
+
+N: you can do that too, yes.
+M: That makes me think of an example. We
+
+were working on a project. That was in a
+semiconductor factory.
+
+N: Wow. So, real stuff!
+M: So when we started this I thought well
+
+semiconductor the it way gets made: there
+is a big machine you put in a piece of
+
+silicone and you go like this, and chunk,
+and outcomes of microprocessor. And it
+
+doesn't doesn't really work that way. One
+of the reasons is just that the modern
+
+chip consists of many layers. Another one
+is that there's just many different
+
+production steps that are necessary for
+making even a single layer. And some of
+
+the machines that make a layer are so
+expensive that you can't just make an
+
+assembly line. And also a lot of things
+break all the time in a semiconductor
+
+factory. So it makes no sense to just have
+an assembly line and push things through
+
+that. But things just move around among
+the different machines in the
+
+semiconductor factory. Right. And so
+what's important is that each chip undergo
+
+or each wafer undergoes a sequence of
+steps in the factory and that needs to be
+
+managed. And those steps it's typically
+for for big microprocessors that might be
+
+like a thousand steps. So you need to
+manage something that's that's called a
+
+route which is just a sequence of
+operations. And now here's a bunch of
+
+Haskell code. Haskell is great because the
+programs are so short that they fit on
+
+slides but if there's something unclear
+about that code then I invite you to
+
+interrupt me and ask. So first of all you
+can read that declaration at the beginning
+
+says "data Operation" and that's just a
+simplified data type that describes what
+
+an operation would be. You can read that
+vertical bar as "OR". So it says an
+
+operation is either TrackIn or Process or
+TrackOut. TrackIn it just means putting a
+
+wafer into a machine and Process is you do
+something inside the machine and TrackOut
+
+is you take it out of the machine. And
+then the next thing is that the route is
+
+just a sequence of operations and these
+brackets that you see there they mean list
+
+of. So what it says is a route is a list
+of operations. And down here you have an
+
+example for a very simple route that says
+well route number one might be a list of
+
+the following operations. You put a wafer
+into a machine, you process it, you
+
+process it some more, and then you take it
+out again. Clear so far? Everybody nod!
+
+Everybody who's still awake nod!
+N: *laughter*
+
+M: Don't be afraid to ask. So one thing
+that you do is is when you have data
+
+types, as you just saw, is you define
+functions on them that describe some
+
+aspect of what happens in a fab and a
+semiconductor factory. So in fact what
+
+happens of course is you need to execute
+the next step, the next operation. That
+
+happens as part of making a semiconductor
+and for that we're making a function
+
+called routeHead - the head of the route.
+And what you do is you write a type
+
+signatures and type signatures are very
+good for communication actually. So you
+
+put in a route and you get out a single
+operation and then you write equations
+
+that describe what that function would do
+on different aspects or different classes
+
+of input. So in this case you remember a
+route was a list of operations. There are
+
+two different kinds of lists. One type of
+list is the empty list and the other kind
+
+of list is a list that has what's called a
+head or first element and a rest. And
+
+because there's two kinds of lists you
+write two equations. And so that's why you
+
+see two things where it says routeHead
+something equals to something else. The
+
+first equation is for the empty list. This
+is why you have these two empty brackets.
+
+And the second one that says well it's a
+non empty list and the first thing in that
+
+list is some operation ops or there's
+something called pattern matching you
+
+match this onto the actual list that you
+see and often gets bound to that first
+
+operation. We're not we don't really care
+about what comes after that first
+
+operation. And so the second equation is
+pretty clear if you want the head of a
+
+route that is not empty you just take the
+first element of that list. OK so far? The
+
+other equation says: what do we do with an
+empty list? An empty list does not have an
+
+operation.
+N: So you're saying you're into the second
+
+slide of your beautiful Haskell code and
+you already don't know what to write
+
+there.
+M: So we're re communicating right.
+
+N: OK. OK. So
+M: So you're talking to some expert and
+
+you say: you have got an empty route.
+What's the first operation of an empty
+
+route? And he says: well empty routes they
+don't really have a first operation. They
+
+only maybe have an operation, and
+sometimes they don't. So for that we can
+
+create a data type that says that
+something might be there and sometimes
+
+it's not. And we'll just call it "Option".
+Are there any Haskell programmers in this
+
+room? This built in. Of course as the
+"maybe" type but. But I'm just making a
+
+separate type called the "Option" type and
+that says: the a says this can be
+
+anything. Anything in option a means it
+can either be there or not. And for that
+
+it has two constructors or two different
+classes of Maybe objects and one are
+
+called the Some objects and the other ones
+are called the None objects. Maybe we'll
+
+start with None. So Anything can be a
+None. It just says that anything is not
+
+there. So anything can be of type option
+of a. And it means that something is not
+
+there and that is the type of that
+particular constructor. The other
+
+constructor says while that thing actually
+is there and so the constructor has to
+
+accept something of type A and then give
+us something of type Option of a.
+
+N: So you're saying it wraps this object?
+M: Yes it wraps the object. Okay. And so
+
+if you're not a Hasekell programmer but
+maybe maybe an F sharp programmer or an ML
+
+programmer then that is what it looks like
+there. And I believe it's even built into
+
+Java these days something called Optional.
+So now that means we can change our
+
+routeHead functional a little bit because
+our first attempt didn't work out and
+
+instead of saying Route --> Operation we
+write Route --> Option Operation. This may
+
+seem trivial to you but it already
+communicates a tiny little bit of
+
+something. Then we can write routeHead of
+the empty list is None. So there's no
+
+routeHead of the empty route. or if we
+have an Operation coming out we just write
+
+Some in front. And so if we use that
+example the route that you saw earlier
+
+where our route was "TrackIn, Process,
+Process, TrackOut" what we get is "Some
+
+TrackIn" so that type communicates a
+little bit of what we do. Because always
+
+are you calling the shots. Very good. The
+next thing that we might want to do is we
+
+don't want to always know only the first
+operation. We also want to know what
+
+happens after that. So we can use that
+Option and we already know all that. Of
+
+course. An empty route will not have
+something coming after that first
+
+operation. So we could write another
+function called routeAdvance and it takes
+
+a route as input. That's to the left of
+the arrow. It gives us both an operation
+
+and a route. That's why there's these two
+things in parentheses with a comma in
+
+between. So that's a tuple. So it gives us
+an operation and a route but only
+
+sometimes when that actually exists which
+is why there's an option wrapped around
+
+that. So what we want to do is if we take
+our Route Number one we want to split it
+
+into that first operation and a list of
+the rest so it should split out the
+
+TrackIn and then give us a list of the
+remaining or a route of the remaining
+
+operations that are in there. OK so far?
+It gets technical. Does anybody have a
+
+question? OK. Don't hesitate to ask. I'm
+looking at the clock. So then this is
+
+actually pretty easy to write now. Again
+we need to make two equations because a
+
+Route is a list and lists always need two
+equations. So we can say routeAdvance of
+
+the empty list is None. And routeAdvance
+of op and the rest is we just return a Sum
+
+of the rest because the list already
+splits exactly along the line that we
+
+wanted to between the first and the
+remaining elements. Right. So this is just
+
+very simple code or at least it's short
+code that communicates what routes are.
+
+N: right, I see. If I remember correctly.
+I mean you said you put the wafer into the
+
+machine and then it processes it. If I
+remember correctly some of these
+
+processing steps can be chemical
+reactions. And so it might be the case
+
+that they must happen in a certain amount
+of time or something?
+
+M: Yeah.
+N: Okay. So what we could actually do is
+
+we could model something like this. Yeah.
+I sneaked at your part of the slide so I
+
+checked this in. Oh yeah. So what we
+actually could do is we could model
+
+something like those three steps here need
+to happen together in a set period of
+
+time.
+M: Yeah. So yeah. So the chemical
+
+reactions mean that your wafer might go
+bad. If you start the sequence of steps
+
+and you don't finish on time then your
+wafer goes bad.
+
+N: like etching and washing, for example
+if you etch too much, then...
+
+M: That's always a problem in existing
+systems, to model that.
+
+N: Okay. Right. Oh so cool. So maybe I can
+try and see how I can model this into your
+
+existing code.
+M: Okay
+
+N: cool. So let's have a look. So what we
+first need as we we have this Route
+
+element here with this Operation right.
+And now we need another representation for
+
+a Route element and let's call this
+RouteQTZone for queue time zone. And there
+
+of course we have the duration. That means
+the amount of time this step needs to be
+
+finished in, or this sequence of steps
+needs to be finished in. And then we have
+
+this list of Operations here. We saw this
+before. Right. The list of the Operations.
+
+And then what this gives us is of course
+again a routeElement. So we can combine
+
+like ordinary steps like putting the wafer
+into the machine, doesn't matter how long
+
+it takes, maybe it blocks the machine but
+other than that no. No issues come from
+
+that. But if we do with the etching and
+the washing for example we would need to
+
+have a queue time zone because we need to
+restrict the time that that this takes in
+
+conjunction. Right. Is that correct so
+far?
+
+M: year
+N: Good. And then if we look at our
+
+example this is the previous example we
+had here. We could create another example
+
+r2. Here we have a routeQTZone. So it may
+only take five whatever seconds say and
+
+then we have two processes here that need
+to be finished within five seconds and
+
+then we do the TrackOut again. OK. So far
+so clear? Good. If we look at this and we
+
+discover that here we have this
+routeElement list. And here we have this
+
+Operation list. This is actually sort of
+similar isn't it. So maybe we can make
+
+something out of this and maybe we can
+actually turn this down here into
+
+routeElements as well.
+M: Oh so that's what you were doing
+
+before, right. Before up there it also
+said list of Operation.
+
+N: Up there?
+M: when you started.... My code had Route
+
+= [Operation]. Right. And now you did the
+same thing.
+
+N: Oh yes. Yeah. Right. So now it's now
+it's the same. Again. So it's both. [
+
+RouteElements ]. If we look at this again
+so maybe this actually means that this
+
+year is not just a list of routeElements
+but maybe this is actually a Route down
+
+there. So I actually derive some some
+information here from the code so we
+
+discover that our routeQTZone actually
+contains a Route.
+
+M: Oh all right.
+N: So if we look at this here. What do we
+
+then can do. Here with this RouteElement.
+So here we could plug in any RouteElement
+
+right? For example we could plug in a
+RouteQTZone which is also a RouteElement.
+
+So coming from this example here where we
+have just a flat list that does contain
+
+some RouteOperations and a RouteQTZone and
+then a RouteOperation we could also stack
+
+them into each other. So a RouteQTZone
+could again contain a route that contains
+
+a RouteQTZone.
+M: That's pretty cool.
+
+N: Do you think that would happen.
+M: Yeah. That's pretty cool because now we
+
+can nest RouteQTZones and that's something
+that occurs in reality.
+
+N: Oh really does it? Cool.
+M: And so your model has suggested that
+
+but it is something that our old IT
+systems based on Object Oriented
+
+Programming couldn't model from ... That's
+pretty neat.
+
+N: So now I understand why you're aiming
+at functional programing and saying that
+
+you can model things better with it.
+M: Exactly.
+
+N: Yeah. This is pretty cool. So we
+discovered this in the code and then we
+
+were able to get back to the business
+people and check back with them whether
+
+they would actually see this in practice
+and whether it's a valuable addition here
+
+and we discovered that just from looking
+at the type information we had. Yeah and
+
+then we can continue this and because now
+we have this list of RouteElements down
+
+there. We could actually say Oh yeah list
+or RouteElements, we know what that is:
+
+This is actually a route. And now we go
+one level up. So whenever we learn more
+
+about Routes or whenever we change this
+here this Route thing it will
+
+automatically be reflected in here because
+we abstracted it. Right. And that's what
+
+functional programming is all about
+abstracting things and figuring out what
+
+the common parts are. Right?
+M: I notice you're agreeing with me. Very
+
+good.
+N: Excellent. So and now we can also of
+
+course check how our functions will be
+modified because now we need to to go to
+
+all of our functions and see whether they
+still work. And here we have this
+
+routeHead and also routeElementHead. And
+now we need to extend this because the
+
+routeElementHead works on the
+routeElement. And now we have a
+
+routeElement which is the RouteQTZone. And
+of course if we want the routeElementHead
+
+of the RouteQTZone this is of course the
+head of the containing route. And we have
+
+this neat function up here already,
+routeHead, which gives us the head of the
+
+route. And so we can just reuse this here.
+So even this has become simpler for us to
+
+implement, because we have discovered that
+there is a route in there instead of just
+
+a list. So no special handling we can just
+revert to the standard function we already
+
+have. And if we look at the routeAdvance
+so if we want to proceed our route to the
+
+next operation and you know proceed to the
+next step then of course we also need to
+
+add this here the RouteQTZone and now the
+question is what happens if we advance
+
+into a RouteQTZone process because somehow
+we need to keep track of when does it need
+
+to be finished. So we initially we said OK
+it may only take like x time or d time and
+
+now we need to keep track of whether this
+time is already taken up or not. And so in
+
+this case what we actually do is we need
+to add another RouteElement and that's the
+
+RouteQTLimit which defines when a started
+operation needs to be finished. So it has
+
+an actual time which is the point in time
+like no duration or something just the
+
+finishing point in time and then it's just
+the same as the RouteQTZone. So this
+
+limits our process up to this end point of
+time. And now we can we can implement our
+
+routeAdvance because whenever we have a
+QTZone that's where we didn't know what to
+
+write before. So whenever we advance this
+route then we know that we need to come up
+
+with a RouteQTLimit here and whenever we
+have this RouteQTLimit and we advance over
+
+that one then we know that we just need to
+basically behave like before, we need to
+
+split this up and also keep our time limit
+of course. And then just proceed into this
+
+limited while while keeping the time
+limit. And here if we start this out then
+
+we need to to determine the end point, so
+we take the current time which we now need
+
+to pass in here at the top. So we take the
+current time add the duration and then we
+
+know when we need to be finished with this
+process. And then in here yeah we just we
+
+just work on on every step while keeping
+the time limit.
+
+M: So your code suggested that there was a
+gap in your understanding of what needs to
+
+be represented right. Yeah.
+N: So I didn't know what to put to the -
+
+what to implement for the routeAdvance.
+Yeah. And now I know that. Yeah. I can
+
+handle this.
+M: So watching this I'm thinking that
+
+there's still a little, if I look at it
+with the eye of a domain person, I think
+
+there's still a little problem in there.
+N: Oh. Is it?
+
+M: Yeah. If you look at this right
+remember a RouteElement is something that
+
+can occur anywhere in the middle beginning
+at the end of a route so it's these three
+
+things. Obviously we can have RouteQTZones
+anywhere we can have operations anywhere
+
+but the thing is we can only enter a
+RouteQTZone when it's at the beginning.
+
+Right?
+N: Oh i see.
+
+M: So now.
+N: You mean here we could have a random
+
+list in a random order.
+M: Yeah. That's right.
+
+N: That's a good point.
+M: So you can't.,, So this suggests that
+
+the RouteQTZone has been entered because
+there is a RouteQTLimit. But there is even
+
+- there there's still an operation there
+in front of it.
+
+N: Okay. Yeah. That doesn't make sense.
+M: Yeah. That that makes no sense. So if
+
+we could go back from the domain knowledge
+to the code now a little bit we could
+
+refine that type further and we could pull
+out the RouteQTLimit from that type down
+
+there, because these are all the things
+that occur in the middle of a route and
+
+pull it up to a top level type and
+introduce an immediate intermediate type
+
+that distinguishes between what's in the
+middle and what's at the beginning.
+
+N: Oh I see. That's neat.
+M: So what have as we have this back and
+
+forth between the code which yields
+insights about the domain and the domain
+
+from the domain back to the code and we
+can play that game we can use the code for
+
+communication.
+N: Yeah. So that's what I intended. Did
+
+you understand this?
+M: Yeah so that code no longer crushes my
+
+soul.
+N: Excellent.
+
+M: So I can say Yeah right.
+N: Same here.
+
+M: So.
+N: Cool
+
+M: Okay.
+N: So that's what the point we wanted to
+
+make. So if you take functional
+programming and if you add communication
+
+and discussions and this going back and
+forth and learning from both sides and
+
+enriching both sides with the information
+coming from the other part then you
+
+actually end up at a silver bullet.
+M: Everybody's looking confused that's a
+
+bullet train, a silver bullet train. OK
+we're done.
+
+N: Yes thank you.
+Herald:
+
+So thank you for a very entertaining talk
+we have some time for questions. Q&A so if
+
+you have any questions please line up next
+to the microphones. We have four
+
+microphones spread across the room and
+we'll start from a question from the
+
+Internet.
+Signal Angel: There is a question from the
+
+internet: As an FP beginner with a weak
+background in math would it be preferable
+
+to learn functional programming in a pure
+functional language or in languages that
+
+are multi paradigm?
+M: I'll take that one? OK. So I think the
+
+point is that there is many different
+functional programming languages and
+
+Haskell happens to be what's called a pure
+one but there are also languages that are
+
+hybrid between object oriented and
+functional programming. Scala I think is a
+
+prime example right now. And I mean Scala
+is a fine language. The problem is if you
+
+want to combine these two paradigms you
+typically get something that's pretty
+
+complicated. So Scala is a complicated
+language that takes more time to master.
+
+Also, because you have both paradigms
+available to you at all times. It is
+
+sometimes... You often get confused about
+what paradigm you should use in a given
+
+situation. So I think both of us we
+haven't really seen the great advantages
+
+you get from that hybrid model. Right?
+N : Yes. Also the problem is if you're a
+
+learner in FP and you try to tackle this
+with something like Scala you will
+
+inevitably fall back to what you know if
+you run into problems. And so maybe just
+
+jump into the deep end and try to swim and
+see where you get and get help on the
+
+Internet.
+Herald: Number two.
+
+Mic2: It was a good presentation. Thank
+you. Every time I see some functional
+
+programming it's refreshing and it's
+interesting but the description of your
+
+presentation was talking about using
+functional programming in IOT. So there
+
+was nothing specific to IOT in this
+presentation. There was no interaction
+
+with the hardware. No interrupt handling.
+No nothing. How would you handle that for
+
+example.
+M : Yeah good point. I think we had a
+
+bunch of slides on that that we ended up
+dropping because of time. So my argument
+
+would be that IOT is the same software as
+any other software. What's special about
+
+IOT is the risk that emanates from IOT
+obviously. So if you want to do things
+
+like interrupt handling I think my
+response to that would be to convert it
+
+into functional data structures and this
+gives you a deterministic model for
+
+handling that kind of stuff. So we talked
+about that. I think we talked a little bit
+
+about the observer pattern which is
+analogous to what usually happens with
+
+interrupt handling which is what you were
+talking about. And the way to do that
+
+really is to have... of course you have a
+tiny bit of imperative code that hooks
+
+your functional code to the hardware or
+whatever it is. But to convert your
+
+interrupts into a list and you can...
+Haskell actually is pretty good at that
+
+and that then gives you all the advantages
+of functional programming: the test
+
+ability, the funky abstractions. And you
+can use that even on the interrupts and it
+
+turns into software just like any other
+functional software.
+
+Herald: Microphone number one.
+Mic1: Hi. Thank you for the talk. I have
+
+to write code for microprocessors and most
+of the time I only have a C compiler and
+
+if I'm lucky I get a C++ compiler. Where
+can I get a silver bullet?
+
+*laughter*
+N: The old Haskell compiler used to
+
+compile to C and nowadays it doesn't do
+that anymore by default but probably you
+
+can make it do that still?
+M: But there's a number functional
+
+languages that compile to C so it's kind
+of difficult to give a one shot answer.
+
+We've also done a project for example
+where we got a lot of the advantages from
+
+functional programming by writing code in
+Haskell that generates the C code, right.
+
+And so it's difficult to give you like one
+answer without knowing more details about
+
+what it is that you're doing but there's
+certainly a spectrum of options available
+
+in that context.
+Q: So functional programming is pretty
+
+contrite and pretty compact so no one
+really wants to use large variable names
+
+and I saw in your examples like a D and a
+TTL, RTs. And I don't think that there are
+
+so much better than the long versions you
+showed earlier. Like what is yout take on
+
+that?
+N: So the general - I'm also struggling a
+
+little bit with this. One thing is that
+this was fairly concrete code, right? But
+
+often you go into the abstractions and in
+the abstraction there it's arbitrary what
+
+you have. So you can use short names
+because you're not talking about concrete
+
+things anyway. So that's why it's easier
+to use - also more like abstract variable
+
+names. But what I actually do is I also
+use longer names so I would not always use
+
+D and RT and something like that to get a
+better grip on this. But one important
+
+thing you must not forget is that this you
+have a function, right, and it's two
+
+lines, three lines. And so if you start
+out and you understand D and RT, for
+
+example, from the signature and reading
+three lines of code with a D and RT in it
+
+it's not that bad right? And in object
+oriented or Java or whatever you sometimes
+
+have hundreds of lines and then you have a
+D and RT and you read this for half an
+
+hour and then of course you forget what it
+means. And so, you know, it's a bit of a
+
+balance. So I would use longer names as
+well probably but sometimes also shorter
+
+because, just the code is so so so short.
+M: Like if I can add one detail as I find
+
+myself using longer names and dynamically
+typed languages right there dynamically
+
+typed languages. There you don't have the
+type that spells out what that thing is.
+
+N: Oh right.
+M: And then you need to put it in the
+
+variable name.
+Herald: Microphone number 1.
+
+M1: Yeah. In one of the slides you made
+the claim that a functional programming
+
+lends itself to proving. How would you
+actually do this?
+
+M: Good question. So
+N: That's another talk right?
+
+M: I mean in practice, so there's various
+ways of doing that. So first of all as you
+
+saw, right, a Haskell program is a bunch
+of equations so you can use algebra as a
+
+mathematical technique to reason about
+functional programs. First of all, going
+
+to the abstract aspect of that question
+which is something, well, you can sort of
+
+do it with your Java program but it is
+much harder to establish an algebraic way
+
+of talking about Java programs. There's
+also plenty of tooling available to write
+
+to prove aspects of your programs in
+functional languages, starting with a
+
+classic tool called ACL2. We can talk on
+something called Idris, so there is a
+
+newer breed of functional languages where
+you can put more proofs into the types of
+
+your languages. So it just turn, it turns
+out it tends to be just a magnitude of an
+
+order of magnitude easier to prove
+properties of functional programming
+
+because you can use algebra and equational
+reasoning as you would about Java
+
+programs. Does that answer your question a
+little bit?
+
+M1: A bit. But I think Idris uses like
+dependent types and doesn't - isn't it
+
+possible to use it in imperative
+programming as well? Maybe? I don't know.
+
+So is that specific to functional
+programming dependent types? Or could it
+
+be used...
+M: It is even the way that it just talks
+
+about imperative programming is
+functional. Right? Using monads, by the
+
+way. So there is that and there's this
+whole spiel about reasoning about effects.
+
+But the thing is effects side effects said
+you have an imperative programming right?
+
+They don't make it impossible to reason
+about programs but they make it much much
+
+harder. And so in a functional program you
+tend, in a proper functional program that
+
+doesn't crush your soul, you tend to have
+large parts that are purely functional and
+
+that allow functional that allow
+equational reasoning and you have smaller
+
+parts that maybe make - that might be a
+little bit more difficult that are about
+
+the interaction with the imperative
+environment.
+
+N: Also the thing that we did with the
+type system you know you remember? First
+
+we have the list and we have the the RT,
+the queue time limit, in the middle and
+
+that was an illegal state. And so we
+changed the type system to disallow this.
+
+And so actually already the compiler tells
+us: "Hey this is forbidden code." Right?
+
+And it's not syntactically wrong but it's
+semantically wrong. And that's what is
+
+also like a week kind of validation or
+verification in my opinion.
+
+M: So we could talk all about all this
+about this all day. Sorry.
+
+Herald: Another question from Microphone
+number 2.
+
+M2: I noticed that you didn't present any
+mechanism to hide your implementation or
+
+to make things private - the things that
+you can do in C++. And I do miss this
+
+mechanism but I would like to know your
+take on why - I think you don't miss them.
+
+So why you don't miss them either?
+M: No they exist in functional languages
+
+as well. Right? And so the mechanisms that
+you're familiar with private things,
+
+modules. Functional languages tend to not
+use objects and classes for
+
+modularisation. I think that's the primary
+difference but functional languages tend
+
+to always have mechanisms for doing that.
+They're just different between languages.
+
+So it's difficult to talk about this in a
+talk. We could have told you how to do
+
+this in Haskell and write a module on hide
+things. But would have put more code on
+
+the slides.
+N: And the other aspect is that you don't
+
+really have to hide things because
+everything is pure. So if you call this
+
+function - I don't care, you know. You
+can't destroy anything. Whereas in an
+
+object oriented programming you have this
+- changed my object to really bad
+
+something you know and you don't want
+anybody else to call this because it will
+
+really break things and then functional
+programming - chucking some variables get
+
+something out - do this as much as you
+want. I don't care. That last one is the
+
+take I love. And I endorse fully.
+Herald: Mic for number 3.
+
+M3: You had some slides on the importance
+of communication. I have a hard time to
+
+see myself communicating with business
+people using Haskell code. How do you what
+
+do you *laughter* do about that at this
+point? How would you do the communication
+
+with like normal people?
+M: I mean we clean it up somewhat. But
+
+this actually happened. So it's sometimes
+a little bit of a process to get there and
+
+sometimes... but what you could, I mean,
+what you noticed maybe in the code with
+
+the routes was that playing with a Haskell
+code yielded domain insights that you
+
+could have also explained to somebody in a
+meeting, right?
+
+N: Without showing the code.
+M: Yeah. And so that's - so the
+
+communication goes through the Haskell
+code, maybe not. It doesn't happen, you
+
+know, by the Haskell code. But all I can
+tell you is that that actually happens is
+
+we sometimes communicate with clients
+showing them code and talking to them
+
+about, is this really what you're doing is
+this what your domain is like. That
+
+happens.
+N: Happened to me as well. So it depends
+
+on your clients you know. They need to
+have a bit of resilience so they can, you
+
+know, and they can accept that they
+wouldn't understand everything. But if
+
+you, like, talk them through and say look
+here's this and this goes in and that
+
+comes out and what do you think about
+this. And then say - so you just not throw
+
+the code at them but you have a informed
+communication to say.
+
+M: This can also be contractually
+enforced. And I remember one instance
+
+where we did that.
+Herald: That actually finished the
+
+questions. Again got a big round of
+applause for this.
+
+M: Thank you.
+[Filler, please remove in amara]
+
+*applause*
+[Filler, please remove in amara]
+
+*35c3 postroll music*
+[Filler, please remove in amara]
+
+Subtitles created by c3subtitles.de
+in the year 2020. Join, and help us!

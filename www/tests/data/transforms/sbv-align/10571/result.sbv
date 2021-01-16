@@ -1,0 +1,1448 @@
+0:00:11.372,0:00:15.097
+*36c3 Vorspannmusik*
+
+0:00:15.097,0:00:23.710
+Herald: Jetzt brauch ich ein bisschen eure<br/>Hilfe. Wer von euch weiß, wie wo man sich
+
+0:00:23.710,0:00:31.510
+das Wetter von vor 40 Jahren raussuchen<br/>kann? Eins, zwei, drei, vier. Okay, nicht
+
+0:00:31.510,0:00:42.910
+mal ein Prozent des Publikums. Wer weiß<br/>was "Warming Stripes" sind? Das sind
+
+0:00:42.910,0:00:49.240
+genauso viele und auch noch die gleichen<br/>Leute, verdammt! Und wer will wissen, ob
+
+0:00:49.240,0:00:55.540
+es früher mehr Schnee gab? Fast alle von<br/>euch. Ihr werdet's in diesem Talk nicht
+
+0:00:55.540,0:00:59.830
+erfahren, aber ihr werdet hier lernen wie<br/>es geht. Und das wird euch Manuel zeigen.
+
+0:00:59.830,0:01:05.590
+Der macht sonst was mit Schwerkraft zur<br/>Nutzung von öffentlichen Klimadaten. Einen
+
+0:01:05.590,0:01:06.550
+Riesenapplaus, bitte!
+
+0:01:06.550,0:01:12.688
+<br/>*Applaus*
+
+0:01:12.688,0:01:16.111
+Manuel: Hallo zusammen und einen<br/>wunderschönen guten Morgen! Ich mache
+
+0:01:16.111,0:01:19.944
+normalerweise was mit Schwerkraft. Ich<br/>durfte ja vor zwei Jahren schon mal was
+
+0:01:19.944,0:01:23.302
+vortragen darüber, wie man mit<br/>Satellitenmethoden das Schwerefeld der
+
+0:01:23.302,0:01:27.808
+Erde bestimmt, daraus Massenveränderungen<br/>berechnet und dann sagen kann: Ja, in
+
+0:01:27.808,0:01:32.734
+Grönland schmilzt im Jahrzehnt so und so<br/>viel Eis. Oder wir nutzen so und so viel
+
+0:01:32.734,0:01:38.427
+zu viel Grundwasser in verschiedenen<br/>Regionen der Welt. Ich arbeite eigentlich
+
+0:01:38.427,0:01:43.416
+mehr im lokalen Bereich. Ich möchte<br/>wissen: Was ist die Schwerkraft, das
+
+0:01:43.416,0:01:47.808
+kleine "g"? Also hier, oder sagen wir da<br/>unten. Und da stören mich zeitlich
+
+0:01:47.808,0:01:52.932
+variable Effekte sehr stark. Also Sonne,<br/>Mond, Sterne. Das kann ich herausrechnen,
+
+0:01:52.932,0:01:58.605
+das ist ja einfach. Problem ist eher die<br/>Atmosphäre. Also aus messtechnischer Sicht
+
+0:01:58.605,0:02:03.960
+ist Atmosphäre von Nachteil. Leider können<br/>wir da meistens relativ wenig dran ändern.
+
+0:02:03.960,0:02:08.940
+Da ist halt Atmosphäre. Darum berechne ich<br/>für mich den Effekt der tatsächlichen,
+
+0:02:08.940,0:02:13.954
+sich zeitlich ändernden Atmosphäre, im<br/>Vergleich zu einer Referenz-Atmosphäre,
+
+0:02:13.954,0:02:17.862
+die zeitlich nicht veränderlich ist. Und<br/>der einfachste Ansatz, wenn ich das in
+
+0:02:17.862,0:02:22.534
+meinen Schweremessungen berücksichtigen<br/>will, ist halt: Ich messe selber. Also ich
+
+0:02:22.534,0:02:26.899
+hab hier mein kleines Gravimeter. Damit<br/>kann ich relative Schwereänderungen
+
+0:02:26.899,0:02:31.400
+messen. Wie ändert sich das mit der Zeit?<br/>Daneben liegt ein Datenlogger, der
+
+0:02:31.400,0:02:36.595
+zeichnet mir den Luftdruck auf. Ja,<br/>wunderschön. Ich habe den tatsächlichen
+
+0:02:36.595,0:02:39.465
+Luftdruck. Ich ziehe die<br/>Referenzatmosphäre, also den
+
+0:02:39.465,0:02:44.250
+Referenzluftdruck ab. Dann hab ich da so<br/>eine kleine Korrektur, die ich berechnen
+
+0:02:44.250,0:02:49.745
+muss. Also diesen Delta Luftdruck mal Pi<br/>mal Daumen, also ungefähr mal 3, also mal
+
+0:02:49.745,0:02:54.344
+drei Nanometer pro Sekunde Quadrat. Das<br/>ist ein mittlerer weltweiter
+
+0:02:54.344,0:03:00.907
+Korrekturfaktor. Dann hab ich die<br/>zeitlichen Variationen in der Schwere
+
+0:03:00.907,0:03:07.041
+durch die Atmosphäre weg. Ja, fast. Die<br/>tatsächliche Atmosphäre wird nicht allein
+
+0:03:07.041,0:03:10.518
+durch den Luftdruck jetzt hier an meinem<br/>Punkt oder da neben meinem Gerät
+
+0:03:10.518,0:03:15.308
+beschrieben. Man kann sich ja vorstellen,<br/>ich messe da einen Luftdruck von, sagen
+
+0:03:15.308,0:03:19.137
+wir, 1000 hPa. Aber über mir in der<br/>Atmosphäre ist eine große Menge
+
+0:03:19.137,0:03:22.768
+Wasserdampf, also ein hoher<br/>Luftfeuchtigkeitsgehalt in den oberen
+
+0:03:22.768,0:03:27.465
+Atmosphärenschichten. Jetzt messe ich an<br/>einem anderen Tag. Ich habe wieder 1000
+
+0:03:27.465,0:03:31.894
+hPa Luftdruck an meinem Gerät. Aber über<br/>mir ist sehr geringe Luftfeuchtigkeit,
+
+0:03:31.894,0:03:36.920
+also ein geringer Wasserdampfgehalt. Das<br/>ist eine unterschiedliche Masse.
+
+0:03:36.920,0:03:42.318
+Wasserdampf hat auch Masse, hat somit<br/>einen Effekt auf das Schwerefeld und auf
+
+0:03:42.318,0:03:46.785
+die Messung, die ich durchführe. Das weiß<br/>man auch schon seit ein paar Jahrzehnten,
+
+0:03:46.785,0:03:50.871
+dass man diese Korrektur mit diesem<br/>Daumenfaktor auch weiter treiben kann.
+
+0:03:50.871,0:03:55.596
+Also ist der zweite Schritt: Ich suche mir<br/>eine Möglichkeit herauszufinden, wie sehen
+
+0:03:55.596,0:04:00.254
+die Atmosphärenschichten über mir aus?<br/>Durch ein 3D-Atmosphärenmodell, durch ein
+
+0:04:00.254,0:04:05.820
+Klimamodell. Ich hab hier mal als Beispiel<br/>eines meiner Ergebnisse dargestellt. Der
+
+0:04:05.820,0:04:13.281
+Plot oben zeigt so die Atmosphärenhöhe bis<br/>zu 50 km. Ich habe also aus diesem Modell,
+
+0:04:13.281,0:04:18.150
+das ist so in Schichten aufgeteilt, 37<br/>Schichten. Ich kann das auch bis in 80
+
+0:04:18.150,0:04:22.315
+Kilometer machen, und ich berechne mir<br/>anhand verschiedener Klimavariablen, die
+
+0:04:22.315,0:04:27.289
+ich aus dem Klimamodell bekomme, sowas wie<br/>Luftfeuchtigkeit, Temperatur, Luftdruck in
+
+0:04:27.289,0:04:31.558
+den Höhen, so die Dichte dieser<br/>Atmosphärenschicht. Und wenn ich die
+
+0:04:31.558,0:04:36.435
+Dichte habe und die Geometrie der<br/>Atmosphärenschichten, dann kann ich mir so
+
+0:04:36.435,0:04:41.967
+nach Newton die Attraktion berechnen, also<br/>wie stark zieht die Atmosphäre, die über
+
+0:04:41.967,0:04:47.861
+mir ist, das Gravitationsfeld, mich, nach<br/>oben? Wir messen g - 9,81 Meter pro
+
+0:04:47.861,0:04:53.018
+Sekunde Quadrat - wir messen da in der<br/>zehnten an der achten bis neunten
+
+0:04:53.018,0:04:57.308
+Nachkommastelle. Das ist die Genauigkeit,<br/>die wir erreichen können. Mit den Geräten,
+
+0:04:57.308,0:05:01.633
+so wie ich das gerade eben gezeigt habe.<br/>Und wenn ich mir jetzt das Bild oben
+
+0:05:01.633,0:05:06.066
+anschaue, dann ist auf der x-Achse die<br/>Zeit, auf der y-Achse die Höhe. Und man
+
+0:05:06.066,0:05:09.477
+sieht auch so kleine Strukturen drin, und<br/>das sind so die einzelnen
+
+0:05:09.477,0:05:13.600
+Atmosphärenschichten. Und der Effekt jeder<br/>einzelnen Atmosphärenschichten ist so
+
+0:05:13.600,0:05:18.767
+plusminus 15 Nanometer pro Sekunde<br/>Quadrat. Und der untere Plot zeigt die
+
+0:05:18.767,0:05:26.439
+Summe des oberen Plots. Und das ist so,<br/>ja, man kann so rechnen, das spielt sich
+
+0:05:26.439,0:05:32.790
+ab so plusminus 100 nm/s2. Also Erfolg.<br/>Ich habe eine bessere Korrektur als
+
+0:05:32.790,0:05:36.768
+vorher. Das kann man auch an vielen<br/>Vergleichen feststellen. Jetzt fragt ihr
+
+0:05:36.768,0:05:41.673
+euch: Das ist ja ein sehr spezielles<br/>Problem, das ich hier habe. Ja, stimmt.
+
+0:05:41.673,0:05:46.398
+Also was machen wir jetzt damit? Ich<br/>möchte im Folgenden über großen
+
+0:05:46.398,0:05:51.705
+Datenreichtum berichten, den jeder so frei<br/>- positiv besetzten Datenreichtum -, den
+
+0:05:51.705,0:05:58.154
+jeder selber nutzen kann. Ich zeige euch<br/>verschiedene Dienste, wo es Wetter oder
+
+0:05:58.154,0:06:04.260
+Klimadaten frei zum Herunterladen gibt, wo<br/>man selber Visualisierungen machen kann
+
+0:06:04.260,0:06:09.300
+und in seinen eigenen Projekten verwenden<br/>kann. Man könnte anders sagen: Ich rede
+
+0:06:09.300,0:06:13.691
+über FTP-Server mit ASCII-Dateien, über<br/>APIs zum Datendownload und Online-
+
+0:06:13.691,0:06:17.832
+Toolboxen zur Visualisierung und Analyse,<br/>und über Eyecandy. Der dritte Punkt -
+
+0:06:17.832,0:06:22.863
+müssen wir mal schauen, ob wir das in der<br/>Zeit schaffen. Vorher gibts auch schon ein
+
+0:06:22.863,0:06:27.557
+bisschen Farbe. Ich selber bin Nutzer<br/>dieser Daten. Also ich zeige, was ich so
+
+0:06:27.557,0:06:32.657
+gefunden habe. Ich gehe nicht darauf ein,<br/>wie ein Klimamodell erstellt wird. Da war
+
+0:06:32.657,0:06:37.761
+am Tag eins ein Talk mit dem Titel<br/>"Climate Modeling", den ich dafür weiter
+
+0:06:37.761,0:06:43.278
+empfehlen möchte. Ich kann hier nur kleine<br/>Ausschnitte von diesen Diensten zeigen.
+
+0:06:43.278,0:06:49.400
+Die sind wesentlich umfangreicher in ihren<br/>Fähigkeiten. Und auch zu den Daten selber
+
+0:06:49.400,0:06:55.040
+kann ich in dieser kurzen Zeit nicht<br/>komplett alles darstellen. Aber alle diese
+
+0:06:55.040,0:06:59.918
+Dienste sind sehr umfangreich<br/>dokumentiert. Das kann jeder für sich
+
+0:06:59.918,0:07:05.744
+selber nachsehen. Alles, worüber ich jetzt<br/>gleich spreche, da gibt es im Fahrplan ein
+
+0:07:05.744,0:07:11.373
+Dokument, das sämtliche Dienste aufführt,<br/>alle Ressourcen nennt auf GitHub - wenn
+
+0:07:11.373,0:07:17.052
+Ihr nach "36c3_klima" sucht, dann findet<br/>ihr da die Skripte, die ich genutzt habe,
+
+0:07:17.052,0:07:22.141
+um die Daten herunterzuladen für diesen<br/>Talk und um die Abbildungen zu erzeugen.
+
+0:07:22.141,0:07:27.316
+Also fangen wir an mit selber messen.<br/>Funktioniert ja häufig sehr gut. Außer
+
+0:07:27.316,0:07:32.220
+wenn man bedenkt, das sind Messgeräte, die<br/>über serielle Schnittstelle mit Windows-
+
+0:07:32.220,0:07:36.949
+PCs sprechen. Da muss man auch schon mal<br/>schauen, ob jemand anders die Daten schon
+
+0:07:36.949,0:07:42.640
+für einen gemessen hat. Da kommt zuerst<br/>der Deutsche Wetterdienst ins Spiel, der
+
+0:07:42.640,0:07:48.789
+auch Klimamodelle selber erzeugt. ICON und<br/>COSMO sind da die aktuellen Ausgaben für
+
+0:07:48.789,0:07:53.175
+Europa und weltweit. Aber hier geht es<br/>jetzt eigentlich erst mal um Wetterdaten,
+
+0:07:53.175,0:07:57.267
+die ich darstellen möchte. Die werden auf<br/>verschiedenen Kanälen verteilt. Das erste
+
+0:07:57.267,0:08:01.585
+ist das Climate Data Center Portal. Das<br/>ist ein interaktives Webtool. Da kann ich
+
+0:08:01.585,0:08:05.250
+mir klicken, welche Parameter möchte ich<br/>wissen? Dann kann ich mir auf einer Karte
+
+0:08:05.250,0:08:09.340
+eine Station klicken, und dann kriege ich<br/>die Daten. Wenn man ein GIS einsetzt, dann
+
+0:08:09.340,0:08:13.965
+kann man auch über Schnittstellen des<br/>Deutschen Wetterdienstes Web Feature oder
+
+0:08:13.965,0:08:18.378
+Mapping Service einbinden und so Daten<br/>erhalten. Da möchte ich nicht weiter
+
+0:08:18.378,0:08:24.263
+darauf eingehen. Ich habe ja ASCII-Dateien<br/>vom FTP-Server versprochen, mit denen wir
+
+0:08:24.263,0:08:29.847
+uns jetzt näher beschäftigen würden. Da<br/>gibt es für Stationen Stationszeitreihen
+
+0:08:29.847,0:08:34.853
+verschiedener Messgrößen: Temperatur,<br/>Luftdruck, Niederschlag und ähnliches. Und
+
+0:08:34.853,0:08:39.962
+daraus aufbereitete Rasterdaten, die<br/>Gesamtdeutschland erfassen. In jedem
+
+0:08:39.962,0:08:45.853
+Datenverzeichnis gibt es dann Metadaten zu<br/>eingesetzten Geräten, Fehlerquellen und
+
+0:08:45.853,0:08:52.411
+die Beschreibung, wie dieses Produkt, wenn<br/>es ein Produkt ist, erstellt wurde. Wir
+
+0:08:52.411,0:08:58.521
+haben hier eine Stationsübersicht des<br/>Deutschen Wetterdienstes in Deutschland.
+
+0:08:58.521,0:09:03.338
+Der Dienst selber stellt auch Daten Europa<br/>und global eingeschränkt bereit. Ich
+
+0:09:03.338,0:09:07.347
+konzentriere mich jetzt hier gleich auf<br/>eine Zeitreihe aus Deutschland.
+
+0:09:07.347,0:09:12.960
+Fünfhundert Stationen haben in diesem<br/>Monat Messzeitreihen abgeliefert,
+
+0:09:12.960,0:09:18.874
+beigesteuert. Und ich möchte hier<br/>hauptsächlich über Lufttemperatur zwei
+
+0:09:18.874,0:09:23.012
+Meter Höhe über dem Boden reden. Wenn man<br/>sich einmal die Länge der Zeitreihen
+
+0:09:23.012,0:09:27.128
+ansieht, dann sieht man eigentlich: Die<br/>meisten sind so um die 20 Jahre, da gibt
+
+0:09:27.128,0:09:32.630
+es aber auch welche mit 60 Jahren, 80<br/>Jahren und ganz hinten gibt's eine Station
+
+0:09:32.630,0:09:38.155
+mit über 120 Jahren, das ist Potsdam am<br/>Telegrafenberg. Da kann man sich jetzt mal
+
+0:09:38.155,0:09:43.425
+die Stationszeitreihe herunterladen.<br/>Temperatur. Weil die täglichen Messungen
+
+0:09:43.425,0:09:48.646
+eigentlich nur ein dickes blaues Band hier<br/>in dem Plot wären, habe ich schon mal
+
+0:09:48.646,0:09:53.260
+Monatsmittelwerte gebildet. Ja gut, da<br/>sieht man jetzt den jährlichen Zyklus,
+
+0:09:53.260,0:09:58.222
+nicht wahr? Es gibt Mitte des Plots auch<br/>mal viele kältere Jahre, und Ende des
+
+0:09:58.222,0:10:02.604
+Plots wird das irgendwie wärmer. Wenn man<br/>aus den Monatsmitteln die Jahresmittel
+
+0:10:02.604,0:10:06.030
+bildet, sieht das Ganze so aus. Und<br/>spätestens in dieser Darstellung erkennt
+
+0:10:06.030,0:10:08.958
+man, was eigentlich auch hinlänglich<br/>bekannt ist: Dass in den letzten 100
+
+0:10:08.958,0:10:14.048
+Jahren so die Durchschnittsgeschwindigkeit<br/>- das sind ja Jahresdurchschnittswerte -
+
+0:10:14.048,0:10:20.254
+leicht angestiegen sind. Eine moderne oder<br/>aktuelle Darstellungsweise für diese Art
+
+0:10:20.254,0:10:24.749
+der Zeitreihe ist ja so jetzt diese<br/>Warming Stripes oder Wärmestreifen. Wer
+
+0:10:24.749,0:10:29.193
+mal so Material von den Scientists vor<br/>Future gesehen hat da sind so im
+
+0:10:29.193,0:10:34.433
+Hintergrund immer so blau-weiß-rote<br/>Streifen, die die Erwärmung zeigen sollen.
+
+0:10:34.433,0:10:39.200
+Das kann man so aus diesen Jahresmitteln<br/>berechnen. Da wird einfach für eine
+
+0:10:39.200,0:10:44.582
+bestimmte Referenzepoche, sagen wir 1960<br/>bis 90, so der Mittelwert genommen. Das
+
+0:10:44.582,0:10:50.746
+waren jetzt hier für Potsdam 8,7 Grad, und<br/>abgezogen. Dann habe ich diese obere
+
+0:10:50.746,0:10:57.335
+Zeitreihe, also Mittelwert plus minus zwei<br/>bis zweieinhalb Grad, ist die Variation da
+
+0:10:57.335,0:11:03.427
+etwa. Und die untere Farbskala ist ja<br/>limitiert auf plus minus zweieinhalb Grad.
+
+0:11:03.427,0:11:09.084
+Und so kommen halt zustande für Temperatur<br/>untere Mittel so leicht blaue bis
+
+0:11:09.084,0:11:14.760
+tiefblaue Balken und für die höheren<br/>Temperaturen halt leicht rot bis leuchtend
+
+0:11:14.760,0:11:20.212
+rot. Erstellt ist das Ganze nach der Seite<br/>„Show Your Stripes“. Kann man sich
+
+0:11:20.212,0:11:25.245
+angucken, wenn man auf die Seite geht,<br/>dann hat man hier den ersten Plot, so
+
+0:11:25.245,0:11:29.905
+global weltweit. Interessant ist hier<br/>eigentlich der Punkt unter „information“.
+
+0:11:29.905,0:11:36.676
+Da steht, wo die Daten herkommen. Also<br/>jetzt schaue ich doch mal, was die hier
+
+0:11:36.676,0:11:43.828
+über uns sagen. Europa, Germany. Das Bild<br/>sieht jetzt ungefähr so aus wie das, was
+
+0:11:43.828,0:11:49.450
+ich eben hatte. Und unter „Information“<br/>steht jetzt "annual average temperatures",
+
+0:11:49.450,0:11:54.820
+okay, 1881 bis 2018 vom DWD. Wenn man das<br/>für andere Regionen macht, dann bekommt
+
+0:11:54.820,0:12:00.021
+man auch jeweils die Datenquelle. Und oben<br/>rechts unter FAQ findet man dann auch die
+
+0:12:00.021,0:12:04.426
+entsprechenden Services dafür. Gut also.<br/>Es gibt offensichtlich beim Deutschen
+
+0:12:04.426,0:12:08.297
+Wetterdienst Daten deutschlandweit<br/>Temperaturen ab 1881. Da war mein erster
+
+0:12:08.297,0:12:12.102
+Gedanke vor ein paar Monaten, als ich<br/>diesen Beitrag eingereicht habe: Das
+
+0:12:12.102,0:12:16.021
+könnte man ja mal machen, dass da jeder<br/>jetzt kommen kann, nach Koordinate, und
+
+0:12:16.021,0:12:21.234
+dann berechne ich mir: Wie sieht es jetzt<br/>für meinen Wunschort aus? Die Idee hatte
+
+0:12:21.234,0:12:27.162
+nicht nur ich. Das hatte auch Zeit ONLINE<br/>vor zweieinhalb Wochen. Mit dem Artikel
+
+0:12:27.162,0:12:32.670
+"Viel zu warm hier" haben Sie so ein Tool<br/>bereitgestellt. Da kann man eingeben in
+
+0:12:32.670,0:12:37.526
+die Maske seinen Wunschort - Leipzig, und<br/>erhält dann diesen Streifen. Und man
+
+0:12:37.526,0:12:42.543
+sieht, wenn man an dem rechten Bild unten<br/>die letzte Zeile liest, - mal von rechts
+
+0:12:42.543,0:12:47.149
+nach links: Inspiriert von Ed Hawkins, das<br/>ist dieses ShowYourStripes.Info, Quelle:
+
+0:12:47.149,0:12:51.600
+Deutscher Wetterdienst, das ist dann diese<br/>Datenzeitreihe, und unter Methodik ist
+
+0:12:51.600,0:12:56.022
+letzten Endes das beschrieben, was ich<br/>auch gerade erklärt habe, Plus da wird
+
+0:12:56.022,0:13:02.722
+noch drauf eingegangen, wie das Geo Coding<br/>geht, das ich jetzt "Leipzig" tippe und
+
+0:13:02.722,0:13:08.362
+nicht die Koordinate von Leipzig. Also<br/>schauen wir uns einmal ganz kurz diesen
+
+0:13:08.362,0:13:12.121
+Datensatz an, also Flächendaten des<br/>Deutschen Wetterdienstes. Da gibt es auch
+
+0:13:12.121,0:13:16.563
+wiederum viele verschiedene Variablen. Ich<br/>zeige jetzt ja wieder drum die
+
+0:13:16.563,0:13:21.885
+Lufttemperatur. In dieser Animation ist<br/>aber jedes einzelne Pixel 1x1 Kilometer -
+
+0:13:21.885,0:13:26.904
+die Auflösung des Datensatzes - , und für<br/>jedes Pixel ist halt dieser Mittelwert
+
+0:13:26.904,0:13:32.408
+berechnet und abgezogen. Die Animation ist<br/>quasi der Warming Streifen für jeden
+
+0:13:32.408,0:13:36.868
+einzelnen Pixel dargestellt. Die<br/>Koordinaten sind unglücklicherweise Gauß-
+
+0:13:36.868,0:13:40.654
+Krüger. Das ist ein rechtwinkliges<br/>Koordinatensystem, sehr schön zum
+
+0:13:40.654,0:13:45.793
+Interpolieren, wenn man denn Gauß-Krüger-<br/>Koordinaten kennt. Für das Skript auf
+
+0:13:45.793,0:13:50.895
+GitHub habe ich dann das noch in<br/>geografische Koordinaten umgerechnet. Die
+
+0:13:50.895,0:13:56.733
+Flächendaten des DWD, also wirklich viele<br/>Produkte, manche beginnen erst in den
+
+0:13:56.733,0:14:01.615
+1950ern, so etwas wie Niederschlag oder<br/>so. Durchaus interessant, aber das hier
+
+0:14:01.615,0:14:06.921
+war ja alles nur Oberfläche. Ich habe ja<br/>gerade gesagt, ich brauche die dritte
+
+0:14:06.921,0:14:12.880
+Dimension. Also brauchen wir Klimamodelle,<br/>und das beständig, zeitlich
+
+0:14:12.880,0:14:18.889
+kontinuierlich, wo ich mich darauf<br/>verlassen kann, dass ich in fünf Jahren
+
+0:14:18.889,0:14:22.720
+noch die gleichen Daten bekomme. Da haben<br/>eine Kollegin vor mir und ich uns
+
+0:14:22.720,0:14:27.061
+entschieden für das European Center for<br/>Medium-Range Weather Forecasts - der Name
+
+0:14:27.061,0:14:31.556
+sagt schon: Es ist eine EU-Institution,<br/>getragen von den EU-Mitgliedstaaten, und
+
+0:14:31.556,0:14:35.553
+deren Aufgabe ist Wettervorhersage.<br/>Wunderschön. Es ist gleichzeitig eine
+
+0:14:35.553,0:14:40.298
+Forschungseinrichtung. Sie erstellen ihre<br/>eigenen Klimamodelle und nach eigener
+
+0:14:40.298,0:14:45.645
+Beschreibung das weltweit größte<br/>Datenarchiv für Klimadaten. Die Modelle
+
+0:14:45.645,0:14:51.533
+gehen zurück bis 1979. Für das Aktuelle<br/>ist angestrebt, das bis auf 1950
+
+0:14:51.533,0:14:56.160
+auszudehnen. Mal schauen. Da bekomme ich<br/>dann nochmal altes Wetter her, wenn ich
+
+0:14:56.160,0:15:00.510
+nicht „Tagesschau vor 40 Jahren“ kucken<br/>will. Innerhalb des Copernicus Programms -
+
+0:15:00.510,0:15:06.415
+das ist das EU-Programm zur Erdbeobachtung<br/>- stellt das ECMWF den sogenannten Climate
+
+0:15:06.415,0:15:12.179
+Change Service. Das ist die Datenquelle,<br/>auf dem sie Ihr aktuellstes Modell
+
+0:15:12.179,0:15:17.798
+verbreiten. Das Copernicus Programm bietet<br/>auch freien Datenzugang in sechs
+
+0:15:17.798,0:15:22.574
+Themenschwerpunkten. Davon ist Climate<br/>Change einer. "Freie" hat ein Sternchen,
+
+0:15:22.574,0:15:27.345
+weil einer der Themenschwerpunkte ist halt<br/>Security, und da ist es dann mit dem
+
+0:15:27.345,0:15:31.578
+freien Datenzugriff vielleicht etwas<br/>eingeschränkt. Ich habe es nicht genau
+
+0:15:31.578,0:15:39.735
+nachgeguckt. Schauen wir uns diesen<br/>Climate Change Service einmal an. Geht aus
+
+0:15:39.735,0:15:47.163
+dem WLAN, ich will eine Demo machen. Da<br/>wird man begrüßt mit „Welcome to the
+
+0:15:47.163,0:15:50.692
+climate data store“ - Store im Sinne von<br/>Speicher, nicht im Sinne von Shopping -
+
+0:15:50.692,0:15:54.707
+und hat drei freundliche Buttons auf der<br/>Seite. Auf die ersten zwei werden wir
+
+0:15:54.707,0:16:01.320
+gleich genau eingehen, der dritte, das ist<br/>ein Hilfe-Forum. Das ist auch tatsächlich
+
+0:16:01.320,0:16:08.705
+hilfreich. Also das aktuellste Modell von<br/>denen nennt sich ERA5, also ECW, Free
+
+0:16:08.705,0:16:14.823
+Analysis Nr. 5. Das hat normal eine<br/>Auflösung von so 25 bis 30 Kilometer auf
+
+0:16:14.823,0:16:20.901
+Land und auf See. Und wenn man sich<br/>speziell für Klimaparameter der Landmassen
+
+0:16:20.901,0:16:26.105
+interessiert, wie z.B. Bodenfeuchtigkeit<br/>bis in 4 Meter, da gibt es noch eine
+
+0:16:26.105,0:16:30.660
+hochaufgelöste Version, die nennt sich<br/>ERA5 Land. Aber das ist für meine Arbeit
+
+0:16:30.660,0:16:36.095
+nicht so entscheidend. Und standardmäßig<br/>wird geliefert: Eine stündliche Auflösung
+
+0:16:36.095,0:16:41.715
+und Monatsmittelwerte. Und zwar von 1979<br/>bis heute vor fünf Tagen. Den Datenzugriff
+
+0:16:41.715,0:16:47.573
+schauen uns gleich genauer an. Die Scripte<br/>hierfür und für das Auslesen des NetCDF-
+
+0:16:47.573,0:16:52.766
+Formats gibt's dann auf GitHub. NetCDF-<br/>Bibliotheken gibt es für Python, Octave,
+
+0:16:52.766,0:16:58.276
+Matlab, was immer man da machen möchte.<br/>Das schauen wir uns jetzt ganz kurz an.
+
+0:16:58.276,0:17:03.836
+Ich möchte jetzt nicht selber den ganzen<br/>Krempel installieren, diese Datenmenge
+
+0:17:03.836,0:17:09.690
+runterladen. Da hilft uns der Climate Data<br/>Store weiter, also Copernicus - da gibts
+
+0:17:09.690,0:17:15.211
+so eine ONLINE Toolbox. ...du warst schon<br/>geladen. Also man hat links, auf der
+
+0:17:15.211,0:17:18.864
+linken Seite einmal so das was man schon<br/>beschrieben hatte, mit ein paar
+
+0:17:18.864,0:17:23.591
+Beispielen, die zeigen, wie das Ganze zu<br/>funktionieren hat. Und es gibt auch hier
+
+0:17:23.591,0:17:28.331
+die Dokumentation der Funktionen. Das ist<br/>jetzt nicht weiter wichtig. Ich presse
+
+0:17:28.331,0:17:32.583
+schon mal auf play, weil das kann dauern.<br/>Das Script ist dann auch verfügbar über
+
+0:17:32.583,0:17:37.707
+den Fahrplan. Das lädt nur deshalb jetzt<br/>so schnell, weil ich das vorhin schon
+
+0:17:37.707,0:17:42.131
+ausgeführt hab. Normal kann das schon mal<br/>10, 20 Minuten dauern, weil die Daten
+
+0:17:42.131,0:17:49.010
+werden zusammengestellt und dann<br/>präsentiert. Das Skript selber hat einen
+
+0:17:49.010,0:17:56.207
+Teil, indem ich definiere, was ich haben<br/>möchte. Also ich habe drei Klimavariablen
+
+0:17:56.207,0:18:00.472
+2-Meter-Temperatur, Schneetiefe und<br/>totaler Niederschlag. Das sind die Namen
+
+0:18:00.472,0:18:04.930
+so wie sie im Datenkatalog vorhanden sind,<br/>auf den ich gleich zu sprechen komme. Ja,
+
+0:18:04.930,0:18:08.519
+ich definiere hier mittig ein paar<br/>Koordinaten, für die ich den Plot
+
+0:18:08.519,0:18:12.903
+erstellen möchte. Das ist jetzt hier<br/>Leipzig. Und das ist die Datenanfrage, wo
+
+0:18:12.903,0:18:17.200
+ich ganz einfach sage: Ein Gitter 0,25<br/>Grad, das ist die höchste Auflösung. Ich
+
+0:18:17.200,0:18:20.710
+kann auch sagen, ich möchte ein Grad<br/>Auflösung, dann ist die Datenmenge
+
+0:18:20.710,0:18:25.312
+natürlich kleiner. Mein Zeitraum, den ich<br/>haben möchte, also alle Jahre, alle
+
+0:18:25.312,0:18:28.960
+Monate. Und ich habe unten noch<br/>eingeschränkt das Gebiet, soll jetzt hier
+
+0:18:28.960,0:18:32.575
+nur Deutschland sein. Wenn ich ein<br/>größeres Gebiet anfordere, dann kann die
+
+0:18:32.575,0:18:36.949
+Anforderung auch länger dauern. Man kann<br/>durchaus, wenn man Monatskarten anfordert,
+
+0:18:36.949,0:18:41.453
+schon mal sechs bis zwölf Stunden warten,<br/>dass die runtergeladen werden. Also, der
+
+0:18:41.453,0:18:46.845
+Dienst setzt so täglich 30 bis 40 Terabyte<br/>an Daten um, die er an Benutzer sendet.
+
+0:18:46.845,0:18:52.762
+Gut, das Ergebnis haben wir jetzt hier<br/>gleich dargestellt. Man kann hier rein
+
+0:18:52.762,0:18:57.474
+zoomen, sich Ausschnitte ansehen. Wir<br/>haben ja drei verschiedene Variablen
+
+0:18:57.474,0:19:01.635
+angefordert. Man kann auch mal die<br/>Schneetiefe anschauen. Schneetiefe ist
+
+0:19:01.635,0:19:06.300
+hier als Wasseräquivalent: Man nehme an,<br/>der gesamte Schnee ist geschmolzen, und
+
+0:19:06.300,0:19:11.335
+ich habe eine durchgehende Wasserschicht<br/>in dieser Gitterzelle. Und ich kann hier
+
+0:19:11.335,0:19:16.003
+meinetwegen noch Koordinaten ändern. Und<br/>dann wird der Plot neu für diese
+
+0:19:16.003,0:19:19.829
+Koordinaten erzeugt, sofern ich diesen<br/>Datensatz für diese Koordinaten vorher
+
+0:19:19.829,0:19:23.702
+runtergeladen habe. Also wenn ich jetzt<br/>hier eine Nordamerika-Koordinate eingebe,
+
+0:19:23.702,0:19:29.140
+funktioniert das nicht - ich habe ja nur<br/>die Daten für Deutschland angefordert. Das
+
+0:19:29.140,0:19:32.680
+ist die erste Möglichkeit. Ich kann da<br/>schnell Plotten lassen. Ich muss da keine
+
+0:19:32.680,0:19:36.760
+Gigabyte Datenströmen runterladen. Ich<br/>muss nur diese Skriptsprache so ein
+
+0:19:36.760,0:19:42.640
+bisschen beherrschen. Aber schauen wir uns<br/>doch mal die eigenen Daten insgesamt an,
+
+0:19:42.640,0:19:47.590
+den Katalog, denn meine Berechnungen sind<br/>zu komplex, um sie in dieser Toolbox
+
+0:19:47.590,0:19:52.150
+durchzuführen. Außerdem bekommt man so<br/>einen Überblick darüber: Was gibt das da
+
+0:19:52.150,0:19:58.800
+überhaupt alles? Ganz grundsätzlich hat<br/>dieser Climate Data Store nicht nur jetzt
+
+0:19:58.800,0:20:05.640
+diese ERA5 Klimadaten, sondern allerlei<br/>Produkte schon vorrätig. also hier:
+
+0:20:05.640,0:20:11.610
+"Arktische Seerouten": Wie entwickelt sich<br/>das für die Schifffahrt zum Beispiel. Aber
+
+0:20:11.610,0:20:18.270
+wir wollen jetzt ERA5. Hier sehen wir alle<br/>Produkte zum Thema ERA5, die es so gibt.
+
+0:20:18.270,0:20:26.490
+So gibt es hier zum Beispiel die Lösung so<br/>stündliche Atmosphärenparameter seit 1979,
+
+0:20:26.490,0:20:31.080
+bis heute vor 5 Tagen. Da gibt es jetzt<br/>drei Möglichkeiten, das runter zu
+
+0:20:31.080,0:20:34.560
+bekommen. Ich habe schon angesprochen, es<br/>gibt eine Python API, die man sich
+
+0:20:34.560,0:20:38.730
+installiert. Dann kann man das ganze<br/>gescripted runterladen. Da möge man bitte
+
+0:20:38.730,0:20:42.930
+bei größeren Mengen auch die Download<br/>Policy beachten. Die empfehlen
+
+0:20:42.930,0:20:47.490
+Monatsstücke einzeln runterzuladen, wenn<br/>man zum Beispiel eine Zeitreihe von 2 oder
+
+0:20:47.490,0:20:51.990
+3 Jahren haben möchte. Sonst kann man<br/>durchaus mehrere Tage in der Download-
+
+0:20:51.990,0:20:57.330
+Schlange hängen. Man hat hier erst mal<br/>eine Beschreibung des Produkts. Okay, und
+
+0:20:57.330,0:21:02.430
+kann man rechts den Scrollstreifen sehen?<br/>Das ist die Liste der ganzen Parameter,
+
+0:21:02.430,0:21:07.800
+die es gibt. Da ist sicher was für jeden<br/>dabei. Aber wir wissen ja, was wir haben
+
+0:21:07.800,0:21:12.570
+wollen. Hier ist schon mal ausgewählt,<br/>weil ich das vorhin geklickt habe:
+
+0:21:13.320,0:21:17.700
+"Populäre Datensätze", also Kunden, die<br/>2m-Temperatur klickten, klickten auch
+
+0:21:17.700,0:21:23.280
+totalen Niederschlag und meinetwegen<br/>Luftdruck. Für andere Variablen ist das
+
+0:21:23.280,0:21:28.020
+hier so thematisch geordnet, so Wind,<br/>Schneefall und so weiter. Man kann sich
+
+0:21:28.020,0:21:35.460
+den Zeitraum klicken, Zeitpunkte, das<br/>Format. Und wenn ich jetzt mein eigenes
+
+0:21:35.460,0:21:41.340
+Python-Skript starten möchte, kann ich<br/>über "Show API Request" mir dann direkt
+
+0:21:41.340,0:21:45.690
+darstellen lassen: Mit dieser Anfrage, in<br/>Python ausgeführt auf meinem Rechner,
+
+0:21:45.690,0:21:50.550
+bekomme ich den vorhin angeklickten<br/>Datensatz. Wenn ich jetzt das für die
+
+0:21:50.550,0:21:54.840
+Toolbox machen möchte, die ich gerade<br/>gezeigt habe, dann kann man auf "Toolbox
+
+0:21:54.840,0:21:58.770
+Request" klicken, kann sich diesen<br/>Abschnitt hier in sein Skript kopieren, wo
+
+0:21:58.770,0:22:04.780
+dann noch die Visualisierung darunter ist.<br/>Muss man also auch nicht von Hand machen.
+
+0:22:04.780,0:22:09.040
+Oder wenn man den download-link möchte,<br/>dann klickt man halt auf "submit form".
+
+0:22:09.040,0:22:15.820
+Und dann wird das gezeigt, was man schon<br/>mal herunterladen wollte. Und er hat
+
+0:22:15.820,0:22:18.880
+erkannt: Das habe ich schon mal haben<br/>wollen. Also hier wäre der Downloadlink,
+
+0:22:18.880,0:22:24.100
+normalerweise. Wie gesagt, je nach<br/>Datenmenge kann das mehrere Stunden oder
+
+0:22:24.100,0:22:29.320
+vielleicht auch mal einen Tag dauern. Dass<br/>die Daten zusammengesucht wurden und zum
+
+0:22:29.320,0:22:33.970
+Download bereit stehen. Wenn man das<br/>höchst aufgelöste Klimamodell möchte, das
+
+0:22:33.970,0:22:39.400
+ist auf Magnetbänder gespeichert, das<br/>dauert dann halt ein bisschen. Gut, wenn
+
+0:22:39.400,0:22:42.610
+das jetzt alles nichts für einen war, dann<br/>gibt es immer noch vorbereitete
+
+0:22:42.610,0:22:50.380
+Themenbereiche, wo es für bestimmte Themen<br/>wie zum Beispiel" Auswuchs des Ausmaßes
+
+0:22:50.380,0:22:55.660
+arktischen Meereises über die letzten 40<br/>Jahre" bereits vorbereitete Applikationen
+
+0:22:55.660,0:23:03.880
+gibt, die live die Daten laden und dann<br/>visualisieren. Also man sieht, ich lade
+
+0:23:03.880,0:23:06.370
+eigentlich immer wieder die gleiche Seite,<br/>es sind nur unterschiedliche Reiter, die
+
+0:23:06.370,0:23:12.010
+ich hier habe, also Applications. Da haben<br/>wir vorhin schon gesehen, es gibt eine
+
+0:23:12.010,0:23:16.510
+Navigation. Wann ist die Nordwestpassage<br/>eisfrei? Wann ist da Schifffahrt möglich?
+
+0:23:16.510,0:23:22.330
+Da wird man sehen, dass das von Jahr zu<br/>Jahr ein längerer Zeitraum ist. Es gibt,
+
+0:23:22.330,0:23:27.940
+was gibt's denn hier, Überlebensfähigkeit<br/>einer bestimmten Mückenart in Europa.
+
+0:23:28.600,0:23:32.920
+Zukünftig? Der Einmarsch von<br/>Tropenkrankheiten zum Beispiel über diese
+
+0:23:32.920,0:23:36.970
+Mücke, wie wird sich das entwickeln? Aber<br/>ich bin ja beim Klima, also schauen wir
+
+0:23:36.970,0:23:48.860
+uns mal den ERA5 Explorer an! Der<br/>präsentiert uns zuerst eine Karte bzw. ich
+
+0:23:48.860,0:23:53.360
+klicke das, was ich schon geladen habe.<br/>Man erhält also so eine Karte. Das ist die
+
+0:23:53.360,0:23:57.050
+Weltkarte, man kann darin zoomen, sich<br/>einen Ort suchen, für den man jetzt die
+
+0:23:57.050,0:24:01.850
+gesamten Klimadaten der vergangenen 40<br/>Jahre anzeigen möchte. Dann bekommt man
+
+0:24:01.850,0:24:10.280
+hier rechts so das Ergebnis gezeigt. Der<br/>erste Plot zeigt dann quasi für die 40
+
+0:24:10.280,0:24:14.120
+Jahre, für jeden Monat, die<br/>Durchschnittstemperatur, die maximalen
+
+0:24:14.120,0:24:19.130
+minimalen Tageswerte. Wenn man also<br/>irgendwo in den Urlaub fährt, zur Arbeit
+
+0:24:19.130,0:24:24.020
+fährt, nicht weiß, wie ist dort das Wetter<br/>im März, kann man sich das hier einmal
+
+0:24:24.020,0:24:29.480
+quasi direkt visualisieren lassen. Gut,<br/>warming stripes, da haben wir drüber
+
+0:24:29.480,0:24:33.290
+gesprochen. Aber wie ist das denn, die<br/>langfristige Entwicklung an so einem Ort?
+
+0:24:33.290,0:24:40.130
+Das hier ist jetzt geklickt ungefähr<br/>Leipzig. Diese Darstellung zeigt jetzt die
+
+0:24:40.130,0:24:44.210
+gesamte Zeitreihe und glättet das mit<br/>Fünf-Jahres-Mittelwerten, und dargestellt
+
+0:24:44.210,0:24:48.650
+werden Sommertage. Das sind Tage mit einer<br/>maximalen Temperatur über 25 Grad,
+
+0:24:48.650,0:24:55.580
+Frosttage, das sind Tage mit einer<br/>Minimaltemperatur unter null Grad, und
+
+0:24:55.580,0:25:00.860
+tropische Nächte, das sind Nächte, in<br/>denen es mindestens 20 Grad als
+
+0:25:00.860,0:25:05.750
+Minimaltemperatur hat. Und da jetzt die<br/>Entwicklung der vergangenen vierzig Jahre,
+
+0:25:05.750,0:25:11.210
+sieht man halt jetzt für diesen geklickten<br/>Ort. Anstieg der Sommertage also
+
+0:25:11.210,0:25:17.600
+Durchschnittstemperatur über 25 Grad,<br/>Niedergang der Frostnächte. Aber
+
+0:25:17.600,0:25:21.530
+interessant, auch wenn es nur ein kleiner<br/>Prozentsatz ist, ist eigentlich auch: die
+
+0:25:21.530,0:25:27.110
+tropischen Nächte, in denen es nicht<br/>kälter wird als 20 Grad, ist halt auch in
+
+0:25:27.110,0:25:33.710
+der Zunahme. Also das waren von diesem<br/>Climate Data Store von dem ERA5-Modell so
+
+0:25:33.710,0:25:37.940
+verschiedene Anwendungsfälle. Für das, was<br/>man selber programmieren kann, habe ich
+
+0:25:37.940,0:25:42.530
+wie gesagt Beispielscripte oder wenn man<br/>sich nur ein bisschen umschauen möchte,
+
+0:25:42.530,0:25:49.970
+gibt es halt diese vorbereiteten<br/>Applikationen. Für den Fall, dass die Demo
+
+0:25:49.970,0:25:56.000
+nicht funktioniert.. Das letzte ist ein<br/>Dienst der Nasa, der in erster Linie die
+
+0:25:56.000,0:26:02.510
+verschiedenen Satellitenmissionen der Nasa<br/>und zum Teil auch der ESA darstellt. Das
+
+0:26:02.510,0:26:08.810
+nennt sich Nasa EOSDIS Earth Observing<br/>System Data Information System. Wer früher
+
+0:26:08.810,0:26:12.350
+schon mal mit NASA Daten gearbeitet hat,<br/>dem wird das vor vier Monaten aufgefallen
+
+0:26:12.350,0:26:15.410
+sein, dass die Daten nicht mehr einfach<br/>zum Klicken und Runterladen sind. Man
+
+0:26:15.410,0:26:22.250
+braucht jetzt diesen EarthData UserID, um<br/>zu seinen früheren Datenarchiven zu
+
+0:26:22.250,0:26:28.550
+kommen. Das Visualisierungstool ist<br/>Worldview. Das kann in GIS-Systeme
+
+0:26:28.550,0:26:33.710
+exportieren, die man hat. Man kann den<br/>SourceCode runterladen und eine Instanz
+
+0:26:33.710,0:26:38.420
+bei sich selbst laufen lassen, die die<br/>Daten von den Nasa Datendiensten heraus
+
+0:26:38.420,0:26:48.260
+abgreift. Wenn wir uns das mal anschauen,<br/>wird man auch wieder mit bereits
+
+0:26:48.260,0:26:52.940
+aufbereiteten thematischen Präsentationen<br/>begrüßt, die einem eigentlich
+
+0:26:52.940,0:26:56.480
+hauptsächlich die Fähigkeiten dieses<br/>Visualisierungsdienstes zeigen. Man sieht
+
+0:26:56.480,0:26:59.600
+im Hintergrund das aktuelle<br/>Satellitenbild. Man kann in der linken
+
+0:26:59.600,0:27:04.610
+Spalte verschiedene Layer auswählen, was<br/>man dargestellt haben möchte, das sind so
+
+0:27:04.610,0:27:09.050
+ungefähr 900, geben die an. Aus<br/>Zeitgründen schauen wir uns nur mal an,
+
+0:27:09.050,0:27:17.180
+sowas wie: Feuer in Kalifornien und Teilen<br/>Kanadas. Das ist einfach nur das
+
+0:27:17.180,0:27:21.410
+Satellitenbild, so gut, man kann es auch<br/>rechts in der Beschreibung lesen. Man
+
+0:27:21.410,0:27:25.340
+sieht schon so in dem Bild, das da<br/>irgendwie so Rauch rüberzieht. Jetzt wird
+
+0:27:25.340,0:27:31.850
+das mit verschiedenen Satellitenmissionen<br/>kombiniert. Jeder rote Punkt ist durch die
+
+0:27:31.850,0:27:38.510
+Satellitenmission, durch das Moderate<br/>Resolution Imaging Spectroradiometer
+
+0:27:38.510,0:27:46.340
+(MODIS) identifizierte Feuer schon<br/>deutlicher zu erkennen. Den Rest kann man
+
+0:27:46.340,0:27:51.770
+sich auch selber anschauen. Und eigentlich<br/>entscheidend ist: Man kann sich hier auch
+
+0:27:51.770,0:27:55.610
+durch die Zeit dieser<br/>Satellitenbeobachtungen quasi zeitlich
+
+0:27:55.610,0:28:00.170
+zurück bewegen, inklusive das Erstellen<br/>von Animationen, also einen Satelliten-
+
+0:28:00.170,0:28:03.380
+Film einer bestimmten Größe, für die man<br/>sich interessiert, sei es
+
+0:28:03.380,0:28:10.070
+Meerestemperatur, das jetzt Wildfeuer,<br/>verschiedene Gaskonzentrationen in der
+
+0:28:10.070,0:28:16.940
+Atmosphäre, Aerosole, Rauch, Schadstoffe.<br/>Da kann man gerne wahrscheinlich ein paar
+
+0:28:16.940,0:28:20.660
+Tage mit verbringen. Die Daten hier im<br/>Hintergrund sind alle frei
+
+0:28:20.660,0:28:25.010
+herunterzuladen. Man muss sich allerdings<br/>auch hier für den Account registrieren,
+
+0:28:25.010,0:28:31.490
+was aber zumindest in meinem Test keine<br/>Probleme gegeben hat. Abschließend kann
+
+0:28:31.490,0:28:37.310
+man sagen, es gibt einen reichen<br/>Datenschatz, den man zu diesem Thema
+
+0:28:37.310,0:28:42.770
+Wetter und Klimadaten nutzen kann, der<br/>auch explizit für den öffentlichen
+
+0:28:42.770,0:28:47.510
+Nutzer/Nutzerinnen verfügbar ist. Die<br/>Einstiegshürden sind relativ gering. Wie
+
+0:28:47.510,0:28:52.580
+gesagt, wir beginnen mit FTP-Server und<br/>ASCII-Dateien. Die Einstiegshürde ist ja
+
+0:28:52.580,0:28:56.210
+die Darstellung und dann, wenn man<br/>bestimmte Analysen machen möchte, wie das
+
+0:28:56.210,0:29:01.610
+funktioniert. Aber auch wenn man nicht<br/>programmieren möchte, habe ich zumindest
+
+0:29:02.300,0:29:07.850
+eine Handvoll Tools gezeigt, wo teilweise<br/>thematisch bereits aufbereitete Themen
+
+0:29:07.850,0:29:15.860
+sind, die durchaus von Interesse sein<br/>können. Oder die einem zeigen, was letzten
+
+0:29:15.860,0:29:20.180
+Endes alles möglich ist. Die Antwort auf<br/>die Frage war jetzt früher mehr Schnee?
+
+0:29:20.180,0:29:27.140
+Die kann sich hoffentlich jetzt jeder<br/>selber suchen. Die Ressourcen dafür sind
+
+0:29:27.140,0:29:32.000
+im Fahrplan. Auf GitHub gibts die<br/>passenden Skripte dazu bei der Suche nach
+
+0:29:32.000,0:29:38.000
+36c3_Klima, oder man kann mich hier<br/>ansprechen, sei es per DECT oder über die
+
+0:29:38.000,0:29:43.250
+Mailadresse im Fahrplan. Da möchte ich<br/>mich für die Aufmerksamkeit und das
+
+0:29:43.250,0:29:46.860
+Interesse bedanken und nutzt mehr<br/>öffentliche Daten. Dankeschön.
+
+0:29:46.860,0:30:03.870
+Herald: So kommen wir zum Fragenteil Wer<br/>von euch hat Fragen? Hände hoch und ran an
+
+0:30:03.870,0:30:12.180
+die Mikrofone. Keine Fragen aus dem<br/>Internet? Das Mikrofon Nummer neun, bitte.
+
+0:30:12.180,0:30:17.490
+Frage: Bei Folie zwölf haste ja so<br/>Deutschland mit ner Kilometer mal
+
+0:30:17.490,0:30:22.170
+Kilometer Auflösung gehabt. Da war ganz am<br/>Anfang bei 1800 irgendwas rum so ein roter
+
+0:30:22.170,0:30:24.930
+Punkt so in Höhe NRW. Weißt du, was das<br/>war?
+
+0:30:24.930,0:30:29.700
+Manuel: Nee, kann ich jetzt so nicht genau<br/>sagen. Also diese Daten sind interpoliert
+
+0:30:29.700,0:30:35.460
+aus den Stationsbeobachtungen oder wie der<br/>deutsche Wetterdienst zu der Zeit geheißen
+
+0:30:35.460,0:30:41.310
+hat plus weiterer Dienste, die die<br/>gleichen Qualitäten bieten. In der
+
+0:30:41.310,0:30:46.710
+Beschreibung des Produktes auf dem Server<br/>findet man weitere Informationen zu den
+
+0:30:46.710,0:30:51.900
+relevanten Literatur Quellen.<br/>Herald: Mikrofon Nummer drei, bitte!
+
+0:30:51.900,0:30:56.970
+Vielen Dank für den Talk und vielen Dank<br/>für die ganzen coolen Quellen. Ich habe
+
+0:30:56.970,0:31:00.900
+tatsächlich eine Frage zu eher deinem<br/>Gebiet, und zwar relativ anfangs. In den
+
+0:31:00.900,0:31:04.710
+Folien hattest du mal argumentiert oder<br/>gesagt, dass es auch Effekte der
+
+0:31:04.710,0:31:13.470
+Atmosphäre gibt, die die Erdbeschleunigung<br/>verringern, nein Schmarrn, verstärken. Die
+
+0:31:13.470,0:31:16.860
+Skala ging in beide Richtungen, sowohl ins<br/>Positive als auch Negative. Woher kommt
+
+0:31:16.860,0:31:20.550
+das?<br/>Manuel: Also das ist der. Also da wir die
+
+0:31:20.550,0:31:24.810
+Atmosphäre nicht entfernen können oder<br/>sollten, machen wir unsere Berechnungen
+
+0:31:24.810,0:31:29.430
+bezogen auf eine zeitlich nicht variable<br/>Atmosphäre, also Normalatmosphäre. Das ist
+
+0:31:29.430,0:31:34.290
+so Normaldruck auf Meeresspiegelniveau,<br/>1013 hPa, und da kann man sich mit Formeln
+
+0:31:34.290,0:31:38.040
+herrechnen, in welcher Höhe meiner Station<br/>welcher Luftdruck herrschen sollte. Der
+
+0:31:38.040,0:31:41.700
+normale Vorgang ist eigentlich, ich messe<br/>meinen lokalen Luftdruck, mal angenommen
+
+0:31:41.700,0:31:47.880
+am Meeresspiegel, ich messe 1020. Dann hab<br/>ich also sieben hPa Differenz zu dem
+
+0:31:47.880,0:31:52.380
+Referenzdruck, sieben Hektopascal mal drei<br/>Nanometer pro Sekunde-Quadat, sind 21
+
+0:31:53.580,0:31:59.500
+nm/s2. Das ist die Attraktionswirkung, die<br/>die Luftmasse selber hat. Masse, aehm
+
+0:31:59.500,0:32:04.600
+Luft, wiegt ja auch was. Und der Effekt<br/>die Masse der Luft drückt auf die
+
+0:32:04.600,0:32:08.320
+Erdoberfläche, und die Erdoberfläche<br/>deformiert sich je nach Masse. Also ich
+
+0:32:08.320,0:32:12.790
+habe ein Hochdruckgebiet, dann deformiert<br/>sich die Erdmasse stärker. Ich habe ein
+
+0:32:12.790,0:32:17.230
+Tiefdruckgebiet, dann wird sie sich wieder<br/>leicht ausdellen. Und das ist der Effekt
+
+0:32:17.230,0:32:21.970
+der Messungen, der dann meine<br/>Schweremessung um in diesem Fall 21
+
+0:32:21.970,0:32:27.295
+Nanometer pro Sekunde Quadrat beeinflusst.<br/>Das ist natürlich, wie gesagt, son
+
+0:32:27.295,0:32:33.160
+Daumenwert. Mit den Methoden jetzt über<br/>die Atmosphäre hat man dann eine etwas
+
+0:32:33.160,0:32:36.970
+bessere Korrektur. Das heißt, wenn ich<br/>weiß, dass irgendwo ein Signal durch einen
+
+0:32:36.970,0:32:44.110
+nahegelegenen, sagen wir ein Meer, durch<br/>einen See oder ein Meeresteil, durch
+
+0:32:44.110,0:32:47.560
+Küste, dann habe ich eine bessere<br/>Korrelation. Wenn ich jetzt meine Methode
+
+0:32:47.560,0:32:51.970
+benutze mit den Pegeldaten, weil<br/>Meerwasser ist auch mehr Schwere oder
+
+0:32:51.970,0:32:55.990
+weniger Wasser weniger Schwere, als wenn<br/>ich jetzt diesen Daumenwert benutze.
+
+0:32:55.990,0:33:02.230
+Herald: Kannst du diese Geschwindigkeits<br/>Angabe nochmal irgendwie für uns fassbares
+
+0:33:02.230,0:33:06.040
+Mass schicken? So eine Viertelsekunde pro<br/>Jahr oder sowas?
+
+0:33:06.040,0:33:10.810
+Manuel: Welche Geschwindigkeit?<br/>Herald: Wie sehr die Erde verlangsamt
+
+0:33:10.810,0:33:13.390
+wird?<br/>Manuel: Also das hat jetzt nichts direkt
+
+0:33:13.390,0:33:19.360
+mit Erdrotation zu tun. Das geht jetzt bei<br/>mir wirklich nur darum, das kleine g, die
+
+0:33:21.220,0:33:24.730
+9,81m/s2, wie ändert sich das durch die<br/>Masse der Atmosphäre, durch den
+
+0:33:24.730,0:33:29.740
+Wassergehalt und Ähnliches. Tatsächlich<br/>hat natürlich die je nachdem, wie die
+
+0:33:29.740,0:33:33.850
+Atmosphäre auf die Erde verteilt hat das<br/>auch einen Effekt auf die Erdrotation, so
+
+0:33:33.850,0:33:38.890
+Sommer, Winter. Also wo ist wieviel<br/>Atmosphärenmasse gerade, Nord-,
+
+0:33:38.890,0:33:43.180
+Südhalbkugel, da reden wir aber um<br/>Millisekunden also die tägliche
+
+0:33:43.180,0:33:48.130
+Erdrotation variiert im Millisekunden-<br/>Bereich je nach Massenverteilung der Erde.
+
+0:33:48.130,0:33:53.380
+Herald: Mikro Nummer 2, bitte.<br/>Frage: Von mir auch herzlichen Dank für
+
+0:33:53.380,0:33:57.910
+den Zugang. Du hast gesagt, dass das<br/>Downloaden der Daten zum Teil sehr lange
+
+0:33:57.910,0:34:04.000
+dauert. Liegt es jetzt an der Menge, oder<br/>dass die auf Ihren Servern lokal die Daten
+
+0:34:04.000,0:34:07.750
+erst zusammenstellen müssen?<br/>Manuel: Ja, letzteres also, je nachdem,
+
+0:34:07.750,0:34:11.870
+wie groß die Datenmenge ist, die man haben<br/>möchte. Die Daten werden dann für einen
+
+0:34:11.870,0:34:16.670
+von den Datenservern zusammengesucht, und<br/>dann lädt man das runter. Also man
+
+0:34:16.670,0:34:21.770
+verbringt erst eine gewisse Zeit, quasi in<br/>der Warteschlange. Das können dann so 4-5
+
+0:34:21.770,0:34:24.440
+Stunden sein, und dann dauert das ne<br/>knappe Stunde, bis die Daten gesammelt
+
+0:34:24.440,0:34:28.430
+sind und dann je nach Internetverbindung<br/>halt. Wenn man jetzt son 10 Gigabyte
+
+0:34:28.430,0:34:33.500
+Datensatz angefordert hat, das ist so ein<br/>Monat Europa, drei verschiedene
+
+0:34:33.500,0:34:37.370
+Klimavariablen, die gesamte Höhe der<br/>Atmosphäre. Das ist das, was ich so
+
+0:34:37.370,0:34:41.990
+brauche. Das sind so 10 Gigabyte. Aber man<br/>muss den Rechner nicht zwischendurch
+
+0:34:41.990,0:34:45.290
+laufen lassen. Wenn man das Skript einfach<br/>am nächsten Morgen nochmal startet, dann
+
+0:34:45.290,0:34:47.870
+sieht das der Server. Aha, der hat da<br/>schon nach gefragt. Die Daten stehen
+
+0:34:47.870,0:34:52.370
+bereit, und sie werden runtergeladen. Aber<br/>wie gesagt, der Dienst setzt pro Tag 30,
+
+0:34:52.370,0:34:55.160
+40 Terrabyte um. Man stellt sich halt<br/>hinten an.
+
+0:34:55.160,0:35:04.340
+Herald: Mikrofon Nummer 1 bitte. Noch eine<br/>Frage zum Schwerenetz. Wofür braucht man
+
+0:35:04.340,0:35:07.340
+denn die Daten, die jetzt in der 8. oder<br/>9. Nachkommastelle gemessen werden?
+
+0:35:07.340,0:35:13.910
+Manuel: Meine Arbeit beschäftigt sich mit<br/>der Entwicklung neuartiger Sensoren, also
+
+0:35:13.910,0:35:19.040
+präziser Gravimeter. Wenn mir jetzt einer<br/>sagen möchte, ich habe das präzisere
+
+0:35:19.040,0:35:21.350
+Gerät, und dann schaue ich in die<br/>Datenbank. Und da ist jetzt noch irgendwie
+
+0:35:21.350,0:35:27.440
+ein komischer Bogen. Dann sage ich dem "Da<br/>ist ein Bogen in deinen Daten. Du bist
+
+0:35:27.440,0:35:31.820
+doch genauer." Also muss ich ein möglichst<br/>genaues Modell der tatsächlichen, zeitlich
+
+0:35:31.820,0:35:37.100
+variabel Schwereänderung haben. Insgesamt<br/>ist das interessant für alles, was man
+
+0:35:37.100,0:35:41.600
+sonst direkt nicht messen kann, aber Masse<br/>ist. Grundwasser ist ein weit verbreitetes
+
+0:35:41.600,0:35:44.840
+Anwendungsgebiet. Man kann nicht<br/>überall..., gut in Deutschland ist ein
+
+0:35:44.840,0:35:45.680
+weit verbreitetes Netz an<br/>Grundwasserbohrungen und
+
+0:35:45.680,0:35:54.290
+Grundwasserpegeln, wo die zuständigen<br/>Landesämter diese Daten erfassen. Wenn man
+
+0:35:54.290,0:35:58.370
+das Glück nicht hat, dann ist Gravimetrie<br/>eine Möglichkeit zu überprüfen, wie
+
+0:35:58.370,0:36:02.630
+verhält sich das Grundwasser? Wir hatten<br/>ein großes Regenereignis. Bleibt das
+
+0:36:02.630,0:36:08.090
+Grundwasser vor Ort oder fließt das ab?<br/>Das wäre eine Möglichkeit, mit Gravimetrie
+
+0:36:08.090,0:36:15.200
+festzustellen. Und auch hier müssen wir<br/>alles korrigieren bis auf diesen
+
+0:36:15.200,0:36:17.870
+Grundwassereffekt. Auch da braucht man<br/>dann genaue Atmosphärenmodelle.
+
+0:36:17.870,0:36:21.660
+Frage: Hätte ich noch eine Anschlussfrage?<br/>Gibt es für diese Grundwasserwerte auch
+
+0:36:21.660,0:36:26.850
+öffentliche Daten?<br/>Manuel: In der Regel ja, die muss man
+
+0:36:26.850,0:36:30.465
+allerdings.. Da gibt es jetzt keinen so<br/>Verteiler, keine Seite, auf den man
+
+0:36:30.465,0:36:34.920
+klicken kann. Das ist relativ<br/>unterschiedlich von Bundesland zu
+
+0:36:34.920,0:36:40.830
+Bundesland. In der Regel hat die jetzt..<br/>ich komme aus Hannover. Da gibt es in der
+
+0:36:40.830,0:36:45.210
+Stadtverwaltung eine Abteilung, wo dann<br/>das Untermenü ist Grundwasser, und da kann
+
+0:36:45.210,0:36:49.710
+man persönlich anfragen. Da bekommt man<br/>das frei, wenn man so
+
+0:36:49.710,0:36:52.260
+Wissenschaftsforschung macht, oder ich<br/>weiß nicht, ob man das alles bezahlen
+
+0:36:52.260,0:36:57.510
+muss, kann ich jetzt leider nicht genau<br/>sagen. Aber es ist Aufgabe der Stadt, der
+
+0:36:58.440,0:37:01.410
+Kommune, in der Regel.<br/>Herald: Mikrofon Nummer zwei, bitte!
+
+0:37:01.410,0:37:06.360
+Frage: Das sind ja alles Klimamodelldaten<br/>also nicht aktuell gemessen - da fliegt ja
+
+0:37:06.360,0:37:10.680
+keiner in zwei Kilometer und misst das.<br/>Wann werden die gerechnet? Werden die
+
+0:37:10.680,0:37:13.860
+aktuell gerechnet? Werden die hinterher<br/>gerechnet? Werden die vorher gerechnet?
+
+0:37:13.860,0:37:20.550
+Manuel: Also das ERA5, das ist jetzt quasi<br/>immer fünf Tage zurück. Es wird das Modell
+
+0:37:20.550,0:37:24.210
+gerechnet, mit den Daten, die jetzt gerade<br/>anfallen. Bis vor kurzem gab es eine
+
+0:37:24.210,0:37:28.200
+Verzögerung von drei Monaten, und man muss<br/>auch jetzt noch damit rechnen, dass quasi
+
+0:37:28.200,0:37:32.670
+wenn ich jetzt heute Daten nehme, die für<br/>vor zwei Wochen sind, dass sich diese
+
+0:37:32.670,0:37:35.895
+Daten noch leicht ändern können, weil halt<br/>die jetzt gerade gemessenen Daten noch
+
+0:37:35.895,0:37:39.990
+einfließen können in das Modell. Aber man<br/>hat so eine Verzögerung im Moment von
+
+0:37:39.990,0:37:45.900
+fünf, fünf Tagen, die, wie das erstellt<br/>wird, so ein Modell ist, wie gesagt, am
+
+0:37:45.900,0:37:49.980
+Tag eins im Talk Climate Modeling ist das<br/>enthalten gewesen.
+
+0:37:49.980,0:37:56.670
+Herald: Mikrofon Nummer eins, bitte.<br/>Frage: Wenn die Daten berechnet werden,
+
+0:37:56.670,0:38:01.440
+heißt das, das wird auch nachträglich<br/>wieder langfristig in die Vergangenheit
+
+0:38:01.440,0:38:04.980
+zurück korrigiert, wenn man bessere<br/>Modelle hat?
+
+0:38:04.980,0:38:11.940
+Manuel: Die machen regelmäßige, ja<br/>regelmäßig, alle zehn Jahre ungefähr kommt
+
+0:38:11.940,0:38:16.110
+eine neue Version dieses Modells heraus,<br/>das ERA-Interim der Vorgänger, das war vor
+
+0:38:16.110,0:38:21.480
+zehn Jahren. Und die halten beide Modelle<br/>vor. Ich kann jetzt hingehen und sagen,
+
+0:38:21.480,0:38:26.880
+ich nehme einen Zeitpunkt aus den 80er-<br/>Jahren und vergleiche beide Klimamodelle.
+
+0:38:26.880,0:38:33.610
+Was kommt da raus? Gibt's da Diskrepanzen?<br/>Wie das genau mit der Erstellung geht,
+
+0:38:33.610,0:38:36.610
+kann ich jetzt so nicht sagen. Aber ich<br/>habe die Möglichkeit, auch wenn ich meine
+
+0:38:36.610,0:38:39.970
+Arbeit mit der einer Kollegin von vor zehn<br/>Jahren vergleichen will. Ich kann mir
+
+0:38:39.970,0:38:45.100
+immer noch das Klimamodell von damals<br/>laden und mit meinen eigenen Methoden
+
+0:38:45.100,0:38:50.590
+vergleichen. Das ist bei diesem ECMWF<br/>eigentlich ein großer Vorteil, dass alle
+
+0:38:50.590,0:38:55.720
+Modelle relativ zeitlang noch weiter<br/>gepflegt werden und parallel verfügbar
+
+0:38:55.720,0:39:01.120
+sind für gleiche Zeiträume.<br/>Herald: Als letzte Frage Mikrofon Nummer
+
+0:39:01.120,0:39:05.800
+5.<br/>Frage: Ja, hallo. Ich wollte fragen, ob
+
+0:39:05.800,0:39:11.770
+Europa der Vorreiter ist mit der<br/>Bereitstellung der Daten oder weltweit
+
+0:39:11.770,0:39:20.050
+wirklich die Daten gut, also wirklich<br/>öffentlich gemacht werden und dass jeder
+
+0:39:20.050,0:39:24.910
+die gleichberechtigt benutzen kann?<br/>Manuel: Das kann ich so nicht beantworten.
+
+0:39:24.910,0:39:28.450
+Ich bin mir ziemlich sicher, dass das<br/>andere meteorologische Anstalten gibt, die
+
+0:39:28.450,0:39:33.130
+wie der Deutsche Wetterdienst auch die<br/>Daten so frei zur Verfügung stellen bzw.
+
+0:39:33.130,0:39:38.410
+dieses Klimamodell wie das ERA5 auch<br/>vergleichsweise woanders bereitgestellt
+
+0:39:38.410,0:39:45.550
+wird. Für die amerikanische Version würde<br/>ich auf diesem von mir zuletzt gezeigten
+
+0:39:45.550,0:39:50.920
+Data Dienst tippen, dass es da enthalten<br/>ist. Ganz genau wie gesagt, kann ich das
+
+0:39:50.920,0:39:54.220
+so nicht sagen. Das deutsche Wetter. Der<br/>Deutsche Wetterdienst hat eigene
+
+0:39:54.220,0:39:58.720
+Klimamodelle, wo ich mir auch nicht sicher<br/>bin, ob die frei zugänglich sind. Der
+
+0:39:58.720,0:40:02.890
+Grund, warum damals dieses ECMWF<br/>aufgenommen wurde, war genau, weil ich das
+
+0:40:02.890,0:40:08.560
+und auch meine Kollegin vor mir so direkt<br/>nutzen konnte. Also, wenn man sich da
+
+0:40:08.560,0:40:12.700
+klickt, da steht auch explizit nicht nur<br/>Forschung, Wissenschaft, Commercial da, da
+
+0:40:12.700,0:40:18.970
+steht explizit auch public interest, also<br/>jeder Bürger, Bürgerin, sich da bedienen
+
+0:40:18.970,0:40:23.200
+kann und soll. Die Frage ist natürlich,<br/>wenn ich jetzt ein kommerzielles Produkt
+
+0:40:23.200,0:40:26.800
+daraus mache. Da müsste man persönlich<br/>nochmal nachlesen, wie die Einschränkungen
+
+0:40:26.800,0:40:29.560
+sind.<br/>Herald: Vielen Dank für diesen sehr
+
+0:40:29.560,0:40:33.030
+interessanten Talk einen großen Applaus.<br/>Manuel: Ja, vielen Dank für die
+
+0:40:33.030,0:40:33.213
+Aufmerksamkeit.
+
+0:40:33.213,0:40:33.261
+*Applaus*
+
+0:40:33.261,0:40:33.319
+*36c3 Abspannmusik*
+
+0:40:33.319,0:40:33.870
+Untertitel erstellt von c3subtitles.de<br/>im Jahr 2020. Mach mit und hilf uns!

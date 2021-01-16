@@ -33,4 +33,4 @@ class TransformsTestCase(TestCase):
                     self.assertIsNotNone(result)
 
                     if fixture.result is not None:
-                        self.assertEqual(fixture.result, result)
+                        self.assertEqual(transforms.normalise(fixture.result), result)

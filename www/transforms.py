@@ -10,8 +10,7 @@ BOMS = ['\ufeff',
 
 def strip_bom(text):
     for bom in BOMS:
-        if text.startswith(bom):
-            return text[len(bom):]
+        text = text.replace(bom, '')
     return text
 
 

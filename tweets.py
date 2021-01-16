@@ -137,7 +137,7 @@ def create_tweet_for_YT(subtitle_id):
     #print (my_tweet)
     return my_tweet
 
-    
+
 # Create a tweet for a subtitle which is now auto timed and needs review
 def create_tweet_for_needs_quality_control(id):
     # Check if there really is a subtitle available with this Id:
@@ -170,7 +170,39 @@ def create_tweet_for_needs_quality_control(id):
     
     my_tweet = string + '"' + name_of_talk + '" need to be reviewed! Join us on: ' + link + " " + hashtag
     #print (my_tweet)
-    return my_tweet  
+    return my_tweet
+
+
+# Create a tweet for a subtitle which is now available with transcript
+def create_tweet_for_transcript_is_now_available(talk_id):
+    # Check if there really is a talk available with this Id:
+    try:
+        my_talk = Talk.objects.get(id = talk_id)
+        #my_language = Language.objects.get(id = my_talk.orig_language.language_id)
+        my_language = Language.objects.get(id = my_talk.orig_language.id)
+        my_event = Event.objects.get(id = my_talk.event_id)
+    except:
+        return(None)
+    # Workaround for Klingon :D
+    if my_language.id == 289:
+        my_language.language_en = "Original"
+    lang_string = my_language.language_en
+    name_of_talk = my_talk.title
+    #name_of_talk = "012345678901234567890123456789012345678901234567890123456798" +"012345678901234567890123456789012345678901234567890123456798" +"012345678901234567890123456789012345678901234567890123456798"
+    hashtags = my_event.hashtag
+    link = "https://c3subtitles.de/talk/" + str(talk_id)
+    # Test : The [language] talk "talk title" now has a transcript available for you to work on.
+    # Join us here: c3s-link
+    # Hashtags
+    
+    # Länge des Tweets setzt sich zusammen aus den Strings und 23 Zeichen für den Link
+    while len("The ") + len(lang_string) + len(" talk \"") + len(name_of_talk) + len("\" now has a transcript available for you to work on. Join us here: ") + 23 + 2 + len(hashtags) > max_tweet_length:
+        name_of_talk = name_of_talk[:-2]
+        name_of_talk = name_of_talk + "…"
+
+    my_tweet = "The " + lang_string + " talk \"" + name_of_talk + "\" now has a transcript available for you to work on. Join us here: https://c3subtitles.de/talk/" + str(my_talk.id) + " " + hashtags
+    print (my_tweet)
+    return my_tweet
 
 
 # Pure tweeting

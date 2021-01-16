@@ -161,18 +161,30 @@ STATICFILES_FINDERS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'only_in_debug': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
     'loggers': {
         'django': {
-            'handlers' : ['console'],
-            'level' : 'WARNING'
-        }
+            'handlers': ['console', 'console_debug'],
+        },
+        'www': {
+            'handlers': ['console', 'console_debug'],
+        },
     },
     'handlers': {
+        'console_debug': {
+            'class': 'logging.StreamHandler',
+            'filters': ['only_in_debug'],
+            'level': 'INFO',
+        },
         'console': {
             'class': 'logging.StreamHandler',
             'filters': None,
             'level': 'WARNING',
-        }
+        },
     }
 }
 

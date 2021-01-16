@@ -34,23 +34,26 @@ import credentials as cred
 # and polls for the finished transcript
 # If this is used via the browser in admin, the interface is blocked until the
 # transcript is ready and the email is sent
-def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY):
+def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True):
     # Only proceed if the talk actually has a video file link
-    if talk.link_to_video_file == "":
+    # Not proceed if the talk has no video link and no transcript id
+    if talk.link_to_video_file == "" and talk.trint_transcript_id =="":
         return False
 
     # Download the talk-file into a folder like /tmp/
     # Get the filename from the whole path
     filename = talk.link_to_video_file.split("/")[-1]
-    output_filename = "/tmp/" + filename
+    output_filename = "/var/tmp/" + filename
     url = talk.link_to_video_file
     r = requests.get(url)
-    open(output_filename , 'wb').write(r.content)
+    # Only download the file if it is needed later on
+    if talk.trint_transcript_id == "":
+        open(output_filename , 'wb').write(r.content)
     
     # Afterwards upload to trint
     headers = {'api-key':trint_api_key,'content-type':'video/mp4',}
     
-    # Only upload the video if the talk does noet yet have a trint_transcript_id
+    # Only upload the video if the talk does not yet have a trint_transcript_id
     if talk.trint_transcript_id == "":
         params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',False),)
 
@@ -60,6 +63,8 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY):
         talk.trint_transcript_id = output["trintId"]
         talk.transcript_by_id = 3
         talk.save()
+        # Delete the file locally
+        os.remove(output_filename)
 
     trint_id = talk.trint_transcript_id
     url = "https://api.trint.com/export/srt/" + trint_id
@@ -73,6 +78,17 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY):
             break
         time.sleep(10)
 
+    # If the talk is not yet set to trint transcript, do it
+    if talk.transcript_by_id != 3:
+        talk.transcript_by_id = 3
+        talk.save()
+        
+    # Make the pad link available, remove the "#" at the beginning
+    if make_pad_link_available and talk.link_to_writable_pad[0:1] == "#":
+        talk.link_to_writable_pad = talk.link_to_writable_pad[1:]
+        talk.save()
+    if str(response.text) == "Forbidden":
+        return False
     # Get the link to the srt file
     srt_link = json.loads(response.text)["url"]
     response = requests.request("GET", srt_link)
@@ -90,31 +106,35 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY):
     # Build text for email with important Links
     text = MIMEText("Talk:         "+talk.title+" \n"+
         "Talk-ID:      "+str(talk.id)+"\n"+
-        "Talk-Sprache: " + talk.orig_language.lang_amara_short + "\n\n" +
+        "Talk Frab-ID: " + str(talk.frab_id_talk)+"\n"+
+        "Talk-Sprache: " + talk.orig_language.lang_amara_short + "\n" +
+        "Trint-Key:    " + talk.trint_transcript_id + "\n\n" +
         "Pad writable link:    " + talk.link_to_writable_pad + "\n" +
         "Amara-Adresse:        "+"www.amara.org/videos/"+talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(talk.id) + "\n" +
         "Admin-Talk-Adresse:   https://c3subtitles.de/admin/www/talk/" + str(talk.id) + "\n"+
         "YouTube-Adresse im C3Subtitles YT-Account: https://www.youtube.com/watch?v=" + talk.c3subtitles_youtube_key + "\n", "plain")
     msg.attach(text)
-    msg["Subject"] = "Trint transcript ready for Talk: " + str(talk.frab_id_talk) + " \"" + talk.title + "\""
+    msg["Subject"] = "Trint transcript ready for Talk: " + str(talk.frab_id_talk) + " \"" + talk.title + "\" from " + talk.event.title
     msg["From"] = FROM
     msg["To"] = TO
+    msg["reply-to"] = "subtitles-logs@lists.selfnet.de"
     
     filename = talk.slug+"."+talk.orig_language.lang_amara_short+".srt"
-    folder = "./downloads/"
+    folder = "/var/tmp/"
     # Save File in ./downloads
     file = open(folder+filename,mode = "w",encoding = "utf-8")
     for line in srt_text:
         file.write(line)
-    file.close()   
+    file.close()
 
-    # Build attachment File for email an attach
+    # Build attachment File for email an attach and delete the file afterwards
     attachment = MIMEBase('application', 'octet-stream')
     attachment.set_payload(open(folder + filename, 'rb').read())
     encoders.encode_base64(attachment)
     attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
     msg.attach(attachment)
+    os.remove(folder + filename)
 
     # Create the transcript from srt and also attach it to the mail
     text_content = srt_text.split("\n")
@@ -158,12 +178,14 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY):
     for line in new_transcript:
         file.write(line)
     file.close()
-    # Build attachment File for email an attach
+    # Build attachment File for email an attach and delete afterwards
     attachment = MIMEBase('application', 'octet-stream')
     attachment.set_payload(open(folder + filename, 'rb').read())
     encoders.encode_base64(attachment)
     attachment.add_header('Content-Disposition', 'attachment',filename=os.path.split(filename)[1])
     msg.attach(attachment)
+    os.remove(folder + filename)
+
     # Mail verschicken
     try:
         p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)

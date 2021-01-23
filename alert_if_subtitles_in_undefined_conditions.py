@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -6,7 +6,7 @@
 # occur it a user did not click the "finished transcribing" button or if
 # the subtitle is here marked as complete but not at amara.
 #
-# This script collects all these special cases and sends an email with 
+# This script collects all these special cases and sends an email with
 # cases in which something seems to be off.
 #
 # This script should run as cronjob e.g. once per hour
@@ -39,6 +39,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Subtitle
 from django.db.models import F
+from django.utils.timezone import make_aware
 from datetime import datetime, timedelta
 import credentials as cred
 
@@ -83,7 +84,7 @@ Not complete (complete = False)
 The time processed transcribing is exactly the video duration
      talk__video_duration = F('time_quality_check_done')
 """
-subtitles_finished_transcribing_not_clicked = Subtitle.objects.all().filter(complete=False, state_id=2, talk__video_duration=F('time_processed_transcribing'), touched__gte=datetime.now()-delta)
+subtitles_finished_transcribing_not_clicked = Subtitle.objects.all().filter(complete=False, state_id=2, talk__video_duration=F('time_processed_transcribing'), touched__gte=make_aware(datetime.now())-delta)
 #print(subtitles_finished_transcribing_not_clicked.count())
 if subtitles_finished_transcribing_not_clicked.count() > 0:
     e_mail_content += "orig_lang = True, state_id = 2, time_quality_check_done = video_duration\n"
@@ -99,7 +100,7 @@ complete in amara
 This happens in some rare cases when a user first saves and then clicks "publish" in amara without a later change with a new revision
 Additional the user clicks on c3subtitles.de on "finished"
 """
-subtitles_not_complete_in_amara = Subtitle.objects.all().filter(complete=False,state_id=7, talk__video_duration=F('time_quality_check_done'), touched__gte=datetime.now()-delta)
+subtitles_not_complete_in_amara = Subtitle.objects.all().filter(complete=False,state_id=7, talk__video_duration=F('time_quality_check_done'), touched__gte=make_aware(datetime.now())-delta)
 #print(subtitles_not_complete_in_amara.count())
 if subtitles_not_complete_in_amara.count() > 0:
     e_mail_content += "complete=False, state_id=7, time_quality_check_done=video_duration\n"
@@ -112,7 +113,7 @@ if subtitles_not_complete_in_amara.count() > 0:
 """
 Translations which are not complete in amara but appear to be complete on c3subtitles.de
 """
-subtitles_translation_not_complete_in_amara = Subtitle.objects.all().filter(state_id=11, complete=False, talk__video_duration=F('time_processed_translating'), touched__gte=datetime.now()-delta)
+subtitles_translation_not_complete_in_amara = Subtitle.objects.all().filter(state_id=11, complete=False, talk__video_duration=F('time_processed_translating'), touched__gte=make_aware(datetime.now())-delta)
 #print(subtitles_translation_not_complete_in_amara.count())
 if subtitles_translation_not_complete_in_amara.count() > 0:
     e_mail_content += "complete=False, state_id=11, time_processed_translating=video_duration\n"
@@ -125,7 +126,7 @@ if subtitles_translation_not_complete_in_amara.count() > 0:
 """
 Orignal language, not complete in amara but appear to complete on c3subtitles.de
 """
-subtitles_not_complete_but_user_clicked = Subtitle.objects.all().filter(complete=False, state_id=8, touched__gte=datetime.now()-delta)
+subtitles_not_complete_but_user_clicked = Subtitle.objects.all().filter(complete=False, state_id=8, touched__gte=make_aware(datetime.now())-delta)
 #print(subtitles_not_complete_but_user_clicked.count())
 if subtitles_not_complete_but_user_clicked.count() > 0:
     e_mail_content += "complete=False, state_id=8\n"
@@ -138,7 +139,7 @@ if subtitles_not_complete_but_user_clicked.count() > 0:
 """
 Translation which is not complete in amara but appears to be complete on c3subtitles.de
 """
-subtitles_translation_not_complete_but_user_clicked = Subtitle.objects.all().filter(state_id=12, complete=False, touched__gte=datetime.now()-delta)
+subtitles_translation_not_complete_but_user_clicked = Subtitle.objects.all().filter(state_id=12, complete=False, touched__gte=make_aware(datetime.now())-delta)
 #print(subtitles_translation_not_complete_but_user_clicked.count())
 if subtitles_translation_not_complete_but_user_clicked.count() > 0:
     e_mail_content += "complete=False, state_id=12\n"
@@ -176,7 +177,6 @@ except:
     #    sys.exit(1)
     #s.quit()
 
- 
+
     #print("Nothing done!")
 sys.exit(0)
-

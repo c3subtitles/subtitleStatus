@@ -16,8 +16,9 @@
 {% endfor %}
 <p></p>
 {% endif %}
-
-<a href="/event/{{talk.event.acronym}}" class="btn btn-default">back</a>
+{% if talk.event.blacklisted == False %}
+    <a href="/event/{{talk.event.acronym}}" class="btn btn-default">back</a>
+{% endif %}
 <h1>{{talk.title}}</h1>
 <h2>
 {% if not talk.subtitle_talk == "None" %}

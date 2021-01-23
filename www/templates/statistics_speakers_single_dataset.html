@@ -13,10 +13,10 @@ Used in statistics_speakers.html to display a single dataset
     </div>
 
     <div class="col-md-4">
-		{% if sort_by = "wpm" %}
+		{% if sort_by == "wpm" %}
 			<h3>{{statistics_speaker.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
 			<h3>{{statistics_speaker.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
-		{% elif sort_by = "spm" %}
+		{% elif sort_by == "spm" %}
 			<h3>{{statistics_speaker.average_spm | floatformat:-1}}&nbsp;<abbr title="strokes per minute">spm</abbr></h3>
 			<h3>{{statistics_speaker.average_wpm | floatformat:-1}}&nbsp;<abbr title="words per minute">wpm</abbr></h3>
 		{% endif %}

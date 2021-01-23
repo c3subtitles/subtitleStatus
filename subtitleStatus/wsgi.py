@@ -13,17 +13,3 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-
-
-try:
-    import uwsgi
-except ImportError:
-    pass
-else:
-    from uwsgidecorators import timer
-    from django.utils import autoreload
-
-    @timer(3)
-    def autoreload_on_code_change(_):
-        if autoreload.code_changed():
-            uwsgi.reload()

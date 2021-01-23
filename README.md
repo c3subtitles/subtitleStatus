@@ -1,7 +1,7 @@
 subtitleStatus
 ==============
 
-[![Build Status](https://travis-ci.org/mmarx/subtitleStatus.svg?branch=django-upgrade)](https://travis-ci.org/mmarx/subtitleStatus)
+![subtitleStatus Tests](https://github.com/c3subtitles/subtitleStatus/workflows/subtitleStatus%20Tests/badge.svg)
 
 Setting up a minimal local testing environment:
 ```

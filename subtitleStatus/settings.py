@@ -65,7 +65,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'c3subtitles.ext.selfnet.de']
+ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'c3subtitles.ext.selfnet.de', 'dev.c3subtitles.de']
 
 # Redirect after login
 LOGIN_REDIRECT_URL = '/'

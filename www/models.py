@@ -390,7 +390,7 @@ class Transcript (BasisModell):
 
 # Talk with all its data
 class Talk(BasisModell):
-    frab_id_talk = models.CharField(max_length = 20, default = "-1", blank = True)
+    frab_id_talk = models.CharField(max_length = 100, default = "-1", blank = True)
     blacklisted = models.BooleanField(default=False, blank = True)
     day = models.ForeignKey(Event_Days, default = 1, blank = True, on_delete=models.SET_DEFAULT)
     room = models.ForeignKey(Rooms, default = 15, on_delete=models.PROTECT)

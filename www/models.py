@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from time import sleep
 from datetime import datetime, time, timezone, timedelta
 from django.db import models, transaction
 from django.db.models import Sum, Q
@@ -753,7 +754,7 @@ class Talk(BasisModell):
                 while (url != None) and (url != basis_url + "/activity/"):
                     with advisory_lock(amara_api_lock) as acquired:
                         r = requests.get(url, headers = cred.AMARA_HEADER, params = parameters)
-                        time.sleep(amara_api_call_sleep)
+                        sleep(amara_api_call_sleep)
                     #print(r.text)
                     # If amara doesn't reply with a valid json create one.
                     try:
@@ -815,16 +816,16 @@ class Talk(BasisModell):
                 import requests
                 with advisory_lock(amara_api_lock) as acquired:
                     r = requests.get(url, headers = cred.AMARA_HEADER)
-                    time.sleep(amara_api_call_sleep)
+                    sleep(amara_api_call_sleep)
                 counter = 0
                 while True:
                     counter += 5
                     print(r.text)
                     if "Error 429 Too Many Requests" in r.text:
-                        time.sleep(counter)
+                        sleep(counter)
                         with advisory_lock(amara_api_lock) as acquired:
                             r = requests.get(url, headers = cred.AMARA_HEADER)
-                            time.sleep(amara_api_call_sleep)
+                            sleep(amara_api_call_sleep)
                     else:
                         activities = json.loads(r.text)
                         break
@@ -920,9 +921,9 @@ class Talk(BasisModell):
         data_2 = {"is_primary_audio_language": True}
 
         with advisory_lock(amara_api_lock) as acquired:
-            time.sleep(amara_api_call_sleep_fast_functions)
+            sleep(amara_api_call_sleep_fast_functions)
             r_1 = requests.post(url, headers = cred.SHORT_AMARA_HEADER, data = data_1)
-            time.sleep(amara_api_call_sleep_fast_functions)
+            sleep(amara_api_call_sleep_fast_functions)
             url = url + self.orig_language.lang_amara_short + "/"
             r_2 = requests.put(url, headers = cred.SHORT_AMARA_HEADER, data = data_2)
             #print(r_2, r_2.content)
@@ -953,7 +954,7 @@ class Talk(BasisModell):
         print("Parameters: ", parameters)
         print("Subtitles_Text: ", subtitles_text)
         with advisory_lock(amara_api_lock) as acquired:
-            time.sleep(amara_api_call_sleep)
+            sleep(amara_api_call_sleep)
             r = requests.post(url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
 
         if force_amara_update:
@@ -1091,7 +1092,7 @@ class Subtitle(BasisModell):
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
                 r = requests.get(url)
-                time.sleep(amara_api_call_sleep)
+                sleep(amara_api_call_sleep)
         except:
             return None
         srt_file =  r.text
@@ -1132,7 +1133,7 @@ class Subtitle(BasisModell):
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
                 r = requests.get(url)
-                time.sleep(amara_api_call_sleep)
+                sleep(amara_api_call_sleep)
         except:
             return None
         sbv_file =  r.text
@@ -1157,7 +1158,7 @@ class Subtitle(BasisModell):
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
                 r = requests.get(url)
-                time.sleep(amara_api_call_sleep)
+                sleep(amara_api_call_sleep)
         except:
             return None
         srt_file =  r.text

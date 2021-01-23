@@ -1,0 +1,57 @@
+name: subtitleStatus Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.9]
+
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB: test_subtitlestatus
+          POSTGRES_USER: subtitlestatus
+          POSTGRES_PASSWORD: subtitlestatus
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Prepare configuration
+      run: |
+        touch credentials.py
+        echo "TRINT_API_KEY=''" >> credentials.py
+        cat <<EOF > subtitleStatus/subtitleStatus.cfg
+        [sql]
+        type=postgresql
+        host=localhost
+        port=5432
+        database=subtitlestatus
+        user=subtitlestatus
+        password=subtitlestatus
+        EOF
+    - name: Test with django
+      run: |
+        python manage.py test --keepdb

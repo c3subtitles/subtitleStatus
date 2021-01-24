@@ -105,7 +105,7 @@ class TalkAdmin(admin.ModelAdmin):
     actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'day', 'start', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
+                    'event', 'room', 'day', 'start', 'blacklisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
     list_filter = ('event', DayIndexFilter, 'recalculate_talk_statistics', 'blacklisted',)
     search_fields = ('title', 'event__acronym', 'frab_id_talk',)
     ordering = ('-event', 'date',)

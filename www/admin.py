@@ -47,6 +47,11 @@ class DayIndexFilter(admin.SimpleListFilter):
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
 
+    def video_duration_formated(self, obj):
+        return obj.video_duration.strftime("%H:%M:%S h")
+    video_duration_formated.short_description = "Video Duration"
+
+
     def get_trint_transcript_via_email(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
         import threading
@@ -56,7 +61,6 @@ class TalkAdmin(admin.ModelAdmin):
             #thread.start()
             talk.get_trint_transcript_and_send_via_email()
     get_trint_transcript_via_email.short_description = '[Do not yet use] Trint: Get a trint transcript via email (click only ONCE)'
-
 
     def create_amara_key(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
@@ -101,7 +105,7 @@ class TalkAdmin(admin.ModelAdmin):
     actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'day', 'start', 'transcript_by', 'recalculate_talk_statistics',)
+                    'event', 'day', 'start', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
     list_filter = ('event', DayIndexFilter, 'recalculate_talk_statistics', 'blacklisted',)
     search_fields = ('title', 'event__acronym', 'frab_id_talk',)
     ordering = ('-event', 'date',)
@@ -110,8 +114,15 @@ class TalkAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     date_hierarchy = 'start'
-    list_display = ('acronym', 'title', 'start', 'days', 'city', 'building',)
+    list_display = ('id', 'acronym', 'title', 'start', 'days', 'city', 'building',)
     list_filter = ('city',)
+
+
+@admin.register(Event_Days)
+class EventDaysAdmin(admin.ModelAdmin):
+    date_hierarchy = 'date'
+    list_display = ('id', 'event', 'index', 'date', 'day_start', 'day_end', )
+    list_filter = ('index', 'event__acronym',)
 
 
 class LanguageFilter(admin.SimpleListFilter):
@@ -325,18 +336,34 @@ class SpeakerAdmin(admin.ModelAdmin):
     list_display = ('id', 'frab_id', 'name', 'abstract', 'description', 'doppelgaenger_of',)
 
 
+@admin.register(Type_of)
+class TypeofAdmin(admin.ModelAdmin):
+    list_display = ('id', 'type',)
 
 
-admin.site.register(Tracks)
+@admin.register(Transcript)
+class TranscriptAdmin(admin.ModelAdmin):
+    list_display = ('id', 'creator',)
+
+
+@admin.register(Tracks)
+class TracksAdmin(admin.ModelAdmin):
+    list_display = ('id', 'track',)
+
+
+@admin.register(Rooms)
+class RoomsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'room', 'building', )
+
+#admin.site.register(Tracks)
 #admin.site.register(Links)
-admin.site.register(Type_of)
+#admin.site.register(Type_of)
 #admin.site.register(Speaker)
-admin.site.register(Event_Days)
-admin.site.register(Rooms)
+#admin.site.register(Event_Days)
+#admin.site.register(Rooms)
 #admin.site.register(Language)
 #admin.site.register(Statistics_Raw_Data)
 admin.site.register(Statistics_Speaker)
 admin.site.register(Statistics_Event)
-admin.site.register(Transcript)
+#admin.site.register(Transcript)
 #admin.site.register(Talk_Persons)
-#admin.site.register(Event_Days)

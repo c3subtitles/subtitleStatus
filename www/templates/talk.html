@@ -252,10 +252,8 @@
                     <span style="margin-left: 1em;">Last revision:
                     {% if sub.last_changed_on_amara.date != datetime_min.date %}
                         {{ sub.last_changed_on_amara|timesince }} ago
-                    {% elif sub.state_id == 2 or sub.state_id == 4 %}
-                        {{ sub.touched|timesince}} ago
                     {% else %}
-                        unknown
+                        {{ sub.touched|timesince}} ago
                     {% endif %}
                     </span>
             {%if sub.form.quick_btn %}

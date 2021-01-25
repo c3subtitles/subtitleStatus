@@ -220,7 +220,7 @@
 <div>
     {% if show_etherpad and talk.link_to_writable_pad != "" and talk.has_original_subtitle_in_transcript_state  %}
         <div class="alert alert-info" role="alert">
-            <strong>This talk has a pad for the transcript, please use this instead of the amara editor:</strong> <a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a> <br /> <strong>Shortcut to the video files:</strong> {% if talk.link_to_video_file %}<a href="{{ talk.link_to_video_file }}" target="_blank">CDN Video Link</a>{% endif %} {% if talk.link_to_video_file %}<strong>or</strong> <a href="{{ talk.primary_amara_video_link }}" target="_blank">YouTube Video Link</a>{% endif %} <strong>use this with</strong> <a href="https://otranscribe.com" target="_blank">otranscribe.com</a>
+            <strong>This talk has a pad for the transcript, please use this instead of the amara editor:</strong> <a href="{{ talk.link_to_writable_pad }}" target="_blank">Etherpad</a> <br /> <strong>Shortcut to the video files:</strong> {% if talk.link_to_video_file %}<a href="{{ talk.link_to_video_file }}" target="_blank">CDN Video Link</a>{% endif %} {% if talk.primary_amara_video_link %}{% if talk.link_to_video_file and talk.primary_amara_video_link %}<strong>or</strong>{% endif %} <a href="{{ talk.primary_amara_video_link }}" target="_blank">YouTube Video Link</a>{% endif %} <strong>use this with</strong> <a href="https://otranscribe.com" target="_blank">otranscribe.com</a>
         </div>
     {% endif %}
     {% comment %}

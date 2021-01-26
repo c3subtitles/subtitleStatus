@@ -176,6 +176,7 @@ for any in my_subtitles:
     #s.quit()
 
     # Reset Flag
+    any.refresh_from_db()
     any.needs_automatic_syncing = False
     any.save()
 

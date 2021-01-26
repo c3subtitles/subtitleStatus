@@ -4,12 +4,12 @@
 #==============================================================================
 # This script checks for every talk with an amara key if there were any
 # "activities" since the last check
-# If there was an activity it triggerts the "big" amara update
+# If there was an activity it triggers the "big" amara update
 #
 # If a talk didn't have a big amara update during the last 24h it forces also
 # a big update for this talk to avoid missing a complete flag which can
 # unfortunately be set without a change of revision which means the talk has
-# no acitivity in the activity check
+# no activity in the activity check
 #
 # This script is meant to be run as a cronjob
 #==============================================================================

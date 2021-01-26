@@ -48,6 +48,7 @@ for s in my_subtitles:
     # Only tweet it the file is on the mirror
     if request.status_code == 200:
         tweets.tweet_subtitles_update_mirror(s.id)
+        s.refresh_from_db()
         s.tweet = False
         s.save()
     else:
@@ -57,5 +58,6 @@ for s in my_subtitles:
 my_subtitles = Subtitle.objects.filter(state_id = 7, tweet_autosync_done = True)
 for s in my_subtitles:
     tweets.tweet_subtitle_needs_quality_control(s.id)
+    s.refresh_from_db()
     s.tweet_autosync_done = False
     s.save()

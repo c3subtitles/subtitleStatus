@@ -16,6 +16,8 @@ This template is used in the events pages to display single talks in event.html
         {% for speaker in talk.persons.all %}
         <dd>{{speaker.name}}</dd>
         {% endfor %}
+        <dt>Track</dt>
+        <dd>{{talk.track}}</dd>
     </dl>
     {% if talk.subtitles.count > 0 %}
         <table style="width: 100%;">

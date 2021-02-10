@@ -3,7 +3,7 @@ cachetools==4.0.0
 certifi==2019.11.28
 cffi==1.13.2
 chardet==3.0.4
-cryptography==3.3.1
+cryptography==3.3.2
 Django==2.2.17
 django-account==0.1.14
 django-bootstrap-form==3.4

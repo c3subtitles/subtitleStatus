@@ -42,7 +42,100 @@ class DayIndexFilter(admin.SimpleListFilter):
         else:
             return queryset
 
+class HasVideoLinkFilter(admin.SimpleListFilter):
+    title = 'Has link to video file'
+    parameter_name = 'link_to_video_file'
 
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(link_to_video_file = "")
+        elif ans == "yes":
+            return queryset.all().exclude(link_to_video_file = "")
+        else:
+            return queryset
+
+class HasAmaraKeyFilter(admin.SimpleListFilter):
+    title = 'Has amara key'
+    parameter_name = 'amara_key'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(amara_key = "")
+        elif ans == "yes":
+            return queryset.all().exclude(amara_key = "")
+        else:
+            return queryset
+
+class HasFilenameFilter(admin.SimpleListFilter):
+    title = 'Has filename'
+    parameter_name = 'filename'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(filename = "")
+        elif ans == "yes":
+            return queryset.all().exclude(filename = "")
+        else:
+            return queryset
+
+class HasVideoDurationFilter(admin.SimpleListFilter):
+    title = 'Has video duration'
+    parameter_name = 'video_duration'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(video_duration__hour=0, video_duration__minute=0, video_duration__second=0)
+        elif ans == "yes":
+            return queryset.all().exclude(video_duration__hour=0, video_duration__minute=0, video_duration__second=0)
+        else:
+            return queryset
+
+class HasC3SubtitlesYTKeyFilter(admin.SimpleListFilter):
+    title = 'Has c3subtitles YT key'
+    parameter_name = 'c3subtitles_youtube_key'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(c3subtitles_youtube_key = "")
+        elif ans == "yes":
+            return queryset.all().exclude(c3subtitles_youtube_key = "")
+        else:
+            return queryset
 
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
@@ -106,7 +199,7 @@ class TalkAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'room', 'day', 'start', 'blacklisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
-    list_filter = ('event', DayIndexFilter, 'recalculate_talk_statistics', 'blacklisted',)
+    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'blacklisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by')
     search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id')
     ordering = ('-event', 'date',)
 

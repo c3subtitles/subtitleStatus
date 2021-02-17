@@ -107,7 +107,7 @@ class TalkAdmin(admin.ModelAdmin):
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'room', 'day', 'start', 'blacklisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
     list_filter = ('event', DayIndexFilter, 'recalculate_talk_statistics', 'blacklisted',)
-    search_fields = ('title', 'event__acronym', 'frab_id_talk',)
+    search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id')
     ordering = ('-event', 'date',)
 
 
@@ -272,7 +272,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
                    'state', 'complete', 'blacklisted',)
     raw_id_fields = ('talk',)
-    search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk',)
+    search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk')
 
 
 @admin.register(States)

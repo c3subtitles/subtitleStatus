@@ -1081,7 +1081,7 @@ class Subtitle(BasisModell):
             return None
 
     # Return the transcript file with amara fails fixed
-    def as_transcript(self, save = False):
+    def as_transcript(self, save = False, without_line_breaks = False):
         import re
         import requests
         # Create the url for the srt File
@@ -1121,6 +1121,10 @@ class Subtitle(BasisModell):
             file = open(folder+filename,mode = "w",encoding = "utf-8")
             file.write(transcript)
             file.close()
+        if without_line_breaks:
+            transcript = re.sub("\n", " ", transcript)
+            transcript = re.sub("  ", " ", transcript)
+            transcript = re.sub("  ", " ", transcript)
         return transcript
 
     # Return the sbv_file with fixes (no fixes necessary, but "*" get lost)

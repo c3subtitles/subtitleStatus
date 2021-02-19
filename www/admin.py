@@ -338,6 +338,7 @@ class SubtitleAdmin(admin.ModelAdmin):
                 subt.blocked = False
                 subt.state_id = 7 # Quality control done until
                 subt.tweet_autosync_done = True
+                subt.draft_needs_sync_to_sync_folder = True # Release the draft
                 subt.save()
                 # Let the related statistics be calculated
                 subt.talk.reset_related_statistics_data()

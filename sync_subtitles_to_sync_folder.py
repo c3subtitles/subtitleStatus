@@ -85,7 +85,7 @@ for s in my_subtitles:
     s.sync_subtitle_draft_to_sync_folder()
     
     # Add text to email body
-    email_text_added_draft_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt() + "\n"
+    email_text_added_draft_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt(draft=True) + "\n"
 
 
 # Removing the draft-files
@@ -94,7 +94,7 @@ for s in my_subtitles:
     s.remove_subtitle_from_sync_folder()
 
     # Add text to email body
-    email_text_removed_draft_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt() + "\n"
+    email_text_removed_draft_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt(draft=True) + "\n"
 
 
 # Building the email

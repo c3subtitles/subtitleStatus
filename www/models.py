@@ -860,6 +860,9 @@ class Talk(BasisModell):
                                 # and is in a state which has already statistics, also recalculate them
                                 if my_subtitle.is_original_lang and my_subtitle.state_id == (5 or 6 or 7):
                                     self.reset_related_statistics_data()
+                                # Release a new draft if the subtitle is in state quality control
+                                if my_subtitle.state_id == 7:
+                                    my_subtitle.draft_needs_sync_to_sync_folder = True
                             # If the subtitle was not complete but is complete now
                             elif not my_subtitle.complete and amara_subt_is_complete:
                                 my_subtitle.complete = amara_subt_is_complete
@@ -870,6 +873,8 @@ class Talk(BasisModell):
                                 # If the talk also is in the original language, recalculate statistics
                                 if my_subtitle.is_original_lang:
                                     my_subtitle.talk.reset_related_statistics_data()
+                                    # Remove the draft (translations don't have a draft)
+                                    my_subtitle.draft_needs_removal_from_sync_folder = True
                                 my_subtitle.save()
                             # If the subtitle was complete and is still complete
                             elif my_subtitle.complete and amara_subt_is_complete:
@@ -895,6 +900,7 @@ class Talk(BasisModell):
                         elif my_subtitle.complete and not amara_subt_is_complete:
                             my_subtitle.set_complete()
                             if my_subtitle.is_original_lang:
+                                my_subtitle.draft_needs_removal_from_sync_folder = True
                                 my_subtitle.talk.reset_related_statistics_data()
                         # Set the right state if the default is still active on "1"
                         if my_subtitle.state_id == 1 and my_subtitle.is_original_lang:
@@ -1062,9 +1068,12 @@ class Subtitle(BasisModell):
         return self.language.lang_short_srt
 
     # Get the filename for the fileservers
-    def get_filename_srt(self):
+    def get_filename_srt(self, draft = False):
         if self.talk.filename != "":
-            filename = self.talk.filename + "." + self.language.lang_short_srt + ".srt"
+            if draft:
+                filename = self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT.srt"
+            else:
+                filename = self.talk.filename + "." + self.language.lang_short_srt + ".srt"
             return filename
         else:
             return None
@@ -1151,7 +1160,7 @@ class Subtitle(BasisModell):
         return sbv_file
 
     # Return the srt_file with fixes
-    def as_srt(self, save = False):
+    def as_srt(self, save = False, with_draft_disclaimer = False):
         import re
         import requests
         # Create the url for the srt File
@@ -1170,6 +1179,16 @@ class Subtitle(BasisModell):
         srt_file = re.sub("<i>", "*", srt_file)
         srt_file = re.sub("</i>", "*", srt_file)
         srt_file = re.sub("&amp;", "&", srt_file)
+        if with_draft_disclaimer:
+            disclaimer = "0\n00:00:00,000 --> 00:00:30,000\n"
+            if self.talk.orig_language.lang_short_srt == "de":
+                disclaimer += "Dieser Untertitel ist noch nicht fertig. Wenn du kannst, bitte unterstütze uns hier\n"
+                disclaimer += "und schau den Talk in Amara an für die letzten Korrekturen: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!"
+            else:
+                disclaimer += "This subtitle is not finished yet. If you are able to please support us here\n"
+                disclaimer += "and watch the talk in amara for the last changes: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Thanks!"
+            disclaimer += "\n\n"
+            srt_file = disclaimer + srt_file
         if save:
             filename = self.talk.slug+"." + self.language.lang_amara_short + ".srt"
             folder = "./downloads/subtitle_srt_files/"
@@ -1201,6 +1220,28 @@ class Subtitle(BasisModell):
         else:
             return False
 
+    # Saves Subtitles Files to the sync folder
+    def sync_subtitle_draft_to_sync_folder(self, force = False):
+        # Sync the subtitle if it is not blacklisted and the sync flag is true of when it is forced
+        if (not self.blacklisted and self.draft_needs_sync_to_sync_folder) or force:
+            import shutil
+            # Download the subtitle as srt file
+            self.as_srt(save = True, with_draft_disclaimer = True)
+            # Copy the subtitle to the right folder
+            file_from = "/opt/subtitleStatus/downloads/subtitle_srt_files/" + self.talk.slug + "." + self.language.lang_amara_short + ".srt"
+            file_to = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt(draft=True)
+            try:
+                shutil.copy2(file_from, file_to)
+            except:
+                print("Exception")
+                return False
+            # Remove the sync flag and save
+            self.draft_needs_sync_to_sync_folder = False
+            self.save()
+            return True
+        else:
+            return False
+
     # Removes Subtitles Files from the sync folder
     def remove_subtitle_from_sync_folder(self, force = False):
         if self.needs_removal_from_sync_folder or force:
@@ -1212,13 +1253,25 @@ class Subtitle(BasisModell):
                 pass
             self.needs_removal_from_sync_folder = False
             self.save()
+        if self.draft_needs_removal_from_sync_folder or force:
+            file_name = "/opt/subtitleStatus/subtitles_sync_folder/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt(draft=True)
+            import os
+            try:
+                os.remove(file_name)
+            except:
+                pass
+            self.draft_needs_removal_from_sync_folder = False
+            self.save()
 
     # Set all flags for a sync to cdn, media frontend, YT ...
-    def set_all_sync_flags(self, save = False):
+    def set_all_sync_flags(self, save = False, draft = False):
         #self.needs_sync_to_ftp = True
         #self.needs_sync_to_media = True
         #self.needs_sync_to_YT = True
-        self.needs_sync_to_sync_folder = True
+        if draft:
+            self.draft_needs_sync_to_sync_folder = True
+        else:
+            self.needs_sync_to_sync_folder = True
         if save:
             self.save()
 
@@ -1227,6 +1280,7 @@ class Subtitle(BasisModell):
         #self.needs_removal_from_ftp = True
         #self.needs_removal_from_media = True
         #self.needs_removal_from_YT = True
+        self.draft_needs_removal_from_sync_folder = True
         self.needs_removal_from_sync_folder = True
         if save:
             self.save()
@@ -1238,6 +1292,7 @@ class Subtitle(BasisModell):
             self.time_processed_transcribing = self.talk.video_duration
             self.time_processed_syncing = self.talk.video_duration
             self.time_quality_check_done = self.talk.video_duration
+            self.draft_needs_removal_from_sync_folder = True # Delete the draft
             self.state_id = 8
             # Let the related statistics data be recalculated
             self.talk.reset_related_statistics_data()
@@ -1263,6 +1318,7 @@ class Subtitle(BasisModell):
             self.state_id = 2
             # Hard reset for the related statistics data
             self.talk.reset_related_statistics_data(True)
+            self.draft_needs_removal_from_sync_folder = True
         else:
             self.state_id = 11
         self.set_all_removal_flags()

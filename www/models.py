@@ -1185,7 +1185,7 @@ class Subtitle(BasisModell):
                 disclaimer += "Dieser Untertitel ist noch nicht fertig. Wenn du kannst, bitte unterstütze uns hier\n"
                 disclaimer += "und schau den Talk in Amara an für die letzten Korrekturen: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!"
             else:
-                disclaimer += "This subtitle is not finished yet. If you are able to please support us here\n"
+                disclaimer += "This subtitle is not finished yet. If you are able to, please support us\n"
                 disclaimer += "and watch the talk in amara for the last changes: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Thanks!"
             disclaimer += "\n\n"
             srt_file = disclaimer + srt_file

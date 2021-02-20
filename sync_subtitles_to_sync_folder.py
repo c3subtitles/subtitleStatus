@@ -50,6 +50,7 @@ email_text_added_subtitles = "Added subtitle files:\n"
 email_text_removed_subtitles = "Removed subtitle files:\n"
 email_text_added_draft_subtitles = "Added subtitle draft files:\n"
 email_text_removed_draft_subtitles = "Removed subtitle draft files:\n"
+
 # Get all subtitles with flag "needs_sync_to_sync_folder"
 my_subtitles = Subtitle.objects.filter(needs_sync_to_sync_folder = True)
 
@@ -107,7 +108,7 @@ msg["Subject"] = "Synced or removed srt files from sync folder"
 msg["From"] = FROM
 msg["To"] = TO
 # Only send an email if something has changed
-if email_text_added_subtitles != "Added subtitle files:\n" or email_text_removed_subtitles != "Removed subtitle files:\n":
+if email_text_added_subtitles != "Added subtitle files:\n" or email_text_removed_subtitles != "Removed subtitle files:\n" or email_text_added_draft_subtitles != "Added subtitle draft files:\n" or email_text_removed_draft_subtitles != "Removed subtitle draft files:\n":
     text = MIMEText(email_text_added_subtitles+"\n\n"+email_text_removed_subtitles + "\n\n" + email_text_added_draft_subtitles + "\n\n"+ email_text_removed_draft_subtitles, "plain")
     msg.attach(text)
     try:

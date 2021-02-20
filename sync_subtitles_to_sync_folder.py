@@ -78,6 +78,8 @@ for s in my_subtitles:
     # Add text to email body
     email_text_removed_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt() + "\n"
 
+# Get all subtitles with flag "draft_needs_sync_to_sync_folder"
+my_subtitles = Subtitle.objects.filter(draft_needs_sync_to_sync_folder = True).select_related("talk")
 
 # Syncing the draft-files
 my_subtitles = Subtitle.objects.filter(draft_needs_sync_to_sync_folder = True).select_related("talk")
@@ -87,6 +89,8 @@ for s in my_subtitles:
     # Add text to email body
     email_text_added_draft_subtitles += s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt(draft=True) + "\n"
 
+# Get all subtitles with flag "draft_needs_removal_from_sync_folder"
+my_subtitles = Subtitle.objects.filter(draft_needs_removal_from_sync_folder = True).select_related("talk")
 
 # Removing the draft-files
 my_subtitles = Subtitle.objects.filter(draft_needs_removal_from_sync_folder = True).select_related("talk")

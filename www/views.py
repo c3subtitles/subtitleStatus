@@ -507,12 +507,12 @@ def media_export(request, timestamp, *argh, **kwargs):
 
     # Get all subtitles datasets if no date was given
     if data == None:
-        my_subtitles = Subtitle.objects.all().exclude(revision=0).order_by("last_changed_on_amara")
+        my_subtitles = Subtitle.objects.all().exclude(revision=0).order_by("-touched")
         #my_subtitles = Subtitle.objects.all().exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
     elif data != None:
         # Make data timezone aware, else the filter will fail
         data = data.replace(tzinfo=timezone.utc)
-        my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).order_by("last_changed_on_amara")
+        my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).order_by("-touched")
         #my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
 
     counter = my_subtitles.count()
@@ -520,13 +520,13 @@ def media_export(request, timestamp, *argh, **kwargs):
     activity_data = {}
 
     csv_output = ""
-    csv_output += ("GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;touched;amara_key;amara_language;state;amara_subtitle_url;released_as_draft\n")
+    csv_output += ("touched;GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;amara_key;amara_language;state;released_as_draft;c3subtitles_url\n")
     for any in my_subtitles:
         # If the Subtitle is in quality control state and a draft is released
         if any.state_id == 7:
-            csv_output += any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=True) +";"+any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+"https://amara.org/api/videos/"+any.talk.amara_key+"/languages/"+any.language.lang_amara_short +"/subtitles/"+ ";" + str(True) + "\n"
+            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=True) +";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+ str(True) + ";https://c3subtitles.de/talk/" + str(any.talk.id) + "\n"
         else:
-            csv_output += any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=False)+";"+any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+"https://amara.org/api/videos/"+any.talk.amara_key+"/languages/"+any.language.lang_amara_short +"/subtitles/"+ ";" + str(False) + "\n"
+            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=False)+";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+ str(False) + ";https://c3subtitles.de/talk/" + str(any.talk.id) + "\n"
 
     #return render(request, 'www/b_test.html', {"data":data})
     #return render(request, "www/raw_csv.html", {"data":csv_output})

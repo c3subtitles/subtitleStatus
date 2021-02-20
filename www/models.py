@@ -1071,7 +1071,7 @@ class Subtitle(BasisModell):
     def get_filename_srt(self, draft = False):
         if self.talk.filename != "":
             if draft:
-                filename = self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT.srt"
+                filename = "DRAFT_" + self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT.srt"
             else:
                 filename = self.talk.filename + "." + self.language.lang_short_srt + ".srt"
             return filename
@@ -1082,7 +1082,7 @@ class Subtitle(BasisModell):
     def get_filename(self, draft = False, format = "srt"):
         if self.talk.filename != "":
             if draft:
-                filename = self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT." + format
+                filename = "DRAFT_" + self.talk.filename + "." + self.language.lang_short_srt + "_DRAFT." + format
             else:
                 filename = self.talk.filename + "." + self.language.lang_short_srt + "." + format
             return filename

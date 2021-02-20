@@ -1182,11 +1182,11 @@ class Subtitle(BasisModell):
         if with_draft_disclaimer:
             disclaimer = "0\n00:00:00,000 --> 00:00:30,000\n"
             if self.talk.orig_language.lang_short_srt == "de":
-                disclaimer += "Dieser Untertitel ist noch nicht fertig. Wenn du kannst, bitte unterstütze uns hier\n"
-                disclaimer += "und schau den Talk in Amara an für die letzten Korrekturen: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!"
+                disclaimer += "Dieser Untertitel ist noch nicht fertig.\nWenn du kannst, bitte unterstütze uns hier\n"
+                disclaimer += "und schau den Talk in Amara an für die\nletzten Korrekturen:\n" + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!"
             else:
-                disclaimer += "This subtitle is not finished yet. If you are able to, please support us\n"
-                disclaimer += "and watch the talk in amara for the last changes: " + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Thanks!"
+                disclaimer += "This subtitle is not finished yet. If you\nare able to, please support us and watch\n"
+                disclaimer += "the talk in amara for the last changes:\n" + "https://c3subtitles.de/talk/" + str(self.talk.id) + " Thanks!"
             disclaimer += "\n\n"
             srt_file = disclaimer + srt_file
         if save:

@@ -158,6 +158,11 @@ def talk(request, id):
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
+        # Get or create the filenames also for draft subtitles
+        if s.state_id == 7:
+            s.filename = s.get_filename_srt(draft=True)
+        else:
+            s.filename = s.get_filename_srt(draft=False)
 
     speakers_in_talk_statistics = Talk_Persons.objects.filter(talk = my_talk)
 

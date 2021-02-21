@@ -507,12 +507,12 @@ def media_export(request, timestamp, *argh, **kwargs):
 
     # Get all subtitles datasets if no date was given
     if data == None:
-        my_subtitles = Subtitle.objects.all().exclude(revision=0).order_by("-touched")
+        my_subtitles = Subtitle.objects.all().exclude(revision=0).order_by("touched")
         #my_subtitles = Subtitle.objects.all().exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
     elif data != None:
         # Make data timezone aware, else the filter will fail
         data = data.replace(tzinfo=timezone.utc)
-        my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).order_by("-touched")
+        my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).order_by("touched")
         #my_subtitles = Subtitle.objects.filter(touched__gt = data).exclude(revision=0).exclude(revision=1).order_by("last_changed_on_amara")
 
     counter = my_subtitles.count()

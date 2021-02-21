@@ -520,13 +520,46 @@ def media_export(request, timestamp, *argh, **kwargs):
     activity_data = {}
 
     csv_output = ""
-    csv_output += ("touched;GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;amara_key;amara_language;state;released_as_draft;c3subtitles_url\n")
+    csv_output += "touched;GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;amara_key;amara_language;state;released_as_draft;c3subtitles_url\n"
+
     for any in my_subtitles:
         # If the Subtitle is in quality control state and a draft is released
         if any.state_id == 7:
-            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=True) +";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+ str(True) + ";https://c3subtitles.de/talk/" + str(any.talk.id) + "\n"
+            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +any.talk.guid+";"\
+                +str(any.complete)+";"\
+                +any.language.lang_code_media+";"\
+                +any.language.lang_short_srt+";"\
+                +any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +str(any.revision)\
+                +";https://mirror.selfnet.de/c3subtitles/"\
+                +any.talk.event.subfolder_in_sync_folder + "/"\
+                +any.get_filename_srt(draft=True) +";"\
+                +any.talk.amara_key+";"\
+                +any.language.lang_amara_short+";"
+                +str(any.state_id)+";"\
+                +str(True) \
+                +";https://c3subtitles.de/talk/"\
+                +str(any.talk.id)\
+                +"\n"
         else:
-            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+any.talk.guid+";"+str(any.complete)+";"+any.language.lang_code_media+";"+any.language.lang_short_srt+";"+any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"+str(any.revision)+";https://mirror.selfnet.de/c3subtitles/"+any.talk.event.subfolder_in_sync_folder+ "/" + any.get_filename_srt(draft=False)+";"+any.talk.amara_key+";"+any.language.lang_amara_short+";"+str(any.state_id)+";"+ str(False) + ";https://c3subtitles.de/talk/" + str(any.talk.id) + "\n"
+            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +any.talk.guid+";"\
+                +str(any.complete)+";"\
+                +any.language.lang_code_media+";"\
+                +any.language.lang_short_srt+";"\
+                +any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +str(any.revision)\
+                +";https://mirror.selfnet.de/c3subtitles/"\
+                +any.talk.event.subfolder_in_sync_folder+ "/" \
+                +any.get_filename_srt(draft=False)+";"\
+                +any.talk.amara_key+";"\
+                +any.language.lang_amara_short+";"\
+                +str(any.state_id)+";"\
+                + str(False)\
+                +";https://c3subtitles.de/talk/"\
+                +str(any.talk.id)\
+                + "\n"
 
     #return render(request, 'www/b_test.html', {"data":data})
     #return render(request, "www/raw_csv.html", {"data":csv_output})

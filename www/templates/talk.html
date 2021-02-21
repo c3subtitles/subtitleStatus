@@ -180,14 +180,18 @@
                     {% comment %}
                       Spaghetti-Code because works!
                     {% endcomment %}
-                        <a href="https://amara.org/videos/{{ talk.amara_key }}/" target="_blank" >
-                        {% if sub.complete%}
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Work on {{talk.orig_language.display_name}} on Amara"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" aria-label="Work on {{talk.orig_language.display_name}} on Amara"></span>
+                        {% if not sub.transcription_in_progress %}
+                            <a href="https://amara.org/videos/{{ talk.amara_key }}/{{sub.language.lang_amara_short}}" target="_blank" >
                         {% endif %}
-                        <span style="margin-left: 5px;">{{ sub.language.display_name }}</span>
-                        </a>
+                            {% if sub.complete%}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Work on {{talk.orig_language.display_name}} on Amara"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true" aria-label="Work on {{talk.orig_language.display_name}} on Amara"></span>
+                            {% endif %}
+                            <span style="margin-left: 5px;">{{ sub.language.display_name }}</span>
+                        {% if not sub.transcription_in_progress %}
+                            </a>
+                        {% endif %}
                     </div><!-- End col-md-1 -->
                     <div class="col-md-4">
                         {{ sub|progress_bar }}
@@ -250,33 +254,39 @@
     {% endif %}
     {% for sub in subtitles %}
         {% if sub.blocked %}
-        <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  <strong>{{ sub.language.display_name }}:</strong> Not available right now. Probably autosync in progress, please come back later!</div>
+            <div class="alert alert-info" role="alert" id="{{ sub.language.lang_code_media }}"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  <strong>{{ sub.language.display_name }}:</strong> Not available right now. Probably autosync in progress, please come back later!</div>
         {% elif sub.form.visible_fields != NULL %}
-        <form class="form" id="form_{{ sub.pk }}" action="/subtitle/{{sub.pk}}/" method="POST">
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <p>{{ sub.language.display_name }}: {{ sub.state }}</p>
-            </div>
-            <div class="panel-body">
-            {{ sub.form|bootstrap }}
-            {% csrf_token %}
-            <input class="btn btn-success"  type="submit" value="Save">
-                    <span style="margin-left: 1em;">Last revision:
-                    {% if sub.last_changed_on_amara.date != datetime_min.date %}
-                        {{ sub.last_changed_on_amara|timesince }} ago
-                    {% else %}
-                        {{ sub.touched|timesince}} ago
-                    {% endif %}
-                    </span>
-            {%if sub.form.quick_btn %}
-            <input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
+            <form class="form" id="form_{{ sub.pk }}" action="/subtitle/{{sub.pk}}/" method="POST">
+            <div class="panel panel-warning">
+            {% if sub.transcription_in_progress %}
+                <div class="panel-heading" id="{{ sub.language.lang_code_media }}">
+                    <p>{{ sub.language.display_name }}: {{ sub.state }}</p>
+                </div>
+            {% else %}
+                <div class="panel-heading" id="{{ sub.language.lang_code_media }}">
+                    <p><a href="https://amara.org/videos/{{ talk.amara_key }}/{{sub.language.lang_amara_short}}" target="_blank" >{{ sub.language.display_name }}:</a> {{ sub.state }}</p>
+                </div>
             {% endif %}
+                <div class="panel-body">
+                {{ sub.form|bootstrap }}
+                {% csrf_token %}
+                <input class="btn btn-success"  type="submit" value="Save">
+                        <span style="margin-left: 1em;">Last revision:
+                        {% if sub.last_changed_on_amara.date != datetime_min.date %}
+                            {{ sub.last_changed_on_amara|timesince }} ago
+                        {% else %}
+                            {{ sub.touched|timesince}} ago
+                        {% endif %}
+                        </span>
+                {%if sub.form.quick_btn %}
+                <input class="btn btn-default btn-save" type="button" data-toggle="modal" data-target="#accept_{{ sub.pk }}"  value="{{sub.form.quick_btn}}">
+                {% endif %}
+                </div>
             </div>
-        </div>
-        </form>
+            </form>
         {% else %}
-        <div class="alert alert-success" role="alert">
-            <p>{{ sub.language.display_name }}: Finished</p>
+        <div class="alert alert-success" role="alert" id="{{ sub.language.lang_code_media }}">
+            <p><a href="https://amara.org/videos/{{ talk.amara_key }}/{{sub.language.lang_amara_short}}" target="_blank" >{{ sub.language.display_name }}:</a> Finished</p>
         </div>
     {% endif %}
     {% endfor %}

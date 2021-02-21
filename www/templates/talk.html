@@ -195,12 +195,17 @@
                     <div class="col-md-4">
                     {% if sub.complete and not sub.blacklisted %}
                         <a href="https://mirror.selfnet.de/c3subtitles/{{sub.talk.event.subfolder_in_sync_folder}}/{{sub.talk.filename}}.{{sub.language.lang_short_srt}}.srt" target="_blank" >
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Subtitles"></span>
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Subtitles from Selfnet mirror"></span>
+                        </a>&nbsp;&nbsp;
+                        <a href="https://ftp.agdsn.de/pub/mirrors/c3subtitles/{{sub.talk.event.subfolder_in_sync_folder}}/{{sub.talk.filename}}.{{sub.language.lang_short_srt}}.srt" target="_blank" >
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Subtitles from AGDSN mirror"></span>
                         </a>
                     {% elif sub.state_id == 7 and not sub.blacklisted %}
                         <a href="https://mirror.selfnet.de/c3subtitles/{{sub.talk.event.subfolder_in_sync_folder}}/{{ sub.filename }}" target="_blank" >
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Draft Subtitles"></span>
-                        </a>
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Draft Subtitles from Selfnet mirror"></span>
+                        </a>&nbsp;&nbsp;
+                        <a href="https://ftp.agdsn.de/pub/mirrors/c3subtitles/{{sub.talk.event.subfolder_in_sync_folder}}/{{ sub.filename }}" target="_blank" >
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true" aria-label="Download Draft Subtitles from AGDSN mirror"></span>
                     {% endif %}
                     </div><!-- End col-md-4 -->
                 </div>

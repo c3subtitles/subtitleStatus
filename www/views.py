@@ -536,9 +536,9 @@ def media_export(request, timestamp, *argh, **kwargs):
                 +any.talk.event.subfolder_in_sync_folder + "/"\
                 +any.get_filename_srt(draft=True) +";"\
                 +any.talk.amara_key+";"\
-                +any.language.lang_amara_short+";"
+                +any.language.lang_amara_short+";"\
                 +str(any.state_id)+";"\
-                +str(True) \
+                +str(True)\
                 +";https://c3subtitles.de/talk/"\
                 +str(any.talk.id)\
                 +"\n"

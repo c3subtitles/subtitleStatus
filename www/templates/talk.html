@@ -273,7 +273,11 @@
                 <input class="btn btn-success"  type="submit" value="Save">
                         <span style="margin-left: 1em;">Last revision:
                         {% if sub.last_changed_on_amara.date != datetime_min.date %}
-                            {{ sub.last_changed_on_amara|timesince }} ago
+                            {% if sub.last_changed_on_amara >= sub.touched %}
+                                {{ sub.last_changed_on_amara|timesince }} ago
+                            {% else %}
+                                {{ sub.touched|timesince}} ago
+                            {% endif %}
                         {% else %}
                             {{ sub.touched|timesince}} ago
                         {% endif %}

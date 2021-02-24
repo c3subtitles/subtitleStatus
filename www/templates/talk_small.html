@@ -30,7 +30,11 @@ This template is used in the events pages to display single talks in event.html
                     <th></th>
                     <td>Last revision:
                         {% if subtitle.last_changed_on_amara.date != datetime_min.date %}
-                            {{ subtitle.last_changed_on_amara|timesince }} ago
+                            {% if subtitle.last_changed_on_amara >= subtitle.touched %}
+                                {{ subtitle.last_changed_on_amara|timesince }} ago
+                            {% else %}
+                                {{ subtitle.touched|timesince}} ago
+                            {% endif %}
                         {% else %}
                             {{ subtitle.touched|timesince}} ago
                         {% endif %}

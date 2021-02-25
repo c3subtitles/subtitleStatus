@@ -863,6 +863,7 @@ class Talk(BasisModell):
                                 # Release a new draft if the subtitle is in state quality control
                                 if my_subtitle.state_id == 7:
                                     my_subtitle.draft_needs_sync_to_sync_folder = True
+                                my_subtitle.save()
                             # If the subtitle was not complete but is complete now
                             elif not my_subtitle.complete and amara_subt_is_complete:
                                 my_subtitle.complete = amara_subt_is_complete
@@ -902,6 +903,7 @@ class Talk(BasisModell):
                             if my_subtitle.is_original_lang:
                                 my_subtitle.draft_needs_removal_from_sync_folder = True
                                 my_subtitle.talk.reset_related_statistics_data()
+                            my_subtitle.save()
                         # Set the right state if the default is still active on "1"
                         if my_subtitle.state_id == 1 and my_subtitle.is_original_lang:
                             my_subtitle.state_id = 2

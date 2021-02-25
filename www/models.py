@@ -1097,7 +1097,7 @@ class Subtitle(BasisModell):
         import requests
         # Create the url for the srt File
         # Only the srt-Version of all possible fileformats includes the "*" and "&"
-        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
+        url = "https://amara.org/api/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification
@@ -1143,7 +1143,7 @@ class Subtitle(BasisModell):
     def as_sbv(self, save = False):
         import requests
         # Create the url for the sbv File
-        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=sbv"
+        url = "https://amara.org/api/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=sbv"
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification
@@ -1169,7 +1169,7 @@ class Subtitle(BasisModell):
         import requests
         # Create the url for the srt File
         # Only the srt-Version of all possible fileformats includes the "*" and "&"
-        url = "https://www.amara.org/api2/partners/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
+        url = "https://amara.org/api/videos/" + self.talk.amara_key +"/languages/" + self.language.lang_amara_short + "/subtitles/?format=srt"
         # If this fails for any reason return None
         try:
         # No header necessary, this works without identification

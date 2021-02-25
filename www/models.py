@@ -1102,6 +1102,7 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
+                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:
@@ -1147,6 +1148,7 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
+                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:
@@ -1172,6 +1174,7 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
+                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:

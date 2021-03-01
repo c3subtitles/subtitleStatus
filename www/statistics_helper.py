@@ -93,7 +93,7 @@ def calculate_subtitle(talk, start = None, end = None):
     # Get the Amara-Key and create the URL
     amara_key = talk.amara_key
     language = this_subtitle[0].language.lang_amara_short
-    url = "https://www.amara.org/api2/partners/videos/"+amara_key+"/languages/"+language+"/subtitles/?format=sbv"
+    url = "https://amara.org/api/videos/"+amara_key+"/languages/"+language+"/subtitles/?format=sbv"
     print(url)
     
     # Download sbv-File

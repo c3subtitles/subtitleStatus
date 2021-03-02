@@ -929,12 +929,12 @@ class Talk(BasisModell):
         data_2 = {"is_primary_audio_language": True}
 
         with advisory_lock(amara_api_lock) as acquired:
-            sleep(amara_api_call_sleep_fast_functions)
+            #sleep(amara_api_call_sleep_fast_functions)
             r_1 = requests.post(url, headers = cred.SHORT_AMARA_HEADER, data = data_1)
             sleep(amara_api_call_sleep_fast_functions)
             url = url + self.orig_language.lang_amara_short + "/"
             r_2 = requests.put(url, headers = cred.SHORT_AMARA_HEADER, data = data_2)
-            #print(r_2, r_2.content)
+            sleep(amara_api_call_sleep_fast_functions)
 
         if force_amara_update:
             self.needs_complete_amara_update = True
@@ -962,8 +962,8 @@ class Talk(BasisModell):
         print("Parameters: ", parameters)
         print("Subtitles_Text: ", subtitles_text)
         with advisory_lock(amara_api_lock) as acquired:
-            sleep(amara_api_call_sleep)
             r = requests.post(url, headers = cred.AMARA_HEADER, data = json.dumps(parameters))
+            sleep(amara_api_call_sleep)
 
         if force_amara_update:
             self.needs_complete_amara_update = True
@@ -1102,7 +1102,6 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
-                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:
@@ -1148,7 +1147,6 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
-                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:
@@ -1174,7 +1172,6 @@ class Subtitle(BasisModell):
         try:
         # No header necessary, this works without identification
             with advisory_lock(amara_api_lock) as acquired:
-                sleep(amara_api_call_sleep)
                 r = requests.get(url)
                 sleep(amara_api_call_sleep)
         except:

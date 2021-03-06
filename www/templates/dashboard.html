@@ -27,7 +27,7 @@
     {%endfor%}
 
 
-    <h2>[{{ talks_several_speakers_no_statistics|length }}] Talks with one speaker and no statistics data</h2>
+    <h2>[{{ talks_one_speaker_no_statistics|length }}] Talks with one speaker and no statistics data</h2>
 
     {% for any_talk in talks_one_speaker_no_statistics %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>

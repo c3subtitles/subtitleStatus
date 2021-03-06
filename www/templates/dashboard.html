@@ -1,0 +1,275 @@
+﻿{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}C3Subtitles Dashboard{% endblock %}
+<title>C3Subtitles Dashboard</title>
+{% block content %}
+<h1>C3Subtitles Dashboard</h1>
+{% if user.is_authenticated %}
+
+<div class="col-md-4">
+    <h2>[{{ talks_needing_timing|length }}] Talks which need timing</h2>
+    {% for any_talk in talks_needing_timing %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Pad Link</dt>
+                    <dd><a href="{{any_talk.link_to_writable_pad}}">Link</a></dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+
+    <h2>[{{ talks_several_speakers_no_statistics|length }}] Talks with one speaker and no statistics data</h2>
+
+    {% for any_talk in talks_one_speaker_no_statistics %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Video duration</dt>
+                    <dd>{{any_talk.video_duration | date:"H:i:s"}}</dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Speaker(s)</dt>
+                {% for speaker in any_talk.persons.all %}
+                    <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
+                {% endfor %}
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ talks_several_speakers_no_statistics|length }}] Talks with several speakers and no statistics data</h2>
+    {% for any_talk in talks_several_speakers_no_statistics %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Video duration</dt>
+                    <dd>{{any_talk.video_duration | date:"H:i:s"}}</dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Speaker(s)</dt>
+                {% for speaker in any_talk.persons.all %}
+                    <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
+                {% endfor %}
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+</div>
+
+<div class="col-md-4">
+    <h2>[{{ talks_needing_c3s_yt_link|length }}] Talks which might soon need a c3subtitles youtube link</h2>
+    {% for any_talk in talks_needing_c3s_yt_link %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>CDN Link</dt>
+                    <dd><a href="{{any_talk.link_to_video_file}}">Link</a></dd>
+                <dt>Language:</dt>
+                    <dd>{{any_talk.orig_language}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ talks_visible_no_amara_key|length }}] Talk visible but no amara link</h2>
+    {% for any_talk in talks_visible_no_amara_key %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+    
+    <h2>[{{ talks_visible_no_filename|length }}] Talk visible but no filename</h2>
+    {% for any_talk in talks_visible_no_filename %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ talks_visible_no_video_duration|length }}] Talk visible but no video duration</h2>
+    {% for any_talk in talks_visible_no_video_duration %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Video duration</dt>
+                    <dd>{{any_talk.video_duration | date:"H:i:s"}}</dd>
+                <dt>YT-Link</dt>
+                    {% if any_talk.primary_amara_video_link != "" %}
+                        <dd><a href="{{any_talk.primary_amara_video_link}}">Link</a></dd>
+                    {% else %}
+                        <dd>-</dd>
+                    {% endif %}
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+    
+    <h2>[{{ talks_visible_no_cdn_link|length }}] Talk visible but no cdn link</h2>
+    {% for any_talk in talks_visible_no_cdn_link %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+    
+    <h2>[{{ talks_visible_no_etherpad_link|length }}] Talk visible but no etherpad link</h2>
+    {% for any_talk in talks_visible_no_etherpad_link %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ talks_visible_no_amara_video_link|length }}] Talk visible but no primary amara video link</h2>
+    {% for any_talk in talks_visible_no_amara_video_link %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ talks_visible_transcript_by_none|length }}] Talk visible but transcript by None</h2>
+    {% for any_talk in talks_visible_transcript_by_none %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_talk.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+</div>
+
+<div class="col-md-4">
+    <h2>[{{ events_without_releasing_folder|length }}] Visible Event without releasing folder</h2>
+    {% for any_event in events_without_releasing_folder %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/event/{{any_event.id}}">Link</a></dd>
+                <dt>Title</dt>
+                    <dd>{{any_event.title}}</dd>
+                <dt>Acronym</dt>
+                    <dd>{{any_event.acronym}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_event.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+
+    <h2>[{{ events_without_hashtag|length }}] Visible Event without hashtag</h2>
+    {% for any_event in events_without_hashtag %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/event/{{any_event.id}}">Link</a></dd>
+                <dt>Title</dt>
+                    <dd>{{any_event.title}}</dd>
+                <dt>Acronym</dt>
+                    <dd>{{any_event.acronym}}</dd>
+                <dt>Internal Comment</dt>
+                    <dd>{{any_event.internal_comment}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+    
+    
+{% else %}
+    <h2><a href="/admin/">You are not authenticated, please log in!</a></h2>
+{% endif %}
+
+{% endblock %}

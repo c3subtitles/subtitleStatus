@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from www import transforms
 import datetime
 from django.utils import timezone
-from .models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days
+from .models import Event, Talk, Subtitle, Language, Speaker, Talk_Persons, Statistics_Event, Statistics_Speaker, Event_Days, Statistics_Raw_Data
 from .forms import SubtitleForm, SimplePasteForm
 
 #from copy import deepcopy
@@ -564,3 +564,74 @@ def media_export(request, timestamp, *argh, **kwargs):
     #return render(request, 'www/b_test.html', {"data":data})
     #return render(request, "www/raw_csv.html", {"data":csv_output})
     return HttpResponse(csv_output, content_type='text/plain')
+
+# Dashboard
+def dashboard(request):
+    # Talks without statistics data
+    talks_one_speaker_no_statistics = []
+    talks_several_speakers_no_statistics = []
+    my_subtitles = Subtitle.objects.filter(is_original_lang = True).exclude(state_id = 2).order_by("-talk")
+    my_subtitles = my_subtitles.exclude(state_id = 1)
+    my_subtitles = my_subtitles.exclude(state_id = 4)
+    my_subtitles = my_subtitles.exclude(state_id = 9)
+    my_subtitles = my_subtitles.exclude(state_id = 11)
+    my_subtitles = my_subtitles.exclude(state_id = 12)
+    for any in my_subtitles:
+        my_statistics_data = Statistics_Raw_Data.objects.filter(talk=any.talk)
+        my_speakers = Talk_Persons.objects.filter(talk=any.talk)
+        if my_statistics_data.count() < 1:
+            if my_speakers.count()==1:
+                talks_one_speaker_no_statistics.append(any.talk)
+            else:
+                talks_several_speakers_no_statistics.append(any.talk)
+
+    # Visible talks with incomplete data
+    talks_visible_no_amara_key = Talk.objects.filter(blacklisted = False, amara_key = "").order_by("-id")
+    talks_visible_no_filename = Talk.objects.filter(blacklisted = False, filename = "").order_by("-id")
+    talks_visible_no_video_duration = Talk.objects.filter(blacklisted = False, video_duration = "00:00:00").order_by("-id")
+    talks_visible_no_cdn_link = Talk.objects.filter(blacklisted = False, link_to_video_file = "").order_by("-id")
+    talks_visible_no_etherpad_link = Talk.objects.filter(blacklisted = False, link_to_writable_pad = "").order_by("-id")
+
+    talks_visible_no_amara_video_link = Talk.objects.filter(blacklisted = False, primary_amara_video_link = "").order_by("-id")
+    talks_visible_transcript_by_none = Talk.objects.filter(blacklisted = False, transcript_by__id = 0).order_by("-id")
+
+    # Talks which need timing
+    talks_needing_timing = []
+    #for any in Subtitle.objects.filter(talk__blacklisted=False, needs_automatic_syncing = True).order_by("-talk"):
+    #    talks_needing_timing.append(any.talk) 
+    
+    # Needs to be more specific only talks in transcribing or qc
+    talks_needing_c3s_yt_link = []
+    # Talks without c3subtitles_youtube_link
+    my_subtitles = Subtitle.objects.filter(is_original_lang = True, blacklisted = False, state_id= 2).exclude(time_processed_transcribing = "00:00:00").order_by("-talk")
+    #my_subtitles = my_subtitles.exclude(state_id = 1)
+    #my_subtitles = my_subtitles.exclude(state_id = 4)
+    #my_subtitles = my_subtitles.exclude(state_id = 9)
+    #my_subtitles = my_subtitles.exclude(state_id = 11)
+    #my_subtitles = my_subtitles.exclude(state_id = 12)
+    #my_subtitles = my_subtitles.exclude(talk__c3subtitles_youtube_key = "")
+    for any in my_subtitles:
+        talks_needing_c3s_yt_link.append(any.talk)
+
+    # Events with incomplete data
+    # Visible Event without releasing folder
+    events_without_releasing_folder = Event.objects.filter(subfolder_in_sync_folder = "", blacklisted=False)
+    
+    # Visible Event without hashtag
+    events_without_hashtag = Event.objects.filter(hashtag = "", blacklisted=False)
+
+    return render(request, "dashboard.html",
+        {"talks_one_speaker_no_statistics": talks_one_speaker_no_statistics,\
+        "talks_several_speakers_no_statistics": talks_several_speakers_no_statistics,\
+        "talks_visible_no_amara_key": talks_visible_no_amara_key,\
+        "talks_visible_no_filename": talks_visible_no_filename,\
+        "talks_visible_no_video_duration": talks_visible_no_video_duration,\
+        "talks_visible_no_cdn_link": talks_visible_no_cdn_link,\
+        "talks_visible_no_etherpad_link": talks_visible_no_etherpad_link,\
+        "talks_visible_no_amara_video_link": talks_visible_no_amara_video_link,\
+        "talks_visible_transcript_by_none": talks_visible_transcript_by_none,\
+        "talks_needing_c3s_yt_link": talks_needing_c3s_yt_link,\
+        "talks_needing_timing": talks_needing_timing,\
+        "events_without_releasing_folder": events_without_releasing_folder,\
+        "events_without_hashtag": events_without_hashtag\
+        })

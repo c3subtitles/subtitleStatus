@@ -50,16 +50,16 @@
 </div>
 
 <style>
-  td div.progress { margin-bottom: 0px; }
+    td div.progress { margin-bottom: 0px; }
 </style>
 
-	{% for talks_line in talks_chunk %}
-		<div class="row">
-			{% for every_talk in talks_line %}
-				<div class="col-md-4">
-					{% include "talk_small.html" with talk=every_talk %}
-				</div>
-			{% endfor %}
-		</div>
-	{% endfor %}
+    {% for talks_line in talks_chunk %}
+        <div class="row">
+            {% for every_talk in talks_line %}
+                <div class="col-md-4">
+                    {% include "talk_small.html" with talk=every_talk %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 {% endblock %}

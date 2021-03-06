@@ -22,7 +22,9 @@ urlpatterns = [
     path('statistics/speakers_in_talks/', views.statistics_speakers_in_talks),
     re_path(r'^workflow/transforms/(?P<subtitle_id>[0-9]+)/(?P<next_ids>[0-9]+(,[0-9]+)*)?$', views.text_transforms_dwim, name='workflowTransforms'),
     re_path(r'^media_export(/((?P<timestamp>[0-9:.TZ+-]+)/?)?)?$', views.media_export),
+    path('dashboard/', views.dashboard),
     path('admin/', admin.site.urls),
+
 ]
 
 

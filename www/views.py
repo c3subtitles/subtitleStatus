@@ -597,13 +597,14 @@ def dashboard(request):
 
     # Talks which need timing
     talks_needing_timing = []
-    #for any in Subtitle.objects.filter(talk__blacklisted=False, needs_automatic_syncing = True).order_by("-talk"):
-    #    talks_needing_timing.append(any.talk) 
+    for any in Subtitle.objects.filter(talk__blacklisted=False, needs_automatic_syncing = True).order_by("-talk"):
+        talks_needing_timing.append(any.talk) 
     
     # Needs to be more specific only talks in transcribing or qc
     talks_needing_c3s_yt_link = []
+
     # Talks without c3subtitles_youtube_link
-    my_subtitles = Subtitle.objects.filter(is_original_lang = True, blacklisted = False, state_id= 2).exclude(time_processed_transcribing = "00:00:00").order_by("-talk")
+    my_subtitles = Subtitle.objects.filter(is_original_lang = True, blacklisted = False, state_id= 2,talk__c3subtitles_youtube_key="").exclude(time_processed_transcribing = "00:00:00").order_by("-talk")
     #my_subtitles = my_subtitles.exclude(state_id = 1)
     #my_subtitles = my_subtitles.exclude(state_id = 4)
     #my_subtitles = my_subtitles.exclude(state_id = 9)

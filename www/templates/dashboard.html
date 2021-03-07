@@ -28,6 +28,10 @@
                 {% else %}
                     <dd>-</dd>
                 {% endif %}
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -58,6 +62,8 @@
                     <dd>{{any_talk.video_duration | date:"H:i:s"}}</dd>
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Speaker(s)</dt>
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
@@ -90,6 +96,8 @@
                     <dd>{{any_talk.video_duration | date:"H:i:s"}}</dd>
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Speaker(s)</dt>
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
@@ -118,6 +126,10 @@
                     <dd><a href="{{any_talk.link_to_video_file}}">Link</a></dd>
                 <dt>Language:</dt>
                     <dd>{{any_talk.orig_language}}</dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -138,6 +150,8 @@
                     <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -164,6 +178,8 @@
                     <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -198,6 +214,8 @@
                     {% endif %}
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -224,6 +242,8 @@
                 {% endif %}
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -250,6 +270,8 @@
                 {% endif %}
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -276,6 +298,8 @@
                 {% endif %}
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
                 {% if any_talk.internal_comment != "" %}
                     <dd>{{any_talk.internal_comment}}</dd>
@@ -326,6 +350,8 @@
                 {% endif %}
                 <dt>Event</dt>
                     <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Language:</dt>
                     <dd>{{any_talk.orig_language}}</dd>
                 <dt>Internal Comment</dt>

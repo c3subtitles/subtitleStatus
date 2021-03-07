@@ -364,6 +364,73 @@
         <br/>
     {%endfor%}
 
+
+    <h2>[{{ talks_with_subtitles_in_video_links|length }}] Talk with "subtitles" in video links</h2>
+    {% for any_talk in talks_with_subtitles_in_video_links %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Amara Link</dt>
+                {% if any_talk.amara_key != "" %}
+                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>CDN Video Link</dt>
+                {% if any_talk.link_to_video_file != "" %}
+                    <dd><a href="{{any_talk.link_to_video_file}}">{{any_talk.link_to_video_file}}</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Primary Amara Video Link</dt>
+                {% if any_talk.primary_amara_video_link != "" %}
+                    <dd><a href="{{any_talk.primary_amara_video_link}}">{{any_talk.primary_amara_video_link}}</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                
+                <dt>C3S YT Studio Link</dt>
+                {% if any_talk.c3subtitles_youtube_key != "" %}
+                    <dd><a href="https://studio.youtube.com/video/{{any_talk.c3subtitles_youtube_key}}/translations">Link</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Finished Orig Lang Subtitle</dt>
+                {% if any_talk.has_finished_original_subtitle %}
+                    <dd>✔</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Pad Link</dt>
+                {% if any_talk.link_to_writable_pad != "" %}
+                    <dd><a href="{{any_talk.link_to_writable_pad}}">Link</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Trint Transcript ID</dt>
+                {% if any_talk.trint_transcript_id != "" %}
+                    <dd>{{any_talk.trint_transcript_id}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
+                <dt>Language:</dt>
+                    <dd>{{any_talk.orig_language}}</dd>
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+            </dl>
+        <br/>
+    {%endfor%}
 </div>
 
 <div class="col-md-4">

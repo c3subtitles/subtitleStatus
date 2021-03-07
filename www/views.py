@@ -614,6 +614,14 @@ def dashboard(request):
     for any in my_subtitles:
         talks_needing_c3s_yt_link.append(any.talk)
 
+    talks_with_subtitles_in_video_links = []
+    my_talks = Talk.objects.all().order_by("-id")
+    for any_talk in my_talks:
+        if "subtitles" in any_talk.link_to_video_file:
+            talks_with_subtitles_in_video_links.append(any_talk)
+        elif "subtitles" in any_talk.primary_amara_video_link:
+            talks_with_subtitles_in_video_links.append(any_talk)
+
     # Events with incomplete data
     # Visible Event without releasing folder
     events_without_releasing_folder = Event.objects.filter(subfolder_in_sync_folder = "", blacklisted=False)
@@ -634,5 +642,6 @@ def dashboard(request):
         "talks_needing_c3s_yt_link": talks_needing_c3s_yt_link,\
         "talks_needing_timing": talks_needing_timing,\
         "events_without_releasing_folder": events_without_releasing_folder,\
-        "events_without_hashtag": events_without_hashtag\
+        "events_without_hashtag": events_without_hashtag,\
+        "talks_with_subtitles_in_video_links": talks_with_subtitles_in_video_links\
         })

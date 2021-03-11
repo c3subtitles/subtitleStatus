@@ -1,0 +1,31 @@
+﻿{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}C3Subtitles{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<p>Hello, you are logged in! Some Shortcuts: </p>
+<a href="/admin/www/talk/{{talk.id}}">Talk in Admin</a> | <a href="/admin/www/talk/?q={{talk.frab_id_talk}}">Talk in Admin in der Übersicht</a>
+{% for sub in subtitles %}
+ |
+<a href="/admin/www/subtitle/{{sub.id}}">{{sub.language.display_name}} Subtitle in Admin</a>
+{% endfor %}
+{% endif %}
+<p></p>
+<h1>Hello!</h1>
+<p>You tried to access <a href="https://c3subtitles.de/talk/guid/{{ guid }}">https://c3subtitles.de/talk/guid/{{ guid }}</a>. This dataset is currently not in our database.<br/> If you want to work on the subtitles for this talk please give us hint in <a href="https://rocket.events.ccc.de/channel/subtitles">#subtitles</a>, tell us which talk you want to work on (title, event, id) and we will make the talk available for you.</p>
+<p>This is the url you came from: {{ referer_url }}</p>
+{% if talk != None %}
+    <h2>Talk Data</h2>
+    <dl class="dl-horizontal">
+        <dt>Talk Title</dt>
+            <dd>{{talk.title}}</dd>
+        <dt>Fahrplan ID</dt>
+            <dd>{{talk.frab_id_talk}}</dd>
+        <dt>GUID</dt>
+           <dd>{{talk.guid}}</dd>
+    </dl>
+{% endif %}
+
+{% endblock %}

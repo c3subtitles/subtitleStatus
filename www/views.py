@@ -196,9 +196,10 @@ def talk_by_guid(request, guid):
         return render(request, "talk_unavailable.html", {"talk" : None, "request": request, "referer_url": referer_url, "guid": guid}, status=418 )
     # If the talk is in the database but not visible for whatever reasons
     elif my_talks[0].blacklisted == True:
+        subtitles = Subtitle.objects.filter(talk = my_talks[0])
         #guid = guid
         #referer_url = request.META.get('HTTP_REFERER')
-        return render(request, "talk_unavailable.html", {"talk" : my_talks[0], "request": request, "referer_url": referer_url, "guid": guid}, status=418)
+        return render(request, "talk_unavailable.html", {"talk" : my_talks[0], "request": request, "referer_url": referer_url, "guid": guid, "subtitles": subtitles}, status=418)
     # If a talk is returned and it is currently visible
     else:
         return redirect(get_object_or_404(Talk, guid=guid), permanent=True)

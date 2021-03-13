@@ -58,12 +58,12 @@ sftp = pysftp.Connection(username = USER, host = HOST, private_key = PRIV_KEY)
 
 my_events = Event.objects.all().exclude(subfolder_to_find_the_filenames = "")
 print("Anzahl Events: " + str(my_events.count()))
-my_talks = Talk.objects.filter(blacklisted = False)
+my_talks = Talk.objects.filter(unlisted = False)
 
 # Check via every event
 for this_event in my_events:
-    # All talks belonging to this event and not blacklisted
-    my_talks = Talk.objects.filter(blacklisted = False, event = this_event)
+    # All talks belonging to this event and not unlisted
+    my_talks = Talk.objects.filter(unlisted = False, event = this_event)
     print(my_talks.count())
     event_subfolder = this_event.ftp_startfolder + "/" + this_event.subfolder_to_find_the_filenames
     print(event_subfolder)

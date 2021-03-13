@@ -590,13 +590,13 @@ def save_talk_data (event_frab_prefix):
     if my_talk.guid != talk_guid:
         my_talk.guid = talk_guid
         my_talk.save()
-    if my_talk.blacklisted != True:
+    if my_talk.unlisted != True:
         if (talk_optout=="true"):
-            my_talk.blacklisted = True
+            my_talk.unlisted = True
             my_talk.save()
-    if my_talk.blacklisted == True:
+    if my_talk.unlisted == True:
         if (talk_optout != "true"):
-            my_talk.blacklisted = False
+            my_talk.unlisted = False
             my_talk.save()
     if my_talk.day != my_day:
         my_talk.day = my_day

@@ -6,7 +6,7 @@ class ProgressBarTestCase(Fixture):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
-        cls.talks = cls.event.talk_set.filter(blacklisted=False)
+        cls.talks = cls.event.talk_set.filter(unlisted=False)
 
     def _check_bar(self, bar):
         total = fsum(bar.values())

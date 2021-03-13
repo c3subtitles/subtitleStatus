@@ -198,8 +198,8 @@ class TalkAdmin(admin.ModelAdmin):
     actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'room', 'day', 'start', 'blacklisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
-    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'blacklisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by')
+                    'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
+    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'unlisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by')
     search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id', )
     ordering = ('-event', 'date',)
 
@@ -252,9 +252,9 @@ class WorkflowFilter(admin.SimpleListFilter):
         if self.value() is None:
             return queryset
         elif self.value() == 'yes':
-            return queryset.filter(state=4).exclude(blacklisted=True)
+            return queryset.filter(state=4).exclude(unlisted=True)
         # elif self.value() == 'new':
-        #     return queryset.filter(talk__transcript_by=None).exclude(blacklisted=True)
+        #     return queryset.filter(talk__transcript_by=None).exclude(unlisted=True)
         else:
             return queryset.exclude(state=4)
 
@@ -363,9 +363,9 @@ class SubtitleAdmin(admin.ModelAdmin):
 
     actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
     list_display = ('id', 'talk_id_link', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
-                    'status', 'complete', 'blacklisted', 'touched',)
+                    'status', 'complete', 'unlisted', 'touched',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
-                   'state', 'complete', 'blacklisted',)
+                   'state', 'complete', 'unlisted',)
     raw_id_fields = ('talk',)
     search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk')
 

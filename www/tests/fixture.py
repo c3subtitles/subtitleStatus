@@ -84,12 +84,12 @@ class Fixture(TestCase):
                                                  video_duration=length))
         Talk.objects.create(day=cls.days[0],
                             room=cls.room,
-                            title='blacklisted talk',
+                            title='unlisted talk',
                             track=cls.track,
                             event=cls.event,
                             type_of=cls.type_of,
                             orig_language=cls.languages[0],
-                            blacklisted=True,
+                            unlisted=True,
                             frab_id_talk=22,
                             transcript_by=creator,
                             guid='talk-22')

@@ -23,7 +23,7 @@ def start(request):
 
         # Function for the progress bars
         for every_event in my_events:
-            my_talks = Talk.objects.filter(event = every_event, blacklisted = False)
+            my_talks = Talk.objects.filter(event = every_event, unlisted = False)
             every_event.__dict__.update(progress_bar_for_talks(my_talks))
             # Every Statistics dataset except for those without data
             try:
@@ -41,7 +41,7 @@ def start(request):
 # Overview over the Talks of one event
 def event(request, acronym, day=0, language=None):
     my_event = get_object_or_404(Event, acronym=acronym)
-    my_talks = my_event.talk_set.filter(blacklisted=False).order_by(
+    my_talks = my_event.talk_set.filter(unlisted=False).order_by(
         "day",
         "date",
         "start",
@@ -154,7 +154,7 @@ Für den Fall ohne Quality check wäre es:
 
 
 def talk(request, id):
-    my_talk = get_object_or_404(Talk, pk=id, blacklisted=False)
+    my_talk = get_object_or_404(Talk, pk=id, unlisted=False)
     my_subtitles = my_talk.subtitle_set.all().order_by("-is_original_lang","language__lang_amara_short")
     for s in my_subtitles:
         s.form = get_subtitle_form(request, my_talk, s)
@@ -195,7 +195,7 @@ def talk_by_guid(request, guid):
     if my_talks.count() == 0:
         return render(request, "talk_unavailable.html", {"talk" : None, "request": request, "referer_url": referer_url, "guid": guid}, status=418 )
     # If the talk is in the database but not visible for whatever reasons
-    elif my_talks[0].blacklisted == True:
+    elif my_talks[0].unlisted == True:
         subtitles = Subtitle.objects.filter(talk = my_talks[0])
         #guid = guid
         #referer_url = request.META.get('HTTP_REFERER')
@@ -321,9 +321,9 @@ def speaker(request, speaker_id):
         else:
             my_languages += ", " + any
 
-    # Get all non blacklisted talks from the speaker
+    # Get all non unlisted talks from the speaker
     my_talks = my_speaker.talk_set.all()
-    my_talks = my_talks.filter(blacklisted = False).order_by("-date").prefetch_related("talk_persons_set")
+    my_talks = my_talks.filter(unlisted = False).order_by("-date").prefetch_related("talk_persons_set")
 
     # Create talk_chunks of 3 per line
     talks_per_line = 3
@@ -601,25 +601,25 @@ def dashboard(request):
                 talks_several_speakers_no_statistics.append(any.talk)
 
     # Visible talks with incomplete data
-    talks_visible_no_amara_key = Talk.objects.filter(blacklisted = False, amara_key = "").order_by("-id")
-    talks_visible_no_filename = Talk.objects.filter(blacklisted = False, filename = "").order_by("-id")
-    talks_visible_no_video_duration = Talk.objects.filter(blacklisted = False, video_duration = "00:00:00").order_by("-id")
-    talks_visible_no_cdn_link = Talk.objects.filter(blacklisted = False, link_to_video_file = "").order_by("-id")
-    talks_visible_no_etherpad_link = Talk.objects.filter(blacklisted = False, link_to_writable_pad = "").order_by("-id")
+    talks_visible_no_amara_key = Talk.objects.filter(unlisted = False, amara_key = "").order_by("-id")
+    talks_visible_no_filename = Talk.objects.filter(unlisted = False, filename = "").order_by("-id")
+    talks_visible_no_video_duration = Talk.objects.filter(unlisted = False, video_duration = "00:00:00").order_by("-id")
+    talks_visible_no_cdn_link = Talk.objects.filter(unlisted = False, link_to_video_file = "").order_by("-id")
+    talks_visible_no_etherpad_link = Talk.objects.filter(unlisted = False, link_to_writable_pad = "").order_by("-id")
 
-    talks_visible_no_amara_video_link = Talk.objects.filter(blacklisted = False, primary_amara_video_link = "").order_by("-id")
-    talks_visible_transcript_by_none = Talk.objects.filter(blacklisted = False, transcript_by__id = 0).order_by("-id")
+    talks_visible_no_amara_video_link = Talk.objects.filter(unlisted = False, primary_amara_video_link = "").order_by("-id")
+    talks_visible_transcript_by_none = Talk.objects.filter(unlisted = False, transcript_by__id = 0).order_by("-id")
 
     # Talks which need timing
     talks_needing_timing = []
-    for any in Subtitle.objects.filter(talk__blacklisted=False, blocked = True).order_by("-talk"):
+    for any in Subtitle.objects.filter(talk__unlisted=False, blocked = True).order_by("-talk"):
         talks_needing_timing.append(any.talk)
     
     # Needs to be more specific only talks in transcribing or qc
     talks_needing_c3s_yt_link = []
 
     # Talks without c3subtitles_youtube_link
-    my_subtitles = Subtitle.objects.filter(is_original_lang = True, blacklisted = False, state_id= 2,talk__c3subtitles_youtube_key="").exclude(time_processed_transcribing = "00:00:00").order_by("-talk")
+    my_subtitles = Subtitle.objects.filter(is_original_lang = True, unlisted = False, state_id= 2,talk__c3subtitles_youtube_key="").exclude(time_processed_transcribing = "00:00:00").order_by("-talk")
     #my_subtitles = my_subtitles.exclude(state_id = 1)
     #my_subtitles = my_subtitles.exclude(state_id = 4)
     #my_subtitles = my_subtitles.exclude(state_id = 9)
@@ -639,10 +639,10 @@ def dashboard(request):
 
     # Events with incomplete data
     # Visible Event without releasing folder
-    events_without_releasing_folder = Event.objects.filter(subfolder_in_sync_folder = "", blacklisted=False)
+    events_without_releasing_folder = Event.objects.filter(subfolder_in_sync_folder = "", unlisted=False)
     
     # Visible Event without hashtag
-    events_without_hashtag = Event.objects.filter(hashtag = "", blacklisted=False)
+    events_without_hashtag = Event.objects.filter(hashtag = "", unlisted=False)
 
     return render(request, "dashboard.html",
         {"talks_one_speaker_no_statistics": talks_one_speaker_no_statistics,\

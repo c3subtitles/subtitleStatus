@@ -438,7 +438,7 @@
 <div class="col-md-4">
     <h2>[{{ events_without_releasing_folder|length }}] Visible Event without releasing folder</h2>
     {% for any_event in events_without_releasing_folder %}
-        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+        <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
                 <dt>C3S Link</dt>
                     <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
@@ -460,7 +460,7 @@
 
     <h2>[{{ events_without_hashtag|length }}] Visible Event without hashtag</h2>
     {% for any_event in events_without_hashtag %}
-        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+        <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
                 <dt>C3S Link</dt>
                     <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>

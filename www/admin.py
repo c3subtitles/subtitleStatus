@@ -200,7 +200,7 @@ class TalkAdmin(admin.ModelAdmin):
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'room', 'day', 'start', 'blacklisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
     list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'blacklisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by')
-    search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id')
+    search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id', )
     ordering = ('-event', 'date',)
 
 
@@ -209,6 +209,7 @@ class EventAdmin(admin.ModelAdmin):
     date_hierarchy = 'start'
     list_display = ('id', 'acronym', 'title', 'start', 'days', 'city', 'building',)
     list_filter = ('city',)
+    ordering = ('-id',)
 
 
 @admin.register(Event_Days)
@@ -378,10 +379,10 @@ class StatesAdmin(admin.ModelAdmin):
 @admin.register(Talk_Persons)
 class TalkPersonsAdmin(admin.ModelAdmin):
     #date_hierarchy = 'id'
-    list_display = ('id', 'speaker', 'talk', 'created', 'touched', 'average_spm',
+    list_display = ('id', 'speaker_id', 'speaker', 'talk_id', 'talk', 'created', 'touched', 'average_spm',
                     'average_wpm', 'recalculate_statistics', 'strokes', 'time_delta', 'n_most_frequent_words',)
     #list_filter = ()
-    search_fields = ('talk', 'speaker',)
+    search_fields = ('id', 'talk__title', 'speaker__name', 'talk__id', 'speaker__id', )
     ordering = ('-id', )
 
 
@@ -404,7 +405,7 @@ class StatisticsRawDataAdmin(admin.ModelAdmin):
     end_formated.short_description = "End"
 
     list_display = ('id', 'speakerid', 'speaker', 'talkid', 'talk', 'recalculate_statistics', 'start_formated', 'end_formated', 'time_delta', 'words', 'strokes',)
-    search_fields = ('talk','speaker',)
+    search_fields = ('id', 'talk__title', 'speaker__name', 'talk__id', 'speaker__id', )
     ordering = ('-id',)
     raw_id_fields = ('speaker', 'talk',)
 
@@ -428,6 +429,7 @@ class LinksAdmin(admin.ModelAdmin):
 @admin.register(Speaker)
 class SpeakerAdmin(admin.ModelAdmin):
     list_display = ('id', 'frab_id', 'name', 'abstract', 'description', 'doppelgaenger_of',)
+    ordering = ('-id',)
 
 
 @admin.register(Type_of)

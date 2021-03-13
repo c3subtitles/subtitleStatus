@@ -23,7 +23,11 @@ def start(request):
 
         # Function for the progress bars
         for every_event in my_events:
-            my_talks = Talk.objects.filter(event = every_event, unlisted = False)
+            # Special case for the event "Random Talks"
+            if every_event.id == 20:
+                my_talks = Talk.objects.filter(event__unlisted=True, unlisted = False)
+            else:
+                my_talks = Talk.objects.filter(event = every_event, unlisted = False)
             every_event.__dict__.update(progress_bar_for_talks(my_talks))
             # Every Statistics dataset except for those without data
             try:
@@ -41,13 +45,23 @@ def start(request):
 # Overview over the Talks of one event
 def event(request, acronym, day=0, language=None):
     my_event = get_object_or_404(Event, acronym=acronym)
-    my_talks = my_event.talk_set.filter(unlisted=False).order_by(
-        "day",
-        "date",
-        "start",
-        "room__room")
-    original_languages = [lang['orig_language']
+    # Special case for the event "Random Talks"
+    if my_event.id == 20:
+        my_talks = Talk.objects.filter(unlisted=False, event__unlisted=True).order_by(
+            "day",
+            "date",
+            "start",
+            "room__room")
+        original_languages = [lang['orig_language']
                           for lang in my_talks.values('orig_language')]
+    else:
+        my_talks = my_event.talk_set.filter(unlisted=False).order_by(
+            "day",
+            "date",
+            "start",
+            "room__room")
+        original_languages = [lang['orig_language']
+                              for lang in my_talks.values('orig_language')]
     # Special case for 36c3, only show the talks with all data complete
     if my_event.id in [11, 12, 13]:
         my_talks = my_talks.all().exclude(

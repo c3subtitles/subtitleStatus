@@ -64,6 +64,12 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
+                <dt>Finished Orig Lang Subtitle</dt>
+                {% if any_talk.has_finished_original_subtitle %}
+                    <dd>✔</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>Speaker(s)</dt>
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
@@ -98,6 +104,12 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
+                <dt>Finished Orig Lang Subtitle</dt>
+                {% if any_talk.has_finished_original_subtitle %}
+                    <dd>✔</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>Speaker(s)</dt>
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>

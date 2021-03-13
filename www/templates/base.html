@@ -18,6 +18,7 @@
         {% else %}
             <title>C3Subtitles</title>
         {% endif %}
+        
     </head>
 
 	<body id="main">
@@ -44,7 +45,7 @@
 					<span class="icon-bar">test2</span>
 					<span class="icon-bar">test3</span>
 				</button>
-          <a class="navbar-brand" href="{% url 'home' %}">C3Subtitles</a>
+          <a class="navbar-brand" href="{% url 'home' %}">C3Subtitles</a>{% if user.is_authenticated %}<a class="navbar-brand" href="/admin/"> Admin</a><a class="navbar-brand" href="/dashboard/"> Dashboard</a>{% endif %}
         </div>
 
 

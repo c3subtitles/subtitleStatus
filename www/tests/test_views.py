@@ -92,7 +92,7 @@ class TalkViewTestCase(Fixture):
         self.assertEqual(404, response.status_code)
 
     def testGetTalkBlacklisted(self):
-        talk = Talk.objects.filter(blacklisted=True).get()
+        talk = Talk.objects.filter(unlisted=True).get()
         response = self.client.get(talk.get_absolute_url())
         self.assertEqual(404, response.status_code)
 

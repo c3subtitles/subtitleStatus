@@ -40,7 +40,7 @@ id_list = []
 for any in my_complete_subtitles:
     id_list.append(any.talk_id)
 #print(len(id_list))
-my_talks = Talk.objects.filter(blacklisted = False).exclude(id__in=id_list).order_by("event_id", "day__index")
+my_talks = Talk.objects.filter(unlisted = False).exclude(id__in=id_list).order_by("event_id", "day__index")
 #print(my_talks.count())
 
 for any_talk in my_talks:
@@ -89,7 +89,7 @@ for any_talk in my_talks:
 """
 
 # Für Translations!
-my_talks = Talk.objects.filter(event = 5, blacklisted = False).order_by("day__index","date","start","room__room")
+my_talks = Talk.objects.filter(event = 5, unlisted = False).order_by("day__index","date","start","room__room")
 my_talks = my_talks.order_by("day_id__index", "date", "start", "room")
 #print("frab_id;title;amara_key;youtube_key;video_duration;short_amara_link")
 

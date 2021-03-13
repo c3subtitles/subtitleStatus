@@ -118,7 +118,7 @@ class Event(BasisModell):
     speaker_json_link = MaybeURLField(blank = True, default = "")
 #    speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
-    blacklisted = models.BooleanField(default = False, blank = True)
+    unlisted = models.BooleanField(default = False, blank = True)
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
     subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end
     frab_id_prefix = models.CharField(max_length = 100, default = "", blank = True) # This allows other frab-id offsets of other events to be unique too in the database
@@ -175,7 +175,7 @@ class Event(BasisModell):
     @property
     def complete_content_duration(self):
         """ How 'long' is all material we have of an event """
-        my_talks = Talk.objects.filter(blacklisted = False, event = self)
+        my_talks = Talk.objects.filter(unlisted = False, event = self)
         sum = 0
         for any in my_talks:
             # Special case for talks who have no specific video_duration yet
@@ -391,7 +391,7 @@ class Transcript (BasisModell):
 # Talk with all its data
 class Talk(BasisModell):
     frab_id_talk = models.CharField(max_length = 100, default = "-1", blank = True)
-    blacklisted = models.BooleanField(default=False, blank = True)
+    unlisted = models.BooleanField(default=False, blank = True)
     day = models.ForeignKey(Event_Days, default = 1, blank = True, on_delete=models.SET_DEFAULT)
     room = models.ForeignKey(Rooms, default = 15, on_delete=models.PROTECT)
     #link_to_logo = models.URLField(default = "", blank = True)
@@ -1033,7 +1033,7 @@ class Subtitle(BasisModell):
     #comment = models.TextField(default = "")
     last_changed_on_amara = models.DateTimeField(default=make_aware(datetime.min), blank=True)
     #yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
-    blacklisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
+    unlisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
     needs_sync_to_sync_folder = models.BooleanField(default = False)
     needs_removal_from_sync_folder = models.BooleanField(default = False)
     autotiming_step = models.PositiveSmallIntegerField(default=0)
@@ -1202,8 +1202,8 @@ class Subtitle(BasisModell):
 
     # Saves Subtitles Files to the sync folder
     def sync_subtitle_to_sync_folder(self, force = False):
-        # Sync the subtitle if it is not blacklisted and the sync flag is true of when it is forced
-        if (not self.blacklisted and self.needs_sync_to_sync_folder) or force:
+        # Sync the subtitle if it is not unlisted and the sync flag is true of when it is forced
+        if (not self.unlisted and self.needs_sync_to_sync_folder) or force:
             import shutil
             # Download the subtitle as srt file
             self.as_srt(save = True)
@@ -1224,8 +1224,8 @@ class Subtitle(BasisModell):
 
     # Saves Subtitles Files to the sync folder
     def sync_subtitle_draft_to_sync_folder(self, force = False):
-        # Sync the subtitle if it is not blacklisted and the sync flag is true of when it is forced
-        if (not self.blacklisted and self.draft_needs_sync_to_sync_folder) or force:
+        # Sync the subtitle if it is not unlisted and the sync flag is true of when it is forced
+        if (not self.unlisted and self.draft_needs_sync_to_sync_folder) or force:
             import shutil
             # Download the subtitle as srt file
             self.as_srt(save = True, with_draft_disclaimer = True)

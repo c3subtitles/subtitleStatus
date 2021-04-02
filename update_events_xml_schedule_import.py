@@ -373,6 +373,8 @@ def read_xml_and_save_to_database(event_frab_prefix):
                     talk_type = str(fahrplan[counter_day][counter_room][counter_event][9].text)
                 elif fahrplan[counter_day][counter_room][counter_event][10].tag == "type":
                     talk_type = str(fahrplan[counter_day][counter_room][counter_event][10].text)
+                elif fahrplan[counter_day][counter_room][counter_event][11].tag == "type":
+                    talk_type = str(fahrplan[counter_day][counter_room][counter_event][11].text)
                 else:
                     error("Problem with type")
 
@@ -390,6 +392,8 @@ def read_xml_and_save_to_database(event_frab_prefix):
                     talk_language = str(fahrplan[counter_day][counter_room][counter_event][10].text)
                 elif fahrplan[counter_day][counter_room][counter_event][11].tag == "language":
                     talk_language = str(fahrplan[counter_day][counter_room][counter_event][11].text)
+                elif fahrplan[counter_day][counter_room][counter_event][12].tag == "language":
+                    talk_language = str(fahrplan[counter_day][counter_room][counter_event][12].text)
                 else:
                     error("Problem with language")
                 my_language = Language.objects.get(lang_amara_short = talk_language)
@@ -399,6 +403,8 @@ def read_xml_and_save_to_database(event_frab_prefix):
                     talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][11].text)
                 elif fahrplan[counter_day][counter_room][counter_event][12].tag == "abstract":
                     talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][12].text)
+                elif fahrplan[counter_day][counter_room][counter_event][13].tag == "abstract":
+                    talk_abstract = str(fahrplan[counter_day][counter_room][counter_event][13].text)
                 else:
                     error("Problem with abstract")
 
@@ -407,6 +413,8 @@ def read_xml_and_save_to_database(event_frab_prefix):
                     talk_description = str(fahrplan[counter_day][counter_room][counter_event][12].text)
                 elif fahrplan[counter_day][counter_room][counter_event][13].tag == "description":
                     talk_description = str(fahrplan[counter_day][counter_room][counter_event][13].text)
+                elif fahrplan[counter_day][counter_room][counter_event][14].tag == "description":
+                    talk_description = str(fahrplan[counter_day][counter_room][counter_event][14].text)
                 else:
                     error("Problem with description")
 

@@ -435,7 +435,7 @@ class Talk(BasisModell):
     has_priority = models.BooleanField(default = False)                 # If the talk has priority because it was requested by someone
     transcript_by = models.ForeignKey(Transcript, default = 0, on_delete=models.SET_DEFAULT)      # Where is the Transcript from? Handmade, None, Youtube, Trint, Scribie...
     amara_activity_last_checked = models.DateTimeField(default=make_aware(datetime.min), blank=True)        # Light check, only amara activity
-    amara_update_interval = models.TimeField(default = "00:10", blank = True) # How often is activity checked?
+    amara_update_interval = models.DurationField(default = "00:10", blank = True) # How often is activity checked?
     amara_complete_update_last_checked = models.DateTimeField(default=make_aware(datetime.min), blank=True) # Everything checked, activity and data of every single subtitle
     needs_complete_amara_update = models.BooleanField(default = False)
     next_amara_activity_check = models.DateTimeField(default=make_aware(datetime.min), blank=True)
@@ -607,6 +607,7 @@ class Talk(BasisModell):
                 return None
             else:
                 return changed
+        # If the talk has no subtitle return the last time it has been touched
         except:
             return None
 
@@ -721,10 +722,11 @@ class Talk(BasisModell):
     # Create a timedelta of the amara_update_interval, for much easier use
     @property
     def calculated_time_delta_for_activities(self):
-        return timedelta(seconds = self.amara_update_interval.second,
-            minutes = self.amara_update_interval.minute,
-            hours = self.amara_update_interval.hour,
-            microseconds = self.amara_update_interval.microsecond)
+        return timedelta(seconds = self.amara_update_interval.seconds,
+            #minutes = self.amara_update_interval.minutes,
+            #hours = self.amara_update_interval.hours,
+            microseconds = self.amara_update_interval.microseconds,
+            days = self.amara_update_interval.days)
 
     # Check activity on amara
     @transaction.atomic

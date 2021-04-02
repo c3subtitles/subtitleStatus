@@ -113,7 +113,7 @@ class Event(BasisModell):
     building = models.CharField(max_length = 30, default = "", blank = True)
     #ftp_startfolder = models.CharField(max_length = 100, default = "", blank = True)
     #ftp_subfolders_extensions = models.ManyToManyField(Folders_Extensions, default = None, blank = True)
-    hashtag = models.CharField(max_length = 20, default = "", blank = True)
+    hashtag = models.CharField(max_length = 50, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = MaybeURLField(blank = True, default = "")
 #    speaker_json_link = models.URLField(blank = True, default = "")

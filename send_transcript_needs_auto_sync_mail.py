@@ -68,6 +68,7 @@ for any in my_subtitles:
         "Adminer-Adresse: http://adminer.c3subtitles.de/?pgsql=&db=subtitlestatus&ns=public&edit=www_subtitle&where%5Bid%5D="+str(any.id)+" \n\n"+
         "Video-Adresse: "+video_link+"\n"+
         "YouTube-Adresse im C3Subtitles YT-Account: https://www.youtube.com/watch?v=" + any.talk.c3subtitles_youtube_key + "\n" +
+        "YouTube direkte Untertitel-Adresse: https://studio.youtube.com/video/" + any.talk.c3subtitles_youtube_key +"/translations\n" +
         "Amara-Adresse: "+"https://amara.org/videos/"+any.talk.amara_key+"/ \n" +
         "Talk-Adresse bei uns: https://c3subtitles.de/talk/" + str(any.talk.id) + "\n" +
         "Direkte Admin-Subtitle-Adresse: https://c3subtitles.de/admin/www/subtitle/" + str(any.id) + "\n" +

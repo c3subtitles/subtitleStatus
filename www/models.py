@@ -101,7 +101,7 @@ class Folders_Extensions(BasisModell):
 # Event and its data
 class Event(BasisModell):
     schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)
-    acronym = models.CharField(max_length = 20, default = "", blank = True)
+    acronym = models.CharField(max_length = 50, default = "", blank = True)
     title = models.CharField(max_length = 100, default = "No title yet", blank = True)
     start = models.DateField(default=make_aware(datetime.min), blank=True)
     end = models.DateField(default=make_aware(datetime.min), blank=True)

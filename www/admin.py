@@ -430,6 +430,7 @@ class LinksAdmin(admin.ModelAdmin):
 class SpeakerAdmin(admin.ModelAdmin):
     list_display = ('id', 'frab_id', 'name', 'abstract', 'description', 'doppelgaenger_of',)
     ordering = ('-id',)
+    search_fields = ('id', 'frab_id', 'name',)
 
 
 @admin.register(Type_of)

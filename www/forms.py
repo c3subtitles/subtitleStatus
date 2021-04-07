@@ -28,6 +28,10 @@ class SubtitleForm(forms.ModelForm):
         # Trigger a complete amara update
         my_obj.talk.next_amara_activity_check = make_aware(datetime.datetime.now())
         my_obj.talk.needs_complete_amara_update = True
+        # Doesn't work
+        # The amara update script will also reset the amara_update_interval
+        # if there was a recent change in the data
+        #my_obj.talk.amara_update_interval = timedelta(minutes=5)
         my_obj.talk.save()
         return cleaned_data
 

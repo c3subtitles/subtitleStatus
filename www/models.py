@@ -786,6 +786,7 @@ class Talk(BasisModell):
                     if my_subtitles.count() == 0:
                         # Set the big update flag
                         self.needs_complete_amara_update = True
+                        self.amara_update_interval = timedelta(minutes=5)
                         my_language = Language.objects.get(lang_amara_short = any_language)
                         # Don't create a subtitle here, this will cause subtitles with revision = 0
                         #my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language, last_changed_on_amara = results[any_language])
@@ -798,6 +799,7 @@ class Talk(BasisModell):
                             my_subtitle.last_changed_on_amara = results[any_language]
                             # Set the big update flag
                             self.needs_complete_amara_update = True
+                            self.amara_update_interval = timedelta(minutes=5)
                             my_subtitle.save()
                             print("Talk id: ",self.id, "Subtitle id: ", my_subtitle.id, " new last changes:  ", my_subtitle.last_changed_on_amara  )
                     else:
@@ -852,6 +854,7 @@ class Talk(BasisModell):
                         my_subtitle, created = Subtitle.objects.get_or_create(talk = self, language = my_language)
                         # Proceed if the version on amara has changed
                         if my_subtitle.revision != amara_subt_revision:
+                            self.amara_update_interval = timedelta(minutes=5)
                             # If the subtitle was not complete and is not complete
                             if not my_subtitle.complete and not amara_subt_is_complete:
                                 # Just update the data
@@ -901,6 +904,7 @@ class Talk(BasisModell):
 
                         # If the revision hasn't changed but the complete flag has changed, set the subtitle complete
                         elif my_subtitle.complete and not amara_subt_is_complete:
+                            self.amara_update_interval = timedelta(minutes=5)
                             my_subtitle.set_complete()
                             if my_subtitle.is_original_lang:
                                 my_subtitle.draft_needs_removal_from_sync_folder = True

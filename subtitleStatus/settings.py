@@ -30,6 +30,7 @@ TEMPLATES = [
                      'django.template.context_processors.media',
                      'django.template.context_processors.static',
                      'django.template.context_processors.tz',
+                     'django.template.context_processors.request',
                      'django.contrib.messages.context_processors.messages',
                 ],
      },
@@ -131,6 +132,7 @@ elif config.get('sql', 'type').lower() == 'mysql':
 else:
     raise ValueError('invalid database type "%s"' % config.get('sql', 'type').lower())
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

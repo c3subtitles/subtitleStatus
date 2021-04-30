@@ -31,7 +31,7 @@ pysftp==0.2.9
 python-dateutil==2.8.1
 pytz==2020.5
 requests==2.22.0
-rsa==4.0
+rsa==4.7
 simplejson==3.17.0
 six==1.13.0
 sqlparse==0.4.1

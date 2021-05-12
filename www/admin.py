@@ -378,9 +378,24 @@ class StatesAdmin(admin.ModelAdmin):
 
 @admin.register(Talk_Persons)
 class TalkPersonsAdmin(admin.ModelAdmin):
+    def average_wpm_formated(self, obj):
+        try:
+            return format(obj.average_wpm, ".1f")
+        except:
+            return "-"
+    average_wpm_formated.short_description = "avg wpm"
+
+    def average_spm_formated(self, obj):
+        try:
+            return format(obj.average_spm, ".1f")
+        except:
+            return "-"
+    average_spm_formated.short_description = "avg spm"
+
+
     #date_hierarchy = 'id'
-    list_display = ('id', 'speaker_id', 'speaker', 'talk_id', 'talk', 'created', 'touched', 'average_spm',
-                    'average_wpm', 'recalculate_statistics', 'strokes', 'time_delta', 'n_most_frequent_words',)
+    list_display = ('id', 'speaker_id', 'speaker', 'talk_id', 'talk', 'created', 'touched', 'average_wpm_formated',
+                    'average_spm_formated', 'recalculate_statistics', 'strokes', 'time_delta', 'n_most_frequent_words',)
     #list_filter = ()
     search_fields = ('id', 'talk__title', 'speaker__name', 'talk__id', 'speaker__id', )
     ordering = ('-id', )
@@ -452,6 +467,51 @@ class TracksAdmin(admin.ModelAdmin):
 class RoomsAdmin(admin.ModelAdmin):
     list_display = ('id', 'room', 'building', )
 
+
+@admin.register(Statistics_Speaker)
+class StatisticsSpeakersAdmin(admin.ModelAdmin):
+    def speakerid(self, obj):
+        return str(obj.speaker_id)
+    speakerid.short_description = "Sp ID"
+    
+    def average_wpm_formated(self, obj):
+        try:
+            return format(obj.average_wpm, ".1f")
+        except:
+            return "-"
+    average_wpm_formated.short_description = "avg wpm"
+
+    def average_spm_formated(self, obj):
+        try:
+            return format(obj.average_spm, ".1f")
+        except:
+            return "-"
+    average_spm_formated.short_description = "avg spm"
+
+    list_display = ('id', 'speakerid', 'speaker', 'language', 'average_wpm_formated', 'average_spm_formated', 'words', 'strokes', 'time_delta', 'recalculate_statistics', 'n_most_frequent_words',)
+    ordering = ('-id', )
+
+
+@admin.register(Statistics_Event)
+class StatisticsEventAdmin(admin.ModelAdmin):
+    def average_wpm_formated(self, obj):
+        try:
+            return format(obj.average_wpm, ".1f")
+        except:
+            return "-"
+    average_wpm_formated.short_description = "avg wpm"
+
+    def average_spm_formated(self, obj):
+        try:
+            return format(obj.average_spm, ".1f")
+        except:
+            return "-"
+    average_spm_formated.short_description = "avg spm"
+
+    list_display = ('id', 'event', 'language', 'average_wpm_formated', 'average_spm_formated', 'words', 'strokes', 'time_delta', 'recalculate_statistics', 'n_most_frequent_words', )
+    ordering = ('-id', )
+
+
 #admin.site.register(Tracks)
 #admin.site.register(Links)
 #admin.site.register(Type_of)
@@ -460,7 +520,7 @@ class RoomsAdmin(admin.ModelAdmin):
 #admin.site.register(Rooms)
 #admin.site.register(Language)
 #admin.site.register(Statistics_Raw_Data)
-admin.site.register(Statistics_Speaker)
-admin.site.register(Statistics_Event)
+#admin.site.register(Statistics_Speaker)
+#admin.site.register(Statistics_Event)
 #admin.site.register(Transcript)
 #admin.site.register(Talk_Persons)

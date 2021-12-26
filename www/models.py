@@ -292,7 +292,7 @@ class Language(BasisModell):
 
 # Category of the talk, like "ethics"
 class Tracks(BasisModell):
-    track = models.CharField(max_length = 50, default = "")
+    track = models.CharField(max_length = 100, default = "")
 
     def __str__(self):
         return self.track

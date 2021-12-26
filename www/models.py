@@ -21,7 +21,7 @@ import json
 import requests
 import credentials as cred
 from .lock import *
-
+#from tweets import do_tweet, create_tweet_for_transcript_is_now_available
 
 # How long should the script wait when it calls the amara api
 amara_api_call_sleep = 0.1 # seconds
@@ -100,7 +100,7 @@ class Folders_Extensions(BasisModell):
 
 # Event and its data
 class Event(BasisModell):
-    schedule_version = models.CharField(max_length = 50, default = "0.0", blank = True)
+    schedule_version = models.CharField(max_length = 250, default = "0.0", blank = True)
     acronym = models.CharField(max_length = 50, default = "", blank = True)
     title = models.CharField(max_length = 100, default = "No title yet", blank = True)
     start = models.DateField(default=make_aware(datetime.min), blank=True)
@@ -1002,8 +1002,11 @@ class Talk(BasisModell):
     # but it will download it again and send it via email
     def get_trint_transcript_and_send_via_email(self):
         return get_trint_transcript_via_api(self)
-
-
+    """
+    # Create a text that the transcript is available and tweet it
+    def tweet_transcript_available(self):
+        return do_tweet(create_tweet_for_transcript_is_now_available(self.id), True)
+    """
     def __str__(self):
         return self.title
 

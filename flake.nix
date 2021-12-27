@@ -36,7 +36,7 @@
               google-auth-httplib2
               httplib2
               isodate
-              # kanboard
+              pkgs.python-kanboard-api
               lxml
               oauth2client
               paramiko

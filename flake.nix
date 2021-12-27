@@ -27,7 +27,7 @@
               django
               pkgs.django-account
               pkgs.django-bootstrap-form
-              # django-extensions
+              pkgs.django-extensions
               django-pglocks
               # django-urlauth
               factory_boy

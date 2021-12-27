@@ -12,4 +12,5 @@ in
 {
   django-account = final.pkgs.callPackage ./django-account.nix defaultArguments;
   django-bootstrap-form = final.pkgs.callPackage ./django-bootstrap-form.nix defaultArguments;
+  django-extensions = final.pkgs.callPackage ./django-extensions.nix defaultArguments;
 }

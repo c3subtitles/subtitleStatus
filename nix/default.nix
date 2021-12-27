@@ -5,7 +5,11 @@ let
   pyPkgs = py3.pkgs;
   buildPythonPackage = py3.pkgs.buildPythonPackage;
   fetchPypi = py3.pkgs.fetchPypi;
+  defaultArguments = {
+    inherit pyPkgs fetchPypi buildPythonPackage;
+  };
 in
 {
-  django-bootstrap-form = final.pkgs.callPackage ./django-bootstrap-form.nix { inherit pyPkgs fetchPypi buildPythonPackage; };
+  django-account = final.pkgs.callPackage ./django-account.nix defaultArguments;
+  django-bootstrap-form = final.pkgs.callPackage ./django-bootstrap-form.nix defaultArguments;
 }

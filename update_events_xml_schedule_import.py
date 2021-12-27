@@ -304,24 +304,32 @@ def read_xml_and_save_to_database(event_frab_prefix):
                 # talk/event_date
                 if fahrplan[counter_day][counter_room][counter_event][0].tag == "date":
                     talk_date = fahrplan[counter_day][counter_room][counter_event][0].text
+                elif fahrplan[counter_day][counter_room][counter_event][1].tag == "date":
+                    talk_date = fahrplan[counter_day][counter_room][counter_event][1].text
                 else:
                     error("Problem with event_date")
 
                 # talk/event_start
                 if fahrplan[counter_day][counter_room][counter_event][1].tag == "start":
                     talk_start = fahrplan[counter_day][counter_room][counter_event][1].text
+                elif fahrplan[counter_day][counter_room][counter_event][2].tag == "start":
+                    talk_start = fahrplan[counter_day][counter_room][counter_event][2].text
                 else:
                     error("Problem with event_start")
 
                 # duration
                 if fahrplan[counter_day][counter_room][counter_event][2].tag == "duration":
                     talk_duration = fahrplan[counter_day][counter_room][counter_event][2].text
+                elif fahrplan[counter_day][counter_room][counter_event][3].tag == "duration":
+                    talk_duration = fahrplan[counter_day][counter_room][counter_event][3].text
                 else:
                     error("Problem with duration")
 
                 # slug
                 if fahrplan[counter_day][counter_room][counter_event][4].tag == "slug":
                     talk_slug = fahrplan[counter_day][counter_room][counter_event][4].text
+                elif fahrplan[counter_day][counter_room][counter_event][5].tag == "slug":
+                    talk_slug = fahrplan[counter_day][counter_room][counter_event][5].text
                 else:
                     error("Problem with slug")
 

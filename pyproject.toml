@@ -18,6 +18,8 @@ django-bootstrap-form = "*"
 django-extensions = "*"
 django-pglocks = "*"
 django-urlauth = "*"
+factory-boy = "*"
+Faker = "*"
 google-api-python-client = "*"
 google-auth = "*"
 google-auth-httplib2 = "*"
@@ -45,11 +47,10 @@ text-unidecode = "*"
 twitter = "*"
 uritemplate = "*"
 urllib3 = "*"
+uWSGI = "*"
 xmltodict = "*"
 
 [tool.poetry.dev-dependencies]
-factory-boy = "*"
-Faker = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

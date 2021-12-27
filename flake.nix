@@ -56,12 +56,12 @@
               twitter
               uritemplate
               urllib3
-              # uwsgi
+              (pkgs.uwsgi.override
+                { plugins = [ "python3" ]; })
               xmltodict
               pip
             ]))
-            (pkgs.uwsgi.override
-              { plugins = [ "python3" ]; })
+
           ];
         };
       });

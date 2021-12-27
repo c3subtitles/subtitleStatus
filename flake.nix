@@ -25,7 +25,7 @@
           buildInputs = [
             (pkgs.python3.withPackages (pyPkgs: with pyPkgs; [
               django
-              #              django-account
+              pkgs.django-account
               pkgs.django-bootstrap-form
               # django-extensions
               django-pglocks

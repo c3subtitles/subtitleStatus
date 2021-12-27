@@ -214,7 +214,12 @@ class Event(BasisModell):
                 i+=1
         # Create the filename and save
         folder = "./www/static/fahrplan_files/"
-        filename = self.acronym + " fahrplan version "  + fahrplan_version + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())
+        filename = self.acronym + " fahrplan version " + fahrplan_version + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())
+        if len(filename)+4 > 255:
+            i = 0
+            while len(filename)+4 > 255:
+                i+=1
+                filename = self.acronym + " fahrplan version " + fahrplan_version[0:(-1*i)] + " " + "{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now())
         filename = filename.replace("/","_")
         file = open(folder + filename + ".xml", mode = "w", encoding = "utf-8")
         file.write(file_content)

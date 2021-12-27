@@ -44,7 +44,14 @@
                 lxml
                 oauth2client
                 paramiko
-                psycopg2
+                (psycopg2.overrideAttrs (drv: rec {
+                  version = "2.8.6";
+                  src = pyPkgs.fetchPypi {
+                    inherit version;
+                    inherit (drv) pname;
+                    sha256 = "sha256-+yP2xxEHw3/WZ8tOo2Pd65NrNIu9ZEknjrksGJaZ9UM=";
+                  };
+                }))
                 pyasn1
                 pyasn1-modules
                 pynacl

@@ -29,7 +29,6 @@
               pkgs.django-bootstrap-form
               pkgs.django-extensions
               django-pglocks
-              # django-urlauth
               factory_boy
               faker
               google-api-python-client

@@ -84,7 +84,7 @@ def event(request, acronym, day=0, language=None):
     return render(request, "event.html",
                   {"my_talks": my_talks,
                    "my_event": my_event,
-                   "my_days": my_event.event_days_set.all(),
+                   "my_days": my_event.event_days_set.all().order_by("date"),
                    "my_langs": my_langs,
                    "page_sub_titles": my_event.page_sub_titles,
                    "talks_chunk": talks_chunk,

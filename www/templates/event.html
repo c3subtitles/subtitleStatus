@@ -39,7 +39,7 @@
 {% include "progress_bar_original.html" with value=my_event %}
 
 <div class="btn-group" role="group" aria-label="Filter by event day">
-    {% for day in my_event.event_days_set.all %}
+    {% for day in my_days %}
          <a href= "/event/{{my_event.acronym}}/day/{{day.index}}"><button type="button" class="btn btn-default">Day {{day.index}}</button></a>
     {% endfor %}
 </div>

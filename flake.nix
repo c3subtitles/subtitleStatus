@@ -30,6 +30,7 @@
             let
               poetryEnv = pkgs.poetry2nix.mkPoetryEnv {
                 projectDir = ./.;
+                overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: { uwsgi = null; });
               };
             in
             poetryEnv.env.overrideAttrs

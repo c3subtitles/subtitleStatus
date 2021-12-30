@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import admin
+from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.shortcuts import get_object_or_404
 from django.utils.html import format_html
 
@@ -147,12 +148,11 @@ class TalkAdmin(admin.ModelAdmin):
     def get_trint_transcript_via_email(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
         for sid in selected:
-            talk = get_object_or_404(Talk, pk=sid)
             talk.get_trint_transcript_and_send_via_email()
     get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (check if the dataset now has a trint key)'
 
     def create_amara_key(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
@@ -160,7 +160,7 @@ class TalkAdmin(admin.ModelAdmin):
     create_amara_key.short_description = 'Amara: Create amara key and store it in the db, use the primary_video_link'
 
     def import_video_links_from_amara(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
@@ -168,15 +168,15 @@ class TalkAdmin(admin.ModelAdmin):
     import_video_links_from_amara.short_description = 'Amara: Import video links from amara into the c3subtitles db'
 
     def set_talk_original_language_as_primary_audio_language_on_amara(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.make_talk_language_primary_on_amara(force_amara_update=True)
     set_talk_original_language_as_primary_audio_language_on_amara.short_description = 'Amara: Make the talk language the primary audio language on amara'
-    
+
     def complete_amara_link_update(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
@@ -184,7 +184,7 @@ class TalkAdmin(admin.ModelAdmin):
     complete_amara_link_update.short_description = 'Amara: Complete Link Update from db to amara'
 
     def upload_first_subtitle_orig_lang_with_disclaimer(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
@@ -287,7 +287,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     talk_frab_id.short_description = 'frab id'
 
     def reset_to_pad(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -296,7 +296,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_pad.short_description = 'Restart Workflow from Pad-from-Trint'
 
     def reset_to_timing(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -306,7 +306,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_timing.short_description = 'Restart Workflow from Timing-from-Pad'
 
     def reset_to_sbv(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -315,7 +315,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_sbv.short_description = 'Restart Workflow from Fix-SBV'
 
     def reset_to_transcribing(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
@@ -323,7 +323,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     reset_to_transcribing.short_description = 'Reset subtitle to transcribing'
 
     def reset_to_qc(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             subt = get_object_or_404(Subtitle, pk=sid)
@@ -343,7 +343,7 @@ class SubtitleAdmin(admin.ModelAdmin):
 
 
     def transforms_dwim(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
 
         ids = [subtitle.pk
@@ -469,7 +469,7 @@ class StatisticsSpeakersAdmin(admin.ModelAdmin):
     def speakerid(self, obj):
         return str(obj.speaker_id)
     speakerid.short_description = "Sp ID"
-    
+
     def average_wpm_formated(self, obj):
         try:
             return format(obj.average_wpm, ".1f")

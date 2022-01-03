@@ -65,6 +65,7 @@ else:
 DEBUG = False
 
 TEMPLATE_DEBUG = False
+# Dont override DEBUG/TEMPLATE_DEBUG here, use `local_settings.py`!
 
 ALLOWED_HOSTS = ['subtitles.media.ccc.de', 'c3subtitles.de', 'c3subtitles.ext.selfnet.de', 'dev.c3subtitles.de']
 

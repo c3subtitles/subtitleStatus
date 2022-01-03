@@ -25,49 +25,17 @@ from email.mime.base import MIMEBase
 from email import encoders
 from subprocess import Popen, PIPE
 import re
+import threading
 
 import credentials as cred
 
 #from .lock import *
 
-# This function uses the talk.link_to_video_file to push the file to the amara api
-# and polls for the finished transcript
-# If this is used via the browser in admin, the interface is blocked until the
-# transcript is ready and the email is sent
-def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True):
-    # Only proceed if the talk actually has a video file link
-    # Not proceed if the talk has no video link and no transcript id
-    if talk.link_to_video_file == "" and talk.trint_transcript_id =="":
-        return False
-
-    # Download the talk-file into a folder like /tmp/
-    # Get the filename from the whole path
-    filename = talk.link_to_video_file.split("/")[-1]
-    output_filename = "/var/tmp/" + filename
-    url = talk.link_to_video_file
-    r = requests.get(url)
-    # Only download the file if it is needed later on
-    if talk.trint_transcript_id == "":
-        open(output_filename , 'wb').write(r.content)
-    
-    # Afterwards upload to trint
-    headers = {'api-key':trint_api_key,'content-type':'video/mp4',}
-    
-    # Only upload the video if the talk does not yet have a trint_transcript_id
-    if talk.trint_transcript_id == "":
-        params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',False),)
-
-        data = open(output_filename, 'rb').read()
-        response = requests.post('https://upload.trint.com/', headers=headers, params=params, data=data)
-        output = response.json()
-        talk.trint_transcript_id = output["trintId"]
-        talk.transcript_by_id = 3
-        talk.save()
-        # Delete the file locally
-        os.remove(output_filename)
-
+# TODO everything starting here into a subprocess which won't be joined
+def poll_trint_api_in_background(talk, headers, make_pad_link_available):
     trint_id = talk.trint_transcript_id
     url = "https://api.trint.com/export/srt/" + trint_id
+    
     # Poll until the transcript is available
     while True:
         querystring = {"captions-by-paragraph":"false","max-subtitle-character-length":"37","highlights-only":"false","enable-speakers":"false","speaker-on-new-line":"false","speaker-uppercase":"false","skip-strikethroughs":"false"}
@@ -79,6 +47,7 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
         time.sleep(10)
 
     # If the talk is not yet set to trint transcript, do it
+    talk.refresh_from_db()
     if talk.transcript_by_id != 3:
         talk.transcript_by_id = 3
         talk.save()
@@ -195,4 +164,46 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
     except:
         print("Mail Exception")
         return False
+
+# This function uses the talk.link_to_video_file to push the file to the amara api
+# and polls for the finished transcript
+# If this is used via the browser in admin, the interface is blocked until the
+# transcript is ready and the email is sent
+def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True):
+    # Only proceed if the talk actually has a video file link
+    # Not proceed if the talk has no video link and no transcript id
+    if talk.link_to_video_file == "" and talk.trint_transcript_id =="":
+        return False
+
+    # Download the talk-file into a folder like /tmp/
+    # Get the filename from the whole path
+    filename = talk.link_to_video_file.split("/")[-1]
+    output_filename = "/var/tmp/" + filename
+    url = talk.link_to_video_file
+    r = requests.get(url)
+    # Only download the file if it is needed later on
+    if talk.trint_transcript_id == "":
+        open(output_filename , 'wb').write(r.content)
+    
+    # Afterwards upload to trint
+    headers = {'api-key':trint_api_key,'content-type':'video/mp4',}
+    
+    # Only upload the video if the talk does not yet have a trint_transcript_id
+    if talk.trint_transcript_id == "":
+        params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',False),)
+
+        data = open(output_filename, 'rb').read()
+        response = requests.post('https://upload.trint.com/', headers=headers, params=params, data=data)
+        output = response.json()
+        # Avoid overwriting changes in the talk if someone else worked on it in the meantime
+        talk.refresh_from_db()
+        talk.trint_transcript_id = output["trintId"]
+        talk.transcript_by_id = 3
+        talk.save()
+        # Delete the file locally
+        os.remove(output_filename)
+    
+    #poll_trint_api_in_background(talk=talk, headers=headers)
+    threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available]).start()
+
 

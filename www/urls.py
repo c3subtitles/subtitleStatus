@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^media_export(/((?P<timestamp>[0-9:.TZ+-]+)/?)?)?$', views.media_export),
     path('dashboard/', views.dashboard),
     path('admin/', admin.site.urls),
+    path('trint_webhook/', views.trint_webhook_receiver),
 
 ]
 

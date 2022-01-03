@@ -138,6 +138,25 @@ class HasC3SubtitlesYTKeyFilter(admin.SimpleListFilter):
         else:
             return queryset
 
+class HasTrintTranscriptKeyFilter(admin.SimpleListFilter):
+    title = 'Has Trint Transcript Key'
+    parameter_name = 'trint_transcript_id'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(trint_transcript_id = "")
+        elif ans == "yes":
+            return queryset.all().exclude(trint_transcript_id = "")
+        else:
+            return queryset
+
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
 
@@ -195,8 +214,8 @@ class TalkAdmin(admin.ModelAdmin):
     actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', )
-    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'unlisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by')
+                    'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', 'trint_transcript_id', )
+    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'unlisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by', HasTrintTranscriptKeyFilter)
     search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id', )
     ordering = ('-event', 'date',)
 

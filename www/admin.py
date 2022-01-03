@@ -144,16 +144,12 @@ class TalkAdmin(admin.ModelAdmin):
         return obj.video_duration.strftime("%H:%M:%S h")
     video_duration_formated.short_description = "Video Duration"
 
-
     def get_trint_transcript_via_email(self, request, queryset):
-        selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
-        import threading
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
         for sid in selected:
-            #talk = get_object_or_404(Talk, pk=sid)
-            #thread = threading.Thread(target = talk.get_trint_transcript_and_send_via_email)
-            #thread.start()
+            talk = get_object_or_404(Talk, pk=sid)
             talk.get_trint_transcript_and_send_via_email()
-    get_trint_transcript_via_email.short_description = '[Do not yet use] Trint: Get a trint transcript via email (click only ONCE)'
+    get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (check if the dataset now has a trint key)'
 
     def create_amara_key(self, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)

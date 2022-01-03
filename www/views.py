@@ -674,3 +674,14 @@ def dashboard(request):
         "events_without_hashtag": events_without_hashtag,\
         "talks_with_subtitles_in_video_links": talks_with_subtitles_in_video_links\
         })
+
+# Trint Webhook Receiver
+def trint_webhook_receiver(request):
+    trint_key = request.POST.get("transcriptId")
+    trint_event = request.POST.get("eventType")
+    if trint_event == "TRANSCRIPT_COMPLETE":
+        my_talks = Talk.objects.filter(trint_transcript_id = trint_key)
+        if my_talks.count() == 1:
+            my_t = my_talks[0]
+            my_t.get_trint_transcript_and_send_via_email()
+    return HttpResponse(status=200)

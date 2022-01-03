@@ -109,8 +109,7 @@ position_fertig_column = 15
 id_fertig_column = 58
 
 # API-KEY of admin user
-API_KEY = "db03bd402e8bc0a9da581b3481af0f07823e1c012b7c4f2d34ac675a4358"
-
+from credentials import KANBOARD_API_KEY
 # Create a string for the involved speaker
 def create_speakers_string(talk):
     speakers = Talk_Persons.objects.filter(talk = talk)
@@ -530,7 +529,7 @@ def check_status_of_talk(client, talk):
                     close_angel_open_internal_task(client, talk, public_task_is_open, private_task_is_open)
 
 
-client = kanboard.Client('https://tasks.c3subtitles.de/jsonrpc.php', 'admin', API_KEY)
+client = kanboard.Client('https://tasks.c3subtitles.de/jsonrpc.php', 'admin', KANBOARD_API_KEY)
 
 # Testtalk
 #talk = Talk.objects.get(id=1533)

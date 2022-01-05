@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'www',
     'django_extensions',
     'subtitleStatus',
+    'account',
 )
 
 MIDDLEWARE = (

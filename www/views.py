@@ -437,7 +437,7 @@ def statistics_speakers_in_talks(request):
 
 
 @login_required
-def text_transforms_dwim(request, subtitle_id, next_ids):
+def text_transforms_dwim(request, subtitle_id, next_ids=None):
     TRINT = 0
     TIMING = 1
     SBV = 2

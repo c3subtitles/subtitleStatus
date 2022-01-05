@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'account.views.login' %}">
+<form method="post" action="{% url 'auth:login' %}">
 {% csrf_token %}
 <table>
 <tr>

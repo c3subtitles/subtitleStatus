@@ -23,7 +23,8 @@ def login(request):
     next = "/"
     if "next" in request.GET:
         next = request.GET['next']
-    return render(request, 'login.html', { "next":next})
+    return render(request, 'login.html', {"next": next})
+
 
 def logout(request):
     django.contrib.auth.logout(request)

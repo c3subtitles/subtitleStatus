@@ -15,28 +15,7 @@ import sys
 import subtitleStatus.settings
 
 import django
-from django.conf import settings
-
-settings.configure(**dict(
-    subtitleStatus.settings.__dict__,
-    DEBUG=False,
-    LOGGING = {
-        'version': 1,
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-            },
-        },
-        'loggers': {
-            'django.db.backends': {
-                'level': 'DEBUG',
-            },
-        },
-        'root': {
-            'handlers': ['console'],
-        }
-    }
-))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "subtitleStatus.settings")
 django.setup()
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction

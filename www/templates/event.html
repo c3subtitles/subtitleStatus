@@ -7,7 +7,7 @@
 
 {% if user.is_authenticated %}
 <p>Hello, you are logged in!</p>
-
+<a href="/admin/www/event/{{my_event.id}}">Event in Admin</a> | <a href="/admin/www/event/?q={{my_event.id}}">Event in Admin in der Übersicht</a>
 {% endif %}
 
 <h1><a href="/event/{{my_event.acronym}}">{{my_event.title}}</a>{% if my_event.has_statistics %} <a data-toggle="collapse" href="#{{ my_event.pk }}_id" aria-expanded="false" aria-controls="collapseExample"><span style="font-size: 20px; vertical-align: center" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><div class="pull-right">{{my_event.complete_content_duration.1}}h {{my_event.complete_content_duration.2|stringformat:"02d"}}m {{my_event.complete_content_duration.3|stringformat:"02d"}}s</div></a>{% endif %}  </h1>

@@ -75,6 +75,7 @@ barbara-temp/
 # Credentials files
 credentials.py
 credentials/credentials.py
+credentials/*.secret
 
 # Stuff
 temp.py

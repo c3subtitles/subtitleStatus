@@ -155,7 +155,7 @@ class Event(BasisModell):
 
     @property
     def page_sub_titles(self):
-        return [self.acronym]
+        return [self.title]
 
     @property
     def has_statistics(self):
@@ -699,7 +699,7 @@ class Talk(BasisModell):
 
     @property
     def page_sub_titles(self):
-        return self.event.page_sub_titles + [self.title]
+        return [self.event.title, self.title]
 
     @property
     def has_links(self):

@@ -1393,6 +1393,19 @@ class Subtitle(BasisModell):
     def get_absolute_url(self):
         return reverse('subtitle', args=[str(self.id)])
 
+    # Check if the subtitle is really available on the mirror
+    @property
+    def srt_is_synced_to_mirror(self):
+        link = "https://mirror.selfnet.de/c3subtitles/" + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
+        try:
+            request = requests.head(link)
+        except:
+            return False
+        if request.status_code == 200:
+            return True
+        return False
+
+
 # Links from the Fahrplan
 class Links(BasisModell):
     talk = models.ForeignKey(Talk, blank = True, on_delete=models.PROTECT)

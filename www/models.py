@@ -1006,11 +1006,13 @@ class Talk(BasisModell):
     # but it will download it again and send it via email
     def get_trint_transcript_and_send_via_email(self):
         return get_trint_transcript_via_api(self)
-    """
-    # Create a text that the transcript is available and tweet it
-    def tweet_transcript_available(self):
-        return do_tweet(create_tweet_for_transcript_is_now_available(self.id), True)
-    """
+
+    def do_notify_transcript_available(self):
+        notify_transcript_available(self)
+        self.refresh_from_db()
+        self.notify_transcript_available = False
+        self.save()
+
     def __str__(self):
         return self.title
 

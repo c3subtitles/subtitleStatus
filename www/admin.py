@@ -211,7 +211,15 @@ class TalkAdmin(admin.ModelAdmin):
             talk.upload_first_subtitle_to_amara_with_disclaimer(set_first_language=True)
     upload_first_subtitle_orig_lang_with_disclaimer.short_description = 'Amara: Upload a subtitle text in the talk original language with the disclaimers to not start in amara'
 
-    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email',]
+    def notify_transcript_available(self, request, queryset):
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
+
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.do_notify_transcript_available()
+    notify_transcript_available.short_description = 'Notify: Publish messages that the transcript of this talk is available'
+
+    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email', 'notify_transcript_available',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', 'trint_transcript_id', )

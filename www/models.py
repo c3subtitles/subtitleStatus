@@ -450,6 +450,7 @@ class Talk(BasisModell):
     primary_amara_video_link = models.URLField(default = "", blank = True, max_length = 400) # Video link which is marked as primary on amara
     additional_amara_video_links = models.TextField(default = "", blank = True) # Additional video links separated by whitespace
     trint_transcript_id = models.CharField(max_length = 30, default = "", blank = True)
+    notify_transcript_available = models.BooleanField(default = False)
 
     # Recalculate statistics data over the whole talk
     @transaction.atomic
@@ -1036,15 +1037,7 @@ class Subtitle(BasisModell):
     time_processed_syncing = models.TimeField(default=time(0), blank=True, verbose_name="")
     time_quality_check_done = models.TimeField(default=time(0), blank=True, verbose_name="")
     time_processed_translating = models.TimeField(default=time(0), blank=True, verbose_name="")
-    needs_automatic_syncing = models.BooleanField(default = False)
     blocked = models.BooleanField(default = False)
-    #needs_sync_to_ftp = models.BooleanField(default = False)
-    #needs_removal_from_ftp = models.BooleanField(default = False)
-    tweet = models.BooleanField(default = False)
-    #needs_sync_to_YT = models.BooleanField(default = False)
-    #needs_removal_from_YT = models.BooleanField(default = False)
-    tweet_autosync_done = models.BooleanField(default = False)
-    #comment = models.TextField(default = "")
     last_changed_on_amara = models.DateTimeField(default=make_aware(datetime.min), blank=True)
     #yt_caption_id = models.CharField(max_length = 50, default = "", blank = True)
     unlisted = models.BooleanField(default = False) # If syncs to the cdn, and media or YT should be blocked
@@ -1053,6 +1046,9 @@ class Subtitle(BasisModell):
     autotiming_step = models.PositiveSmallIntegerField(default=0)
     draft_needs_sync_to_sync_folder = models.BooleanField(default = False)
     draft_needs_removal_from_sync_folder = models.BooleanField(default = False)
+    notify_subtitle_needs_timing = models.BooleanField(default = False)
+    notify_subtitle_ready_for_quality_control = models.BooleanField(default = False)
+    notify_subtitle_released = models.BooleanField(default = False)
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

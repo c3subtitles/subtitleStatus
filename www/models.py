@@ -1297,6 +1297,35 @@ class Subtitle(BasisModell):
         if save:
             self.save()
 
+    # Send an email with the subtitle which needs timing and post a message to the orga chat(s)
+    def do_notify_subtitle_needs_timing(self):
+        # Send Mail
+        create_and_send_email_for_subtitle_needs_autotiming(self)
+        
+        # Send other Notifications
+        notify_transcript_needs_timing(self)
+        
+        # Reset Flag
+        self.refresh_from_db()
+        self.notify_subtitle_needs_timing = False
+        self.save()
+
+    # Send a notification that the subtitle is ready for quality control
+    def do_notify_subtitle_ready_for_quality_control(self):
+        notify_subtitle_ready_for_quality_control(self)
+        self.refresh_from_db()
+        self.notify_subtitle_ready_for_quality_control = False
+        self.save()
+
+    # Send a notification for a released subtitle
+    def do_notify_subtitle_released(self):
+        # Check if the subtitle is really online:
+        if self.srt_is_synced_to_mirror():
+            notify_subtitle_released(self)
+            self.refresh_from_db()
+            self.notify_subtitle_released = False
+            self.save()
+
     # Set the subtitle complete
     @transaction.atomic
     def set_complete(self, was_already_complete = False):

@@ -38,7 +38,7 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available):
     
     # Poll until the transcript is available
     while True:
-        querystring = {"captions-by-paragraph":"false","max-subtitle-character-length":"37","highlights-only":"false","enable-speakers":"false","speaker-on-new-line":"false","speaker-uppercase":"false","skip-strikethroughs":"false"}
+        querystring = {"captions-by-paragraph":"false","max-subtitle-character-length":"42","highlights-only":"false","enable-speakers":"false","speaker-on-new-line":"false","speaker-uppercase":"false","skip-strikethroughs":"false"}
         response = requests.request("GET", url, headers=headers, params=querystring)
         #print(response.text)
         # Wait until the url is ready
@@ -196,7 +196,7 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
 
     # Only upload the video if the talk does not yet have a trint_transcript_id
     if talk.trint_transcript_id == "":
-        params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',False),)
+        params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',True),)
 
         data = open(output_filename, 'rb').read()
         response = requests.post('https://upload.trint.com/', headers=headers, params=params, data=data)

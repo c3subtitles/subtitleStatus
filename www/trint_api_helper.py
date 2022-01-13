@@ -188,6 +188,12 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
     # Afterwards upload to trint
     headers = {'api-key':trint_api_key,'content-type':'video/mp4',}
     
+    # Only upload to amara if the language is English or German, no Klingon!!
+    if talk.orig_language.lang_amara_short == "en" or talk.orig_language.lang_amara_short == "de":
+        pass
+    else:
+        return False
+
     # Only upload the video if the talk does not yet have a trint_transcript_id
     if talk.trint_transcript_id == "":
         params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',False),)

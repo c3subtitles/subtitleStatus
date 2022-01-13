@@ -595,7 +595,7 @@ class Talk(BasisModell):
 
     @property
     def needs_automatic_syncing(self):
-        return self.subtitle_set.filter(needs_automatic_syncing = True).count() > 0
+        return self.subtitle_set.filter(notify_subtitle_needs_timing = True).count() > 0
 
     # State of the subtitle or its pad
     @property
@@ -880,7 +880,7 @@ class Talk(BasisModell):
                                 my_subtitle.complete = amara_subt_is_complete
                                 my_subtitle.is_orignal_lang = amara_subt_is_original
                                 my_subtitle.revision = amara_subt_revision
-                                # This sets the sync flags and the tweet-flag and also lets the statistics to be recalculated
+                                # This sets the sync flags and the notifications-flag and also lets the statistics to be recalculated
                                 my_subtitle.set_complete(was_already_complete = False)
                                 # If the talk also is in the original language, recalculate statistics
                                 if my_subtitle.is_original_lang:
@@ -893,7 +893,7 @@ class Talk(BasisModell):
                                 my_subtitle.complete = amara_subt_is_complete
                                 my_subtitle.is_orignal_lang = amara_subt_is_original
                                 my_subtitle.revision = amara_subt_revision
-                                # This sets the sync flags and the tweet-flag and lets the statistics to be recalculated
+                                # This sets the sync flags and the notifications-flag and lets the statistics to be recalculated
                                 my_subtitle.set_complete(was_already_complete = True)
                                 # If the talk also is in the original language, recalculate statistics
                                 if my_subtitle.is_original_lang:
@@ -983,12 +983,10 @@ class Talk(BasisModell):
 
         return r
 
-
     # Get the video links which are on amara from there and store them in the c3subtitles database
     # This is expecially used for an initial import
     def get_video_links_from_amara(self, do_save = True):
         return read_links_from_amara(talk=self, do_save=do_save)
-
 
     # Update the video links in amara according to the ones in the c3subtitles database
     # This is also used to create an initial amara_key
@@ -1311,12 +1309,12 @@ class Subtitle(BasisModell):
         else:
             self.time_processed_translating = self.talk.video_duration
             self.state_id = 12
-        # Only tweet if the file was not already complete
+        # Only notify if the file was not already complete
         if not was_already_complete:
-            self.tweet = True
+            self.notify_subtitle_released = True
         self.blocked = False
         self.set_all_sync_flags()
-        self.needs_automatic_syncing = False
+        self.notify_subtitle_needs_timing = False
         self.save()
 
     # Reset subtitle if it was complete but it is not any more
@@ -1334,7 +1332,7 @@ class Subtitle(BasisModell):
         else:
             self.state_id = 11
         self.set_all_removal_flags()
-        self.needs_automatic_syncing = False
+        self.notify_subtitle_needs_timing = False
         self.blocked = False
         self.save()
 
@@ -1351,8 +1349,8 @@ class Subtitle(BasisModell):
         if self.blocked == False:
             self.blocked = True
             needs_save = True
-        if self.needs_automatic_syncing == False:
-            self.needs_automatic_syncing = True
+        if self.notify_subtitle_needs_timing == False:
+            self.notify_subtitle_needs_timing = True
             needs_save = True
         if self.state_id != 4:
             self.state_id = 4

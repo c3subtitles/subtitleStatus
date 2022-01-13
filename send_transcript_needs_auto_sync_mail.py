@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This scripts checks for the flag "needs_automatic_syncing" in the database
+# DEPRECATED this moved into class functions
+# the cronjob is done via notifications_cronjob.py
+#
+# This scripts checks for the flag "notify_subtitle_needs_timing" in the database
 # If a subtitle has that flag it sends an e-mail to people who can do the
 # autotiming of the transcript on Youtube
 # Afterwards it resets the flag in the database
@@ -37,8 +40,8 @@ from www.models import Talk, Language, Subtitle
 
 import credentials as cred
 
-# Search for subtitles with set flag "needs_automatic_syncing"
-my_subtitles = Subtitle.objects.filter(needs_automatic_syncing = True)
+# Search for subtitles with set flag "notify_subtitle_needs_timing"
+my_subtitles = Subtitle.objects.filter(notify_subtitle_needs_timing = True)
 #print(my_subtitles.count())
 
 FROM = "subtitles@c3subtitles.ext.selfnet.de"
@@ -180,7 +183,7 @@ for any in my_subtitles:
 
     # Reset Flag
     any.refresh_from_db()
-    any.needs_automatic_syncing = False
+    any.notify_subtitle_needs_timing = False
     any.save()
 
 sys.exit(0)

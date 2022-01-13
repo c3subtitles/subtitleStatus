@@ -351,10 +351,10 @@ class SubtitleAdmin(admin.ModelAdmin):
                 my_talk = Talk.objects.get(id = subt.talk_id)
                 subt.time_processed_transcribing = my_talk.video_duration
                 subt.time_processed_syncing = my_talk.video_duration
-                subt.needs_automatic_syncing = False
+                subt.notify_subtitle_needs_timing = False
                 subt.blocked = False
                 subt.state_id = 7 # Quality control done until
-                subt.tweet_autosync_done = True
+                subt.notify_subtitle_ready_for_quality_control = True
                 subt.draft_needs_sync_to_sync_folder = True # Release the draft
                 subt.save()
                 # Let the related statistics be calculated

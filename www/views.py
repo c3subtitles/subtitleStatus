@@ -237,7 +237,7 @@ def updateSubtitle(request, id):
             # transcribing done
             my_obj.time_processed_transcribing = talk.video_duration
             my_obj.state_id = 4 # Do not touch
-            my_obj.needs_automatic_syncing = True
+            my_obj.notify_subtitle_needs_timing = True
             my_obj.blocked = True
         elif my_obj.syncing_in_progress:
             # Syncing is done - if manually

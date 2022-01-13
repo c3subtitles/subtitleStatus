@@ -21,7 +21,7 @@ import json
 import requests
 import credentials as cred
 from .lock import *
-#from tweets import do_tweet, create_tweet_for_transcript_is_now_available
+from .notifications_bot_helper import create_and_send_email_for_subtitle_needs_autotiming, notify_transcript_available, notify_transcript_needs_timing, notify_subtitle_ready_for_quality_control, notify_subtitle_released
 
 # How long should the script wait when it calls the amara api
 amara_api_call_sleep = 0.1 # seconds

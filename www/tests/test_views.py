@@ -146,10 +146,10 @@ class SubtitleViewTestCase(Fixture):
                 length = subtitle.talk.video_duration
                 subtitle.time_processed_transcribing = length
                 subtitle.time_processed_syncing = length
-                subtitle.needs_automatic_syncing = False
+                subtitle.notify_subtitle_needs_timing = False
                 subtitle.blocked = False
                 subtitle.state_id = self.STATE_REVIEWED_UNTIL
-                subtitle.tweet_autosync_done = True
+                subtitle.notify_subtitle_ready_for_quality_control = True
                 subtitle.save()
             else:
                 form = self._form(subtitle, finish=True)

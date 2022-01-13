@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================
-# This script tweets about released subtitles and about subtitels which need
+# DEPRECATED this moved into class functions
+# the cronjob is done via notifications_cronjob.py
+#
+# This script notifies about released subtitles and about subtitles which need
 # review
-# It checks the "tweet" flag and if the syn_to_ftp flag is on false again to
+# It checks the "notify_subtitle_released" flag and if the syn_to_ftp flag is on false again to
 # be sure the file is already released
 #
 # Currently the YT-Flags are ignored!
@@ -26,38 +29,38 @@ from django.core.exceptions import ObjectDoesNotExist
 from www.models import Subtitle
 import tweets
 
-# Set all finished subtitles to "tweet"
+# Set all finished subtitles to "notify_subtitle_released"
 """
 my_subtitles = Subtitle.objects.filter(complete = True)
 for every in my_subtitles:
-    every.tweet = True
+    every.notify_subtitle_released = True
     every.save()
 print(my_subtitles.count())
 """
 
-# Get all Subtitles which are already synced to the sync folder and still might need a tweet
-my_subtitles = Subtitle.objects.filter(tweet = True, needs_sync_to_sync_folder = False)
+# Get all Subtitles which are already synced to the sync folder and still might need a notification
+my_subtitles = Subtitle.objects.filter(notify_subtitle_released = True, needs_sync_to_sync_folder = False)
 
-# Tweet for every subtitle synced to sync folder if the file is already on the mirror
+# Notify for every subtitle synced to sync folder if the file is already on the mirror
 for s in my_subtitles:
     link = "https://mirror.selfnet.de/c3subtitles/" + s.talk.event.subfolder_in_sync_folder + "/" + s.get_filename_srt()
     try:
         request = requests.head(link)
     except:
         continue
-    # Only tweet it the file is on the mirror
+    # Only notify if the file is on the mirror
     if request.status_code == 200:
         tweets.tweet_subtitles_update_mirror(s.id)
         s.refresh_from_db()
-        s.tweet = False
+        s.notify_subtitle_released = False
         s.save()
     else:
         continue
 
-# Tweet which talk needs an Review
-my_subtitles = Subtitle.objects.filter(state_id = 7, tweet_autosync_done = True)
+# Notify which talk needs an Review
+my_subtitles = Subtitle.objects.filter(state_id = 7, notify_subtitle_ready_for_quality_control = True)
 for s in my_subtitles:
     tweets.tweet_subtitle_needs_quality_control(s.id)
     s.refresh_from_db()
-    s.tweet_autosync_done = False
+    s.notify_subtitle_ready_for_quality_control = False
     s.save()

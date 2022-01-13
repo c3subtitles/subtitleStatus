@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # DEPRICATED!!!  Check send_transcript_needs_auto_sync_mail.py instead!
 #==============================================================================
-# This scripts checks for the flag "needs_automatic_syncing" in the database
+# This scripts checks for the flag "notify_subtitle_needs_timing" in the database
 # If a subtitle has that flag it downloads it and converts it to a pure
 # transcript
 # Afterwards it sends the file as attachment to an email address and resets
@@ -32,8 +32,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from www.models import Talk, Language, Subtitle
 
-# Search for subtitles with set flag "needs_automatic_syncing"
-my_subtitles = Subtitle.objects.filter(needs_automatic_syncing = True)
+# Search for subtitles with set flag "notify_subtitle_needs_timing"
+my_subtitles = Subtitle.objects.filter(notify_subtitle_needs_timing = True)
 
 FROM = "localhost@subtitles.ber.c3voc.de"
 TO = "barbara+transcript@selfnet.de"
@@ -123,7 +123,7 @@ for any in my_subtitles:
     s.quit()
     
     # Reset Flag
-    any.needs_automatic_syncing = False
+    any.notify_subtitle_needs_timing = False
     any.save()
     
     

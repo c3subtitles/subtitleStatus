@@ -521,7 +521,7 @@ def text_transforms_dwim(request, subtitle_id, next_ids=None):
                   args)
 
 # Export for media.ccc.de
-def media_export(request, timestamp, *argh, **kwargs):
+def media_export(request, timestamp=None, *argh, **kwargs):
     #my_search_date = dateutil.parser.parse(timestamp)
     data = None
     try:
@@ -549,7 +549,7 @@ def media_export(request, timestamp, *argh, **kwargs):
     activity_data = {}
 
     csv_output = ""
-    csv_output += "touched;GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;amara_key;amara_language;state;released_as_draft;c3subtitles_url\n"
+    csv_output += "touched;GUID;complete;media_language;srt_language;last_changed_on_amara;revision;url;amara_key;amara_language;state;released_as_draft;c3subtitles_url;draft_source\n"
 
     for any in my_subtitles:
         # If the Subtitle is in quality control state and a draft is released
@@ -570,6 +570,28 @@ def media_export(request, timestamp, *argh, **kwargs):
                 +str(True)\
                 +";https://c3subtitles.de/talk/"\
                 +str(any.talk.id)\
+                + ";"\
+                +"\n"
+        # If the Subtitle is in transcribing or auto timing and has a
+        # subtitle file from e.g. trint or youtube
+        elif (any.state_id == 2 or any.state_id == 4) and any.is_original_lang and any.has_draft_subtitle_file:
+            csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +any.talk.guid+";"\
+                +str(any.complete)+";"\
+                +any.language.lang_code_media+";"\
+                +any.language.lang_short_srt+";"\
+                +any.last_changed_on_amara.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
+                +str(any.revision)\
+                +";https://mirror.selfnet.de/c3subtitles/"\
+                +any.talk.event.subfolder_in_sync_folder + "/"\
+                +any.get_filename_srt(draft=True) +";"\
+                +any.talk.amara_key+";"\
+                +any.language.lang_amara_short+";"\
+                +str(any.state_id)+";"\
+                +str(True)\
+                +";https://c3subtitles.de/talk/"\
+                +str(any.talk.id)\
+                +";" + str(any.talk.transcript_by)\
                 +"\n"
         else:
             csv_output += any.touched.strftime("%Y-%m-%dT%H:%M:%SZ")+";"\
@@ -588,6 +610,7 @@ def media_export(request, timestamp, *argh, **kwargs):
                 + str(False)\
                 +";https://c3subtitles.de/talk/"\
                 +str(any.talk.id)\
+                + ";"\
                 + "\n"
 
     #return render(request, 'www/b_test.html', {"data":data})

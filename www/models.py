@@ -1216,6 +1216,7 @@ class Subtitle(BasisModell):
         # Sync the subtitle if it is not unlisted and the sync flag is true of when it is forced
         if (not self.unlisted and self.needs_sync_to_sync_folder) or force:
             import shutil
+            import os
             # Download the subtitle as srt file
             self.as_srt(save = True)
             # Copy the subtitle to the right folder
@@ -1238,6 +1239,7 @@ class Subtitle(BasisModell):
         # Sync the subtitle if it is not unlisted and the sync flag is true of when it is forced
         if (not self.unlisted and self.draft_needs_sync_to_sync_folder) or force:
             import shutil
+            import os
             # Download the subtitle as srt file
             self.as_srt(save = True, with_draft_disclaimer = True)
             # Copy the subtitle to the right folder
@@ -1258,8 +1260,8 @@ class Subtitle(BasisModell):
     # Removes Subtitles Files from the sync folder
     def remove_subtitle_from_sync_folder(self, force = False):
         if self.needs_removal_from_sync_folder or force:
-            file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
             import os
+            file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt()
             try:
                 os.remove(file_name)
             except:
@@ -1267,8 +1269,8 @@ class Subtitle(BasisModell):
             self.needs_removal_from_sync_folder = False
             self.save()
         if self.draft_needs_removal_from_sync_folder or force:
-            file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt(draft=True)
             import os
+            file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + self.get_filename_srt(draft=True)
             try:
                 os.remove(file_name)
             except:

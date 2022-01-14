@@ -1350,6 +1350,7 @@ class Subtitle(BasisModell):
             self.time_processed_syncing = self.talk.video_duration
             self.time_quality_check_done = self.talk.video_duration
             self.draft_needs_removal_from_sync_folder = True # Delete the draft
+            self.has_draft_subtitle_file = False
             self.state_id = 8
             # Let the related statistics data be recalculated
             self.talk.reset_related_statistics_data()
@@ -1371,6 +1372,7 @@ class Subtitle(BasisModell):
         self.time_processed_syncing = "00:00:00"
         self.time_quality_check_done = "00:00:00"
         self.time_processed_translating = "00:00:00"
+        self.has_draft_subtitle_file = False
         if self.is_original_lang:
             self.state_id = 2
             # Hard reset for the related statistics data

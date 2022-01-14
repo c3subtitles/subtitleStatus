@@ -90,9 +90,9 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available, release
     msg["reply-to"] = "subtitles-logs@lists.selfnet.de"
     
     filename = talk.slug+"."+talk.orig_language.lang_amara_short+".srt"
-    folder = "/var/tmp/"
+    folder = "/tmp/"
     # Save File in ./downloads
-    file = open(folder+filename,mode = "w",encoding = "utf-8")
+    file = open(folder+filename, mode = "w",encoding = "utf-8")
     for line in srt_text:
         file.write(line)
     file.close()

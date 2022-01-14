@@ -32,7 +32,7 @@ import credentials as cred
 #from .lock import *
 
 # TODO everything starting here into a subprocess which won't be joined
-def poll_trint_api_in_background(talk, headers, make_pad_link_available):
+def poll_trint_api_in_background(talk, headers, make_pad_link_available, release_draft = True, do_send_email = True):
     trint_id = talk.trint_transcript_id
     url = "https://api.trint.com/export/srt/" + trint_id
     
@@ -178,7 +178,7 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available):
 # and polls for the finished transcript
 # If this is used via the browser in admin, the interface is blocked until the
 # transcript is ready and the email is sent
-def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True):
+def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True, release_draft = True, do_send_email = True):
     # Only proceed if the talk actually has a video file link
     # Not proceed if the talk has no video link and no transcript id
     if talk.link_to_video_file == "" and talk.trint_transcript_id =="":
@@ -219,6 +219,6 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
         os.remove(output_filename)
     
     #poll_trint_api_in_background(talk=talk, headers=headers)
-    threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available]).start()
+    threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available, release_draft, do_send_email]).start()
 
 

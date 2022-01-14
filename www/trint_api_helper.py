@@ -165,14 +165,15 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available, release
     os.remove(folder + filename)
 
     # Mail verschicken
-    try:
-        p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
-        p.communicate(msg.as_string())
-        print("Mail send")
-        return True
-    except:
-        print("Mail Exception")
-        return False
+    if do_send_email:
+        try:
+            p = Popen(["/usr/sbin/sendmail", "-t", "-oi"], stdin=PIPE, universal_newlines=True)
+            p.communicate(msg.as_string())
+            print("Mail send")
+            return True
+        except:
+            print("Mail Exception")
+            return False
 
 # This function uses the talk.link_to_video_file to push the file to the amara api
 # and polls for the finished transcript

@@ -96,6 +96,15 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available):
     for line in srt_text:
         file.write(line)
     file.close()
+    
+    # Release the draft subtitle
+    if release_draft and talk.amara_key != "":
+        my_ss = talk.subtitle_set.all().filter(is_original_lang=True)
+        if my_ss.count()==1:
+            my_s = my_ss[0]
+            my_s.put_subtitle_draft_into_sync_folder(draft=True, text=srt_text)
+            my_s.has_draft_subtitle_file = True
+            my_s.save()
 
     # Build attachment File for email an attach and delete the file afterwards
     attachment = MIMEBase('application', 'octet-stream')

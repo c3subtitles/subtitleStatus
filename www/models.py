@@ -1004,8 +1004,8 @@ class Talk(BasisModell):
     # If there is no video link it does nothing
     # If there is already a trint_transcript_id it will not upload the file again
     # but it will download it again and send it via email
-    def get_trint_transcript_and_send_via_email(self):
-        return get_trint_transcript_via_api(self)
+    def get_trint_transcript_and_send_via_email(self, make_pad_link_available=True, release_draft=True, do_send_email=True):
+        return get_trint_transcript_via_api(self, make_pad_link_available=make_pad_link_available, release_draft=release_draft, do_send_email=do_send_email)
 
     def do_notify_transcript_available(self):
         notify_transcript_available(self)

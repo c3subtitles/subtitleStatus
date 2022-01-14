@@ -1049,6 +1049,7 @@ class Subtitle(BasisModell):
     notify_subtitle_needs_timing = models.BooleanField(default = False)
     notify_subtitle_ready_for_quality_control = models.BooleanField(default = False)
     notify_subtitle_released = models.BooleanField(default = False)
+    has_draft_subtitle_file = models.BooleanField(default = False) # e.g. from trint or YT
 
     def _still_in_progress(self, timestamp, state, original_language=True):
         if original_language != self.is_original_lang:

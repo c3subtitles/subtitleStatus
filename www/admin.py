@@ -171,6 +171,13 @@ class TalkAdmin(admin.ModelAdmin):
             talk.get_trint_transcript_and_send_via_email()
     get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (check if the dataset now has a trint key)'
 
+    def get_trint_transcript_no_email(self, request, queryset):
+        selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
+        for sid in selected:
+            talk = get_object_or_404(Talk, pk=sid)
+            talk.get_trint_transcript_and_send_via_email(do_send_email=False)
+    get_trint_transcript_no_email.short_description = 'Trint: Get a trint transcript but NO email (check if the dataset now has a trint key)'
+    
     def create_amara_key(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
@@ -219,7 +226,7 @@ class TalkAdmin(admin.ModelAdmin):
             talk.do_notify_transcript_available()
     notify_transcript_available.short_description = 'Notify: Publish messages that the transcript of this talk is available'
 
-    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email', 'notify_transcript_available',]
+    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email', 'get_trint_transcript_no_email', 'notify_transcript_available',]
     date_hierarchy = 'date'
     list_display = ('id', 'frab_id_talk', 'title',
                     'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', 'trint_transcript_id', )
@@ -364,6 +371,7 @@ class SubtitleAdmin(admin.ModelAdmin):
                 subt.state_id = 7 # Quality control done until
                 subt.notify_subtitle_ready_for_quality_control = True
                 subt.draft_needs_sync_to_sync_folder = True # Release the draft
+                self.has_draft_subtitle_file = False
                 subt.save()
                 # Let the related statistics be calculated
                 subt.talk.reset_related_statistics_data()

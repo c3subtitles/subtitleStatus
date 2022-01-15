@@ -179,7 +179,7 @@ def poll_trint_api_in_background(talk, headers, make_pad_link_available, release
 # and polls for the finished transcript
 # If this is used via the browser in admin, the interface is blocked until the
 # transcript is ready and the email is sent
-def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True, release_draft = True, do_send_email = True):
+def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pad_link_available=True, release_draft = True, do_send_email = True, polling_in_background=True):
     # Only proceed if the talk actually has a video file link
     # Not proceed if the talk has no video link and no transcript id
     if talk.link_to_video_file == "" and talk.trint_transcript_id =="":
@@ -220,6 +220,9 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
         os.remove(output_filename)
     
     #poll_trint_api_in_background(talk=talk, headers=headers)
-    threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available, release_draft, do_send_email]).start()
+    if polling_in_background:
+        threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available, release_draft, do_send_email]).start()
+    else:
+        poll_trint_api_in_background(talk=talk, headers=headers, make_pad_link_available=make_pad_link_available, release_draft=release_draft, do_send_email=do_send_email)
 
 

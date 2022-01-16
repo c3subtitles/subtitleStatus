@@ -371,7 +371,7 @@ class SubtitleAdmin(admin.ModelAdmin):
                 subt.state_id = 7 # Quality control done until
                 subt.notify_subtitle_ready_for_quality_control = True
                 subt.draft_needs_sync_to_sync_folder = True # Release the draft
-                self.has_draft_subtitle_file = False
+                subt.has_draft_subtitle_file = False
                 subt.save()
                 # Let the related statistics be calculated
                 subt.talk.reset_related_statistics_data()

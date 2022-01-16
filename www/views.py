@@ -615,7 +615,7 @@ def media_export(request, timestamp=None, *argh, **kwargs):
 
     #return render(request, 'www/b_test.html', {"data":data})
     #return render(request, "www/raw_csv.html", {"data":csv_output})
-    return HttpResponse(csv_output, content_type='text/plain')
+    return HttpResponse(csv_output, content_type='text/csv')
 
 # Dashboard
 def dashboard(request):

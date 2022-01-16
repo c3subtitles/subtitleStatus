@@ -909,7 +909,7 @@ class Talk(BasisModell):
                                 my_subtitle.save()
 
                         # If the revision hasn't changed but the complete flag has changed, set the subtitle complete
-                        elif my_subtitle.complete and not amara_subt_is_complete:
+                        elif amara_subt_is_complete and not my_subtitle.complete:
                             self.amara_update_interval = timedelta(minutes=5)
                             my_subtitle.set_complete()
                             if my_subtitle.is_original_lang:
@@ -1362,6 +1362,7 @@ class Subtitle(BasisModell):
         # Only notify if the file was not already complete
         if not was_already_complete:
             self.notify_subtitle_released = True
+            self.complete = True
         self.blocked = False
         self.set_all_sync_flags()
         self.notify_subtitle_needs_timing = False

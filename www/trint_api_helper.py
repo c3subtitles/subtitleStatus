@@ -198,14 +198,13 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
     # Afterwards upload to trint
     headers = {'api-key':trint_api_key,'content-type':'video/mp4',}
     
-    # Only upload to amara if the language is English or German, no Klingon!!
+    allow_upload = False
+    # Only upload to trint if the language is English or German, no Klingon!!
     if talk.orig_language.lang_amara_short == "en" or talk.orig_language.lang_amara_short == "de":
-        pass
-    else:
-        return False
+        allow_upload = True
 
     # Only upload the video if the talk does not yet have a trint_transcript_id
-    if talk.trint_transcript_id == "":
+    if talk.trint_transcript_id == "" and allow_upload:
         params = (('filename', filename),('folder-id',talk.event.trint_folder_id),('language',talk.orig_language.lang_amara_short),('detect-speaker-change',True),)
 
         data = open(output_filename, 'rb').read()
@@ -219,7 +218,9 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
         # Delete the file locally
         os.remove(output_filename)
     
-    #poll_trint_api_in_background(talk=talk, headers=headers)
+    # If for some reason the trint upload was not successful and the talk does not have a trint_transcript_id
+    if talk.trint_transcript_id = "":
+        return False
     if polling_in_background:
         threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available, release_draft, do_send_email]).start()
     else:

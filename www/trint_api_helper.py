@@ -219,7 +219,7 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
         os.remove(output_filename)
     
     # If for some reason the trint upload was not successful and the talk does not have a trint_transcript_id
-    if talk.trint_transcript_id = "":
+    if talk.trint_transcript_id == "":
         return False
     if polling_in_background:
         threading.Thread(target=poll_trint_api_in_background, name=None, args=[talk, headers, make_pad_link_available, release_draft, do_send_email]).start()

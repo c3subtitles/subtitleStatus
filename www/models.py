@@ -1338,7 +1338,7 @@ class Subtitle(BasisModell):
     # Send a notification for a released subtitle
     def do_notify_subtitle_released(self):
         # Check if the subtitle is really online:
-        if self.srt_is_synced_to_mirror():
+        if self.srt_is_synced_to_mirror:
             notify_subtitle_released(self)
             self.refresh_from_db()
             self.notify_subtitle_released = False

@@ -1280,7 +1280,7 @@ class Subtitle(BasisModell):
 
     # Puts a non amara file as subtitle into the releasing folder
     # Input is possible as string or as path to a file
-    def put_subtitle_draft_into_sync_folder(self, draft = True, text = "", file_with_full_path = "", format = "srt"):
+    def put_subtitle_draft_into_sync_folder(self, draft = True, text = "", file_with_full_path = "", format = "srt", with_draft_disclaimer = True):
         import os
         filename_releasing = self.get_filename(draft = draft, format = format)
         full_releasing_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + filename_releasing
@@ -1288,10 +1288,40 @@ class Subtitle(BasisModell):
             import shutil
             shutil.copy2(file_with_full_path, full_releasing_path)
         if text != "":
-            file = open(full_releasing_path,mode = "w",encoding = "utf-8")
+            file = open(full_releasing_path, mode = "w", encoding = "utf-8")
             for line in text:
                 file.write(line)
             file.close()
+        if with_draft_disclaimer:
+            # Create the Disclaimer-text:
+            text = "0\n00:00:00,000 --> 00:00:30,000\n"
+            if self.language.lang_amara_short == "de":
+                text += "Lieber Zuschauer, dieser Untertitel ist\n"
+                text += "automatisch generiert von " + str(self.talk.transcript_by) + "\n"
+                text += "und dementsprechend (sehr) fehlerhaft.\n"
+                text += "Wenn du kannst, hilf uns bitte gute\n"
+                text += "Untertitel zu erstellen:\n"
+                text += "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!\n\n"
+            else:
+                text += "Dear viewer, these subtitles are generated\n"
+                text += "by a machine via the service " + str(self.talk.transcript_by) + "\n"
+                text += "and therefore are (very) buggy.\n"
+                text += "If you are capable, please help us to\n"
+                text += "create good quality subtitles:\n"
+                text += "https://c3subtitles.de/talk/" + str(self.talk.id) + " Thanks!\n\n"
+            # Open the file again and add the disclaimer if the first line is not already "0"
+            file = open(full_releasing_path,mode = "r",encoding = "utf-8")
+            file_content = file.readline()
+            file.close()
+            if file_content != "0\n":
+                file = open(full_releasing_path,mode = "r",encoding = "utf-8")
+                file_content = file.read()
+                file.close()
+                file_content = text + file_content
+                file = open(full_releasing_path,mode = "w",encoding = "utf-8")
+                for any_line in file_content:
+                    file.write(any_line)
+                file.close()
 
     # Set all flags for a sync to cdn, media frontend, YT ...
     def set_all_sync_flags(self, save = False, draft = False):

@@ -1296,14 +1296,14 @@ class Subtitle(BasisModell):
             # Create the Disclaimer-text:
             text = "0\n00:00:00,000 --> 00:00:30,000\n"
             if self.language.lang_amara_short == "de":
-                text += "Lieber Zuschauer, dieser Untertitel ist\n"
+                text += "Lieber Zuschauer, dieser Untertitel wurde\n"
                 text += "automatisch generiert von " + str(self.talk.transcript_by) + "\n"
                 text += "und dementsprechend (sehr) fehlerhaft.\n"
                 text += "Wenn du kannst, hilf uns bitte gute\n"
                 text += "Untertitel zu erstellen:\n"
                 text += "https://c3subtitles.de/talk/" + str(self.talk.id) + " Danke!\n\n"
             else:
-                text += "Dear viewer, these subtitles are generated\n"
+                text += "Dear viewer, these subtitles were generated\n"
                 text += "by a machine via the service " + str(self.talk.transcript_by) + "\n"
                 text += "and therefore are (very) buggy.\n"
                 text += "If you are capable, please help us to\n"

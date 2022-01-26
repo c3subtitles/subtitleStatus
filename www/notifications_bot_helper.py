@@ -253,8 +253,8 @@ def create_and_send_email_for_subtitle_needs_autotiming(my_subtitle):
 def do_tweet(tw_client, text):
     return tw_client.statuses.update(status = text)
 
-def do_toot(mastodon_client, text):
-    return mastodon_client.toot(text)
+def do_toot(mastodon_client, text, visibility=None, in_reply_to_id=None,quote_id=None):
+    return mastodon_client.status_post(status=text, visibility=visibility, in_reply_to_id=in_reply_to_id, quote_id=quote_id)
 
 # For emojis look here: https://www.webfx.com/tools/emoji-cheat-sheet/
 def message_to_rocket_chat_with_webhook(webhook, data = {"text":"", "alias": "", "emoji": ""}):
@@ -270,7 +270,7 @@ def notify_transcript_available(my_talk):
     do_tweet(twitter_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Twitter"))
     
     # Via Mastodon Progress Account
-    do_toot(mastodon_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Mastodon"))
+    do_toot(mastodon_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Mastodon"), visibility="unlisted")
     
     # Via Rocket Chat
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_transcript_is_now_available(my_talk, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
@@ -284,7 +284,7 @@ def notify_subtitle_ready_for_quality_control(my_subtitle):
     do_tweet(twitter_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Twitter"))
     
     # Via Mastodon Progress Account
-    do_toot(mastodon_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Mastodon"))
+    do_toot(mastodon_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
     # Via Rocket Chat
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
@@ -294,7 +294,7 @@ def notify_subtitle_released(my_subtitle):
     do_tweet(twitter_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Twitter"))
     
     # Via Mastodon Progress Account
-    do_toot(mastodon_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Mastodon"))
+    do_toot(mastodon_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
     # Via Rocket Chat
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_subtitle_is_released(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":thumbsup:"})

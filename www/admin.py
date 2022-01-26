@@ -399,7 +399,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
                    'state', 'complete', 'unlisted',)
     raw_id_fields = ('talk',)
-    search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk')
+    search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk', 'talk__id')
 
 
 @admin.register(States)

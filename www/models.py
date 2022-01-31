@@ -21,7 +21,7 @@ import json
 import requests
 import credentials as cred
 from .lock import *
-from .notifications_bot_helper import create_and_send_email_for_subtitle_needs_autotiming, notify_transcript_available, notify_transcript_needs_timing, notify_subtitle_ready_for_quality_control, notify_subtitle_released
+
 
 # How long should the script wait when it calls the amara api
 amara_api_call_sleep = 0.1 # seconds
@@ -1008,7 +1008,8 @@ class Talk(BasisModell):
         return get_trint_transcript_via_api(self, make_pad_link_available=make_pad_link_available, release_draft=release_draft, do_send_email=do_send_email, polling_in_background=polling_in_background)
 
     def do_notify_transcript_available(self):
-        notify_transcript_available(self)
+        from . import notifications_bot_helper
+        notifications_bot_helper.notify_transcript_available(self)
         self.refresh_from_db()
         self.notify_transcript_available = False
         self.save()
@@ -1348,10 +1349,11 @@ class Subtitle(BasisModell):
     # Send an email with the subtitle which needs timing and post a message to the orga chat(s)
     def do_notify_subtitle_needs_timing(self):
         # Send Mail
-        create_and_send_email_for_subtitle_needs_autotiming(self)
+        from . import notifications_bot_helper
+        notifications_bot_helper.create_and_send_email_for_subtitle_needs_autotiming(self)
         
         # Send other Notifications
-        notify_transcript_needs_timing(self)
+        notifications_bot_helper.notify_transcript_needs_timing(self)
         
         # Reset Flag
         self.refresh_from_db()
@@ -1360,7 +1362,8 @@ class Subtitle(BasisModell):
 
     # Send a notification that the subtitle is ready for quality control
     def do_notify_subtitle_ready_for_quality_control(self):
-        notify_subtitle_ready_for_quality_control(self)
+        from . import notifications_bot_helper
+        notifications_bot_helper.notify_subtitle_ready_for_quality_control(self)
         self.refresh_from_db()
         self.notify_subtitle_ready_for_quality_control = False
         self.save()
@@ -1369,7 +1372,8 @@ class Subtitle(BasisModell):
     def do_notify_subtitle_released(self):
         # Check if the subtitle is really online:
         if self.srt_is_synced_to_mirror:
-            notify_subtitle_released(self)
+            from . import notifications_bot_helper
+            notifications_bot_helper.notify_subtitle_released(self)
             self.refresh_from_db()
             self.notify_subtitle_released = False
             self.save()

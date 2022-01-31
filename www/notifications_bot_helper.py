@@ -60,12 +60,12 @@ mastodon_c3srt_progress = Mastodon(
     access_token = os.path.join(os.path.dirname(os.path.dirname(__file__)),"credentials", cred.MT_C3P_TOKEN_FILENAME),
     api_base_url = cred.MT_C3P_API_BASE_URL
     )
-test1=os.path.join(os.path.dirname(os.path.realpath('__file__')),"credentials", cred.MT_C3P_TOKEN_FILENAME)
+
 mastodon_c3srt_releasing = Mastodon(
     access_token = os.path.join(os.path.dirname(os.path.dirname(__file__)),"credentials", cred.MT_C3R_TOKEN_FILENAME),
     api_base_url = cred.MT_C3R_API_BASE_URL
     )
-test2=os.path.join(os.path.dirname(os.path.realpath('__file__')),"credentials", cred.MT_C3R_TOKEN_FILENAME)
+
 # Twitter
 twitter_c3srt_progress = tw.Twitter(
     auth = tw.OAuth(

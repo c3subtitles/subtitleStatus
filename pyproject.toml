@@ -49,6 +49,7 @@ uritemplate = "*"
 urllib3 = "*"
 uWSGI = "*"
 xmltodict = "*"
+"Mastodon.py" = "*"
 
 [tool.poetry.dev-dependencies]
 

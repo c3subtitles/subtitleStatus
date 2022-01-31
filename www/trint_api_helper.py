@@ -190,9 +190,10 @@ def get_trint_transcript_via_api(talk, trint_api_key=cred.TRINT_API_KEY, make_pa
     filename = talk.link_to_video_file.split("/")[-1]
     output_filename = "/var/tmp/" + filename
     url = talk.link_to_video_file
-    r = requests.get(url)
+
     # Only download the file if it is needed later on
     if talk.trint_transcript_id == "":
+        r = requests.get(url)
         open(output_filename , 'wb').write(r.content)
     
     # Afterwards upload to trint

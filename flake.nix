@@ -36,6 +36,7 @@
             poetryEnv.env.overrideAttrs
               (oldAttrs: {
                 SUBTITLESTATUS_CONFIG = "${pkgs.subtitleStatusCfg}";
+                buildInputs = [ pkgs.poetry ];
               });
         });
 }

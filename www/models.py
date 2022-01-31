@@ -1281,9 +1281,7 @@ class Subtitle(BasisModell):
     # Puts a non amara file as subtitle into the releasing folder
     # Input is possible as string or as path to a file
     def put_subtitle_draft_into_sync_folder(self, draft = True, text = "", file_with_full_path = "", format = "srt", with_draft_disclaimer = True):
-        import os
-        filename_releasing = self.get_filename(draft = draft, format = format)
-        full_releasing_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/" + filename_releasing
+        full_releasing_path = self.get_full_file_path(draft=draft, format=format)
         if file_with_full_path != "":
             import shutil
             shutil.copy2(file_with_full_path, full_releasing_path)
@@ -1322,6 +1320,15 @@ class Subtitle(BasisModell):
                 for any_line in file_content:
                     file.write(any_line)
                 file.close()
+
+    def get_full_file_path(self, draft=False, download_folder=False, format="srt"):
+        import os
+        if download_folder:
+            path = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/downloads/subtitles_external_drafts") + "/"
+        else:
+            path = os.path.join(os.path.dirname(os.path.dirname(__file__)),"subtitles_sync_folder/") + self.talk.event.subfolder_in_sync_folder + "/"
+        filename = self.get_filename(draft = draft, format = format)
+        return path + filename
 
     # Set all flags for a sync to cdn, media frontend, YT ...
     def set_all_sync_flags(self, save = False, draft = False):

@@ -296,5 +296,5 @@ def notify_subtitle_released(my_subtitle):
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
-    # Via Rocket Chat #subtitels-notifications
+    # Via Rocket Chat #subtitles-notifications
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_NOTIFICATIONS, data = {"text": create_text_for_subtitle_is_released(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":thumbsup:"})

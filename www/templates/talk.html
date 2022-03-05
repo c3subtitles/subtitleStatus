@@ -302,8 +302,16 @@
   $('#load-amara-embed').click(function() {
       $.getScript("https://amara.org/embedder-iframe", function() {
           window.amaraEmbedderInit();
+          $('#load-amara-embed').hide();
+          $('iframe').attr('src', function(idx, value) {
+              if (value.indexOf('embedder-widget-iframe') === -1) {
+                  return value;
+              }
+
+              var path = value.split('embedder-widget-iframe')[1];
+              return "//amara.org/embedder-widget-iframe" + path;
+          });
       });
-      $('#load-amara-embed').hide();
   });
 </script>
 

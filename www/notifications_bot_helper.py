@@ -272,8 +272,8 @@ def notify_transcript_available(my_talk):
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Mastodon"), visibility="unlisted")
     
-    # Via Rocket Chat
-    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_transcript_is_now_available(my_talk, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
+    # Via Rocket Chat #subtitles-notifications
+    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_NOTIFICATIONS, data = {"text": create_text_for_transcript_is_now_available(my_talk, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
 
 def notify_transcript_needs_timing(my_subtitle):
     # Via Rocket Chat INTERN
@@ -286,8 +286,8 @@ def notify_subtitle_ready_for_quality_control(my_subtitle):
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
-    # Via Rocket Chat
-    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
+    # Via Rocket Chat #subtitles-notifications
+    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_NOTIFICATIONS, data = {"text": create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
 
 def notify_subtitle_released(my_subtitle):
     # Via Twitter Progress Account
@@ -296,5 +296,5 @@ def notify_subtitle_released(my_subtitle):
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
-    # Via Rocket Chat
-    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES, data = {"text": create_text_for_subtitle_is_released(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":thumbsup:"})
+    # Via Rocket Chat #subtitels-notifications
+    message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_NOTIFICATIONS, data = {"text": create_text_for_subtitle_is_released(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":thumbsup:"})

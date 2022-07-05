@@ -113,9 +113,9 @@ django-pglocks==1.0.4 \
     --hash=sha256:3c47c66fbfbd268ef46269673a0516a039539b0972b8ed2ec9cfee44c4b65523
 django-urlauth==0.1.8 \
     --hash=sha256:fc1e59d4d1d45a07ff78b7f7be6dd462d61cca0dcb0722dfcd4994fc812fe042
-django==3.2.12; python_version >= "3.6" \
-    --hash=sha256:9b06c289f9ba3a8abea16c9c9505f25107809fb933676f6c891ded270039d965 \
-    --hash=sha256:9772e6935703e59e993960832d66a614cf0233a1c5123bc6224ecc6ad69e41e2
+django==3.2.14; python_version >= "3.6" \
+    --hash=sha256:677182ba8b5b285a4e072f3ac17ceee6aff1b5ce77fd173cc5b6a2d3dc022fcf \
+    --hash=sha256:a8681e098fa60f7c33a4b628d6fcd3fe983a0939ff1301ecacac21d0b38bad56
 factory-boy==3.2.1; python_version >= "3.6" \
     --hash=sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795 \
     --hash=sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e

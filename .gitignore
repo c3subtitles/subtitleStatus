@@ -103,3 +103,4 @@ client_secrets.json
 # temporaries
 *~
 flycheck_*.py
+/.direnv/

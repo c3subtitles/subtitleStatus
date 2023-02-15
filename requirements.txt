@@ -130,9 +130,9 @@ django-pglocks==1.0.4 \
     --hash=sha256:3c47c66fbfbd268ef46269673a0516a039539b0972b8ed2ec9cfee44c4b65523
 django-urlauth==0.1.8 \
     --hash=sha256:fc1e59d4d1d45a07ff78b7f7be6dd462d61cca0dcb0722dfcd4994fc812fe042
-django==3.2.14; python_version >= "3.6" \
-    --hash=sha256:a8681e098fa60f7c33a4b628d6fcd3fe983a0939ff1301ecacac21d0b38bad56 \
-    --hash=sha256:677182ba8b5b285a4e072f3ac17ceee6aff1b5ce77fd173cc5b6a2d3dc022fcf
+django==3.2.18; python_version >= "3.6" \
+    --hash=sha256:08208dfe892eb64fff073ca743b3b952311104f939e7f6dae954fe72dcc533ba \
+    --hash=sha256:4d492d9024c7b3dfababf49f94511ab6a58e2c9c3c7207786f1ba4eb77750706
 factory-boy==3.2.1; python_version >= "3.6" \
     --hash=sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795 \
     --hash=sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e

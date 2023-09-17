@@ -675,6 +675,12 @@ def dashboard(request):
     for any in my_subtitles:
         talks_needing_c3s_yt_link.append(any.talk)
 
+    # Talk without c3subtitles youtube link, listed and amara link
+    talks_needing_c3s_yt_link_general = []
+    talks_needing_c3s_yt_link_general = my_talks = Talk.objects.filter(unlisted = False, c3subtitles_youtube_key="").exclude(amara_key="")
+    #for any_talk in my_talks:
+    #    talks_needing_c3s_yt_link_general.append(any_talk)
+
     talks_with_subtitles_in_video_links = []
     my_talks = Talk.objects.all().order_by("-id")
     for any_talk in my_talks:
@@ -701,6 +707,7 @@ def dashboard(request):
         "talks_visible_no_amara_video_link": talks_visible_no_amara_video_link,\
         "talks_visible_transcript_by_none": talks_visible_transcript_by_none,\
         "talks_needing_c3s_yt_link": talks_needing_c3s_yt_link,\
+        "talks_needing_c3s_yt_link_general": talks_needing_c3s_yt_link_general,\
         "talks_needing_timing": talks_needing_timing,\
         "events_without_releasing_folder": events_without_releasing_folder,\
         "events_without_hashtag": events_without_hashtag,\

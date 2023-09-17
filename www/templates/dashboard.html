@@ -8,14 +8,15 @@
 {% if user.is_authenticated %}
 
 <div class="col-md-4">
-    <h2>[{{ talks_needing_timing|length }}] Talks which need timing</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_needing_timing_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_needing_timing|length }}</a>] Talks which need timing</h2>
+    <div class="collapse" id="talks_needing_timing_id">
     {% for any_talk in talks_needing_timing %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
-                    <dd><a href="admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Amara Link</dt>
                 {% if any_talk.amara_key != "" %}
                     <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
@@ -41,10 +42,10 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-
-    <h2>[{{ talks_one_speaker_no_statistics|length }}] Talks with one speaker and no statistics data</h2>
-
+    <h2>[<a data-toggle="collapse" href="#talks_one_speaker_no_statistics_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_one_speaker_no_statistics|length }}</a>] Talks with one speaker and no statistics data</h2>
+    <div class="collapse" id="talks_one_speaker_no_statistics_id">
     {% for any_talk in talks_one_speaker_no_statistics %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -83,8 +84,10 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-    <h2>[{{ talks_several_speakers_no_statistics|length }}] Talks with several speakers and no statistics data</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_several_speakers_no_statistics_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_several_speakers_no_statistics|length }}</a>] Talks with several speakers and no statistics data</h2>
+    <div class="collapse" id="talks_several_speakers_no_statistics_id">
     {% for any_talk in talks_several_speakers_no_statistics %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -123,10 +126,10 @@
             </dl>
         <br/>
     {%endfor%}
-</div>
+    </div>
 
-<div class="col-md-4">
-    <h2>[{{ talks_needing_c3s_yt_link|length }}] Talks which might soon need a c3subtitles youtube link</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_needing_c3s_yt_link_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_needing_c3s_yt_link|length }}</a>] Talks which might soon need a c3subtitles youtube link</h2>
+    <div class="collapse" id="talks_needing_c3s_yt_link_id">
     {% for any_talk in talks_needing_c3s_yt_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -151,8 +154,41 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-    <h2>[{{ talks_visible_no_amara_key|length }}] Talk visible but no amara link</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_needing_c3s_yt_link_general_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_needing_c3s_yt_link_general|length }}</a>] Talks which have an amara link, are listed and don't have a c3subtitles youtube link</h2>
+    <div class="collapse" id="talks_needing_c3s_yt_link_general_id">
+    {% for any_talk in talks_needing_c3s_yt_link_general %}
+        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                <dt>CDN Link</dt>
+                    <dd><a href="{{any_talk.link_to_video_file}}">Link</a></dd>
+                <dt>Language:</dt>
+                    <dd>{{any_talk.orig_language}}</dd>
+                <dt>Event</dt>
+                    <dd>{{any_talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_talk.frab_id_talk}}</dd>
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+            </dl>
+        <br/>
+    {%endfor%}
+    </div>
+
+</div>
+<div class="col-md-4">
+
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_amara_key_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_amara_key|length }}</a>] Talk visible but no amara link</h2>
+    <div class="collapse" id="talks_visible_no_amara_key_id">
     {% for any_talk in talks_visible_no_amara_key %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -173,8 +209,10 @@
             </dl>
         <br/>
     {%endfor%}
-    
-    <h2>[{{ talks_visible_no_filename|length }}] Talk visible but no filename</h2>
+    </div>
+
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_filename_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_filename|length }}</a>] Talk visible but no filename</h2>
+    <div class="collapse" id="talks_visible_no_filename_id">
     {% for any_talk in talks_visible_no_filename %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -201,8 +239,10 @@
             </dl>
         <br/>
     {%endfor%}
-
-    <h2>[{{ talks_visible_no_video_duration|length }}] Talk visible but no video duration</h2>
+    </div>
+    
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_video_duration_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_video_duration|length }}</a>] Talk visible but no video duration</h2>
+    <div class="collapse" id="talks_visible_no_video_duration_id">
     {% for any_talk in talks_visible_no_video_duration %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -237,8 +277,10 @@
             </dl>
         <br/>
     {%endfor%}
-    
-    <h2>[{{ talks_visible_no_cdn_link|length }}] Talk visible but no cdn link</h2>
+    </div>
+
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_cdn_link_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_cdn_link|length }}</a>] Talk visible but no cdn link</h2>
+    <div class="collapse" id="talks_visible_no_cdn_link_id">
     {% for any_talk in talks_visible_no_cdn_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -267,8 +309,10 @@
             </dl>
         <br/>
     {%endfor%}
-    
-    <h2>[{{ talks_visible_no_etherpad_link|length }}] Talk visible but no etherpad link</h2>
+    </div>
+
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_etherpad_link_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_etherpad_link|length }}</a>] Talk visible but no etherpad link</h2>
+    <div class="collapse" id="talks_visible_no_etherpad_link_id">
     {% for any_talk in talks_visible_no_etherpad_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -295,8 +339,13 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-    <h2>[{{ talks_visible_no_amara_video_link|length }}] Talk visible but no primary amara video link</h2>
+</div>
+<div class="col-md-4">
+
+    <h2>[<a data-toggle="collapse" href="#talks_visible_no_amara_video_link_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_no_amara_video_link|length }}</a>] Talk visible but no primary amara video link</h2>
+    <div class="collapse" id="talks_visible_no_amara_video_link_id">
     {% for any_talk in talks_visible_no_amara_video_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -323,8 +372,10 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-    <h2>[{{ talks_visible_transcript_by_none|length }}] Talk visible but transcript by None</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_visible_transcript_by_none_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_visible_transcript_by_none|length }}</a>] Talk visible but transcript by None</h2>
+    <div class="collapse" id="talks_visible_transcript_by_none_id">
     {% for any_talk in talks_visible_transcript_by_none %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -377,9 +428,10 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-
-    <h2>[{{ talks_with_subtitles_in_video_links|length }}] Talk with "subtitles" in video links</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_with_subtitles_in_video_links_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_with_subtitles_in_video_links|length }}</a>] Talk with "subtitles" in video links</h2>
+    <div class="collapse" id="talks_with_subtitles_in_video_links_id">
     {% for any_talk in talks_with_subtitles_in_video_links %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
@@ -445,10 +497,10 @@
             </dl>
         <br/>
     {%endfor%}
-</div>
+    </div>
 
-<div class="col-md-4">
-    <h2>[{{ events_without_releasing_folder|length }}] Visible Event without releasing folder</h2>
+    <h2>[<a data-toggle="collapse" href="#events_without_releasing_folder_id" aria-expanded="false" aria-controls="collapseExample">{{ events_without_releasing_folder|length }}</a>] Visible Event without releasing folder</h2>
+    <div class="collapse" id="events_without_releasing_folder_id">
     {% for any_event in events_without_releasing_folder %}
         <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
@@ -469,8 +521,10 @@
             </dl>
         <br/>
     {%endfor%}
+    </div>
 
-    <h2>[{{ events_without_hashtag|length }}] Visible Event without hashtag</h2>
+    <h2>[<a data-toggle="collapse" href="#events_without_hashtag_id" aria-expanded="false" aria-controls="collapseExample">{{ events_without_hashtag|length }}</a>] Visible Event without hashtag</h2>
+    <div class="collapse" id="events_without_hashtag_id">
     {% for any_event in events_without_hashtag %}
         <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
@@ -491,7 +545,8 @@
             </dl>
         <br/>
     {%endfor%}
-    
+    </div>
+</div>    
     
 {% else %}
     <h2><a href="/admin/">You are not authenticated, please log in!</a></h2>

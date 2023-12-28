@@ -116,7 +116,6 @@ class Event(BasisModell):
     hashtag = models.CharField(max_length = 50, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = MaybeURLField(blank = True, default = "")
-#    speaker_json_link = models.URLField(blank = True, default = "")
     speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
     unlisted = models.BooleanField(default = False, blank = True)
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
@@ -126,6 +125,10 @@ class Event(BasisModell):
     kanboard_private_project_id = models.IntegerField(blank = True, null = True)
     comment = models.TextField(default = "", blank = True, null = True)
     trint_folder_id = models.CharField(max_length = 30, default = "", blank = True)
+    lang_subst_json = models.TextField(default='{"en":"eng", "de":"deu"}') # how are the languages displayed in the filenames in the media cdn? needed to find the filenames and video file urls
+    webpages_to_find_video_links_and_filenames = models.TextField(default="") # one or several ";" separated links to webpages e.g. from the cdn to find the filenames and video files, first priority first
+    endings_to_remove_from_filenames = models.CharField(max_length=100, default='_hd.mp4;_sd.mp4;.mp4')# one or several ";" separated substitutions at the ends of the filenames
+    use_all_webpages_urls_to_find_filenames_and_video_urls = models.BooleanField(default = True) # if all urls should be used to find the filenames and video urls or just following the priority
 
     def isDifferent(id, xmlFile):
         with open("data/eventxml/{}.xml".format(id),'rb') as f:

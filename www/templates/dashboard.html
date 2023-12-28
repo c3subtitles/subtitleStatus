@@ -546,6 +546,41 @@
         <br/>
     {%endfor%}
     </div>
+
+    <h2>[<a data-toggle="collapse" href="#events_without_links_to_find_the_filenames_and_video_urls_id" aria-expanded="false" aria-controls="collapseExample">{{ events_without_links_to_find_the_filenames_and_video_urls|length }}</a>] Visible Event without links to find filenames and video urls </h2>
+    <div class="collapse" id="events_without_links_to_find_the_filenames_and_video_urls_id">
+    {% for any_event in events_without_links_to_find_the_filenames_and_video_urls %}
+        <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>C3S Link</dt>
+                    <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
+                <dt>Admin Link</dt>
+                    <dd><a href="/admin/www/event/{{any_event.id}}">Link</a></dd>
+                <dt>Title</dt>
+                    <dd>{{any_event.title}}</dd>
+                <dt>Acronym</dt>
+                    <dd>{{any_event.acronym}}</dd>
+                <dt>Lang subst json</dt>
+                    <dd>{{any_event.lang_subst_json}}</dd>
+                <dt>Endings to remove from filenames</dt>
+                    <dd>{{any_event.endings_to_remove_from_filenames}}</dd>
+                <dt>Use all webpages urls to find filenames and video urls</dt>
+                    <dd>{{any_event.use_all_webpages_urls_to_find_filenames_and_video_urls}}</dd>
+                <dt>Internal Comment</dt>
+                {% if any_event.internal_comment != "" %}
+                    <dd>{{any_event.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+            </dl>
+        <br/>
+    {%endfor%}
+    </div>
+
+
+
+
+
 </div>    
     
 {% else %}

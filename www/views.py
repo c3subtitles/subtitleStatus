@@ -695,6 +695,9 @@ def dashboard(request):
     
     # Visible Event without hashtag
     events_without_hashtag = Event.objects.filter(hashtag = "", unlisted=False)
+    
+    # Event without links to find the filenames and video urls
+    events_without_links_to_find_the_filenames_and_video_urls = Event.objects.filter(unlisted=False, webpages_to_find_video_links_and_filenames="")
 
     return render(request, "dashboard.html",
         {"talks_one_speaker_no_statistics": talks_one_speaker_no_statistics,\
@@ -711,7 +714,8 @@ def dashboard(request):
         "talks_needing_timing": talks_needing_timing,\
         "events_without_releasing_folder": events_without_releasing_folder,\
         "events_without_hashtag": events_without_hashtag,\
-        "talks_with_subtitles_in_video_links": talks_with_subtitles_in_video_links\
+        "talks_with_subtitles_in_video_links": talks_with_subtitles_in_video_links,\
+        "events_without_links_to_find_the_filenames_and_video_urls": events_without_links_to_find_the_filenames_and_video_urls
         })
 
 # Trint Webhook Receiver

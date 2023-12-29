@@ -116,7 +116,7 @@ class Event(BasisModell):
     hashtag = models.CharField(max_length = 50, default = "", blank = True)
     subfolder_to_find_the_filenames = models.CharField(max_length = 20, default = "", blank = True) # To find the right filenames via regex via frab-id
     speaker_json_link = MaybeURLField(blank = True, default = "")
-    speaker_json_version = models.CharField(max_length = 50, default = "0.0", blank = True)
+    speaker_json_version = models.CharField(max_length = 100, default = "0.0", blank = True)
     unlisted = models.BooleanField(default = False, blank = True)
     #cdn_subtitles_root_folder = models.URLField(default = "", blank = True)
     subfolder_in_sync_folder = models.CharField(max_length = 100, default = "", blank = True) # For the rsync to the selfnet mirror, no slashes at the beginning and end

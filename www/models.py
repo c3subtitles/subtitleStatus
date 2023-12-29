@@ -267,7 +267,7 @@ class Event_Days(BasisModell):
 
 # "Rooms" in which an event takes place, might also be outside
 class Rooms(BasisModell):
-    room = models.CharField(max_length = 40, default = "kein Raum")
+    room = models.CharField(max_length = 60, default = "kein Raum")
     building = models.CharField(max_length = 30, default = "")
 
     def __str__(self):

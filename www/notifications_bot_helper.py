@@ -18,7 +18,6 @@ from django.core.exceptions import ObjectDoesNotExist
 """
 
 from mastodon import Mastodon
-import twitter as tw
 import json
 
 import smtplib
@@ -64,23 +63,6 @@ mastodon_c3srt_progress = Mastodon(
 mastodon_c3srt_releasing = Mastodon(
     access_token = os.path.join(os.path.dirname(os.path.dirname(__file__)),"credentials", cred.MT_C3R_TOKEN_FILENAME),
     api_base_url = cred.MT_C3R_API_BASE_URL
-    )
-
-# Twitter
-twitter_c3srt_progress = tw.Twitter(
-    auth = tw.OAuth(
-        cred.TW_C3P_ACCESS_TOKEN,
-        cred.TW_C3P_ACCESS_TOKEN_SECRET,
-        cred.TW_C3P_API_KEY,
-        cred.TW_C3P_API_SECRET)
-    )
-
-twitter_c3srt_releasing = tw.Twitter(
-    auth = tw.OAuth(
-        cred.TW_C3R_ACCESS_TOKEN,
-        cred.TW_C3R_ACCESS_TOKEN_SECRET,
-        cred.TW_C3R_API_KEY,
-        cred.TW_C3R_API_SECRET)
     )
 
 # Message Parameters for some special cases like Twitter and Mastodon with
@@ -250,9 +232,6 @@ def create_and_send_email_for_subtitle_needs_autotiming(my_subtitle):
     except:
         return False
 
-def do_tweet(tw_client, text):
-    return tw_client.statuses.update(status = text)
-
 def do_toot(mastodon_client, text, visibility=None, in_reply_to_id=None,quote_id=None):
     return mastodon_client.status_post(status=text, visibility=visibility, in_reply_to_id=in_reply_to_id, quote_id=quote_id)
 
@@ -261,14 +240,7 @@ def message_to_rocket_chat_with_webhook(webhook, data = {"text":"", "alias": "",
     headers = {'Content-Type': 'application/json',}
     return requests.post(webhook, headers=headers, data=json.dumps(data))
 
-# IRC SUCKS
-def post_message_in_irc(server, port, user, password, channel, message):
-    pass
-
 def notify_transcript_available(my_talk):
-    # Via Twitter Progress Account
-    do_tweet(twitter_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Twitter"))
-    
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_progress, create_text_for_transcript_is_now_available(my_talk, text_format = "Mastodon"), visibility="unlisted")
     
@@ -280,9 +252,6 @@ def notify_transcript_needs_timing(my_subtitle):
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_INTERN, data = {"text": create_text_for_subtitle_needs_timing(my_subtitle), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
 
 def notify_subtitle_ready_for_quality_control(my_subtitle):
-    # Via Twitter Progress Account
-    do_tweet(twitter_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Twitter"))
-    
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_progress, create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     
@@ -290,9 +259,6 @@ def notify_subtitle_ready_for_quality_control(my_subtitle):
     message_to_rocket_chat_with_webhook(cred.ROCKET_CHAT_WEBHOOK_SUBTITLES_NOTIFICATIONS, data = {"text": create_text_for_subtitle_ready_for_quality_control(my_subtitle, text_format = "Text"), "alias": "C3Subtitles Bot", "emoji": ":point_right:"})
 
 def notify_subtitle_released(my_subtitle):
-    # Via Twitter Progress Account
-    do_tweet(twitter_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Twitter"))
-    
     # Via Mastodon Progress Account
     do_toot(mastodon_c3srt_releasing, create_text_for_subtitle_is_released(my_subtitle, text_format = "Mastodon"), visibility="unlisted")
     

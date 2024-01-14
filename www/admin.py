@@ -289,6 +289,26 @@ class WorkflowFilter(admin.SimpleListFilter):
         else:
             return queryset.exclude(state=4)
 
+class HasDraftSubtitleFileFilter(admin.SimpleListFilter):
+    title = 'Has Draft Subtitle File'
+    parameter_name = 'draft_subtitle_file'
+
+    def lookups(self, request, model_admin):
+        return (('yes', 'Yes'),
+                ('no', 'No'),
+        )
+
+    def queryset(self, request, queryset):
+        ans = self.value()
+
+        if ans == "no":
+            return queryset.filter(has_draft_subtitle_file = False)
+        elif ans == "yes":
+            return queryset.filter(has_draft_subtitle_file = True)
+        else:
+            return queryset
+
+
 
 @admin.register(Subtitle)
 class SubtitleAdmin(admin.ModelAdmin):
@@ -397,7 +417,7 @@ class SubtitleAdmin(admin.ModelAdmin):
     list_display = ('id', 'talk_id_link', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
                     'status', 'complete', 'unlisted', 'touched',)
     list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
-                   'state', 'complete', 'unlisted',)
+                   'state', 'complete', 'unlisted', HasDraftSubtitleFileFilter, )
     raw_id_fields = ('talk',)
     search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk', 'talk__id')
 

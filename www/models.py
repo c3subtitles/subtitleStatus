@@ -10,6 +10,8 @@ from django.utils.deconstruct import deconstructible
 from django import forms
 from django.db import transaction
 from django.utils.timezone import make_aware
+from django.db.models.signals import pre_save
+
 # TODO: figure out what needs to be imported here. Still better than
 # `import *`, which will silently overwrite, e.g., `time`, and thus
 # break everything down below.
@@ -68,7 +70,6 @@ class MaybeURLField(models.URLField):
             'form_class': MaybeURLFormField,
             **kwargs,
             })
-
 
 def get_amara_header(cred):
     """Return a header suitable for authenticating against the amara API."""
@@ -419,13 +420,13 @@ class Talk(BasisModell):
     link_to_writable_pad = MaybeURLField(default = "", blank = True)
     link_to_video_file = models.URLField(max_length = 220, default = "", blank = True) # use for trint and upload to c3subtitels YT
     amara_key = models.CharField(max_length = 20, default = "", blank = True)
-    c3subtitles_youtube_key = models.CharField(max_length = 20, blank = True)
+    c3subtitles_youtube_key = models.CharField(max_length = 50, blank = True)
     video_duration = models.TimeField(default=time(0), blank=True)
     slug = models.SlugField(max_length = 200, default = "", blank = True)
     #youtube_key_t_1 = models.CharField(max_length = 20, blank = True, default = "")
     #youtube_key_t_2 = models.CharField(max_length = 20, blank = True, default = "")
     guid = models.CharField(max_length = 40, blank = True, default = "") # from the Fahrplan
-    filename = models.SlugField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
+    filename = models.CharField(max_length = 200, default = "", blank = True) # will be used for a more flexible sftp upload, at the moment only for the subtitles folder in the root-event directory
     time_delta = models.FloatField(blank = True, null = True)   # The duration of the talk in seconds
     words = models.IntegerField(blank = True, null = True)      # Words in the whole subtitles file
     strokes = models.IntegerField(blank = True, null = True)    # Strokes in the whole subtitles file
@@ -1020,6 +1021,37 @@ class Talk(BasisModell):
     def __str__(self):
         return self.title
 
+    @staticmethod
+    def pre_save(sender, instance, **kwargs):
+        # Fix the c3subtitles YouTube Key
+        if "http" in instance.c3subtitles_youtube_key and "/" in instance.c3subtitles_youtube_key:
+            import re
+            # If the link looks like this: https://youtu.be/1Q9iEimt6zU?feature=shared
+            if "?feature=shared" in instance.c3subtitles_youtube_key:
+                instance.c3subtitles_youtube_key = instance.c3subtitles_youtube_key.split("?feature=shared")[0]
+            # If the link looks like this: https://www.youtube.com/watch?v=JA2BI34ZGbs
+            if "watch?v=" in instance.c3subtitles_youtube_key:
+                instance.c3subtitles_youtube_key = instance.c3subtitles_youtube_key.split("watch?v=")[-1]
+            # If the link looks like this: https://youtu.be/JA2BI34ZGbs
+            if "youtu.be" in instance.c3subtitles_youtube_key:
+                instance.c3subtitles_youtube_key = instance.c3subtitles_youtube_key.split("youtu.be/")[-1]
+            # If there is still a slash in the string
+            if "/" in instance.c3subtitles_youtube_key:
+                instance.c3subtitles_youtube_key = instance.c3subtitles_youtube_key.split("/")[-1]
+        # Fix the filename
+        if "http" in instance.filename and "/" in instance.filename:
+            import re
+            instance.filename = instance.filename.split("/")[-1]
+            filename_before = instance.filename
+            # Remove the endings which are stored in the related event
+            for any_ending in instance.event.endings_to_remove_from_filenames.split(";"):
+                instance.filename = re.sub(any_ending + "$", "", instance.filename)
+                # Stop if an ending has been removed, do not do this twice
+                if filename_before != instance.filename:
+                    break
+
+pre_save.connect(Talk.pre_save, Talk)
+
 
 # States for every subtitle like "complete" or "needs sync"
 class States(BasisModell):
@@ -1361,10 +1393,10 @@ class Subtitle(BasisModell):
         # Send Mail
         from . import notifications_bot_helper
         notifications_bot_helper.create_and_send_email_for_subtitle_needs_autotiming(self)
-        
+
         # Send other Notifications
         notifications_bot_helper.notify_transcript_needs_timing(self)
-        
+
         # Reset Flag
         self.refresh_from_db()
         self.notify_subtitle_needs_timing = False
@@ -1735,3 +1767,4 @@ class Talk_Persons(BasisModell):
             return True
         else:
             return False
+

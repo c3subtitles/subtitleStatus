@@ -159,9 +159,9 @@ class HasTrintTranscriptKeyFilter(admin.SimpleListFilter):
 
 @admin.register(Talk)
 class TalkAdmin(admin.ModelAdmin):
-
     def video_duration_formated(self, obj):
         return obj.video_duration.strftime("%H:%M:%S h")
+
     video_duration_formated.short_description = "Video Duration"
 
     def get_trint_transcript_via_email(self, request, queryset):
@@ -169,38 +169,51 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.get_trint_transcript_and_send_via_email()
-    get_trint_transcript_via_email.short_description = 'Trint: Get a trint transcript via email (check if the dataset now has a trint key)'
+
+    get_trint_transcript_via_email.short_description = "Trint: Get a trint transcript via email (check if the dataset now has a trint key)"
 
     def get_trint_transcript_no_email(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.get_trint_transcript_and_send_via_email(do_send_email=False)
-    get_trint_transcript_no_email.short_description = 'Trint: Get a trint transcript but NO email (check if the dataset now has a trint key)'
-    
+
+    get_trint_transcript_no_email.short_description = "Trint: Get a trint transcript but NO email (check if the dataset now has a trint key)"
+
     def create_amara_key(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.create_amara_key()
-    create_amara_key.short_description = 'Amara: Create amara key and store it in the db, use the primary_video_link'
+
+    create_amara_key.short_description = (
+        "Amara: Create amara key and store it in the db, use the primary_video_link"
+    )
 
     def import_video_links_from_amara(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
-            talk.get_video_links_from_amara(do_save = True)
-    import_video_links_from_amara.short_description = 'Amara: Import video links from amara into the c3subtitles db'
+            talk.get_video_links_from_amara(do_save=True)
 
-    def set_talk_original_language_as_primary_audio_language_on_amara(self, request, queryset):
+    import_video_links_from_amara.short_description = (
+        "Amara: Import video links from amara into the c3subtitles db"
+    )
+
+    def set_talk_original_language_as_primary_audio_language_on_amara(
+        self, request, queryset
+    ):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.make_talk_language_primary_on_amara(force_amara_update=True)
-    set_talk_original_language_as_primary_audio_language_on_amara.short_description = 'Amara: Make the talk language the primary audio language on amara'
+
+    set_talk_original_language_as_primary_audio_language_on_amara.short_description = (
+        "Amara: Make the talk language the primary audio language on amara"
+    )
 
     def complete_amara_link_update(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -208,7 +221,10 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.update_video_links_in_amara()
-    complete_amara_link_update.short_description = 'Amara: Complete Link Update from db to amara'
+
+    complete_amara_link_update.short_description = (
+        "Amara: Complete Link Update from db to amara"
+    )
 
     def upload_first_subtitle_orig_lang_with_disclaimer(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -216,7 +232,8 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.upload_first_subtitle_to_amara_with_disclaimer(set_first_language=True)
-    upload_first_subtitle_orig_lang_with_disclaimer.short_description = 'Amara: Upload a subtitle text in the talk original language with the disclaimers to not start in amara'
+
+    upload_first_subtitle_orig_lang_with_disclaimer.short_description = "Amara: Upload a subtitle text in the talk original language with the disclaimers to not start in amara"
 
     def notify_transcript_available(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -224,15 +241,122 @@ class TalkAdmin(admin.ModelAdmin):
         for sid in selected:
             talk = get_object_or_404(Talk, pk=sid)
             talk.do_notify_transcript_available()
-    notify_transcript_available.short_description = 'Notify: Publish messages that the transcript of this talk is available'
 
-    actions = ['create_amara_key', 'import_video_links_from_amara', 'set_talk_original_language_as_primary_audio_language_on_amara', 'upload_first_subtitle_orig_lang_with_disclaimer', 'complete_amara_link_update', 'get_trint_transcript_via_email', 'get_trint_transcript_no_email', 'notify_transcript_available',]
-    date_hierarchy = 'date'
-    list_display = ('id', 'frab_id_talk', 'title',
-                    'event', 'room', 'day', 'start', 'unlisted', 'transcript_by', 'orig_language', 'link_to_writable_pad', 'link_to_video_file', 'amara_key', 'c3subtitles_youtube_key', 'video_duration_formated', 'filename', 'trint_transcript_id', 'needs_complete_amara_update', 'recalculate_talk_statistics', 'recalculate_speakers_statistics', 'has_priority', 'primary_amara_video_link', 'additional_amara_video_links', 'internal_comment', 'trint_transcript_id', )
-    list_filter = ('event', DayIndexFilter, 'room', 'recalculate_talk_statistics', 'unlisted', HasVideoLinkFilter, HasAmaraKeyFilter, HasFilenameFilter, HasVideoDurationFilter, HasC3SubtitlesYTKeyFilter, 'transcript_by', HasTrintTranscriptKeyFilter)
-    search_fields = ('title', 'event__acronym', 'frab_id_talk', 'id', )
-    ordering = ('-event', 'date',)
+    notify_transcript_available.short_description = (
+        "Notify: Publish messages that the transcript of this talk is available"
+    )
+
+    def amara_key_link(self, obj):
+        return format_html(
+            "<a href={url}>{amara_key}</a>",
+            amara_key=obj.amara_key,
+            url="https://amara.org/videos/" + obj.amara_key,
+        )
+
+    amara_key_link.short_description = "amara link"
+
+    def c3s_yt_studio_link(self, obj):
+        return format_html(
+            "<a href={url}>{c3s_yt_key}</a>",
+            c3s_yt_key=obj.c3subtitles_youtube_key,
+            url="https://studio.youtube.com/video/"
+            + obj.c3subtitles_youtube_key
+            + "/edit",
+        )
+
+    c3s_yt_studio_link.short_description = "C3S YT Studio Link"
+
+    def c3s_yt_link(self, obj):
+        return format_html(
+            "<a href={url}>{c3s_yt_key}</a>",
+            c3s_yt_key=obj.c3subtitles_youtube_key,
+            url="https://youtu.be/" + obj.c3subtitles_youtube_key,
+        )
+
+    c3s_yt_link.short_description = "C3S YT Link"
+
+    def video_file_link(self, obj):
+        return format_html(
+            "<a href={url}>{video_link}</a>",
+            video_link=obj.link_to_video_file,
+            url=obj.link_to_video_file,
+        )
+    
+    video_file_link.short_description = "Video Link"
+
+    def link_to_pad(self, obj):
+        return format_html(
+            "<a href={url}>{pad_link}</a>",
+            pad_link=obj.link_to_writable_pad,
+            url=obj.link_to_writable_pad,
+        )
+    
+    link_to_pad.short_description = "Etherpad"
+
+    actions = [
+        "create_amara_key",
+        "import_video_links_from_amara",
+        "set_talk_original_language_as_primary_audio_language_on_amara",
+        "upload_first_subtitle_orig_lang_with_disclaimer",
+        "complete_amara_link_update",
+        "get_trint_transcript_via_email",
+        "get_trint_transcript_no_email",
+        "notify_transcript_available",
+    ]
+    date_hierarchy = "date"
+    list_display = (
+        "id",
+        "frab_id_talk",
+        "title",
+        "event",
+        "room",
+        "day",
+        "start",
+        "unlisted",
+        "transcript_by",
+        "orig_language",
+        "link_to_pad",
+        "video_file_link",
+        "amara_key",
+        "amara_key_link",
+        "c3subtitles_youtube_key",
+        "c3s_yt_studio_link",
+        "c3s_yt_link",
+        "video_duration_formated",
+        "filename",
+        "needs_complete_amara_update",
+        "recalculate_talk_statistics",
+        "recalculate_speakers_statistics",
+        "has_priority",
+        "primary_amara_video_link",
+        "additional_amara_video_links",
+        "internal_comment",
+        "trint_transcript_id",
+    )
+    list_filter = (
+        "event",
+        DayIndexFilter,
+        "room",
+        "recalculate_talk_statistics",
+        "unlisted",
+        HasVideoLinkFilter,
+        HasAmaraKeyFilter,
+        HasFilenameFilter,
+        HasVideoDurationFilter,
+        HasC3SubtitlesYTKeyFilter,
+        "transcript_by",
+        HasTrintTranscriptKeyFilter,
+    )
+    search_fields = (
+        "title",
+        "event__acronym",
+        "frab_id_talk",
+        "id",
+    )
+    ordering = (
+        "-event",
+        "date",
+    )
 
 
 @admin.register(Event)
@@ -309,7 +433,6 @@ class HasDraftSubtitleFileFilter(admin.SimpleListFilter):
             return queryset
 
 
-
 @admin.register(Subtitle)
 class SubtitleAdmin(admin.ModelAdmin):
     def status(self, obj):
@@ -325,21 +448,32 @@ class SubtitleAdmin(admin.ModelAdmin):
             stamp = obj.time_processed_translating
 
         if stamp:
-            return '{} {}'.format(obj.state, stamp)
+            return "{} {}".format(obj.state, stamp)
         else:
             return obj.state
 
     def talk_id_link(self, obj):
         tid = obj.talk_id
 
-        return format_html('<a href={url}>{talk_id}</a>',
-                           talk_id=tid,
-                           url=reverse('talk', args=[tid]))
-    talk_id_link.short_description = 'talk id'
+        return format_html(
+            "<a href={url}>{talk_id}</a>", talk_id=tid, url=reverse("talk", args=[tid])
+        )
+
+    talk_id_link.short_description = "talk id"
 
     def talk_frab_id(self, obj):
         return obj.talk.frab_id_talk
-    talk_frab_id.short_description = 'frab id'
+
+    talk_frab_id.short_description = "frab id"
+
+    def amara_key_link(self, obj):
+        return format_html(
+            "<a href={url}>{amara_key}</a>",
+            amara_key=obj.talk.amara_key,
+            url="https://amara.org/videos/" + obj.talk.amara_key,
+        )
+
+    amara_key_link.short_description = "amara link"
 
     def reset_to_pad(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -348,7 +482,8 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.autotiming_step = 0
             subtitle.save()
-    reset_to_pad.short_description = 'Restart Workflow from Pad-from-Trint'
+
+    reset_to_pad.short_description = "Restart Workflow from Pad-from-Trint"
 
     def reset_to_timing(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -358,7 +493,8 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle.autotiming_step = 0
             subtitle.set_to_autotiming_in_progress()
             subtitle.save()
-    reset_to_timing.short_description = 'Restart Workflow from Timing-from-Pad'
+
+    reset_to_timing.short_description = "Restart Workflow from Timing-from-Pad"
 
     def reset_to_sbv(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -367,7 +503,8 @@ class SubtitleAdmin(admin.ModelAdmin):
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.autotiming_step = 2
             subtitle.save()
-    reset_to_sbv.short_description = 'Restart Workflow from Fix-SBV'
+
+    reset_to_sbv.short_description = "Restart Workflow from Fix-SBV"
 
     def reset_to_transcribing(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -375,7 +512,8 @@ class SubtitleAdmin(admin.ModelAdmin):
         for sid in selected:
             subtitle = get_object_or_404(Subtitle, pk=sid)
             subtitle.reset_from_complete()
-    reset_to_transcribing.short_description = 'Reset subtitle to transcribing'
+
+    reset_to_transcribing.short_description = "Reset subtitle to transcribing"
 
     def reset_to_qc(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -383,43 +521,77 @@ class SubtitleAdmin(admin.ModelAdmin):
         for sid in selected:
             subt = get_object_or_404(Subtitle, pk=sid)
             if subt.is_original_lang:
-                my_talk = Talk.objects.get(id = subt.talk_id)
+                my_talk = Talk.objects.get(id=subt.talk_id)
                 subt.time_processed_transcribing = my_talk.video_duration
                 subt.time_processed_syncing = my_talk.video_duration
                 subt.notify_subtitle_needs_timing = False
                 subt.blocked = False
-                subt.state_id = 7 # Quality control done until
+                subt.state_id = 7  # Quality control done until
                 subt.notify_subtitle_ready_for_quality_control = True
-                subt.draft_needs_sync_to_sync_folder = True # Release the draft
+                subt.draft_needs_sync_to_sync_folder = True  # Release the draft
                 subt.has_draft_subtitle_file = False
                 subt.save()
                 # Let the related statistics be calculated
                 subt.talk.reset_related_statistics_data()
-    reset_to_qc.short_description = 'Set subtitle to Quality Control'
 
+    reset_to_qc.short_description = "Set subtitle to Quality Control"
 
     def transforms_dwim(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
 
-
-        ids = [subtitle.pk
-               for subtitle in Subtitle.objects.filter(
-                       pk__in=selected
-               ).order_by('autotiming_step')]
+        ids = [
+            subtitle.pk
+            for subtitle in Subtitle.objects.filter(pk__in=selected).order_by(
+                "autotiming_step"
+            )
+        ]
 
         first = ids[0]
-        rest = ','.join(ids[1:])
-        return HttpResponseRedirect(
-            reverse('workflowTransforms', args=[first, rest]))
-    transforms_dwim.short_description = 'Do-What-I-Mean (Text Transformation)'
+        rest = ",".join(ids[1:])
+        return HttpResponseRedirect(reverse("workflowTransforms", args=[first, rest]))
 
-    actions = ['transforms_dwim', 'reset_to_transcribing', 'reset_to_pad', 'reset_to_timing', 'reset_to_sbv', 'reset_to_qc',]
-    list_display = ('id', 'talk_id_link', 'talk_frab_id', 'talk', 'language', 'is_original_lang',
-                    'status', 'complete', 'unlisted', 'touched',)
-    list_filter = (WorkflowFilter, LanguageFilter, 'is_original_lang',
-                   'state', 'complete', 'unlisted', HasDraftSubtitleFileFilter, )
-    raw_id_fields = ('talk',)
-    search_fields = ('talk__event__acronym', 'talk__title', 'talk__frab_id_talk', 'id', 'talk__subtitle_talk', 'talk__id')
+    transforms_dwim.short_description = "Do-What-I-Mean (Text Transformation)"
+
+    actions = [
+        "transforms_dwim",
+        "reset_to_transcribing",
+        "reset_to_pad",
+        "reset_to_timing",
+        "reset_to_sbv",
+        "reset_to_qc",
+    ]
+    list_display = (
+        "id",
+        "talk_id_link",
+        "talk_frab_id",
+        "amara_key_link",
+        "talk",
+        "language",
+        "is_original_lang",
+        "status",
+        "complete",
+        "unlisted",
+        "touched",
+    )
+    list_filter = (
+        WorkflowFilter,
+        LanguageFilter,
+        "is_original_lang",
+        "state",
+        "complete",
+        "unlisted",
+        HasDraftSubtitleFileFilter,
+    )
+    raw_id_fields = ("talk",)
+    search_fields = (
+        "talk__event__acronym",
+        "talk__title",
+        "talk__frab_id_talk",
+        "id",
+        "talk__subtitle_talk",
+        "talk__id",
+    )
+
 
 
 @admin.register(States)

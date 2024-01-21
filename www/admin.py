@@ -474,6 +474,22 @@ class SubtitleAdmin(admin.ModelAdmin):
         )
 
     amara_key_link.short_description = "amara link"
+    
+    def c3s_yt_studio_link(self, obj):
+        return format_html(
+            "<a href={url}>{c3s_yt_key}</a>",
+            c3s_yt_key=obj.talk.c3subtitles_youtube_key,
+            url="https://studio.youtube.com/video/"
+            + obj.talk.c3subtitles_youtube_key
+            + "/edit",
+        )
+
+    c3s_yt_studio_link.short_description = "C3S YT Studio Link"
+
+    def event(self, obj):
+        return obj.talk.event.acronym
+
+    event.short_description = "Event"
 
     def reset_to_pad(self, request, queryset):
         selected = request.POST.getlist(ACTION_CHECKBOX_NAME)
@@ -565,6 +581,8 @@ class SubtitleAdmin(admin.ModelAdmin):
         "talk_id_link",
         "talk_frab_id",
         "amara_key_link",
+        "c3s_yt_studio_link",
+        "event",
         "talk",
         "language",
         "is_original_lang",

@@ -484,7 +484,18 @@ class SubtitleAdmin(admin.ModelAdmin):
             + "/edit",
         )
 
-    c3s_yt_studio_link.short_description = "C3S YT Studio Link"
+    c3s_yt_studio_link.short_description = "C3S YT Link"
+    
+    def c3s_yt_studio_link_st(self, obj):
+        return format_html(
+            "<a href={url}>{c3s_yt_key}</a>",
+            c3s_yt_key=obj.talk.c3subtitles_youtube_key,
+            url="https://studio.youtube.com/video/"
+            + obj.talk.c3subtitles_youtube_key
+            + "/translations",
+        )
+
+    c3s_yt_studio_link_st.short_description = "C3S YT Subt"
 
     def event(self, obj):
         return obj.talk.event.acronym
@@ -580,9 +591,10 @@ class SubtitleAdmin(admin.ModelAdmin):
         "id",
         "talk_id_link",
         "talk_frab_id",
-        "amara_key_link",
-        "c3s_yt_studio_link",
         "event",
+        "amara_key_link",
+        "c3s_yt_studio_link_st",
+        "c3s_yt_studio_link",
         "talk",
         "language",
         "is_original_lang",

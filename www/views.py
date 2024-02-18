@@ -628,6 +628,10 @@ def media_export(request, timestamp=None, *argh, **kwargs):
 
 # Dashboard
 def dashboard(request):
+    # LEFT COLUMN
+    # Talks which need timing
+    subtitles_needing_timing = Subtitle.objects.filter(talk__unlisted=False, blocked = True).order_by("-talk")
+
     # Talks without statistics data
     talks_one_speaker_no_statistics = []
     talks_several_speakers_no_statistics = []
@@ -646,6 +650,7 @@ def dashboard(request):
             else:
                 talks_several_speakers_no_statistics.append(any.talk)
 
+    # MIDDLE COLUMN
     # Visible talks with incomplete data
     talks_visible_no_amara_key = Talk.objects.filter(unlisted = False, amara_key = "").order_by("-id")
     talks_visible_no_filename = Talk.objects.filter(unlisted = False, filename = "").order_by("-id")
@@ -653,14 +658,6 @@ def dashboard(request):
     talks_visible_no_cdn_link = Talk.objects.filter(unlisted = False, link_to_video_file = "").order_by("-id")
     talks_visible_no_etherpad_link = Talk.objects.filter(unlisted = False, link_to_writable_pad = "").order_by("-id")
 
-    talks_visible_no_amara_video_link = Talk.objects.filter(unlisted = False, primary_amara_video_link = "").order_by("-id")
-    talks_visible_transcript_by_none = Talk.objects.filter(unlisted = False, transcript_by__id = 0).order_by("-id")
-
-    # Talks which need timing
-    talks_needing_timing = []
-    for any in Subtitle.objects.filter(talk__unlisted=False, blocked = True).order_by("-talk"):
-        talks_needing_timing.append(any.talk)
-    
     # Needs to be more specific only talks in transcribing or qc
     talks_needing_c3s_yt_link = []
 
@@ -680,6 +677,13 @@ def dashboard(request):
     talks_needing_c3s_yt_link_general = my_talks = Talk.objects.filter(unlisted = False, c3subtitles_youtube_key="").exclude(amara_key="")
     #for any_talk in my_talks:
     #    talks_needing_c3s_yt_link_general.append(any_talk)
+
+    # Talks which need a draft subtitle
+    subtitles_from_talks_needing_draft_subtitle = Subtitle.objects.filter(talk__unlisted=False, has_draft_subtitle_file = False, state_id = 2).order_by("-talk")
+
+    # RIGHT COLUMN
+    talks_visible_no_amara_video_link = Talk.objects.filter(unlisted = False, primary_amara_video_link = "").order_by("-id")
+    talks_visible_transcript_by_none = Talk.objects.filter(unlisted = False, transcript_by__id = 0).order_by("-id")
 
     talks_with_subtitles_in_video_links = []
     my_talks = Talk.objects.all().order_by("-id")
@@ -711,11 +715,12 @@ def dashboard(request):
         "talks_visible_transcript_by_none": talks_visible_transcript_by_none,\
         "talks_needing_c3s_yt_link": talks_needing_c3s_yt_link,\
         "talks_needing_c3s_yt_link_general": talks_needing_c3s_yt_link_general,\
-        "talks_needing_timing": talks_needing_timing,\
         "events_without_releasing_folder": events_without_releasing_folder,\
         "events_without_hashtag": events_without_hashtag,\
         "talks_with_subtitles_in_video_links": talks_with_subtitles_in_video_links,\
-        "events_without_links_to_find_the_filenames_and_video_urls": events_without_links_to_find_the_filenames_and_video_urls
+        "events_without_links_to_find_the_filenames_and_video_urls": events_without_links_to_find_the_filenames_and_video_urls,\
+        "subtitles_needing_timing": subtitles_needing_timing,\
+        "subtitles_from_talks_needing_draft_subtitle": subtitles_from_talks_needing_draft_subtitle
         })
 
 # Trint Webhook Receiver

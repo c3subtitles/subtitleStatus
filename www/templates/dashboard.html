@@ -8,37 +8,43 @@
 {% if user.is_authenticated %}
 
 <div class="col-md-4">
-    <h2>[<a data-toggle="collapse" href="#talks_needing_timing_id" aria-expanded="false" aria-controls="collapseExample">{{ talks_needing_timing|length }}</a>] Talks which need timing</h2>
+    <h2>[<a data-toggle="collapse" href="#talks_needing_timing_id" aria-expanded="false" aria-controls="collapseExample">{{ subtitles_needing_timing|length }}</a>] Talks which need timing</h2>
     <div class="collapse" id="talks_needing_timing_id">
-    {% for any_talk in talks_needing_timing %}
-        <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
+    {% for any_subt in subtitles_needing_timing %}
+        <h3><a href="/talk/{{any_subt.talk.id}}">{{any_subt.talk.id}}</a> {{any_subt.talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_subt.talk.internal_comment != "" %}
+                    <dd>{{any_subt.talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
-                    <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
-                <dt>Admin Link</dt>
-                    <dd><a href="/admin/www/talk/{{any_talk.id}}">Link</a></dd>
+                    <dd><a href="/talk/{{any_subt.talk.id}}">Link</a></dd>
+                <dt>Talk Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_subt.talk.id}}">Link</a></dd>
+                <dt>Talk Admin Link</dt>
+                    <dd><a href="/admin/www/talk/?q={{any_subt.talk.frab_id_talk}}">Link Adm Overview</a></dd>
+                <dt>Subt Admin Link</dt>
+                    <dd><a href="/admin/www/subtitle/{{any_subt.id}}">Link</a></dd>
+                <dt>Subt Admin Link</dt>
+                    <dd><a href="/admin/www/subtitle/?q={{any_subt.talk.frab_id_talk}}">Link Adm Overview</a></dd>
                 <dt>Amara Link</dt>
-                {% if any_talk.amara_key != "" %}
-                    <dd><a href="https://amara.org/videos/{{any_talk.amara_key}}">Link</a></dd>
+                {% if any_subt.talk.amara_key != "" %}
+                    <dd><a href="https://amara.org/videos/{{any_subt.talk.amara_key}}">Link</a></dd>
                 {% else %}
                     <dd>-</dd>
                 {% endif %}
                 <dt>Pad Link</dt>
-                {% if any_talk.link_to_writable_pad != "" %}
-                    <dd><a href="{{any_talk.link_to_writable_pad}}">Link</a></dd>
+                {% if any_subt.talk.link_to_writable_pad != "" %}
+                    <dd><a href="{{any_subt.talk.link_to_writable_pad}}">Link</a></dd>
                 {% else %}
                     <dd>-</dd>
                 {% endif %}
                 <dt>Event</dt>
-                    <dd>{{any_talk.event}}</dd>
+                    <dd>{{any_subt.talk.event}}</dd>
                 <dt>Frab ID</dt>
-                    <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
+                    <dd>{{any_subt.talk.frab_id_talk}}</dd>
             </dl>
         <br/>
     {%endfor%}
@@ -49,6 +55,12 @@
     {% for any_talk in talks_one_speaker_no_statistics %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -75,12 +87,6 @@
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
                 {% endfor %}
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -91,6 +97,12 @@
     {% for any_talk in talks_several_speakers_no_statistics %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -117,12 +129,6 @@
                 {% for speaker in any_talk.persons.all %}
                     <dd><a href="/speaker/{{speaker.id}}">{{speaker.name}}</a></dd>
                 {% endfor %}
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -133,6 +139,11 @@
     {% for any_talk in talks_needing_c3s_yt_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -146,11 +157,6 @@
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -161,6 +167,12 @@
     {% for any_talk in talks_needing_c3s_yt_link_general %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -173,12 +185,6 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -192,6 +198,12 @@
     {% for any_talk in talks_visible_no_amara_key %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -200,12 +212,6 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -216,6 +222,12 @@
     {% for any_talk in talks_visible_no_filename %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Amara Link</dt>
@@ -230,12 +242,6 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -246,6 +252,12 @@
     {% for any_talk in talks_visible_no_video_duration %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Amara Link</dt>
@@ -268,12 +280,6 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -284,6 +290,12 @@
     {% for any_talk in talks_visible_no_cdn_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -300,12 +312,6 @@
                     <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Language:</dt>
                     <dd>{{any_talk.orig_language}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -316,6 +322,12 @@
     {% for any_talk in talks_visible_no_etherpad_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -330,16 +342,54 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
     </div>
+
+    <h2>[<a data-toggle="collapse" href="#talks_needing_draft_subtitles" aria-expanded="false" aria-controls="collapseExample">{{ subtitles_from_talks_needing_draft_subtitle|length }}</a>] Talk visible in right state but no draft subtitle</h2>
+    <div class="collapse" id="talks_needing_draft_subtitles">
+    {% for any_subt in subtitles_from_talks_needing_draft_subtitle %}
+        <h3><a href="/talk/{{any_subt.talk.id}}">{{any_subt.talk.id}}</a> {{any_subt.talk.title}}</h3>
+            <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_subt.talk.internal_comment != "" %}
+                    <dd>{{any_subt.talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>C3S Link</dt>
+                    <dd><a href="/talk/{{any_subt.talk.id}}">Link</a></dd>
+                <dt>Talk Admin Link</dt>
+                    <dd><a href="/admin/www/talk/{{any_subt.talk.id}}">Link</a></dd>
+                <dt>Talk Admin Link</dt>
+                    <dd><a href="/admin/www/talk/?q={{any_subt.talk.frab_id_talk}}">Link Adm Overview</a></dd>
+                <dt>Subt Admin Link</dt>
+                    <dd><a href="/admin/www/subtitle/{{any_subt.id}}">Link</a></dd>
+                <dt>Subt Admin Link</dt>
+                    <dd><a href="/admin/www/subtitle/?q={{any_subt.talk.frab_id_talk}}">Link Adm Overview</a></dd>
+                <dt>Amara Link</dt>
+                {% if any_subt.talk.amara_key != "" %}
+                    <dd><a href="https://amara.org/videos/{{any_subt.talk.amara_key}}">Link</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Pad Link</dt>
+                {% if any_subt.talk.link_to_writable_pad != "" %}
+                    <dd><a href="{{any_subt.talk.link_to_writable_pad}}">Link</a></dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
+                <dt>Event</dt>
+                    <dd>{{any_subt.talk.event}}</dd>
+                <dt>Frab ID</dt>
+                    <dd>{{any_subt.talk.frab_id_talk}}</dd>
+            </dl>
+        <br/>
+    {%endfor%}
+    </div>
+
+
 
 </div>
 <div class="col-md-4">
@@ -349,6 +399,12 @@
     {% for any_talk in talks_visible_no_amara_video_link %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -363,12 +419,6 @@
                     <dd>{{any_talk.event}}</dd>
                 <dt>Frab ID</dt>
                     <dd>{{any_talk.frab_id_talk}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -379,6 +429,12 @@
     {% for any_talk in talks_visible_transcript_by_none %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -419,12 +475,6 @@
                     <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Language:</dt>
                     <dd>{{any_talk.orig_language}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -435,6 +485,12 @@
     {% for any_talk in talks_with_subtitles_in_video_links %}
         <h3><a href="/talk/{{any_talk.id}}">{{any_talk.id}}</a> {{any_talk.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_talk.internal_comment != "" %}
+                    <dd>{{any_talk.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/talk/{{any_talk.id}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -488,12 +544,6 @@
                     <dd>{{any_talk.frab_id_talk}}</dd>
                 <dt>Language:</dt>
                     <dd>{{any_talk.orig_language}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_talk.internal_comment != "" %}
-                    <dd>{{any_talk.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -504,6 +554,12 @@
     {% for any_event in events_without_releasing_folder %}
         <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_event.internal_comment != "" %}
+                    <dd>{{any_event.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -512,12 +568,6 @@
                     <dd>{{any_event.title}}</dd>
                 <dt>Acronym</dt>
                     <dd>{{any_event.acronym}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_event.internal_comment != "" %}
-                    <dd>{{any_event.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -528,6 +578,12 @@
     {% for any_event in events_without_hashtag %}
         <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_event.internal_comment != "" %}
+                    <dd>{{any_event.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -536,12 +592,6 @@
                     <dd>{{any_event.title}}</dd>
                 <dt>Acronym</dt>
                     <dd>{{any_event.acronym}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_event.internal_comment != "" %}
-                    <dd>{{any_event.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
@@ -552,6 +602,12 @@
     {% for any_event in events_without_links_to_find_the_filenames_and_video_urls %}
         <h3><a href="/event/{{any_event.acronym}}">{{any_event.id}}</a> {{any_event.title}}</h3>
             <dl class="dl-horizontal">
+                <dt>Internal Comment</dt>
+                {% if any_event.internal_comment != "" %}
+                    <dd>{{any_event.internal_comment}}</dd>
+                {% else %}
+                    <dd>-</dd>
+                {% endif %}
                 <dt>C3S Link</dt>
                     <dd><a href="/event/{{any_event.acronym}}">Link</a></dd>
                 <dt>Admin Link</dt>
@@ -566,19 +622,10 @@
                     <dd>{{any_event.endings_to_remove_from_filenames}}</dd>
                 <dt>Use all webpages urls to find filenames and video urls</dt>
                     <dd>{{any_event.use_all_webpages_urls_to_find_filenames_and_video_urls}}</dd>
-                <dt>Internal Comment</dt>
-                {% if any_event.internal_comment != "" %}
-                    <dd>{{any_event.internal_comment}}</dd>
-                {% else %}
-                    <dd>-</dd>
-                {% endif %}
             </dl>
         <br/>
     {%endfor%}
     </div>
-
-
-
 
 
 </div>    

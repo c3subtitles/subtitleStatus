@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #==============================================================================
@@ -207,6 +207,7 @@ def create_tweet_for_transcript_is_now_available(talk_id):
 
 # Pure tweeting
 def do_tweet(tweet_content = "Something!", use_progress_twitter_account=False):
+    return False                # don't update twitter anymore
     if tweet_content == None:
         return False
     my_twitter = tw.Twitter( auth = tw.OAuth(cred.TW_C3R_ACCESS_TOKEN,

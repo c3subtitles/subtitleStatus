@@ -19,48 +19,69 @@ amara_api_call_sleep_long = 0.8
 
 basis_url =  "https://amara.org/api/videos/"
 
-# Get all URLs currently stored in amara for a specific video
-# Additional info like the id and if the url is a primary or was the original
-# is also read and returned
 def get_uploaded_urls(talk):
+    """Get all URLs currently stored in amara for a specific video
+    Additional info like the id and if the url is a primary or was the original
+    is also read and returned
+    """
     api_url = basis_url + talk.amara_key + "/urls/"
     if talk.amara_key == "":
         return {}
     # Get the id of the url and make it primary afterwards
     with advisory_lock(amara_api_lock) as acquired:
-        time.sleep(amara_api_call_sleep_long)
-        result = requests.get(api_url, headers = cred.AMARA_HEADER)
+        # Try up to five times if for some reason the returned status code is not 200
+        counter = 0
+        while True:
+            time.sleep(amara_api_call_sleep_long)
+            result = requests.get(api_url, headers=cred.AMARA_HEADER)
+            if result.status_code == 200:
+                break
+            else:
+                counter += 1
+            if counter == 5:
+                print("Webrequest to " + api_url + " failed.")
+                return None
+
     results_json = json.loads(result.content)
     links_on_amara = {}
     for any in results_json["objects"]:
-        this_url = any['url']
+        this_url = any["url"]
         links_on_amara[this_url] = {}
-        links_on_amara[this_url]['id'] = any['id']
-        links_on_amara[this_url]['primary'] = any['primary']
-        links_on_amara[this_url]['original'] = any['original']
+        links_on_amara[this_url]["id"] = any["id"]
+        links_on_amara[this_url]["primary"] = any["primary"]
+        links_on_amara[this_url]["original"] = any["original"]
     return links_on_amara
 
 
-# If a URL is already uploaded you can't upload the url a second time with primary = True
-# You have to get the id of the URL and mark it as primary
 def make_uploaded_url_primary(url, talk):
+    """If a URL is already uploaded you can't upload the url a second time with primary = True
+    You have to get the id of the URL and mark it as primary
+    """
     api_url = basis_url + talk.amara_key + "/urls/"
     if talk.amara_key == "":
         return None
     # Get the id of the url and make it primary afterwards
     links_on_amara = get_uploaded_urls(talk=talk)
-    if url in links_on_amara:
-        pass
-    else:
+    # Stop if addint the URL did not work or it was not already uploaded
+    if url not in links_on_amara:
         return None
-    api_url = api_url + str(links_on_amara[url]['id']) + "/"
+    api_url = api_url + str(links_on_amara[url]["id"]) + "/"
     with advisory_lock(amara_api_lock) as acquired:
-        time.sleep(amara_api_call_sleep_long)
-        result = requests.put(api_url, headers = cred.AMARA_HEADER, data=json.dumps({'primary':True}))
-    if str(result) == "<Response [200]>":
-        return True
-    else:
-        return False
+        # Try up to five times if for some reason the returned status code is not 200
+        counter = 0
+        while True:
+            time.sleep(amara_api_call_sleep_long)
+            result = requests.put(
+                api_url, headers=cred.AMARA_HEADER, data=json.dumps({"primary": True})
+            )
+            if result.status_code == 200:
+                # Successfully uploaded the url, done
+                return True
+            else:
+                counter += 1
+            if counter == 5:
+                print("Webrequest to " + api_url + " failed.")
+                return False
 
 
 # Remove an URL from amara
